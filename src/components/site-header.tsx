@@ -13,8 +13,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-data bg-paper">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5">
-          <Logo className="h-[15px] w-auto text-ink" />
-          <span className="text-[15px] font-extrabold uppercase tracking-[0.05em] text-ink">
+          <Logo className="h-[20px] w-auto text-ink" />
+          <span className="text-[18px] font-extrabold uppercase tracking-[0.04em] text-ink">
             DealFinder
           </span>
         </Link>
