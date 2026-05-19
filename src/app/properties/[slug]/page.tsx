@@ -46,28 +46,29 @@ export default async function PropertyPage({
     ["Area", unit.area_sqm ? `${unit.area_sqm} m²` : "—"],
     ["Finishing", unit.finishing ?? "—"],
     ["Ready by", formatReadyBy(unit.ready_by)],
-    ["Sale type", unit.sale_type ?? "—"],
     ["Installments", unit.installment_years ? `${unit.installment_years} yrs` : "—"],
+    ["Developer", unit.developerName ?? "—"],
   ];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-      {/* Breadcrumb */}
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:text-emerald-600">
-          Home
-        </Link>{" "}
-        /{" "}
-        <Link href="/properties" className="hover:text-emerald-600">
+    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+      <nav className="text-[12px] text-ink-soft">
+        <Link href="/properties" className="hover:text-ink">
           Properties
-        </Link>{" "}
-        / <span className="text-slate-700">{unit.compoundName ?? unit.title}</span>
+        </Link>
+        {unit.areaSlug && (
+          <>
+            {" / "}
+            <Link href={`/areas/${unit.areaSlug}`} className="hover:text-ink">
+              {unit.areaName}
+            </Link>
+          </>
+        )}
       </nav>
 
-      <div className="mt-4 grid gap-8 lg:grid-cols-[1.7fr_1fr]">
-        {/* Main */}
+      <div className="mt-3 grid gap-7 lg:grid-cols-[1.7fr_1fr]">
         <div>
-          <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-slate-100">
+          <div className="aspect-[16/10] overflow-hidden rounded-3xl bg-canvas">
             {unit.image_url ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -76,80 +77,87 @@ export default async function PropertyPage({
                 className="h-full w-full object-cover"
               />
             ) : (
-              <div className="grid h-full place-items-center text-slate-400">
+              <div className="grid h-full place-items-center text-ink-faint">
                 No image
               </div>
             )}
           </div>
 
-          <h1 className="mt-6 text-2xl font-bold tracking-tight text-slate-900">
+          <h1 className="mt-5 text-[24px] font-semibold tracking-tight text-ink sm:text-[28px]">
             {unit.title}
           </h1>
-          <p className="mt-1 text-slate-500">
-            {[unit.compoundName, unit.areaName].filter(Boolean).join(" · ")}
-          </p>
+          {unit.compoundSlug ? (
+            <Link
+              href={`/compounds/${unit.compoundSlug}`}
+              className="mt-1 inline-block text-[14px] text-blue hover:underline"
+            >
+              {unit.compoundName} · {unit.areaName}
+            </Link>
+          ) : (
+            <p className="mt-1 text-[14px] text-ink-soft">{unit.areaName}</p>
+          )}
 
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
             {specs.map(([k, v]) => (
-              <div
-                key={k}
-                className="rounded-lg border border-slate-200 bg-slate-50 p-3"
-              >
-                <p className="text-xs text-slate-500">{k}</p>
-                <p className="mt-0.5 text-sm font-semibold capitalize text-slate-900">
+              <div key={k} className="rounded-2xl bg-canvas p-3">
+                <p className="text-[11px] text-ink-faint">{k}</p>
+                <p className="mt-0.5 truncate text-[14px] font-medium capitalize text-ink">
                   {v}
                 </p>
               </div>
             ))}
           </div>
 
-          <h2 className="mt-8 text-lg font-bold text-slate-900">Overview</h2>
-          <p className="mt-2 leading-relaxed text-slate-600">{describe(unit)}</p>
+          <h2 className="mt-7 text-[18px] font-semibold tracking-tight text-ink">
+            Overview
+          </h2>
+          <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+            {describe(unit)}
+          </p>
         </div>
 
         {/* Sidebar */}
-        <aside className="lg:sticky lg:top-20 lg:self-start">
-          <div className="rounded-2xl border border-slate-200 p-6 shadow-sm">
-            <p className="text-sm text-slate-500">Price</p>
-            <p className="text-3xl font-bold text-slate-900">
+        <aside className="lg:sticky lg:top-16 lg:self-start">
+          <div className="rounded-3xl bg-canvas p-6">
+            <p className="text-[13px] text-ink-soft">Price</p>
+            <p className="text-[30px] font-semibold tracking-tight text-ink">
               {formatFull(unit.price, unit.currency)}
             </p>
             {unit.down_payment ? (
-              <p className="mt-1 text-sm text-emerald-700">
+              <p className="mt-1 text-[13px] text-ink-soft">
                 From {formatFull(unit.down_payment, unit.currency)} down
               </p>
             ) : null}
 
-            <div className="mt-5 space-y-3">
+            <div className="mt-5 space-y-2.5">
               <input
                 placeholder="Your name"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-emerald-500"
+                className="w-full rounded-full bg-surface px-4 py-2.5 text-[14px] outline-none ring-1 ring-hairline focus:ring-blue"
               />
               <input
                 placeholder="Phone number"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-emerald-500"
+                className="w-full rounded-full bg-surface px-4 py-2.5 text-[14px] outline-none ring-1 ring-hairline focus:ring-blue"
               />
               <button
                 type="button"
-                className="w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700"
+                className="w-full rounded-full bg-blue px-4 py-2.5 text-[14px] font-medium text-white transition hover:bg-blue-hover"
               >
                 Request a call back
               </button>
             </div>
-            <p className="mt-3 text-xs text-slate-400">
-              Lead capture is wired up once the database is connected.
+            <p className="mt-3 text-[11px] text-ink-faint">
+              Lead capture activates once the database is connected.
             </p>
           </div>
         </aside>
       </div>
 
-      {/* Similar */}
       {similar.length > 0 && (
-        <section className="mt-14">
-          <h2 className="text-xl font-bold tracking-tight text-slate-900">
-            Similar properties in {unit.areaName ?? "this area"}
+        <section className="mt-12">
+          <h2 className="text-[20px] font-semibold tracking-tight text-ink">
+            More in {unit.areaName ?? "this area"}
           </h2>
-          <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-4 grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-4">
             {similar.map((u) => (
               <PropertyCard key={u.nawy_id} unit={u} />
             ))}

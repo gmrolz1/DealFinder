@@ -4,114 +4,115 @@ import {
   getAreas,
   getPopularAreas,
   getFeaturedUnits,
+  getNewLaunchUnits,
   getPropertyTypes,
   getTopDevelopers,
 } from "@/lib/data";
 import { formatNumber } from "@/lib/format";
 import { PropertyCard } from "@/components/property-card";
 
+function SectionHeading({
+  title,
+  href,
+}: {
+  title: string;
+  href: string;
+}) {
+  return (
+    <div className="flex items-end justify-between px-4 sm:px-6">
+      <h2 className="text-[22px] font-semibold tracking-tight text-ink sm:text-[26px]">
+        {title}
+      </h2>
+      <Link
+        href={href}
+        className="text-[13px] font-medium text-blue hover:underline"
+      >
+        See all
+      </Link>
+    </div>
+  );
+}
+
 export default function Home() {
   const stats = getStats();
   const areas = getAreas();
-  const popularAreas = getPopularAreas(8);
+  const popularAreas = getPopularAreas(10);
   const featured = getFeaturedUnits(8);
+  const launches = getNewLaunchUnits(8);
   const types = getPropertyTypes();
   const developers = getTopDevelopers(12);
 
   return (
-    <>
+    <div className="bg-surface">
       {/* Hero */}
-      <section className="relative bg-slate-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(16,185,129,0.18),_transparent_60%)]" />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28">
-          <p className="text-sm font-semibold uppercase tracking-widest text-emerald-400">
-            Egypt Property Marketplace
-          </p>
-          <h1 className="mt-3 max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl">
-            Find your next home across Egypt&apos;s best compounds.
-          </h1>
-          <p className="mt-4 max-w-xl text-lg text-slate-300">
-            {formatNumber(stats.units)} listings in {stats.compounds}{" "}
-            compounds — apartments, villas and chalets, all in one place.
-          </p>
+      <section className="px-4 pt-14 pb-10 text-center sm:pt-20 sm:pb-14">
+        <h1 className="mx-auto max-w-3xl text-[40px] font-semibold leading-[1.07] tracking-tight text-ink sm:text-[64px]">
+          Find your home.
+        </h1>
+        <p className="mx-auto mt-3 max-w-lg text-[17px] leading-snug text-ink-soft sm:text-[21px]">
+          {formatNumber(stats.units)} primary properties from{" "}
+          {stats.developers} trusted developers across Egypt.
+        </p>
 
-          {/* Search */}
-          <form
-            action="/properties"
-            className="mt-8 grid max-w-3xl gap-3 rounded-2xl bg-white p-4 shadow-xl sm:grid-cols-[1fr_auto_auto_auto]"
+        <form
+          action="/properties"
+          className="mx-auto mt-7 flex max-w-xl flex-col gap-2 rounded-3xl bg-canvas p-2 sm:flex-row"
+        >
+          <input
+            name="q"
+            placeholder="Search compound or area"
+            className="min-w-0 flex-1 rounded-full bg-surface px-4 py-2.5 text-[15px] text-ink outline-none ring-1 ring-hairline focus:ring-blue"
+          />
+          <select
+            name="area"
+            className="rounded-full bg-surface px-4 py-2.5 text-[15px] text-ink-soft outline-none ring-1 ring-hairline focus:ring-blue"
           >
-            <input
-              name="q"
-              placeholder="Search compound or area…"
-              className="rounded-lg border border-slate-200 px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-emerald-500"
-            />
-            <select
-              name="area"
-              className="rounded-lg border border-slate-200 px-3 py-2.5 text-sm text-slate-700 outline-none focus:border-emerald-500"
+            <option value="">All areas</option>
+            {areas.map((a) => (
+              <option key={a.nawy_id} value={a.nawy_id}>
+                {a.name}
+              </option>
+            ))}
+          </select>
+          <button className="rounded-full bg-blue px-6 py-2.5 text-[15px] font-medium text-white transition hover:bg-blue-hover">
+            Search
+          </button>
+        </form>
+
+        <div className="mt-5 flex flex-wrap justify-center gap-2">
+          {types.slice(0, 6).map((t) => (
+            <Link
+              key={t}
+              href={`/properties?type=${encodeURIComponent(t)}`}
+              className="rounded-full bg-canvas px-3.5 py-1.5 text-[13px] font-medium text-ink transition hover:bg-hairline"
             >
-              <option value="">All areas</option>
-              {areas.map((a) => (
-                <option key={a.nawy_id} value={a.nawy_id}>
-                  {a.name}
-                </option>
-              ))}
-            </select>
-            <select
-              name="type"
-              className="rounded-lg border border-slate-200 px-3 py-2.5 text-sm text-slate-700 outline-none focus:border-emerald-500"
-            >
-              <option value="">Any type</option>
-              {types.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
-            <button className="rounded-lg bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700">
-              Search
-            </button>
-          </form>
+              {t}
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="border-b border-slate-200 bg-slate-50">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 py-8 sm:grid-cols-4 sm:px-6">
-          {[
-            ["Properties", stats.units],
-            ["Compounds", stats.compounds],
-            ["Areas", stats.areas],
-            ["Developers", stats.developers],
-          ].map(([label, value]) => (
-            <div key={label as string} className="text-center">
-              <p className="text-2xl font-bold text-slate-900 sm:text-3xl">
-                {formatNumber(value as number)}
-              </p>
-              <p className="text-sm text-slate-500">{label}</p>
+      {/* Featured */}
+      <section className="py-8">
+        <SectionHeading title="Featured" href="/properties" />
+        <div className="no-scrollbar mt-4 flex gap-4 overflow-x-auto px-4 sm:px-6">
+          {featured.map((u) => (
+            <div key={u.nawy_id} className="w-[260px] shrink-0">
+              <PropertyCard unit={u} />
             </div>
           ))}
         </div>
       </section>
 
       {/* Popular areas */}
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-        <div className="flex items-end justify-between">
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900">
-            Popular areas
-          </h2>
-          <Link
-            href="/properties"
-            className="text-sm font-semibold text-emerald-600 hover:text-emerald-700"
-          >
-            View all →
-          </Link>
-        </div>
-        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <section className="py-8">
+        <SectionHeading title="Explore by area" href="/areas" />
+        <div className="no-scrollbar mt-4 flex gap-3 overflow-x-auto px-4 sm:px-6">
           {popularAreas.map((a) => (
             <Link
               key={a.nawy_id}
-              href={`/properties?area=${a.nawy_id}`}
-              className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-800"
+              href={`/areas/${a.slug}`}
+              className="relative h-44 w-40 shrink-0 overflow-hidden rounded-2xl bg-ink"
             >
               {a.image_url && (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -119,13 +120,15 @@ export default function Home() {
                   src={a.image_url}
                   alt={a.name}
                   loading="lazy"
-                  className="h-full w-full object-cover opacity-70 transition group-hover:scale-105 group-hover:opacity-85"
+                  className="h-full w-full object-cover opacity-75"
                 />
               )}
-              <div className="absolute inset-x-0 bottom-0 p-3">
-                <p className="font-semibold text-white">{a.name}</p>
-                <p className="text-xs text-slate-200">
-                  {formatNumber(a.properties_count ?? 0)} properties
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+                <p className="text-[15px] font-semibold text-white">
+                  {a.name}
+                </p>
+                <p className="text-[12px] text-white/80">
+                  {formatNumber(a.available)} homes
                 </p>
               </div>
             </Link>
@@ -133,64 +136,52 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured properties */}
-      <section className="bg-slate-50">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-          <div className="flex items-end justify-between">
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900">
-              Featured properties
-            </h2>
-            <Link
-              href="/properties"
-              className="text-sm font-semibold text-emerald-600 hover:text-emerald-700"
-            >
-              Browse all →
-            </Link>
-          </div>
-          <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((u) => (
-              <PropertyCard key={u.nawy_id} unit={u} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Developers */}
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">
-          Top developers
-        </h2>
-        <div className="mt-6 flex flex-wrap gap-2.5">
-          {developers.map((d) => (
-            <span
-              key={d.nawy_id}
-              className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700"
-            >
-              {d.name}
-            </span>
+      {/* New launches */}
+      <section className="py-8">
+        <SectionHeading title="New launches" href="/new-launches" />
+        <div className="no-scrollbar mt-4 flex gap-4 overflow-x-auto px-4 sm:px-6">
+          {launches.map((u) => (
+            <div key={u.nawy_id} className="w-[260px] shrink-0">
+              <PropertyCard unit={u} />
+            </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-emerald-600">
-        <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <div>
-            <h2 className="text-2xl font-bold text-white">
-              Selling a property?
-            </h2>
-            <p className="mt-1 text-emerald-50">
-              List it on DealFinder and reach thousands of buyers.
-            </p>
-          </div>
-          <Link
-            href="/properties"
-            className="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50"
-          >
-            Get started
-          </Link>
+      {/* Developers */}
+      <section className="py-8">
+        <SectionHeading title="Top developers" href="/developers" />
+        <div className="mt-4 flex flex-wrap gap-2 px-4 sm:px-6">
+          {developers.map((d) => (
+            <Link
+              key={d.nawy_id}
+              href={`/developers/${d.slug}`}
+              className="rounded-full bg-canvas px-4 py-2 text-[13px] font-medium text-ink transition hover:bg-hairline"
+            >
+              {d.name}
+            </Link>
+          ))}
         </div>
       </section>
-    </>
+
+      {/* Stats */}
+      <section className="mx-4 my-10 rounded-3xl bg-canvas px-6 py-10 sm:mx-6">
+        <div className="grid grid-cols-2 gap-6 text-center sm:grid-cols-4">
+          {[
+            ["Properties", stats.units],
+            ["Compounds", stats.compounds],
+            ["Areas", stats.areas],
+            ["Developers", stats.developers],
+          ].map(([label, value]) => (
+            <div key={label as string}>
+              <p className="text-[28px] font-semibold tracking-tight text-ink sm:text-[34px]">
+                {formatNumber(value as number)}
+              </p>
+              <p className="text-[13px] text-ink-soft">{label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }

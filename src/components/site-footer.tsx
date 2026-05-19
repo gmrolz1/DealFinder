@@ -2,36 +2,36 @@ import Link from "next/link";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-slate-200 bg-slate-50">
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+    <footer className="border-t border-hairline bg-canvas">
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+        <div className="flex flex-col gap-6 sm:flex-row sm:justify-between">
           <div>
-            <span className="text-lg font-bold tracking-tight text-slate-900">
-              Deal<span className="text-emerald-600">Finder</span>
+            <span className="text-[15px] font-semibold tracking-tight text-ink">
+              Deal<span className="text-blue">Finder</span>
             </span>
-            <p className="mt-1 max-w-sm text-sm text-slate-500">
-              Egypt&apos;s property marketplace — apartments, villas and
-              chalets across the country&apos;s top compounds.
+            <p className="mt-1 max-w-xs text-[13px] leading-relaxed text-ink-soft">
+              Egypt&apos;s property marketplace — primary homes from trusted
+              developers.
             </p>
           </div>
-          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
-            <Link href="/properties" className="hover:text-emerald-600">
+          <nav className="grid grid-cols-2 gap-x-10 gap-y-2 text-[13px] text-ink-soft">
+            <Link href="/properties" className="hover:text-ink">
               All properties
             </Link>
-            <Link href="/properties?type=Apartment" className="hover:text-emerald-600">
-              Apartments
+            <Link href="/areas" className="hover:text-ink">
+              Areas
             </Link>
-            <Link href="/properties?type=Villa" className="hover:text-emerald-600">
-              Villas
+            <Link href="/developers" className="hover:text-ink">
+              Developers
             </Link>
-            <Link href="/properties?type=Chalet" className="hover:text-emerald-600">
-              Chalets
+            <Link href="/new-launches" className="hover:text-ink">
+              New launches
             </Link>
           </nav>
         </div>
-        <p className="mt-8 border-t border-slate-200 pt-6 text-xs text-slate-400">
-          © {new Date().getFullYear()} DealFinder. MVP build — listing data is
-          for demonstration.
+        <p className="mt-8 border-t border-hairline pt-6 text-[12px] text-ink-faint">
+          © {new Date().getFullYear()} DealFinder. MVP build — listing data
+          shown for demonstration.
         </p>
       </div>
     </footer>

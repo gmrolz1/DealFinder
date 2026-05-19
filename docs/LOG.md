@@ -72,6 +72,26 @@ Chronological record of every step taken. Newest at the bottom.
 - Listing descriptions are generated from facts, not copied.
 - All routes smoke-tested → HTTP 200, no errors. `npm run dev` works.
 
+### Step 14 — Filtered out resale & Nawy Now
+- Scrape had 3 sale types: resale 12,535 / nawy_now 438 / developer_sale 5,961.
+- `data.ts` now exposes only `developer_sale` (primary) units → 5,961.
+
+### Step 15 — Applied Apple HIG ("Liquid Glass") design, mobile-first
+- New design tokens in `globals.css`: SF system font, system blue
+  (#0071e3), canvas grey (#f5f5f7), hairline borders.
+- Frosted sticky header; app-style bottom tab bar on mobile
+  (`mobile-tabbar.tsx`, client component).
+- Restyled cards, pages — pill buttons, large radii, generous spacing.
+
+### Step 16 — Built out the site structure
+- New pages: `/areas`, `/areas/[slug]`, `/developers`,
+  `/developers/[slug]`, `/compounds/[slug]`, `/new-launches`.
+- New `compound-card` component; `data.ts` extended with per-entity
+  counts and slug lookups.
+- Bug fixed: orphaned dev servers served stale code (500s); killed all,
+  bumped Node heap to 4 GB via `cross-env` in the dev script.
+- All routes smoke-tested → HTTP 200, no errors.
+
 <!-- Next steps logged below as they happen -->
 
 ## Next up (blocked on you)

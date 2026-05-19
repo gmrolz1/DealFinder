@@ -53,10 +53,14 @@ Seed the database by scraping nawy.com's public network API.
 ### Phase 2 — Core site
 - [x] Property listing page + search/filters (type, area, price, bedrooms)
 - [x] Property detail page
-- [x] Homepage
-- [ ] Compound pages
-- [ ] Area pages
-- [ ] Developer pages
+- [x] Homepage (Apple HIG design, mobile-first)
+- [x] Compound pages (`/compounds/[slug]`)
+- [x] Area index + area pages (`/areas`, `/areas/[slug]`)
+- [x] Developer index + developer pages (`/developers`, `/developers/[slug]`)
+- [x] New launches page
+- [x] Data filtered to primary units only (no resale / Nawy Now)
+- [ ] Static pages (about, contact, terms) — pending
+- [ ] Search landing pages (SEO) — pending
 
 ### Phase 3 — Business
 - [ ] Lead/contact form → Supabase

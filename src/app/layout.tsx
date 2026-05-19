@@ -1,29 +1,25 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-
-const geist = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { MobileTabBar } from "@/components/mobile-tabbar";
 
 export const metadata: Metadata = {
   title: "DealFinder — Egypt Property Marketplace",
   description:
-    "Browse apartments, villas and chalets for sale across Egypt's top compounds and developers.",
+    "Browse primary apartments, villas and chalets from trusted developers across Egypt.",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} h-full`}>
-      <body className="flex min-h-full flex-col bg-white antialiased">
+    <html lang="en" className="h-full">
+      <body className="flex min-h-full flex-col bg-surface">
         <SiteHeader />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pb-16 md:pb-0">{children}</main>
         <SiteFooter />
+        <MobileTabBar />
       </body>
     </html>
   );
