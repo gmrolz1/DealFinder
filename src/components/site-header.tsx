@@ -14,7 +14,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-data bg-paper">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2">
-          <BrandIcon className="h-[17px] w-auto text-ink" />
+          <BrandIcon className="h-[19px] w-auto" />
           <Wordmark className="text-[18px]" />
         </Link>
 
