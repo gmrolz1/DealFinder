@@ -44,3 +44,4 @@ next-env.d.ts
 /.tmp/
 /scraper/data/
 /scraper/scrape.log
+/dev.log

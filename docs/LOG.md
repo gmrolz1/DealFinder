@@ -40,6 +40,38 @@ Chronological record of every step taken. Newest at the bottom.
 ### Step 8 — Started full scrape
 - Running `node scraper/scrape.mjs` over all compounds in the background.
 
+### Step 9 — Found nawy's JSON API (the fast method)
+- nawy's frontend calls `listing-api.nawy.com`. Public, no auth. Endpoints:
+  - `GET /v1/areas`              — 46 areas
+  - `GET /v1/developers`         — paginated (no `total` field)
+  - `GET /v1/search/compounds`   — total 1,769
+  - `GET /v1/search/properties`  — total 19,016
+- Max `pageSize` = 50. Full catalog = ~430 calls instead of ~1,800 HTML
+  pages. Returns clean structured JSON with prices & payment plans.
+
+### Step 10 — Rewrote scraper to use the API
+- `scraper/scrape.mjs` v2: pages all four endpoints, maps factual fields.
+- Hardened after first run: developers endpoint has no `total` (page
+  until short page); added 429/5xx backoff, lower concurrency (4),
+  per-page retry so one failed page doesn't abort the run.
+
+### Step 11 — Full scrape running
+- `node scraper/scrape.mjs` running in background → `scraper/data/*.json`.
+
+### Step 12 — Full scrape completed
+- 46 areas, 391 developers, 1,769 compounds, 18,934 properties in 122s.
+
+### Step 13 — Built the MVP UI (reads scraped JSON, no DB yet)
+- `src/lib/data.ts` — typed data layer (swap to Supabase later, only file
+  that changes). `src/lib/format.ts` — price/number formatting.
+- Components: `site-header`, `site-footer`, `property-card`.
+- Pages: `/` (hero search, stats, areas, featured, developers, CTA),
+  `/properties` (filters: area/type/beds/price/sort + pagination),
+  `/properties/[slug]` (gallery, specs, generated overview, lead form,
+  similar properties).
+- Listing descriptions are generated from facts, not copied.
+- All routes smoke-tested → HTTP 200, no errors. `npm run dev` works.
+
 <!-- Next steps logged below as they happen -->
 
 ## Next up (blocked on you)

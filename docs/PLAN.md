@@ -42,16 +42,18 @@ Seed the database by scraping nawy.com's public network API.
 - [ ] Connect repo to Vercel
 
 ### Phase 1 — Database
-- [ ] Inspect nawy's network requests, map their API
+- [x] Inspect nawy's network requests, map their API
+- [x] Build the scraper (`/scraper`) — uses listing-api.nawy.com
+- [x] Run scrape → 46 areas, 391 devs, 1,769 compounds, 18,934 units
 - [ ] Define Postgres schema (see DATA-MODEL.md)
-- [ ] Create tables in Supabase
-- [ ] Build the scraper (`/scraper`)
-- [ ] Run scrape → load areas, developers, compounds, units
-- [ ] Generate fresh descriptions
+- [ ] Create tables in Supabase  ← needs Supabase MCP authenticated
+- [ ] Loader script: scraped JSON → Supabase
+- [ ] Generate fresh descriptions (done live in UI for now)
 
 ### Phase 2 — Core site
-- [ ] Property listing page
-- [ ] Search + filters (type, area, price, bedrooms)
+- [x] Property listing page + search/filters (type, area, price, bedrooms)
+- [x] Property detail page
+- [x] Homepage
 - [ ] Compound pages
 - [ ] Area pages
 - [ ] Developer pages
