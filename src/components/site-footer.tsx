@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/logo";
 
 export function SiteFooter() {
   return (
@@ -6,10 +7,13 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:justify-between">
           <div>
-            <span className="text-[15px] font-semibold tracking-tight text-ink">
-              Deal<span className="text-blue">Finder</span>
+            <span className="flex items-center gap-2">
+              <Logo className="h-5 w-5 text-ink" />
+              <span className="text-[15px] font-semibold tracking-tight text-ink">
+                DealFinder
+              </span>
             </span>
-            <p className="mt-1 max-w-xs text-[13px] leading-relaxed text-ink-soft">
+            <p className="mt-2 max-w-xs text-[13px] leading-relaxed text-ink-soft">
               Egypt&apos;s property marketplace — primary homes from trusted
               developers.
             </p>
