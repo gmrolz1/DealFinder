@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Logo } from "@/components/logo";
 
 const FACEBOOK = "https://www.facebook.com/profile.php?id=61552295002435";
 
@@ -9,11 +8,8 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div>
-            <span className="flex items-center gap-2.5">
-              <Logo className="h-[20px] w-auto text-ink" />
-              <span className="text-[18px] font-extrabold uppercase tracking-[0.04em] text-ink">
-                DealFinder
-              </span>
+            <span className="text-[18px] font-extrabold uppercase tracking-[0.02em] text-ink">
+              DealFinder
             </span>
             <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-slate">
               Egypt&apos;s property marketplace — primary homes from trusted
