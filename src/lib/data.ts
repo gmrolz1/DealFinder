@@ -22,6 +22,18 @@ function loadFile<T>(name: string): T[] {
   }
 }
 
+// Clean, URL-safe slug. nawy's raw unit slugs contain spaces and brackets,
+// which break routing (~65% of unit pages 404'd without this).
+function slugify(s: string): string {
+  return (s || "")
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/[\s_]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 // --- types -----------------------------------------------------------------
 export type Area = {
   nawy_id: number;
@@ -111,12 +123,21 @@ let _store: Store | null = null;
 function store(): Store {
   if (_store) return _store;
 
-  const areas = loadFile<Area>("areas");
-  const developers = loadFile<Developer>("developers");
-  const compounds = loadFile<Compound>("compounds");
-  const units = loadFile<Unit>("units").filter(
-    (u) => u.sale_type != null && ALLOWED_SALE_TYPES.has(u.sale_type)
-  );
+  const areas = loadFile<Area>("areas").map((a) => ({
+    ...a,
+    slug: slugify(a.slug),
+  }));
+  const developers = loadFile<Developer>("developers").map((d) => ({
+    ...d,
+    slug: slugify(d.slug),
+  }));
+  const compounds = loadFile<Compound>("compounds").map((c) => ({
+    ...c,
+    slug: slugify(c.slug),
+  }));
+  const units = loadFile<Unit>("units")
+    .filter((u) => u.sale_type != null && ALLOWED_SALE_TYPES.has(u.sale_type))
+    .map((u) => ({ ...u, slug: slugify(u.slug) }));
 
   const unitsByArea = new Map<number, number>();
   const unitsByCompound = new Map<number, number>();
