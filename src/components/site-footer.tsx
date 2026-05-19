@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Wordmark } from "@/components/wordmark";
 
 const FACEBOOK = "https://www.facebook.com/profile.php?id=61552295002435";
 
@@ -8,9 +9,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div>
-            <span className="text-[18px] font-extrabold uppercase tracking-[0.02em] text-ink">
-              DealFinder
-            </span>
+            <Wordmark className="text-[17px]" />
             <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-slate">
               Egypt&apos;s property marketplace — primary homes from trusted
               developers.

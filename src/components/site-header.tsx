@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Wordmark } from "@/components/wordmark";
 
 const NAV: [string, string][] = [
   ["Properties", "/properties"],
@@ -12,9 +13,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-data bg-paper">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center">
-          <span className="text-[20px] font-extrabold uppercase tracking-[0.02em] text-ink">
-            DealFinder
-          </span>
+          <Wordmark className="text-[18px]" />
         </Link>
 
         <nav className="hidden items-center gap-8 text-[11px] font-semibold uppercase tracking-[0.09em] text-slate md:flex">
