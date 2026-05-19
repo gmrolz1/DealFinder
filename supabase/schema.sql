@@ -1,5 +1,7 @@
 -- DealFinder — Postgres schema (run in Supabase SQL editor)
--- Catalog tables are keyed by nawy_id; leads/saved_searches use uuid.
+-- Catalog tables are keyed by nawy_id; leads use uuid.
+-- *_nawy_id columns are logical references (no FK constraints) — the
+-- scraped data has referential gaps; joins are done null-safely in the app.
 
 -- ── areas ──────────────────────────────────────────────────────────────
 create table if not exists areas (
@@ -29,8 +31,8 @@ create table if not exists compounds (
   nawy_id           bigint primary key,
   name              text not null,
   slug              text not null unique,
-  area_nawy_id      bigint references areas(nawy_id),
-  developer_nawy_id bigint references developers(nawy_id),
+  area_nawy_id      bigint,
+  developer_nawy_id bigint,
   lat               numeric,
   lng               numeric,
   image_url         text,
@@ -48,9 +50,9 @@ create table if not exists units (
   title             text not null,
   subtitle          text,
   property_type     text,
-  compound_nawy_id  bigint references compounds(nawy_id),
-  area_nawy_id      bigint references areas(nawy_id),
-  developer_nawy_id bigint references developers(nawy_id),
+  compound_nawy_id  bigint,
+  area_nawy_id      bigint,
+  developer_nawy_id bigint,
   bedrooms          int,
   bathrooms         int,
   area_sqm          numeric,
@@ -68,7 +70,7 @@ create table if not exists units (
 -- ── leads (contact-form submissions — the revenue path) ────────────────
 create table if not exists leads (
   id          uuid primary key default gen_random_uuid(),
-  unit_nawy_id bigint references units(nawy_id),
+  unit_nawy_id bigint,
   name        text not null,
   phone       text not null,
   email       text,

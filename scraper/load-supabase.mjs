@@ -12,9 +12,10 @@ import fs from "node:fs";
 import path from "node:path";
 
 const URL = process.env.SUPABASE_URL;
-const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const KEY =
+  process.env.SUPABASE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!URL || !KEY) {
-  console.error("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY env vars.");
+  console.error("Set SUPABASE_URL and SUPABASE_KEY env vars.");
   process.exit(1);
 }
 const db = createClient(URL, KEY, { auth: { persistSession: false } });
@@ -33,7 +34,15 @@ const slugify = (s) =>
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
 
+// Drop duplicate nawy_id rows — Postgres upsert rejects dupes in one batch.
+function dedupe(rows) {
+  const m = new Map();
+  for (const r of rows) m.set(r.nawy_id, r);
+  return [...m.values()];
+}
+
 async function upsertAll(table, rows) {
+  rows = dedupe(rows);
   const CHUNK = 500;
   for (let i = 0; i < rows.length; i += CHUNK) {
     const slice = rows.slice(i, i + CHUNK);
