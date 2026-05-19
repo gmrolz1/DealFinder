@@ -14,12 +14,12 @@ import { PropertyCard } from "@/components/property-card";
 function SectionHeading({ title, href }: { title: string; href: string }) {
   return (
     <div className="mx-auto flex max-w-6xl items-end justify-between px-4 sm:px-6">
-      <h2 className="text-[20px] font-bold uppercase tracking-tight text-paper sm:text-[26px]">
+      <h2 className="text-[22px] font-bold tracking-tight text-ink sm:text-[26px]">
         {title}
       </h2>
       <Link
         href={href}
-        className="text-[11px] font-bold uppercase tracking-[0.08em] text-data transition hover:text-paper"
+        className="text-[13px] font-medium text-primary hover:underline"
       >
         See all
       </Link>
@@ -37,36 +37,33 @@ export default function Home() {
   const developers = getTopDevelopers(14);
 
   return (
-    <div className="bg-ink">
+    <div className="bg-surface">
       {/* Hero */}
-      <section className="border-b border-slate px-4 py-20 sm:px-6 sm:py-28">
+      <section className="bg-gradient-to-b from-primary-soft to-surface px-4 py-16 sm:px-6 sm:py-24">
         <div className="mx-auto max-w-6xl">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-taupe">
+          <p className="text-[13px] font-medium uppercase tracking-wide text-primary">
             Egypt Property Marketplace
           </p>
-          <h1 className="mt-4 text-[46px] font-black uppercase leading-[0.95] tracking-tight text-paper sm:text-[88px]">
-            Where <span className="glitch">Deals</span>
-            <br />
-            Happen
+          <h1 className="mt-3 max-w-2xl text-[36px] font-black leading-[1.1] tracking-tight text-ink sm:text-[56px]">
+            Find your next home in Egypt.
           </h1>
-          <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-data sm:text-[18px]">
+          <p className="mt-3 max-w-lg text-[16px] text-muted sm:text-[19px]">
             {formatNumber(stats.units)} primary properties from{" "}
-            {stats.developers} trusted developers across Egypt. Precision over
-            reach.
+            {stats.developers} trusted developers — all in one place.
           </p>
 
           <form
             action="/properties"
-            className="mt-8 flex max-w-2xl flex-col gap-2 sm:flex-row"
+            className="mt-7 flex max-w-2xl flex-col gap-2.5 rounded-2xl bg-surface p-3 shadow-[0_2px_10px_rgba(60,64,67,0.18)] sm:flex-row"
           >
             <input
               name="q"
               placeholder="Search compound or area"
-              className="min-w-0 flex-1 border border-slate bg-ink px-4 py-3 text-[14px] text-paper outline-none placeholder:text-data/50 focus:border-paper"
+              className="min-w-0 flex-1 rounded-lg border border-hairline px-4 py-2.5 text-[15px] text-ink outline-none focus:border-primary"
             />
             <select
               name="area"
-              className="border border-slate bg-ink px-4 py-3 text-[14px] text-data outline-none focus:border-paper"
+              className="rounded-lg border border-hairline px-4 py-2.5 text-[15px] text-muted outline-none focus:border-primary"
             >
               <option value="">All areas</option>
               {areas.map((a) => (
@@ -75,7 +72,7 @@ export default function Home() {
                 </option>
               ))}
             </select>
-            <button className="bg-paper px-7 py-3 text-[12px] font-bold uppercase tracking-[0.08em] text-ink transition hover:bg-data">
+            <button className="rounded-full bg-primary px-7 py-2.5 text-[15px] font-medium text-white transition hover:bg-primary-dark">
               Search
             </button>
           </form>
@@ -85,7 +82,7 @@ export default function Home() {
               <Link
                 key={t}
                 href={`/properties?type=${encodeURIComponent(t)}`}
-                className="border border-slate px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-data transition hover:border-data hover:text-paper"
+                className="rounded-full border border-hairline bg-surface px-3.5 py-1.5 text-[13px] font-medium text-ink transition hover:border-primary hover:text-primary"
               >
                 {t}
               </Link>
@@ -95,9 +92,9 @@ export default function Home() {
       </section>
 
       {/* Featured */}
-      <section className="py-10">
+      <section className="py-9">
         <SectionHeading title="Featured" href="/properties" />
-        <div className="no-scrollbar mt-5 flex gap-4 overflow-x-auto px-4 sm:px-6">
+        <div className="no-scrollbar mt-4 flex gap-4 overflow-x-auto px-4 sm:px-6">
           {featured.map((u) => (
             <div key={u.nawy_id} className="w-[260px] shrink-0">
               <PropertyCard unit={u} />
@@ -107,14 +104,14 @@ export default function Home() {
       </section>
 
       {/* Areas */}
-      <section className="py-10">
-        <SectionHeading title="Explore by Area" href="/areas" />
-        <div className="no-scrollbar mt-5 flex gap-3 overflow-x-auto px-4 sm:px-6">
+      <section className="py-9">
+        <SectionHeading title="Explore by area" href="/areas" />
+        <div className="no-scrollbar mt-4 flex gap-3 overflow-x-auto px-4 sm:px-6">
           {popularAreas.map((a) => (
             <Link
               key={a.nawy_id}
               href={`/areas/${a.slug}`}
-              className="relative h-48 w-40 shrink-0 overflow-hidden border border-slate bg-slate transition hover:border-data"
+              className="relative h-44 w-40 shrink-0 overflow-hidden rounded-xl bg-ink shadow-sm"
             >
               {a.image_url && (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -122,14 +119,12 @@ export default function Home() {
                   src={a.image_url}
                   alt={a.name}
                   loading="lazy"
-                  className="h-full w-full object-cover opacity-55 grayscale"
+                  className="h-full w-full object-cover opacity-80 transition hover:scale-105"
                 />
               )}
-              <div className="absolute inset-x-0 bottom-0 p-3">
-                <p className="text-[13px] font-bold uppercase tracking-[0.02em] text-paper">
-                  {a.name}
-                </p>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.06em] text-data">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent p-3">
+                <p className="text-[15px] font-bold text-white">{a.name}</p>
+                <p className="text-[12px] text-white/85">
                   {formatNumber(a.available)} homes
                 </p>
               </div>
@@ -139,9 +134,9 @@ export default function Home() {
       </section>
 
       {/* New launches */}
-      <section className="py-10">
-        <SectionHeading title="New Launches" href="/new-launches" />
-        <div className="no-scrollbar mt-5 flex gap-4 overflow-x-auto px-4 sm:px-6">
+      <section className="bg-canvas py-9">
+        <SectionHeading title="New launches" href="/new-launches" />
+        <div className="no-scrollbar mt-4 flex gap-4 overflow-x-auto px-4 sm:px-6">
           {launches.map((u) => (
             <div key={u.nawy_id} className="w-[260px] shrink-0">
               <PropertyCard unit={u} />
@@ -151,14 +146,14 @@ export default function Home() {
       </section>
 
       {/* Developers */}
-      <section className="py-10">
-        <SectionHeading title="Top Developers" href="/developers" />
-        <div className="mx-auto mt-5 flex max-w-6xl flex-wrap gap-2 px-4 sm:px-6">
+      <section className="py-9">
+        <SectionHeading title="Top developers" href="/developers" />
+        <div className="mx-auto mt-4 flex max-w-6xl flex-wrap gap-2 px-4 sm:px-6">
           {developers.map((d) => (
             <Link
               key={d.nawy_id}
               href={`/developers/${d.slug}`}
-              className="border border-slate px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-data transition hover:border-data hover:text-paper"
+              className="rounded-full border border-hairline px-4 py-2 text-[13px] font-medium text-ink transition hover:border-primary hover:text-primary"
             >
               {d.name}
             </Link>
@@ -167,24 +162,19 @@ export default function Home() {
       </section>
 
       {/* Stats */}
-      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
-        <div className="grid grid-cols-2 border-l border-t border-slate sm:grid-cols-4">
+      <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+        <div className="grid grid-cols-2 gap-4 rounded-2xl bg-primary-soft px-6 py-9 text-center sm:grid-cols-4">
           {[
             ["Properties", stats.units],
             ["Compounds", stats.compounds],
             ["Areas", stats.areas],
             ["Developers", stats.developers],
           ].map(([label, value]) => (
-            <div
-              key={label as string}
-              className="border-b border-r border-slate p-6"
-            >
-              <p className="text-[30px] font-black tracking-tight text-paper sm:text-[40px]">
+            <div key={label as string}>
+              <p className="text-[28px] font-black tracking-tight text-primary sm:text-[34px]">
                 {formatNumber(value as number)}
               </p>
-              <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-taupe">
-                {label}
-              </p>
+              <p className="text-[13px] text-muted">{label}</p>
             </div>
           ))}
         </div>

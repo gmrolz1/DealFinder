@@ -2,28 +2,28 @@ import Link from "next/link";
 import { getDevelopersWithCounts } from "@/lib/data";
 import { formatNumber } from "@/lib/format";
 
-export const metadata = { title: "Developers — The Deal Maker" };
+export const metadata = { title: "Developers — DealFinder" };
 
 export default function DevelopersPage() {
   const developers = getDevelopersWithCounts().filter((d) => d.available > 0);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-      <h1 className="text-[32px] font-extrabold uppercase tracking-tight text-paper sm:text-[44px]">
+    <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6">
+      <h1 className="text-[28px] font-black tracking-tight text-ink sm:text-[34px]">
         Developers
       </h1>
-      <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.08em] text-taupe">
+      <p className="mt-1 text-[15px] text-muted">
         {developers.length} developers with available homes
       </p>
 
-      <div className="mt-6 grid grid-cols-1 border-l border-t border-slate sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {developers.map((d) => (
           <Link
             key={d.nawy_id}
             href={`/developers/${d.slug}`}
-            className="flex items-center gap-3.5 border-b border-r border-slate p-4 transition hover:bg-slate"
+            className="flex items-center gap-3.5 rounded-xl bg-surface p-3.5 shadow-[0_1px_2px_rgba(60,64,67,0.2)] transition hover:shadow-[0_2px_8px_rgba(60,64,67,0.28)]"
           >
-            <div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden border border-slate bg-paper">
+            <div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-lg bg-canvas">
               {d.logo_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -33,16 +33,16 @@ export default function DevelopersPage() {
                   className="h-full w-full object-contain p-1"
                 />
               ) : (
-                <span className="text-[15px] font-extrabold text-ink">
+                <span className="text-[15px] font-bold text-muted">
                   {d.name.charAt(0)}
                 </span>
               )}
             </div>
             <div className="min-w-0">
-              <p className="truncate text-[13px] font-bold uppercase tracking-[0.02em] text-paper">
+              <p className="truncate text-[15px] font-medium text-ink">
                 {d.name}
               </p>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.07em] text-taupe">
+              <p className="text-[12px] text-muted">
                 {formatNumber(d.available)} homes available
               </p>
             </div>

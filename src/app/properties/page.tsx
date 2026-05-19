@@ -47,14 +47,14 @@ export default async function PropertiesPage({
   const types = getPropertyTypes();
 
   const field =
-    "border border-slate bg-ink px-3.5 py-2 text-[12px] text-paper outline-none focus:border-paper";
+    "rounded-lg border border-hairline bg-surface px-3.5 py-2 text-[13px] text-ink outline-none focus:border-primary";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-      <h1 className="text-[32px] font-extrabold uppercase tracking-tight text-paper sm:text-[44px]">
-        Properties
+    <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6">
+      <h1 className="text-[28px] font-black tracking-tight text-ink sm:text-[34px]">
+        Properties for sale in Egypt
       </h1>
-      <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.08em] text-taupe">
+      <p className="mt-1 text-[15px] text-muted">
         {formatNumber(total)} primary {total === 1 ? "home" : "homes"}{" "}
         available
       </p>
@@ -62,13 +62,13 @@ export default async function PropertiesPage({
       {/* Filters */}
       <form
         action="/properties"
-        className="no-scrollbar mt-6 flex gap-2 overflow-x-auto pb-1"
+        className="no-scrollbar mt-5 flex gap-2 overflow-x-auto pb-1"
       >
         <input
           name="q"
           defaultValue={sp.q ?? ""}
           placeholder="Search"
-          className={`${field} min-w-[150px]`}
+          className={`${field} min-w-[160px]`}
         />
         <select name="area" defaultValue={sp.area ?? ""} className={field}>
           <option value="">Area</option>
@@ -118,23 +118,23 @@ export default async function PropertiesPage({
             </option>
           ))}
         </select>
-        <button className="shrink-0 bg-paper px-5 py-2 text-[11px] font-bold uppercase tracking-[0.07em] text-ink transition hover:bg-data">
+        <button className="shrink-0 rounded-full bg-primary px-5 py-2 text-[13px] font-medium text-white transition hover:bg-primary-dark">
           Apply
         </button>
         <Link
           href="/properties"
-          className="shrink-0 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.07em] text-data transition hover:text-paper"
+          className="shrink-0 rounded-full px-3 py-2 text-[13px] font-medium text-muted transition hover:text-ink"
         >
           Reset
         </Link>
       </form>
 
       {results.length === 0 ? (
-        <div className="mt-12 border border-slate py-16 text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-data">
-          No properties match these filters
+        <div className="mt-12 rounded-xl bg-canvas py-16 text-center text-[15px] text-muted">
+          No properties match these filters.
         </div>
       ) : (
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-4">
           {results.map((u) => (
             <PropertyCard key={u.nawy_id} unit={u} />
           ))}
@@ -142,31 +142,31 @@ export default async function PropertiesPage({
       )}
 
       {pages > 1 && (
-        <div className="mt-12 flex items-center justify-center gap-3">
+        <div className="mt-10 flex items-center justify-center gap-3">
           {page > 1 ? (
             <Link
               href={qs(sp, { page: String(page - 1) })}
-              className="border border-slate px-5 py-2 text-[11px] font-bold uppercase tracking-[0.07em] text-paper transition hover:border-data"
+              className="rounded-full border border-hairline px-5 py-2 text-[13px] font-medium text-ink hover:border-primary"
             >
-              Prev
+              Previous
             </Link>
           ) : (
-            <span className="border border-slate/40 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.07em] text-slate">
-              Prev
+            <span className="rounded-full border border-hairline px-5 py-2 text-[13px] text-muted/50">
+              Previous
             </span>
           )}
-          <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-data">
+          <span className="text-[13px] text-muted">
             {page} / {formatNumber(pages)}
           </span>
           {page < pages ? (
             <Link
               href={qs(sp, { page: String(page + 1) })}
-              className="border border-slate px-5 py-2 text-[11px] font-bold uppercase tracking-[0.07em] text-paper transition hover:border-data"
+              className="rounded-full border border-hairline px-5 py-2 text-[13px] font-medium text-ink hover:border-primary"
             >
               Next
             </Link>
           ) : (
-            <span className="border border-slate/40 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.07em] text-slate">
+            <span className="rounded-full border border-hairline px-5 py-2 text-[13px] text-muted/50">
               Next
             </span>
           )}

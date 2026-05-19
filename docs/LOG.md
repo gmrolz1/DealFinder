@@ -107,6 +107,14 @@ Chronological record of every step taken. Newest at the bottom.
 - Facebook link added to the footer.
 - All routes smoke-tested → HTTP 200, no errors.
 
+### Step 18 — Reverted to DealFinder, bright light theme
+- Dropped The Deal Maker name/dark monolith brand per request.
+- Bright Google Material light theme: white surfaces, #1a73e8 primary,
+  blue-tinted hero, rounded cards with elevation, pill buttons.
+- Switched font from Magnetik to Roboto (Google design system).
+- Name back to "DealFinder"; logo mark kept (blue). Facebook link kept.
+- Restyled every component and page; all routes → HTTP 200.
+
 <!-- Next steps logged below as they happen -->
 
 ## Next up (blocked on you)
