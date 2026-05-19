@@ -32,12 +32,11 @@ const TABS: { label: string; href: string; icon: React.ReactNode }[] = [
   },
 ];
 
-// Material-style bottom navigation.
 export function MobileTabBar() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 bg-surface shadow-[0_-1px_3px_rgba(60,64,67,0.15)] md:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-data bg-paper md:hidden">
       <div className="mx-auto flex max-w-md">
         {TABS.map((t) => {
           const active =
@@ -46,8 +45,8 @@ export function MobileTabBar() {
             <Link
               key={t.href}
               href={t.href}
-              className={`flex flex-1 flex-col items-center gap-1 py-2 text-[10px] font-medium ${
-                active ? "text-primary" : "text-muted"
+              className={`flex flex-1 flex-col items-center gap-1 py-2.5 text-[9px] font-semibold uppercase tracking-[0.07em] ${
+                active ? "text-ink" : "text-slate/55"
               }`}
             >
               <svg
@@ -57,7 +56,7 @@ export function MobileTabBar() {
                 strokeWidth="1.8"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-6 w-6"
+                className="h-[22px] w-[22px]"
               >
                 {t.icon}
               </svg>

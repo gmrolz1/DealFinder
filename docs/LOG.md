@@ -115,6 +115,14 @@ Chronological record of every step taken. Newest at the bottom.
 - Name back to "DealFinder"; logo mark kept (blue). Facebook link kept.
 - Restyled every component and page; all routes → HTTP 200.
 
+### Step 19 — Brand kit applied in light layout
+- Per request: keep brand palette + Magnetik font + brand concepts,
+  but on a light/bright background. Name stays "DealFinder".
+- Restored Magnetik (`next/font/local`); brand tokens
+  (ink/paper/slate/data/taupe) in a light layout — white background,
+  black text, black square CTAs, glitch headline.
+- Restyled every component and page; all routes → HTTP 200.
+
 <!-- Next steps logged below as they happen -->
 
 ## Next up (blocked on you)

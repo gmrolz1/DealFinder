@@ -1,23 +1,21 @@
 @import "tailwindcss";
 
-/* DealFinder — bright Material light theme */
+/* Brand palette — light layout (paper background, ink text) */
 @theme {
-  --color-canvas: #f8f9fa;
-  --color-surface: #ffffff;
-  --color-ink: #202124;
-  --color-muted: #5f6368;
-  --color-hairline: #dadce0;
-  --color-primary: #1a73e8;
-  --color-primary-dark: #1765cc;
-  --color-primary-soft: #e8f0fe;
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-slate: #474747;
+  --color-data: #d9d9d9;
+  --color-taupe: #6f5e57;
 
-  --font-sans: var(--font-roboto), Roboto, Arial, sans-serif;
+  --font-sans: var(--font-magnetik), "Inter", "Helvetica Neue", Arial,
+    sans-serif;
 }
 
 html,
 body {
   background: #ffffff;
-  color: #202124;
+  color: #000000;
 }
 
 body {
@@ -31,4 +29,36 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* ---- Glitch (signature move) — one element per screen, B/W only ---- */
+.glitch {
+  position: relative;
+  text-shadow: 2px 0 var(--color-data), -2px 0 var(--color-slate);
+  animation: glitch 3.2s infinite steps(2, end);
+}
+@keyframes glitch {
+  0%,
+  92%,
+  100% {
+    text-shadow: 2px 0 var(--color-data), -2px 0 var(--color-slate);
+    transform: translate(0, 0);
+  }
+  93% {
+    text-shadow: 3px 0 var(--color-data), -3px 0 var(--color-slate);
+    transform: translate(-1px, 0);
+  }
+  95% {
+    text-shadow: -2px 0 var(--color-data), 2px 0 var(--color-slate);
+    transform: translate(1px, 0);
+  }
+  97% {
+    text-shadow: 4px 0 var(--color-data), -4px 0 var(--color-slate);
+    transform: translate(-1px, 1px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glitch {
+    animation: none;
+  }
 }

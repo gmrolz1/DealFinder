@@ -27,15 +27,15 @@ export default async function CompoundPage({
       : compound.min_price;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-      <nav className="text-[12px] text-muted">
-        <Link href="/properties" className="hover:text-primary">
+    <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6">
+      <nav className="text-[10px] font-semibold uppercase tracking-[0.08em] text-taupe">
+        <Link href="/properties" className="hover:text-ink">
           Properties
         </Link>
         {areaName && <span> / {areaName}</span>}
       </nav>
 
-      <div className="mt-3 aspect-[16/9] overflow-hidden rounded-2xl bg-canvas sm:aspect-[16/7]">
+      <div className="mt-3 aspect-[16/9] overflow-hidden border border-data bg-data sm:aspect-[16/7]">
         {compound.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -44,24 +44,26 @@ export default async function CompoundPage({
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="grid h-full place-items-center text-muted">
+          <div className="grid h-full place-items-center text-[12px] uppercase tracking-[0.08em] text-slate">
             No image
           </div>
         )}
       </div>
 
-      <div className="mt-5 flex flex-wrap items-end justify-between gap-3">
+      <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-[26px] font-black tracking-tight text-ink sm:text-[32px]">
+          <h1 className="text-[26px] font-extrabold uppercase tracking-tight text-ink sm:text-[34px]">
             {compound.name}
           </h1>
-          <p className="mt-1 text-[14px] text-muted">
+          <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-taupe">
             {[areaName, developer?.name].filter(Boolean).join(" · ")}
           </p>
         </div>
-        <div className="rounded-xl bg-primary-soft px-4 py-2.5">
-          <p className="text-[11px] text-muted">Starting from</p>
-          <p className="text-[18px] font-black tracking-tight text-primary">
+        <div className="border border-data px-5 py-3">
+          <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-taupe">
+            Starting From
+          </p>
+          <p className="mt-0.5 text-[20px] font-black tracking-tight text-ink">
             {formatPrice(minPrice === Infinity ? null : minPrice)}
           </p>
         </div>
@@ -72,7 +74,7 @@ export default async function CompoundPage({
           {compound.property_types.map((t) => (
             <span
               key={t}
-              className="rounded-full border border-hairline px-3.5 py-1.5 text-[12px] font-medium text-ink"
+              className="border border-data px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.07em] text-slate"
             >
               {t}
             </span>
@@ -83,23 +85,23 @@ export default async function CompoundPage({
       {developer && (
         <Link
           href={`/developers/${developer.slug}`}
-          className="mt-4 inline-block text-[13px] font-medium text-primary hover:underline"
+          className="mt-4 inline-block text-[11px] font-bold uppercase tracking-[0.08em] text-slate hover:text-ink"
         >
-          View all projects by {developer.name} →
+          All projects by {developer.name} →
         </Link>
       )}
 
-      <section className="mt-8">
-        <h2 className="text-[20px] font-bold tracking-tight text-ink">
-          {formatNumber(units.length)} available{" "}
-          {units.length === 1 ? "home" : "homes"}
+      <section className="mt-9">
+        <h2 className="text-[18px] font-bold uppercase tracking-tight text-ink">
+          {formatNumber(units.length)} Available{" "}
+          {units.length === 1 ? "Home" : "Homes"}
         </h2>
         {units.length === 0 ? (
-          <p className="mt-3 rounded-xl bg-canvas py-12 text-center text-[14px] text-muted">
-            No primary units currently listed in this compound.
+          <p className="mt-4 border border-data py-12 text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-slate">
+            No primary units currently listed in this compound
           </p>
         ) : (
-          <div className="mt-4 grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-4">
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {units.map((u) => (
               <PropertyCard key={u.nawy_id} unit={u} />
             ))}

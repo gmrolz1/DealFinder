@@ -12,9 +12,9 @@ export function CompoundCard({
   return (
     <Link
       href={`/compounds/${compound.slug}`}
-      className="group block overflow-hidden rounded-xl bg-surface shadow-[0_1px_2px_rgba(60,64,67,0.2)] transition hover:shadow-[0_2px_8px_rgba(60,64,67,0.28)]"
+      className="group block overflow-hidden border border-data bg-paper transition hover:border-ink"
     >
-      <div className="relative aspect-[5/3] overflow-hidden bg-canvas">
+      <div className="relative aspect-[5/3] overflow-hidden bg-data">
         {compound.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -24,19 +24,21 @@ export function CompoundCard({
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="grid h-full place-items-center text-[13px] text-muted">
+          <div className="grid h-full place-items-center text-[11px] uppercase tracking-[0.08em] text-slate">
             No image
           </div>
         )}
       </div>
       <div className="p-3.5">
-        <p className="truncate text-[15px] font-bold tracking-tight text-ink">
+        <p className="truncate text-[14px] font-bold uppercase tracking-[0.02em] text-ink">
           {compound.name}
         </p>
         {subtitle && (
-          <p className="truncate text-[12px] text-muted">{subtitle}</p>
+          <p className="truncate text-[10px] font-medium uppercase tracking-[0.07em] text-taupe">
+            {subtitle}
+          </p>
         )}
-        <p className="mt-1 text-[12px] font-medium text-primary">
+        <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.07em] text-slate">
           {formatNumber(compound.available)} homes available
         </p>
       </div>
