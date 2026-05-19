@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/wordmark";
+import { BrandIcon } from "@/components/brand-icon";
 
 const FACEBOOK = "https://www.facebook.com/profile.php?id=61552295002435";
 
@@ -9,7 +10,10 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div>
-            <Wordmark className="text-[17px]" />
+            <span className="flex items-center gap-2">
+              <BrandIcon className="h-[19px] w-[19px] text-ink" />
+              <Wordmark className="text-[17px]" />
+            </span>
             <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-slate">
               Egypt&apos;s property marketplace — primary homes from trusted
               developers.

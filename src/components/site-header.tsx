@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/wordmark";
+import { BrandIcon } from "@/components/brand-icon";
 
 const NAV: [string, string][] = [
   ["Properties", "/properties"],
@@ -12,7 +13,8 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-data bg-paper">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center gap-2">
+          <BrandIcon className="h-[21px] w-[21px] text-ink" />
           <Wordmark className="text-[18px]" />
         </Link>
 
