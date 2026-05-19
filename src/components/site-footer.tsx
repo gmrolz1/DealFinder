@@ -11,7 +11,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div>
             <span className="flex items-center gap-2">
-              <BrandIcon className="h-[19px] w-[19px] text-ink" />
+              <BrandIcon className="h-[16px] w-auto text-ink" />
               <Wordmark className="text-[17px]" />
             </span>
             <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-slate">
