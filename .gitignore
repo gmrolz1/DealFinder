@@ -40,8 +40,16 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# scraper — derived data & temp files (not committed; load straight to DB)
+# scraper — temp files & raw scrape (not committed)
 /.tmp/
-/scraper/data/
 /scraper/scrape.log
 /dev.log
+/nawy data/
+
+# scraper/data — commit only the 4 JSON files the app reads at runtime;
+# keep backups, dev-id lists and the heavy detail scrape out of git.
+/scraper/data/*
+!/scraper/data/areas.json
+!/scraper/data/developers.json
+!/scraper/data/compounds.json
+!/scraper/data/units.json

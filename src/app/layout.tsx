@@ -6,6 +6,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { MobileTabBar } from "@/components/mobile-tabbar";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+  ),
   title: "DealFinder — Egypt Property Marketplace",
   description:
     "Browse primary apartments, villas and chalets from trusted developers across Egypt.",

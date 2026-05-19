@@ -23,8 +23,22 @@ create table if not exists developers (
   min_price        numeric,
   compounds_count  int,
   properties_count int,
+  established_year int,
+  areas            text[],
+  about            text,           -- generated, not scraped
+  faqs             jsonb,          -- generated Q&A: [{q,a}, ...]
+  meta_title       text,
+  meta_description text,
   created_at       timestamptz default now()
 );
+
+-- Adds the developer-landing-page columns to an existing table.
+alter table developers add column if not exists established_year int;
+alter table developers add column if not exists areas            text[];
+alter table developers add column if not exists about            text;
+alter table developers add column if not exists faqs             jsonb;
+alter table developers add column if not exists meta_title       text;
+alter table developers add column if not exists meta_description text;
 
 -- ── compounds ──────────────────────────────────────────────────────────
 create table if not exists compounds (

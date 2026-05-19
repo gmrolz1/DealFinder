@@ -1,0 +1,338 @@
+[
+ {
+  "nawy_id": 34,
+  "name": "New Zayed",
+  "image_url": null,
+  "compounds_count": 44,
+  "properties_count": 1506,
+  "slug": "new-zayed"
+ },
+ {
+  "nawy_id": 133,
+  "name": "6th settlement",
+  "image_url": null,
+  "compounds_count": 32,
+  "properties_count": 998,
+  "slug": "6th-settlement"
+ },
+ {
+  "nawy_id": 15,
+  "name": "Mostakbal City",
+  "image_url": null,
+  "compounds_count": 49,
+  "properties_count": 1969,
+  "slug": "mostakbal-city"
+ },
+ {
+  "nawy_id": 5,
+  "name": "New Cairo",
+  "image_url": null,
+  "compounds_count": 250,
+  "properties_count": 4522,
+  "slug": "new-cairo"
+ },
+ {
+  "nawy_id": 12,
+  "name": "6th of October City",
+  "image_url": null,
+  "compounds_count": 116,
+  "properties_count": 1753,
+  "slug": "6th-of-october-city"
+ },
+ {
+  "nawy_id": 21,
+  "name": "El Sheikh Zayed",
+  "image_url": null,
+  "compounds_count": 71,
+  "properties_count": 903,
+  "slug": "el-sheikh-zayed"
+ },
+ {
+  "nawy_id": 36,
+  "name": "October Gardens",
+  "image_url": null,
+  "compounds_count": 29,
+  "properties_count": 1037,
+  "slug": "october-gardens"
+ },
+ {
+  "nawy_id": 26,
+  "name": "Ras El Hekma",
+  "image_url": null,
+  "compounds_count": 94,
+  "properties_count": 1523,
+  "slug": "ras-el-hekma"
+ },
+ {
+  "nawy_id": 27,
+  "name": "Sidi Heneish",
+  "image_url": null,
+  "compounds_count": 17,
+  "properties_count": 202,
+  "slug": "sidi-heneish"
+ },
+ {
+  "nawy_id": 28,
+  "name": "Al Dabaa",
+  "image_url": null,
+  "compounds_count": 17,
+  "properties_count": 200,
+  "slug": "al-dabaa"
+ },
+ {
+  "nawy_id": 11,
+  "name": "New Heliopolis",
+  "image_url": null,
+  "compounds_count": 10,
+  "properties_count": 1391,
+  "slug": "new-heliopolis"
+ },
+ {
+  "nawy_id": 29,
+  "name": "Sidi Abdel Rahman",
+  "image_url": null,
+  "compounds_count": 23,
+  "properties_count": 715,
+  "slug": "sidi-abdel-rahman"
+ },
+ {
+  "nawy_id": 35,
+  "name": "Northern Expansion",
+  "image_url": null,
+  "compounds_count": 30,
+  "properties_count": 637,
+  "slug": "northern-expansion"
+ },
+ {
+  "nawy_id": 7,
+  "name": "El Shorouk",
+  "image_url": null,
+  "compounds_count": 15,
+  "properties_count": 50,
+  "slug": "el-shorouk"
+ },
+ {
+  "nawy_id": 101,
+  "name": "South New Cairo",
+  "image_url": null,
+  "compounds_count": 5,
+  "properties_count": 29,
+  "slug": "south-new-cairo"
+ },
+ {
+  "nawy_id": 202,
+  "name": "Golden Square",
+  "image_url": null,
+  "compounds_count": 11,
+  "properties_count": 41,
+  "slug": "golden-square"
+ },
+ {
+  "nawy_id": 14,
+  "name": "Ain Sokhna",
+  "image_url": null,
+  "compounds_count": 56,
+  "properties_count": 883,
+  "slug": "ain-sokhna"
+ },
+ {
+  "nawy_id": 16,
+  "name": "New Capital City",
+  "image_url": null,
+  "compounds_count": 154,
+  "properties_count": 4744,
+  "slug": "new-capital-city"
+ },
+ {
+  "nawy_id": 100,
+  "name": "New Sphinx",
+  "image_url": null,
+  "compounds_count": 2,
+  "properties_count": 58,
+  "slug": "new-sphinx"
+ },
+ {
+  "nawy_id": 32,
+  "name": "North Coast-Sahel",
+  "image_url": null,
+  "compounds_count": 32,
+  "properties_count": 74,
+  "slug": "north-coast-sahel"
+ },
+ {
+  "nawy_id": 8000000,
+  "name": "Madinaty",
+  "image_url": null,
+  "compounds_count": 2,
+  "properties_count": 0,
+  "slug": "madinaty"
+ },
+ {
+  "nawy_id": 20,
+  "name": "Mokattam",
+  "image_url": null,
+  "compounds_count": 2,
+  "properties_count": 1,
+  "slug": "mokattam"
+ },
+ {
+  "nawy_id": 201,
+  "name": "North Investors",
+  "image_url": null,
+  "compounds_count": 17,
+  "properties_count": 54,
+  "slug": "north-investors"
+ },
+ {
+  "nawy_id": 3,
+  "name": "Sahl Hasheesh",
+  "image_url": null,
+  "compounds_count": 6,
+  "properties_count": 6,
+  "slug": "sahl-hasheesh"
+ },
+ {
+  "nawy_id": 8,
+  "name": "El Gouna",
+  "image_url": null,
+  "compounds_count": 14,
+  "properties_count": 51,
+  "slug": "el-gouna"
+ },
+ {
+  "nawy_id": 9,
+  "name": "Somabay",
+  "image_url": null,
+  "compounds_count": 20,
+  "properties_count": 523,
+  "slug": "somabay"
+ },
+ {
+  "nawy_id": 19,
+  "name": "Maadi",
+  "image_url": null,
+  "compounds_count": 5,
+  "properties_count": 63,
+  "slug": "maadi"
+ },
+ {
+  "nawy_id": 33,
+  "name": "Al Alamein",
+  "image_url": null,
+  "compounds_count": 18,
+  "properties_count": 2145,
+  "slug": "al-alamein"
+ },
+ {
+  "nawy_id": 4,
+  "name": "Hurghada",
+  "image_url": null,
+  "compounds_count": 5,
+  "properties_count": 30,
+  "slug": "hurghada"
+ },
+ {
+  "nawy_id": 30,
+  "name": "Ghazala Bay",
+  "image_url": null,
+  "compounds_count": 2,
+  "properties_count": 22,
+  "slug": "ghazala-bay"
+ },
+ {
+  "nawy_id": 234,
+  "name": "Downtown Cairo",
+  "image_url": null,
+  "compounds_count": 3,
+  "properties_count": 18,
+  "slug": "downtown-cairo"
+ },
+ {
+  "nawy_id": 17,
+  "name": "Ras Sudr",
+  "image_url": null,
+  "compounds_count": 4,
+  "properties_count": 265,
+  "slug": "ras-sudr"
+ },
+ {
+  "nawy_id": 10,
+  "name": "Alexandria",
+  "image_url": null,
+  "compounds_count": 2,
+  "properties_count": 41,
+  "slug": "alexandria"
+ },
+ {
+  "nawy_id": 167,
+  "name": "Makadi",
+  "image_url": null,
+  "compounds_count": 2,
+  "properties_count": 26,
+  "slug": "makadi"
+ },
+ {
+  "nawy_id": 199,
+  "name": "El Lotus",
+  "image_url": null,
+  "compounds_count": 9,
+  "properties_count": 367,
+  "slug": "el-lotus"
+ },
+ {
+  "nawy_id": 232,
+  "name": "South Investors",
+  "image_url": null,
+  "compounds_count": 10,
+  "properties_count": 69,
+  "slug": "south-investors"
+ },
+ {
+  "nawy_id": 8000001,
+  "name": "Port Said",
+  "image_url": null,
+  "compounds_count": 1,
+  "properties_count": 0,
+  "slug": "port-said"
+ },
+ {
+  "nawy_id": 233,
+  "name": "Old Cairo",
+  "image_url": null,
+  "compounds_count": 1,
+  "properties_count": 3,
+  "slug": "old-cairo"
+ },
+ {
+  "nawy_id": 235,
+  "name": "Heliopolis",
+  "image_url": null,
+  "compounds_count": 2,
+  "properties_count": 16,
+  "slug": "heliopolis"
+ },
+ {
+  "nawy_id": 23,
+  "name": "Central Cairo",
+  "image_url": null,
+  "compounds_count": 3,
+  "properties_count": 1,
+  "slug": "central-cairo"
+ },
+ {
+  "nawy_id": 200,
+  "name": "El Choueifat",
+  "image_url": null,
+  "compounds_count": 3,
+  "properties_count": 32,
+  "slug": "el-choueifat"
+ },
+ {
+  "nawy_id": 8000002,
+  "name": "New Capital Gardens",
+  "image_url": null,
+  "compounds_count": 1,
+  "properties_count": 0,
+  "slug": "new-capital-gardens"
+ }
+]

@@ -41,6 +41,17 @@ function dedupe(rows) {
   return [...m.values()];
 }
 
+// Delete every row in a table. Used for a clean replace so stale rows
+// (old-scrape ids that no longer exist) don't linger as orphans.
+async function wipe(table) {
+  const { error } = await db.from(table).delete().gte("nawy_id", 0);
+  if (error) {
+    console.error(`  wipe ${table}: ${error.message}`);
+    process.exit(1);
+  }
+  console.log(`  wiped ${table}`);
+}
+
 async function upsertAll(table, rows) {
   rows = dedupe(rows);
   const CHUNK = 500;
@@ -68,8 +79,17 @@ async function main() {
     slug: slugify(c.slug),
   }));
   const units = read("units")
-    .filter((u) => u.sale_type === "developer_sale")
+    .filter((u) => u.sale_type === "primary")
     .map((u) => ({ ...u, slug: slugify(u.slug) }));
+
+  // Clean replace: wipe stale rows first (env REPLACE=1, default on).
+  if (process.env.REPLACE !== "0") {
+    console.log("Wiping existing rows (clean replace)...");
+    await wipe("units");
+    await wipe("compounds");
+    await wipe("developers");
+    await wipe("areas");
+  }
 
   console.log("Loading into Supabase...");
   await upsertAll("areas", areas);

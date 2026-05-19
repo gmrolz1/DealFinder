@@ -10,7 +10,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const DATA_DIR = path.join(process.cwd(), "scraper", "data");
-const ALLOWED_SALE_TYPES = new Set(["developer_sale"]);
+const ALLOWED_SALE_TYPES = new Set(["primary"]);
 
 function loadFile<T>(name: string): T[] {
   try {
@@ -52,6 +52,12 @@ export type Developer = {
   min_price: number | null;
   compounds_count: number | null;
   properties_count: number | null;
+  established_year: number | null;
+  areas: string[];
+  about: string | null;
+  faqs: { q: string; a: string }[];
+  meta_title: string | null;
+  meta_description: string | null;
 };
 
 export type Compound = {
@@ -307,6 +313,12 @@ export function getUnitBySlug(slug: string): EnrichedUnit | null {
 export function getUnitsByCompound(compoundId: number): EnrichedUnit[] {
   return store()
     .units.filter((u) => u.compound_nawy_id === compoundId)
+    .map(enrich);
+}
+
+export function getUnitsByDeveloper(devId: number): EnrichedUnit[] {
+  return store()
+    .units.filter((u) => u.developer_nawy_id === devId)
     .map(enrich);
 }
 

@@ -2,10 +2,15 @@ import Link from "next/link";
 import { getDevelopersWithCounts } from "@/lib/data";
 import { formatNumber } from "@/lib/format";
 
-export const metadata = { title: "Developers — DealFinder" };
+export const metadata = {
+  title: "Real Estate Developers in Egypt — DealFinder",
+  description:
+    "Browse every real estate developer in Egypt. Compare projects, prices and available properties, and request a callback on DealFinder.",
+};
 
 export default function DevelopersPage() {
-  const developers = getDevelopersWithCounts().filter((d) => d.available > 0);
+  const developers = getDevelopersWithCounts();
+  const withInventory = developers.filter((d) => d.available > 0).length;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
@@ -13,7 +18,8 @@ export default function DevelopersPage() {
         Developers
       </h1>
       <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.08em] text-taupe">
-        {developers.length} developers with available homes
+        {formatNumber(developers.length)} developers ·{" "}
+        {formatNumber(withInventory)} with available homes
       </p>
 
       <div className="mt-6 grid grid-cols-1 border-l border-t border-data sm:grid-cols-2 lg:grid-cols-3">
@@ -43,7 +49,9 @@ export default function DevelopersPage() {
                 {d.name}
               </p>
               <p className="text-[10px] font-semibold uppercase tracking-[0.07em] text-taupe">
-                {formatNumber(d.available)} homes available
+                {d.available > 0
+                  ? `${formatNumber(d.available)} homes available`
+                  : "View developer profile"}
               </p>
             </div>
           </Link>
