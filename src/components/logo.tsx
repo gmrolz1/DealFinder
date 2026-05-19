@@ -1,18 +1,18 @@
-// DealFinder logomark — bold "Z" monogram, point-symmetric.
+// The Deal Maker logomark — official icon geometry (two polygons).
+// Source: "The Deal Maker Compiled file/LOGO FILE/SVG/ICON BLACK.svg".
 // Uses currentColor so it inherits text colour (dark on light, light on dark).
 
 export function Logo({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 64 64"
+      viewBox="0 0 427 292.28"
       className={className}
       role="img"
-      aria-label="DealFinder"
+      aria-label="The Deal Maker"
+      fill="currentColor"
     >
-      <path
-        fill="currentColor"
-        d="M20 12 L52 12 L52 24 L40 40 L52 40 L44 52 L12 52 L12 40 L24 24 L12 24 Z"
-      />
+      <polygon points="427 84.39 427 174.67 323.83 174.67 212.53 292.28 154.76 222.13 199.64 174.67 285.14 84.39 427 84.39" />
+      <polygon points="0 207.89 0 117.62 103.17 117.62 214.47 0 272.24 70.16 227.36 117.62 141.86 207.89 0 207.89" />
     </svg>
   );
 }

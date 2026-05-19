@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-6 sm:flex-row sm:justify-between">
           <div>
             <span className="flex items-center gap-2">
-              <Logo className="h-5 w-5 text-ink" />
+              <Logo className="h-[15px] w-auto text-ink" />
               <span className="text-[15px] font-semibold tracking-tight text-ink">
                 DealFinder
               </span>
