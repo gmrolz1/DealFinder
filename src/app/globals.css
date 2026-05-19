@@ -1,36 +1,65 @@
 @import "tailwindcss";
 
-/* Apple HIG-inspired design tokens */
+/* The Deal Maker — brand tokens */
 @theme {
-  --color-canvas: #f5f5f7;
-  --color-surface: #ffffff;
-  --color-ink: #1d1d1f;
-  --color-ink-soft: #6e6e73;
-  --color-ink-faint: #86868b;
-  --color-blue: #0071e3;
-  --color-blue-hover: #0077ed;
-  --color-hairline: #d2d2d7;
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-slate: #474747;
+  --color-data: #d9d9d9;
+  --color-taupe: #6f5e57;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-magnetik), "Inter", "Helvetica Neue", Arial,
+    sans-serif;
 }
 
 html,
 body {
-  background: var(--color-surface);
-  color: var(--color-ink);
-  -webkit-font-smoothing: antialiased;
+  background: #000000;
+  color: #ffffff;
 }
 
 body {
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* hide scrollbars on horizontal scrollers */
+/* horizontal scrollers */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* ---- Glitch (signature move) — one element per screen, B/W only ---- */
+.glitch {
+  position: relative;
+  text-shadow: 2px 0 var(--color-data), -2px 0 var(--color-slate);
+  animation: glitch 3.2s infinite steps(2, end);
+}
+@keyframes glitch {
+  0%,
+  92%,
+  100% {
+    text-shadow: 2px 0 var(--color-data), -2px 0 var(--color-slate);
+    transform: translate(0, 0);
+  }
+  93% {
+    text-shadow: 3px 0 var(--color-data), -3px 0 var(--color-slate);
+    transform: translate(-1px, 0);
+  }
+  95% {
+    text-shadow: -2px 0 var(--color-data), 2px 0 var(--color-slate);
+    transform: translate(1px, 0);
+  }
+  97% {
+    text-shadow: 4px 0 var(--color-data), -4px 0 var(--color-slate);
+    transform: translate(-1px, 1px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glitch {
+    animation: none;
+  }
 }

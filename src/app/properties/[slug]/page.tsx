@@ -45,30 +45,30 @@ export default async function PropertyPage({
     ["Bathrooms", String(unit.bathrooms ?? "—")],
     ["Area", unit.area_sqm ? `${unit.area_sqm} m²` : "—"],
     ["Finishing", unit.finishing ?? "—"],
-    ["Ready by", formatReadyBy(unit.ready_by)],
+    ["Ready By", formatReadyBy(unit.ready_by)],
     ["Installments", unit.installment_years ? `${unit.installment_years} yrs` : "—"],
     ["Developer", unit.developerName ?? "—"],
   ];
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-      <nav className="text-[12px] text-ink-soft">
-        <Link href="/properties" className="hover:text-ink">
+    <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6">
+      <nav className="text-[10px] font-semibold uppercase tracking-[0.08em] text-taupe">
+        <Link href="/properties" className="hover:text-paper">
           Properties
         </Link>
         {unit.areaSlug && (
           <>
             {" / "}
-            <Link href={`/areas/${unit.areaSlug}`} className="hover:text-ink">
+            <Link href={`/areas/${unit.areaSlug}`} className="hover:text-paper">
               {unit.areaName}
             </Link>
           </>
         )}
       </nav>
 
-      <div className="mt-3 grid gap-7 lg:grid-cols-[1.7fr_1fr]">
+      <div className="mt-4 grid gap-7 lg:grid-cols-[1.7fr_1fr]">
         <div>
-          <div className="aspect-[16/10] overflow-hidden rounded-3xl bg-canvas">
+          <div className="aspect-[16/10] overflow-hidden border border-slate bg-slate">
             {unit.image_url ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -77,75 +77,81 @@ export default async function PropertyPage({
                 className="h-full w-full object-cover"
               />
             ) : (
-              <div className="grid h-full place-items-center text-ink-faint">
+              <div className="grid h-full place-items-center text-[12px] uppercase tracking-[0.08em] text-data/60">
                 No image
               </div>
             )}
           </div>
 
-          <h1 className="mt-5 text-[24px] font-semibold tracking-tight text-ink sm:text-[28px]">
+          <h1 className="mt-6 text-[24px] font-extrabold uppercase tracking-tight text-paper sm:text-[30px]">
             {unit.title}
           </h1>
           {unit.compoundSlug ? (
             <Link
               href={`/compounds/${unit.compoundSlug}`}
-              className="mt-1 inline-block text-[14px] text-blue hover:underline"
+              className="mt-1 inline-block text-[12px] font-semibold uppercase tracking-[0.07em] text-data hover:text-paper"
             >
               {unit.compoundName} · {unit.areaName}
             </Link>
           ) : (
-            <p className="mt-1 text-[14px] text-ink-soft">{unit.areaName}</p>
+            <p className="mt-1 text-[12px] uppercase tracking-[0.07em] text-data">
+              {unit.areaName}
+            </p>
           )}
 
-          <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+          <div className="mt-6 grid grid-cols-2 border-l border-t border-slate sm:grid-cols-4">
             {specs.map(([k, v]) => (
-              <div key={k} className="rounded-2xl bg-canvas p-3">
-                <p className="text-[11px] text-ink-faint">{k}</p>
-                <p className="mt-0.5 truncate text-[14px] font-medium capitalize text-ink">
+              <div key={k} className="border-b border-r border-slate p-3.5">
+                <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-taupe">
+                  {k}
+                </p>
+                <p className="mt-1 truncate text-[13px] font-bold capitalize text-paper">
                   {v}
                 </p>
               </div>
             ))}
           </div>
 
-          <h2 className="mt-7 text-[18px] font-semibold tracking-tight text-ink">
+          <h2 className="mt-8 text-[16px] font-bold uppercase tracking-tight text-paper">
             Overview
           </h2>
-          <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+          <p className="mt-2 text-[15px] leading-relaxed text-data">
             {describe(unit)}
           </p>
         </div>
 
         {/* Sidebar */}
-        <aside className="lg:sticky lg:top-16 lg:self-start">
-          <div className="rounded-3xl bg-canvas p-6">
-            <p className="text-[13px] text-ink-soft">Price</p>
-            <p className="text-[30px] font-semibold tracking-tight text-ink">
+        <aside className="lg:sticky lg:top-20 lg:self-start">
+          <div className="border border-slate p-6">
+            <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-taupe">
+              Price
+            </p>
+            <p className="mt-1 text-[30px] font-black tracking-tight text-paper">
               {formatFull(unit.price, unit.currency)}
             </p>
             {unit.down_payment ? (
-              <p className="mt-1 text-[13px] text-ink-soft">
+              <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.06em] text-data">
                 From {formatFull(unit.down_payment, unit.currency)} down
               </p>
             ) : null}
 
-            <div className="mt-5 space-y-2.5">
+            <div className="mt-6 space-y-2.5">
               <input
                 placeholder="Your name"
-                className="w-full rounded-full bg-surface px-4 py-2.5 text-[14px] outline-none ring-1 ring-hairline focus:ring-blue"
+                className="w-full border border-slate bg-ink px-4 py-2.5 text-[13px] text-paper outline-none placeholder:text-data/50 focus:border-paper"
               />
               <input
                 placeholder="Phone number"
-                className="w-full rounded-full bg-surface px-4 py-2.5 text-[14px] outline-none ring-1 ring-hairline focus:ring-blue"
+                className="w-full border border-slate bg-ink px-4 py-2.5 text-[13px] text-paper outline-none placeholder:text-data/50 focus:border-paper"
               />
               <button
                 type="button"
-                className="w-full rounded-full bg-blue px-4 py-2.5 text-[14px] font-medium text-white transition hover:bg-blue-hover"
+                className="w-full bg-paper px-4 py-3 text-[12px] font-bold uppercase tracking-[0.08em] text-ink transition hover:bg-data"
               >
-                Request a call back
+                Request a Callback
               </button>
             </div>
-            <p className="mt-3 text-[11px] text-ink-faint">
+            <p className="mt-3 text-[10px] uppercase tracking-[0.07em] text-taupe">
               Lead capture activates once the database is connected.
             </p>
           </div>
@@ -153,11 +159,11 @@ export default async function PropertyPage({
       </div>
 
       {similar.length > 0 && (
-        <section className="mt-12">
-          <h2 className="text-[20px] font-semibold tracking-tight text-ink">
+        <section className="mt-14">
+          <h2 className="text-[18px] font-bold uppercase tracking-tight text-paper">
             More in {unit.areaName ?? "this area"}
           </h2>
-          <div className="mt-4 grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-4">
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {similar.map((u) => (
               <PropertyCard key={u.nawy_id} unit={u} />
             ))}

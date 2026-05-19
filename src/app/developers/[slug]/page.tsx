@@ -20,49 +20,47 @@ export default async function DeveloperPage({
   if (!dev) notFound();
 
   const compounds = getCompoundsByDeveloper(dev.nawy_id);
-  const { results, total } = searchUnits({
-    developer: String(dev.nawy_id),
-  });
+  const { results, total } = searchUnits({ developer: String(dev.nawy_id) });
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6">
-      <nav className="text-[12px] text-ink-soft">
-        <Link href="/developers" className="hover:text-ink">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <nav className="text-[10px] font-semibold uppercase tracking-[0.08em] text-taupe">
+        <Link href="/developers" className="hover:text-paper">
           Developers
         </Link>
       </nav>
 
       <div className="mt-3 flex items-center gap-4">
-        <div className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-2xl bg-canvas">
+        <div className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden border border-slate bg-paper">
           {dev.logo_url ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={dev.logo_url}
               alt={dev.name}
-              className="h-full w-full object-contain"
+              className="h-full w-full object-contain p-1.5"
             />
           ) : (
-            <span className="text-[22px] font-semibold text-ink-faint">
+            <span className="text-[22px] font-extrabold text-ink">
               {dev.name.charAt(0)}
             </span>
           )}
         </div>
         <div>
-          <h1 className="text-[24px] font-semibold tracking-tight text-ink sm:text-[30px]">
+          <h1 className="text-[24px] font-extrabold uppercase tracking-tight text-paper sm:text-[32px]">
             {dev.name}
           </h1>
-          <p className="text-[14px] text-ink-soft">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-taupe">
             {formatNumber(total)} homes · {compounds.length} compounds
           </p>
         </div>
       </div>
 
       {compounds.length > 0 && (
-        <section className="mt-8">
-          <h2 className="text-[20px] font-semibold tracking-tight text-ink">
+        <section className="mt-9">
+          <h2 className="text-[18px] font-bold uppercase tracking-tight text-paper">
             Compounds by {dev.name}
           </h2>
-          <div className="mt-4 grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-4">
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {compounds.slice(0, 8).map((c) => (
               <CompoundCard
                 key={c.nawy_id}
@@ -74,19 +72,19 @@ export default async function DeveloperPage({
         </section>
       )}
 
-      <section className="mt-9">
+      <section className="mt-10">
         <div className="flex items-end justify-between">
-          <h2 className="text-[20px] font-semibold tracking-tight text-ink">
-            Available homes
+          <h2 className="text-[18px] font-bold uppercase tracking-tight text-paper">
+            Available Homes
           </h2>
           <Link
             href={`/properties?developer=${dev.nawy_id}`}
-            className="text-[13px] font-medium text-blue hover:underline"
+            className="text-[11px] font-bold uppercase tracking-[0.08em] text-data hover:text-paper"
           >
             See all
           </Link>
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-4">
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {results.map((u) => (
             <PropertyCard key={u.nawy_id} unit={u} />
           ))}

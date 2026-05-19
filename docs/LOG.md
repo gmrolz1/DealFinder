@@ -92,6 +92,21 @@ Chronological record of every step taken. Newest at the bottom.
   bumped Node heap to 4 GB via `cross-env` in the dev script.
 - All routes smoke-tested → HTTP 200, no errors.
 
+### Step 17 — Applied The Deal Maker brand + Material Design
+- Loaded the brand system (brand skill): black/white/grey palette,
+  Magnetik typeface, glitch signature, square monolith CTAs.
+- Magnetik fonts copied to `src/fonts/`, wired via `next/font/local`
+  (`src/lib/fonts.ts`).
+- New `globals.css` tokens: ink/paper/slate/data/taupe + glitch keyframes.
+- Switched design language from Apple HIG to Google Material Design
+  patterns (top app bar, bottom navigation, cards, elevation) — skinned
+  in the monolith brand.
+- Restyled every component and page: dark theme, uppercase Magnetik
+  headings, square white CTAs, one glitch headline on the homepage.
+- Site name set to "The Deal Maker"; official logo throughout.
+- Facebook link added to the footer.
+- All routes smoke-tested → HTTP 200, no errors.
+
 <!-- Next steps logged below as they happen -->
 
 ## Next up (blocked on you)

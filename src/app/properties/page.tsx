@@ -46,15 +46,15 @@ export default async function PropertiesPage({
   const areas = getAreas();
   const types = getPropertyTypes();
 
-  const selectCls =
-    "rounded-full bg-canvas px-3.5 py-2 text-[13px] text-ink outline-none ring-1 ring-transparent focus:ring-blue";
+  const field =
+    "border border-slate bg-ink px-3.5 py-2 text-[12px] text-paper outline-none focus:border-paper";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6">
-      <h1 className="text-[28px] font-semibold tracking-tight text-ink sm:text-[34px]">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <h1 className="text-[32px] font-extrabold uppercase tracking-tight text-paper sm:text-[44px]">
         Properties
       </h1>
-      <p className="mt-1 text-[15px] text-ink-soft">
+      <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.08em] text-taupe">
         {formatNumber(total)} primary {total === 1 ? "home" : "homes"}{" "}
         available
       </p>
@@ -62,15 +62,15 @@ export default async function PropertiesPage({
       {/* Filters */}
       <form
         action="/properties"
-        className="no-scrollbar mt-5 flex gap-2 overflow-x-auto pb-1"
+        className="no-scrollbar mt-6 flex gap-2 overflow-x-auto pb-1"
       >
         <input
           name="q"
           defaultValue={sp.q ?? ""}
           placeholder="Search"
-          className={`${selectCls} min-w-[160px]`}
+          className={`${field} min-w-[150px]`}
         />
-        <select name="area" defaultValue={sp.area ?? ""} className={selectCls}>
+        <select name="area" defaultValue={sp.area ?? ""} className={field}>
           <option value="">Area</option>
           {areas.map((a) => (
             <option key={a.nawy_id} value={a.nawy_id}>
@@ -78,7 +78,7 @@ export default async function PropertiesPage({
             </option>
           ))}
         </select>
-        <select name="type" defaultValue={sp.type ?? ""} className={selectCls}>
+        <select name="type" defaultValue={sp.type ?? ""} className={field}>
           <option value="">Type</option>
           {types.map((t) => (
             <option key={t} value={t}>
@@ -86,7 +86,7 @@ export default async function PropertiesPage({
             </option>
           ))}
         </select>
-        <select name="beds" defaultValue={sp.beds ?? ""} className={selectCls}>
+        <select name="beds" defaultValue={sp.beds ?? ""} className={field}>
           <option value="">Beds</option>
           {[1, 2, 3, 4].map((b) => (
             <option key={b} value={b}>
@@ -95,7 +95,7 @@ export default async function PropertiesPage({
           ))}
           <option value="5">5+ beds</option>
         </select>
-        <select name="min" defaultValue={sp.min ?? ""} className={selectCls}>
+        <select name="min" defaultValue={sp.min ?? ""} className={field}>
           <option value="">Min</option>
           {PRICE_OPTS.map(([v, l]) => (
             <option key={v} value={v}>
@@ -103,7 +103,7 @@ export default async function PropertiesPage({
             </option>
           ))}
         </select>
-        <select name="max" defaultValue={sp.max ?? ""} className={selectCls}>
+        <select name="max" defaultValue={sp.max ?? ""} className={field}>
           <option value="">Max</option>
           {PRICE_OPTS.map(([v, l]) => (
             <option key={v} value={v}>
@@ -111,64 +111,62 @@ export default async function PropertiesPage({
             </option>
           ))}
         </select>
-        <select name="sort" defaultValue={sp.sort ?? ""} className={selectCls}>
+        <select name="sort" defaultValue={sp.sort ?? ""} className={field}>
           {SORT_OPTS.map(([v, l]) => (
             <option key={v} value={v}>
               {l}
             </option>
           ))}
         </select>
-        <button className="shrink-0 rounded-full bg-blue px-5 py-2 text-[13px] font-medium text-white transition hover:bg-blue-hover">
+        <button className="shrink-0 bg-paper px-5 py-2 text-[11px] font-bold uppercase tracking-[0.07em] text-ink transition hover:bg-data">
           Apply
         </button>
         <Link
           href="/properties"
-          className="shrink-0 rounded-full px-3 py-2 text-[13px] font-medium text-ink-soft hover:text-ink"
+          className="shrink-0 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.07em] text-data transition hover:text-paper"
         >
           Reset
         </Link>
       </form>
 
-      {/* Results */}
       {results.length === 0 ? (
-        <div className="mt-12 rounded-2xl bg-canvas py-16 text-center text-[15px] text-ink-soft">
-          No properties match these filters.
+        <div className="mt-12 border border-slate py-16 text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-data">
+          No properties match these filters
         </div>
       ) : (
-        <div className="mt-6 grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {results.map((u) => (
             <PropertyCard key={u.nawy_id} unit={u} />
           ))}
         </div>
       )}
 
-      {/* Pagination */}
       {pages > 1 && (
-        <div className="mt-10 flex items-center justify-center gap-3">
+        <div className="mt-12 flex items-center justify-center gap-3">
           {page > 1 ? (
             <Link
               href={qs(sp, { page: String(page - 1) })}
-              className="rounded-full bg-canvas px-5 py-2 text-[13px] font-medium text-ink hover:bg-hairline"
+              className="border border-slate px-5 py-2 text-[11px] font-bold uppercase tracking-[0.07em] text-paper transition hover:border-data"
             >
-              Previous
+              Prev
             </Link>
           ) : (
-            <span className="rounded-full bg-canvas px-5 py-2 text-[13px] text-ink-faint">
-              Previous
+            <span className="border border-slate/40 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.07em] text-slate">
+              Prev
             </span>
           )}
-          <span className="text-[13px] text-ink-soft">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-data">
             {page} / {formatNumber(pages)}
           </span>
           {page < pages ? (
             <Link
               href={qs(sp, { page: String(page + 1) })}
-              className="rounded-full bg-canvas px-5 py-2 text-[13px] font-medium text-ink hover:bg-hairline"
+              className="border border-slate px-5 py-2 text-[11px] font-bold uppercase tracking-[0.07em] text-paper transition hover:border-data"
             >
               Next
             </Link>
           ) : (
-            <span className="rounded-full bg-canvas px-5 py-2 text-[13px] text-ink-faint">
+            <span className="border border-slate/40 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.07em] text-slate">
               Next
             </span>
           )}
