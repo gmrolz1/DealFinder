@@ -86,6 +86,32 @@ function toRecord(d) {
   };
 }
 
+// HEAD-check every logo URL; null the ones nawy doesn't actually serve
+// (some developers have no logo — the URL 403s). The UI falls back to a
+// letter avatar when logo_url is null.
+async function validateLogos(records) {
+  let broken = 0;
+  const CHUNK = 25;
+  for (let i = 0; i < records.length; i += CHUNK) {
+    await Promise.all(
+      records.slice(i, i + CHUNK).map(async (r) => {
+        if (!r.logo_url) return;
+        try {
+          const res = await fetch(r.logo_url, { method: "HEAD" });
+          if (res.status !== 200) {
+            r.logo_url = null;
+            broken++;
+          }
+        } catch {
+          r.logo_url = null;
+          broken++;
+        }
+      })
+    );
+  }
+  console.log(`  logos: ${records.length - broken} ok, ${broken} nulled`);
+}
+
 async function main() {
   console.log(`Scraping ${ids.length} developers...`);
   const results = [];
@@ -119,6 +145,9 @@ async function main() {
       await sleep(200);
     }
   }
+
+  console.log("Validating logo URLs...");
+  await validateLogos(results);
 
   results.sort((a, b) => a.nawy_id - b.nawy_id);
   fs.writeFileSync(
