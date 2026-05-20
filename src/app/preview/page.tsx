@@ -256,7 +256,7 @@ export default function PreviewPage() {
       <Section
         num="04"
         title="AI sales agent · Layla"
-        intent="Every card gets three direct CTAs: AI chat (Layla), tap-to-call, and WhatsApp. Layla matches the visitor's language automatically — open the Arabic card and she replies in Arabic. She knows this exact unit's numbers (injected from Supabase, never hallucinated) and hands off to Ahmed on WhatsApp after 2-3 turns or on buying intent, with the full transcript pre-filled."
+        intent="The primary CTA on every card is a Smart CTA — it rotates through 5 intents (ASK ANYTHING · SEE BETTER ALTERNATIVES · MATCH MY PAYMENT PLAN · WHY IS THIS A DEAL · WHEN CAN I MOVE IN) with multi-directional slide animations, pauses on hover. Tapping any intent opens the chat with that question pre-sent — Layla picks up the lane immediately. Match the visitor's language, never hallucinate numbers, hand off to Ahmed on WhatsApp after 2-3 turns or on buying intent."
       >
         {unitA && (
           <>
@@ -293,6 +293,12 @@ export default function PreviewPage() {
                 Deal opener, not a chatbot
               </h3>
               <ol className="mt-4 grid gap-3 text-[12px] leading-relaxed text-slate sm:grid-cols-2">
+                <li>
+                  <strong className="text-ink">0. Smart rotating CTA.</strong>{" "}
+                  Button cycles through 5 intent prompts with up / right /
+                  left slide animations. Pauses on hover. Tap any intent → chat
+                  opens with that question already sent.
+                </li>
                 <li>
                   <strong className="text-ink">1. Locale auto-match.</strong>{" "}
                   Card on <code>/properties/...</code> → English. Card on{" "}

@@ -62,3 +62,26 @@ body {
     animation: none;
   }
 }
+
+/* ---- Smart CTA — rotating intent label, multi-directional slide-in ---- */
+@keyframes smart-cta-up {
+  from { transform: translateY(110%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes smart-cta-right {
+  from { transform: translateX(-110%); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+@keyframes smart-cta-left {
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+.smart-cta-anim-up    { animation: smart-cta-up    0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.smart-cta-anim-right { animation: smart-cta-right 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.smart-cta-anim-left  { animation: smart-cta-left  0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .smart-cta-anim-up,
+  .smart-cta-anim-right,
+  .smart-cta-anim-left { animation: none; }
+}

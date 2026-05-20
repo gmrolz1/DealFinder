@@ -12,7 +12,7 @@ import { formatPrice } from "@/lib/format";
 import type { EnrichedUnit } from "@/lib/data";
 import { type Locale, localizedPath } from "@/lib/i18n";
 import { Carousel } from "./carousel";
-import { ChatTrigger } from "./chat-trigger";
+import { SmartCTA } from "./smart-cta";
 import {
   monthlyPayment,
   unitDealBadges,
@@ -145,8 +145,8 @@ export function PropertyCardV2({
 
       {/* CTA STACK — 3 direct actions */}
       <div className="border-t border-data">
-        {/* 1. Primary: AI chat */}
-        <ChatTrigger unit={unit} locale={locale} className="w-full border-x-0 border-t-0 border-b border-data" />
+        {/* 1. Primary: AI chat — rotating intent prompts (animated) */}
+        <SmartCTA unit={unit} locale={locale} />
 
         {/* 2 + 3. Call + WhatsApp side by side */}
         <div className="flex">

@@ -18,10 +18,14 @@ export function ChatSheet({
   unit,
   onClose,
   locale = "en",
+  seedMessage,
 }: {
   unit: EnrichedUnit;
   onClose: () => void;
   locale?: Locale;
+  /** Optional first message that's auto-sent as soon as the chat opens
+   * — used by the SmartCTA when the visitor picks an intent. */
+  seedMessage?: string;
 }) {
   const ui = CHAT_UI[locale];
   const rtl = isRtl(locale);
@@ -42,6 +46,7 @@ export function ChatSheet({
   const [handoffArmed, setHandoffArmed] = useState(false);
 
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const seedSentRef = useRef(false);
 
   useEffect(() => {
     const el = scrollerRef.current;
@@ -55,6 +60,17 @@ export function ChatSheet({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
+
+  // Auto-send the seed intent (from SmartCTA) once, on first mount.
+  useEffect(() => {
+    if (!seedMessage || seedSentRef.current) return;
+    seedSentRef.current = true;
+    // Small delay so the open transition finishes and the user sees their
+    // message land deliberately, not before the sheet has settled.
+    const t = window.setTimeout(() => send(seedMessage), 260);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function send(text: string) {
     const trimmed = text.trim();
