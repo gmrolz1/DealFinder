@@ -49,6 +49,8 @@ export const CHAT_UI = {
     whatsappLabel: "WhatsApp",
     errorPrefix: "Something went wrong:",
     callbackIn: "Callback in 30 minutes",
+    smartCtaTapReply: "Tap to reply",
+    smartCtaTyping: "typing",
   },
   ar: {
     triggerLabel: "اسأل ليلى عن هذه الوحدة",
@@ -61,6 +63,8 @@ export const CHAT_UI = {
     whatsappLabel: "واتساب",
     errorPrefix: "حدث خطأ:",
     callbackIn: "اتصال خلال 30 دقيقة",
+    smartCtaTapReply: "اضغط للرد",
+    smartCtaTyping: "يكتب",
   },
 } as const;
 
