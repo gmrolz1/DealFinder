@@ -6,11 +6,11 @@
 //   ✅ PropertyCardV2 — side-by-side vs current PropertyCard
 //   ✅ CompoundCardV2 — side-by-side, with real multi-image carousel
 //   ✅ Carousel — interactive demo
-//   ✅ LeadSheet — click any "Request Callback" to open the modal
+//   ✅ AI Chat agent (Gemini-powered) — click "Ask Layla about this unit"
 //   🖼 Breadcrumbs / sticky filter / mobile action bar — visual examples
 //
 // Phase plan recap:
-//   1 (this preview) — cards + conversion + lead sheet, NO new data needed
+//   1 (this preview) — cards + conversion + AI chat agent, NO new data
 //   2              — per-unit gallery scrape so unit cards carousel too
 //   3              — site-wide UX (sticky filter, breadcrumbs, saved listings)
 
@@ -252,19 +252,73 @@ export default function PreviewPage() {
         </div>
       </Section>
 
-      {/* SECTION 4 — LEAD SHEET */}
+      {/* SECTION 4 — AI CHAT AGENT */}
       <Section
         num="04"
-        title="Lead capture sheet"
-        intent="Slides up from the bottom on mobile, centered modal on desktop. Triggered by every Request Callback button on the v2 card. Demo only — form doesn't post yet."
+        title="AI sales agent · Layla"
+        intent="Click the black CTA on any card → opens a live chat with Layla, an AI deal opener powered by Gemini. She knows this exact unit's price, payment plan, and specs (injected as context — never hallucinated). After 2-3 turns she hands off to a human broker on WhatsApp with the conversation transcript pre-filled."
       >
         {unitA && (
-          <div className="flex flex-wrap items-center gap-3 border border-data bg-paper p-6">
-            <p className="text-[13px] text-slate">
-              Try it on a real listing:
-            </p>
-            <div className="w-72">
+          <div className="grid gap-6 lg:grid-cols-[auto_1fr] lg:items-start">
+            {/* Try-it card */}
+            <div className="w-full max-w-xs">
               <PropertyCardV2 unit={unitA} />
+              <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.08em] text-taupe">
+                ↑ Click &quot;Ask Layla about this unit&quot;
+              </p>
+            </div>
+
+            {/* How it works */}
+            <div className="border border-data bg-paper p-5">
+              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-taupe">
+                How the agent works
+              </p>
+              <h3 className="mt-1 text-[18px] font-bold uppercase tracking-tight text-ink">
+                Deal opener, not a chatbot
+              </h3>
+              <ol className="mt-4 space-y-3 text-[12px] leading-relaxed text-slate">
+                <li>
+                  <strong className="text-ink">1. Warm open.</strong> &quot;Nice
+                  — Mountain View iCity is a solid pick. What do you want to
+                  know first?&quot; — references the actual compound by name.
+                </li>
+                <li>
+                  <strong className="text-ink">2. Grounded answers.</strong>{" "}
+                  Price, monthly payment, down %, ready date, beds, area —
+                  injected from the data layer as context. She literally cannot
+                  invent numbers.
+                </li>
+                <li>
+                  <strong className="text-ink">3. Quick reply chips.</strong>{" "}
+                  Suggested follow-ups (&quot;Payment plan?&quot;, &quot;Why is
+                  this a deal?&quot;) — one-tap engagement.
+                </li>
+                <li>
+                  <strong className="text-ink">4. Soft pivot to WhatsApp.</strong>{" "}
+                  After 2-3 turns or buying intent (&quot;I&apos;m
+                  interested&quot;), she offers: &quot;Let me get Ahmed to send
+                  the full price list on WhatsApp.&quot;
+                </li>
+                <li>
+                  <strong className="text-ink">5. Pre-filled handoff.</strong>{" "}
+                  The green button below sends a WhatsApp message to your broker
+                  with: unit name, price, extracted name + phone, and the full
+                  chat transcript.
+                </li>
+              </ol>
+              <div className="mt-5 border-t border-data pt-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-taupe">
+                  Configurable in <code>src/lib/chat-config.ts</code>
+                </p>
+                <ul className="mt-2 grid gap-1 text-[11px] text-slate sm:grid-cols-2">
+                  <li>· Agent name (Layla)</li>
+                  <li>· Broker name (Ahmed)</li>
+                  <li>· Broker WhatsApp number</li>
+                  <li>· Gemini model + temperature</li>
+                  <li>· Hand-off turn count</li>
+                  <li>· System prompt + persona</li>
+                </ul>
+              </div>
             </div>
           </div>
         )}
@@ -393,12 +447,13 @@ export default function PreviewPage() {
                 Phase 1 · this preview
               </p>
               <p className="mt-2 text-[14px] font-bold">
-                Cards + conversion + lead sheet
+                Cards + AI sales agent + carousels
               </p>
               <p className="mt-2 text-[12px] leading-relaxed text-data">
-                Approve → replace PropertyCard and CompoundCard everywhere.
-                Wire the lead form to the Supabase <code>leads</code> table.
-                No new data required.
+                Approve → replace cards everywhere. Wire <code>/api/chat</code>
+                to also write each conversation into the Supabase{" "}
+                <code>leads</code> table (audit trail). Plug in the real broker
+                WhatsApp number.
               </p>
             </li>
             <li className="border border-data/30 p-4">

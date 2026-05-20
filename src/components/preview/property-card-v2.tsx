@@ -16,15 +16,13 @@ import Link from "next/link";
 import { formatPrice } from "@/lib/format";
 import type { EnrichedUnit } from "@/lib/data";
 import { Carousel } from "./carousel";
-import { LeadSheetTrigger } from "./lead-sheet";
+import { ChatTrigger } from "./chat-trigger";
 import {
   monthlyPayment,
   unitDealBadges,
   whatsappHref,
 } from "@/lib/conversion";
-
-// Brand WhatsApp number — placeholder until the team provides the real one.
-const BRAND_WHATSAPP = "+201000000000";
+import { CHAT_CONFIG } from "@/lib/chat-config";
 
 export function PropertyCardV2({ unit }: { unit: EnrichedUnit }) {
   const images = unit.image_url ? [unit.image_url] : [];
@@ -100,11 +98,11 @@ export function PropertyCardV2({ unit }: { unit: EnrichedUnit }) {
         </div>
       </Link>
 
-      {/* CTA row */}
+      {/* CTA row — AI chat is the primary action; WhatsApp is the direct alt. */}
       <div className="flex border-t border-data">
-        <LeadSheetTrigger unit={unit} className="flex-1 border-0" />
+        <ChatTrigger unit={unit} className="flex-1" />
         <a
-          href={whatsappHref(BRAND_WHATSAPP, waMessage)}
+          href={whatsappHref(CHAT_CONFIG.brokerWhatsApp, waMessage)}
           target="_blank"
           rel="noopener noreferrer"
           className="grid w-12 place-items-center border-l border-data bg-paper text-ink transition hover:bg-ink hover:text-paper"
