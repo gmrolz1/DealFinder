@@ -70,6 +70,7 @@ export type Developer = {
 export type Compound = {
   nawy_id: number;
   name: string;
+  name_ar: string | null;
   slug: string;
   area_nawy_id: number | null;
   developer_nawy_id: number | null;
@@ -77,7 +78,9 @@ export type Compound = {
   lat: number | null;
   image_url: string | null;
   subtitle: string | null;
+  subtitle_ar: string | null;
   property_types: string[];
+  property_types_ar: string[];
   min_price: number | null;
   ready_by: number | null;
 };
@@ -86,8 +89,11 @@ export type Unit = {
   nawy_id: number;
   slug: string;
   title: string;
+  title_ar: string | null;
   subtitle: string | null;
+  subtitle_ar: string | null;
   property_type: string | null;
+  property_type_ar: string | null;
   compound_nawy_id: number | null;
   area_nawy_id: number | null;
   developer_nawy_id: number | null;
@@ -106,10 +112,13 @@ export type Unit = {
 
 export type EnrichedUnit = Unit & {
   areaName: string | null;
+  areaNameAr: string | null;
   areaSlug: string | null;
   compoundName: string | null;
+  compoundNameAr: string | null;
   compoundSlug: string | null;
   developerName: string | null;
+  developerNameAr: string | null;
 };
 
 export type WithCount<T> = T & { available: number };
@@ -188,15 +197,19 @@ function enrich(u: Unit): EnrichedUnit {
     ? s.compoundById.get(u.compound_nawy_id)
     : undefined;
   const area = u.area_nawy_id ? s.areaById.get(u.area_nawy_id) : undefined;
+  const dev = u.developer_nawy_id
+    ? s.developerById.get(u.developer_nawy_id)
+    : undefined;
   return {
     ...u,
     areaName: area?.name ?? null,
+    areaNameAr: area?.name_ar ?? null,
     areaSlug: area?.slug ?? null,
     compoundName: compound?.name ?? null,
+    compoundNameAr: compound?.name_ar ?? null,
     compoundSlug: compound?.slug ?? null,
-    developerName: u.developer_nawy_id
-      ? s.developerById.get(u.developer_nawy_id)?.name ?? null
-      : null,
+    developerName: dev?.name ?? null,
+    developerNameAr: dev?.name_ar ?? null,
   };
 }
 
@@ -303,6 +316,12 @@ export function getCompoundsByDeveloper(devId: number): WithCount<Compound>[] {
 
 export function getAreaName(id: number | null): string | null {
   return id ? store().areaById.get(id)?.name ?? null : null;
+}
+
+export function getAreaNameAr(id: number | null): string | null {
+  if (!id) return null;
+  const a = store().areaById.get(id);
+  return a?.name_ar ?? a?.name ?? null;
 }
 
 export function getDeveloperOfCompound(c: Compound): Developer | null {

@@ -55,10 +55,44 @@ const readOpt = (p) => {
 const allCompounds = readJson(path.join(ND, "all_compounds.json"));
 const allProps = readJson(path.join(ND, "all_properties.json"));
 const devFull = readOpt(path.join(DATA, "developers-full.json"));
+const compoundsAr = readOpt(path.join(DATA, "compounds-ar.json"));
 const primary = allProps.filter((u) => u.sale_type === "primary");
 console.log(
-  `Loaded: ${allCompounds.length} compounds, ${primary.length} primary units, ${devFull.length} developers`
+  `Loaded: ${allCompounds.length} compounds, ${primary.length} primary units, ${devFull.length} developers, ${compoundsAr.length} ar compounds`
 );
+
+// nawy_id → Arabic name + subtitle from the AR compound-search scrape
+const cmpArById = new Map(
+  compoundsAr.map((c) => [
+    c.nawy_id,
+    { name_ar: c.name_ar, subtitle_ar: c.subtitle_ar },
+  ])
+);
+
+// Property type EN → AR mapping (Egyptian-market vocabulary).
+const PROP_TYPE_AR = {
+  Apartment: "شقة",
+  Villa: "فيلا",
+  Townhouse: "تاون هاوس",
+  "Middle Townhouse": "تاون هاوس وسطي",
+  "Corner Townhouse": "تاون هاوس ركني",
+  Twinhouse: "توين هاوس",
+  Penthouse: "بنتهاوس",
+  Duplex: "دوبلكس",
+  Chalet: "شاليه",
+  Studio: "ستوديو",
+  Cabin: "كابينة",
+  Standalone: "فيلا منفصلة",
+  "Standalone Villa": "فيلا منفصلة",
+  Loft: "لوفت",
+  Office: "مكتب",
+  Clinic: "عيادة",
+  Retail: "محل تجاري",
+  Hotel: "فندق",
+  Studio: "ستوديو",
+  Cabin: "كابينة",
+};
+const propTypeAr = (en) => (en ? PROP_TYPE_AR[en] ?? en : null);
 
 const oldComp = new Map(
   readOpt(path.join(BACKUP, "compounds.json")).map((c) => [c.nawy_id, c])
@@ -212,9 +246,11 @@ for (const c of rawComp.values()) {
   const area = c.areaName ? areaByName.get(norm(c.areaName)) : null;
   const devId = resolveDeveloper(c.devName, c.devNawyId, c.devLogo);
   const oc = oldComp.get(c.nawy_id);
+  const ar = cmpArById.get(c.nawy_id);
   const rec = {
     nawy_id: c.nawy_id,
     name: c.name,
+    name_ar: ar?.name_ar ?? null,
     slug: slugify(`${c.nawy_id}-${c.name}`),
     area_nawy_id: area?.nawy_id ?? null,
     developer_nawy_id: devId,
@@ -222,7 +258,9 @@ for (const c of rawComp.values()) {
     lat: oc?.lat ?? null,
     image_url: c.image ?? oc?.image_url ?? null,
     subtitle: oc?.subtitle ?? null,
+    subtitle_ar: ar?.subtitle_ar ?? null,
     property_types: c.ptypes,
+    property_types_ar: c.ptypes.map(propTypeAr).filter(Boolean),
     min_price: c.minPrice,
     ready_by: oc?.ready_by ?? null,
   };
@@ -255,6 +293,28 @@ for (const u of primary) {
         (devName ? ` by ${devName}` : "") +
         "."
       : null;
+
+  // Arabic title/subtitle — uses Arabic names where available
+  const ptypeAr = propTypeAr(ptype);
+  const compNameAr = comp.name_ar ?? comp.name;
+  const areaAr = u.area?.name
+    ? areaByName.get(norm(u.area.name))?.name_ar ?? u.area.name
+    : null;
+  const devAr =
+    comp.developer_nawy_id != null
+      ? devById.get(comp.developer_nawy_id)?.name_ar ??
+        devById.get(comp.developer_nawy_id)?.name ??
+        ""
+      : "";
+  const subtitle_ar =
+    ptypeAr && compNameAr
+      ? `${ptypeAr} للبيع في ${compNameAr}` +
+        (bd != null ? ` - ${bd} غرف نوم` : "") +
+        (areaAr ? ` في ${areaAr}` : "") +
+        (devAr ? ` من ${devAr}` : "") +
+        "."
+      : null;
+
   const slug = slugify(
     [
       u.nawy_id,
@@ -272,8 +332,12 @@ for (const u of primary) {
     nawy_id: u.nawy_id,
     slug,
     title: [ptype, comp.name].filter(Boolean).join(", ") || `Property ${u.nawy_id}`,
+    title_ar:
+      [ptypeAr, compNameAr].filter(Boolean).join("، ") || null,
     subtitle,
+    subtitle_ar,
     property_type: ptype,
+    property_type_ar: ptypeAr,
     compound_nawy_id: compId,
     area_nawy_id: comp.area_nawy_id,
     developer_nawy_id: comp.developer_nawy_id,
