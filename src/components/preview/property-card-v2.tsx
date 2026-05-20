@@ -1,27 +1,37 @@
 // Conversion-optimized property card (preview), locale-aware (EN / AR).
 //
-// CTA stack (3 direct actions, brand-clean):
-//   ┌────────────────────────────────────────────┐
-//   │  ● ASK LAYLA ABOUT THIS UNIT (chat)        │  <- primary, AI agent
-//   ├────────────────────┬───────────────────────┤
-//   │  CALL              │  WHATSAPP             │  <- direct fallbacks
-//   └────────────────────┴───────────────────────┘
+// Sections, top to bottom:
+//   1. Media carousel — unit image + other units' images from the same
+//      compound (so every card has a real multi-image carousel today,
+//      no new data needed).
+//   2. Headline price + property type chip on the image (over the carousel).
+//   3. Deal breakdown — Total + 3-tile marketing grid (DOWN / MONTHLY / PLAN).
+//   4. Compound + area + developer (subtle, taupe).
+//   5. Minimalist specs row (3 / 3 / 187 m²) — big values, tiny labels.
+//   6. CTA stack:
+//        ● Smart chat preview (Layla, rotating intents)
+//        Call | WhatsApp
 
 import Link from "next/link";
-import { formatPrice } from "@/lib/format";
-import type { EnrichedUnit } from "@/lib/data";
+import {
+  type EnrichedUnit,
+  getUnitGallery,
+} from "@/lib/data";
 import { type Locale, localizedPath } from "@/lib/i18n";
 import { Carousel } from "./carousel";
 import { SmartCTA } from "./smart-cta";
 import {
   monthlyPayment,
+  downPaymentPct,
   unitDealBadges,
+  formatPriceCompact,
 } from "@/lib/conversion";
 import {
   CHAT_UI,
   brokerTelHref,
   buildDirectWhatsApp,
 } from "@/lib/chat-config";
+import { formatPrice } from "@/lib/format";
 
 export function PropertyCardV2({
   unit,
@@ -47,27 +57,36 @@ export function PropertyCardV2({
   const title = isAr ? unit.title_ar ?? unit.title : unit.title;
   const compoundLabel = compoundName ?? title;
 
-  const images = unit.image_url ? [unit.image_url] : [];
+  // Real multi-image carousel — unit image + sibling units in same compound
+  const images = getUnitGallery(unit, 8);
   const monthly = monthlyPayment(unit);
+  const downPct = downPaymentPct(unit);
   const badges = unitDealBadges(unit);
   const priceLabel = formatPrice(unit.price, unit.currency);
 
   const detailHref = localizedPath(`/properties/${unit.slug}`, locale);
   const waHref = buildDirectWhatsApp(compoundLabel, priceLabel, locale);
 
-  // Localized small bits — kept inline to avoid bloating the i18n dict for
-  // strings that only live on this preview card.
-  const bedLabel = isAr ? "غرفة" : "Bed";
-  const bathLabel = isAr ? "حمام" : "Bath";
-  const monthLabel = isAr ? "/شهر" : "/mo";
-  const planLabel = isAr ? "سنوات" : "yr plan";
+  // Localized micro-strings — only used on this card.
+  const t = {
+    bed: isAr ? "غرفة" : "Bed",
+    bath: isAr ? "حمام" : "Bath",
+    area: isAr ? "متر²" : "m²",
+    down: isAr ? "مقدم" : "Down",
+    monthly: isAr ? "شهرياً" : "Monthly",
+    plan: isAr ? "خطة" : "Plan",
+    yrs: isAr ? "سنة" : "yrs",
+    perMonth: isAr ? "في الشهر" : "per month",
+    toOwn: isAr ? "حتى التمليك" : "to own",
+    ofTotal: isAr ? "من الإجمالي" : "of total",
+  };
 
   return (
     <div
       className="group flex flex-col border border-data bg-paper transition hover:border-ink"
       dir={isAr ? "rtl" : "ltr"}
     >
-      {/* MEDIA */}
+      {/* ── MEDIA — carousel + overlays ─────────────────────────────────── */}
       <div className="relative">
         <Link
           href={detailHref}
@@ -77,7 +96,6 @@ export function PropertyCardV2({
           <Carousel images={images} alt={title} aspectRatio="4/3" />
         </Link>
 
-        {/* Property type tag */}
         {propertyType && (
           <span
             className={`pointer-events-none absolute top-2 ${
@@ -88,7 +106,6 @@ export function PropertyCardV2({
           </span>
         )}
 
-        {/* Deal badges */}
         {badges.length > 0 && (
           <div
             className={`pointer-events-none absolute bottom-2 ${
@@ -111,44 +128,61 @@ export function PropertyCardV2({
         )}
       </div>
 
-      {/* BODY */}
-      <Link href={detailHref} className="block flex-1 p-3">
-        <p className="text-[20px] font-extrabold tracking-tight text-ink">
+      {/* ── BODY — headline price + deal grid + location + specs ───────── */}
+      <Link href={detailHref} className="block flex-1 px-3 pt-3">
+        {/* Headline price */}
+        <p className="text-[22px] font-black tracking-tight text-ink leading-none">
           {priceLabel}
         </p>
-        {monthly && (
-          <p className="text-[10px] font-bold uppercase tracking-[0.06em] text-slate">
-            EGP {monthly.toLocaleString("en-US")}
-            {monthLabel} · {unit.installment_years} {planLabel}
+
+        {/* Deal breakdown — marketing-driven 3-tile grid */}
+        <div className="mt-3 grid grid-cols-3 gap-px border-t border-data bg-data">
+          <DealCell
+            label={t.down}
+            value={unit.down_payment ? formatPriceCompact(unit.down_payment) : "—"}
+            sub={downPct != null ? `${downPct}% ${t.ofTotal}` : null}
+          />
+          <DealCell
+            label={t.monthly}
+            value={
+              monthly
+                ? `EGP ${monthly.toLocaleString("en-US").replace(/,000$/, "K")}`
+                : "—"
+            }
+            sub={monthly ? t.perMonth : null}
+          />
+          <DealCell
+            label={t.plan}
+            value={
+              unit.installment_years
+                ? `${unit.installment_years} ${t.yrs}`
+                : "—"
+            }
+            sub={unit.installment_years ? t.toOwn : null}
+          />
+        </div>
+
+        {/* Compound name + area + developer */}
+        <div className="mt-3">
+          <p className="truncate text-[13px] font-bold text-ink">
+            {compoundLabel}
           </p>
-        )}
-        <p className="mt-2 truncate text-[13px] font-medium text-ink">
-          {compoundLabel}
-        </p>
-        <p className="truncate text-[10px] font-medium uppercase tracking-[0.07em] text-taupe">
-          {[areaName, developerName].filter(Boolean).join(" · ")}
-        </p>
-        <div className="mt-3 flex gap-3 border-t border-data pt-2 text-[10px] font-semibold uppercase tracking-[0.06em] text-slate">
-          {unit.bedrooms != null && (
-            <span>
-              {unit.bedrooms} {bedLabel}
-            </span>
-          )}
-          {unit.bathrooms != null && (
-            <span>
-              {unit.bathrooms} {bathLabel}
-            </span>
-          )}
-          {unit.area_sqm != null && <span>{unit.area_sqm} m²</span>}
+          <p className="truncate text-[10px] font-medium uppercase tracking-[0.07em] text-taupe">
+            {[areaName, developerName].filter(Boolean).join(" · ")}
+          </p>
+        </div>
+
+        {/* Minimalist specs — number prominent, label tiny */}
+        <div className="mt-3 grid grid-cols-3 border-t border-data pt-2">
+          <SpecCell value={unit.bedrooms} label={t.bed} />
+          <SpecCell value={unit.bathrooms} label={t.bath} />
+          <SpecCell value={unit.area_sqm} label={t.area} />
         </div>
       </Link>
 
-      {/* CTA STACK — 3 direct actions */}
-      <div className="border-t border-data">
-        {/* 1. Primary: AI chat — rotating intent prompts (animated) */}
+      {/* ── CTAs — chat preview + call + whatsapp ───────────────────────── */}
+      <div className="mt-3 border-t border-data">
         <SmartCTA unit={unit} locale={locale} />
-
-        {/* 2 + 3. Call + WhatsApp side by side */}
         <div className="flex">
           <a
             href={brokerTelHref}
@@ -172,6 +206,52 @@ export function PropertyCardV2({
           </a>
         </div>
       </div>
+    </div>
+  );
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────
+
+function DealCell({
+  label,
+  value,
+  sub,
+}: {
+  label: string;
+  value: string;
+  sub?: string | null;
+}) {
+  return (
+    <div className="bg-paper p-2 text-center">
+      <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-taupe">
+        {label}
+      </p>
+      <p className="mt-0.5 text-[13px] font-extrabold tracking-tight text-ink">
+        {value}
+      </p>
+      {sub && (
+        <p className="text-[9px] font-semibold uppercase tracking-[0.04em] text-slate">
+          {sub}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function SpecCell({
+  value,
+  label,
+}: {
+  value: number | null | undefined;
+  label: string;
+}) {
+  if (value == null) return <div />;
+  return (
+    <div className="text-center">
+      <p className="text-[18px] font-black leading-none text-ink">{value}</p>
+      <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-slate">
+        {label}
+      </p>
     </div>
   );
 }

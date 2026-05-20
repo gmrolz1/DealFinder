@@ -1,18 +1,10 @@
-// /preview — a single page that shows every conversion + UX change
-// proposed for DealFinder. Internal review only — not linked from nav,
-// not in the sitemap, robots disallowed below.
+// /preview — design + AI agent reference page.
+// Not linked from nav, robots disallowed.
 //
-// What's live on this page:
-//   ✅ PropertyCardV2 — side-by-side vs current PropertyCard
-//   ✅ CompoundCardV2 — side-by-side, with real multi-image carousel
-//   ✅ Carousel — interactive demo
-//   ✅ AI Chat agent (Gemini-powered) — click "Ask Layla about this unit"
-//   🖼 Breadcrumbs / sticky filter / mobile action bar — visual examples
-//
-// Phase plan recap:
-//   1 (this preview) — cards + conversion + AI chat agent, NO new data
-//   2              — per-unit gallery scrape so unit cards carousel too
-//   3              — site-wide UX (sticky filter, breadcrumbs, saved listings)
+// The cards shown here are exactly what now ships across the live site:
+// PropertyCard and CompoundCard import from `@/components/*` which
+// re-export the v2 implementations under preview/. So this page doubles
+// as both the public-facing demo and an internal component reference.
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -23,12 +15,10 @@ import {
 } from "@/lib/data";
 import { PropertyCard } from "@/components/property-card";
 import { CompoundCard } from "@/components/compound-card";
-import { PropertyCardV2 } from "@/components/preview/property-card-v2";
-import { CompoundCardV2 } from "@/components/preview/compound-card-v2";
 import { Carousel } from "@/components/preview/carousel";
 
 export const metadata: Metadata = {
-  title: "Preview — Conversion + UX changes | DealFinder",
+  title: "Card system + AI agent · DealFinder",
   robots: { index: false, follow: false },
 };
 
@@ -72,24 +62,19 @@ function Label({ children }: { children: React.ReactNode }) {
 }
 
 export default function PreviewPage() {
-  // Real data, real units, real compounds — easier to evaluate.
   const featured = getFeaturedUnits(6);
-
-  // Find a couple of popular compounds with enough units for a believable
-  // multi-image carousel demo.
   const areas = getAreas();
   const popularCompounds = areas
     .flatMap((a) => getCompoundsByArea(a.nawy_id))
     .filter((c) => c.image_url)
     .sort((a, b) => b.available - a.available)
-    .slice(0, 4);
+    .slice(0, 2);
 
   const unitA = featured[0];
   const unitB = featured[1];
   const compoundA = popularCompounds[0];
   const compoundB = popularCompounds[1];
 
-  // Pull a handful of unit images for the standalone carousel demo.
   const demoImages = featured
     .map((u) => u.image_url)
     .filter((x): x is string => Boolean(x))
@@ -101,140 +86,114 @@ export default function PreviewPage() {
       <header className="border-b border-data px-4 py-12 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-6xl">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-taupe">
-            Internal review · not linked from nav
+            Design reference · now live across the site
           </p>
           <h1 className="mt-3 text-[36px] font-black uppercase leading-[0.95] tracking-tight text-ink sm:text-[60px]">
-            Conversion
+            Card
             <br />
-            <span className="glitch">Preview</span>
+            <span className="glitch">System</span>
           </h1>
           <p className="mt-5 max-w-2xl text-[14px] leading-relaxed text-slate sm:text-[16px]">
-            Side-by-side preview of the proposed card redesign, image carousels,
-            lead-capture sheet, and site-wide UX changes. Everything below uses
-            real listings from Supabase. Production cards are unchanged until you
-            approve.
+            Every property and compound card on the live site uses the
+            implementations below. Multi-image carousel, marketing-led deal
+            grid, minimalist specs, and a Smart CTA that opens Layla — the
+            AI deal opener — with the visitor&apos;s intent already loaded.
+            Locale auto-matches; RTL flips everywhere.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             <Link
-              href="/"
+              href="/properties"
               className="border border-data px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-slate transition hover:border-ink hover:text-ink"
             >
-              ← Live site
+              Live listings →
             </Link>
-            <a
-              href="#cards"
+            <Link
+              href="/"
               className="border border-ink bg-ink px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-paper transition hover:bg-paper hover:text-ink"
             >
-              Jump to cards
-            </a>
+              Live homepage
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* SECTION 1 — PROPERTY CARDS */}
-      <div id="cards" />
+      {/* SECTION 1 — PROPERTY CARD */}
       <Section
         num="01"
-        title="Property Card"
-        intent="The most-used card on the site (listings, homepage, compound & developer pages). Goal: more lead capture without losing the brand."
+        title="Property card"
+        intent="Used everywhere a unit is listed. Multi-image carousel aggregated from sibling units in the same compound. Marketing-led 3-tile deal grid: Total → Down → Monthly → Plan. Smart CTA opens Layla with the visitor's chosen intent."
       >
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid gap-8 sm:grid-cols-2">
           <div>
-            <Label>Current</Label>
-            <div className="max-w-xs">
-              {unitA && <PropertyCard unit={unitA} />}
-            </div>
-            <ul className="mt-4 space-y-1 text-[12px] text-slate">
-              <li>· Whole card is a link — no visible CTA button</li>
-              <li>· Single image, no carousel</li>
-              <li>· No deal indicators (down %, ready year)</li>
-              <li>· No monthly payment estimate</li>
-              <li>· No quick contact (WhatsApp / callback)</li>
-            </ul>
+            <Label>English · LTR</Label>
+            {unitA && (
+              <div className="max-w-xs">
+                <PropertyCard unit={unitA} locale="en" />
+              </div>
+            )}
           </div>
-
           <div>
-            <Label>Proposed</Label>
-            <div className="max-w-xs">
-              {unitA && <PropertyCardV2 unit={unitA} />}
-            </div>
-            <ul className="mt-4 space-y-1 text-[12px] text-slate">
-              <li>✓ Carousel-ready (multi-image once Phase 2 scrape lands)</li>
-              <li>✓ <strong className="text-ink">Monthly payment</strong> shown under price (data we have)</li>
-              <li>✓ Deal badges: <span className="border border-ink bg-paper px-1 text-[9px] font-bold uppercase">X% DOWN</span> · <span className="border border-ink bg-paper px-1 text-[9px] font-bold uppercase">READY YYYY</span></li>
-              <li>✓ <strong className="text-ink">Visible CTA</strong> opens the lead sheet (try it →)</li>
-              <li>✓ WhatsApp quick-contact button</li>
-            </ul>
+            <Label>Arabic · RTL · Layla replies in Arabic</Label>
+            {unitA && (
+              <div className="max-w-xs">
+                <PropertyCard unit={unitA} locale="ar" />
+              </div>
+            )}
           </div>
         </div>
-
-        {/* Second pair to show variety in real data */}
         {unitB && (
-          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+          <div className="mt-10 grid gap-8 sm:grid-cols-2">
             <div>
-              <Label>Current · second example</Label>
+              <Label>Second example · English</Label>
               <div className="max-w-xs">
-                <PropertyCard unit={unitB} />
+                <PropertyCard unit={unitB} locale="en" />
               </div>
             </div>
             <div>
-              <Label>Proposed · second example</Label>
+              <Label>Second example · Arabic</Label>
               <div className="max-w-xs">
-                <PropertyCardV2 unit={unitB} />
+                <PropertyCard unit={unitB} locale="ar" />
               </div>
             </div>
           </div>
         )}
       </Section>
 
-      {/* SECTION 2 — COMPOUND CARDS */}
+      {/* SECTION 2 — COMPOUND CARD */}
       <Section
         num="02"
-        title="Compound Card · with real carousel"
-        intent="Compounds aggregate all units' images, so the carousel is real today — no new data needed. Try the arrows / dots / swipe."
+        title="Compound card"
+        intent="Aggregates images from all units in the compound for a real carousel. Adds a 'starting from' price and compound-level deal badges (FROM X% DOWN, READY YYYY)."
       >
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div>
-            <Label>Current</Label>
-            <div className="max-w-sm">
-              {compoundA && <CompoundCard compound={compoundA} />}
+        <div className="grid gap-8 sm:grid-cols-2">
+          {compoundA && (
+            <div>
+              <Label>English</Label>
+              <div className="max-w-sm">
+                <CompoundCard compound={compoundA} locale="en" />
+              </div>
             </div>
-          </div>
-          <div>
-            <Label>Proposed (carousel + price + badges)</Label>
-            <div className="max-w-sm">
-              {compoundA && <CompoundCardV2 compound={compoundA} />}
+          )}
+          {compoundB && (
+            <div>
+              <Label>Arabic · RTL</Label>
+              <div className="max-w-sm">
+                <CompoundCard compound={compoundB} locale="ar" />
+              </div>
             </div>
-          </div>
+          )}
         </div>
-
-        {compoundB && (
-          <div className="mt-12 grid gap-8 lg:grid-cols-2">
-            <div>
-              <Label>Current · second example</Label>
-              <div className="max-w-sm">
-                <CompoundCard compound={compoundB} />
-              </div>
-            </div>
-            <div>
-              <Label>Proposed · second example</Label>
-              <div className="max-w-sm">
-                <CompoundCardV2 compound={compoundB} />
-              </div>
-            </div>
-          </div>
-        )}
       </Section>
 
-      {/* SECTION 3 — STANDALONE CAROUSEL */}
+      {/* SECTION 3 — CAROUSEL */}
       <Section
         num="03"
-        title="Carousel component"
-        intent="Reusable building block. Touch-swipe on mobile · arrows on desktop hover · dot indicators · counter pill. Used by both v2 cards above and ready for detail-page galleries."
+        title="Carousel"
+        intent="Reusable image carousel. Touch-swipe on mobile, hover arrows on desktop, dot indicators, counter pill. Used by every card today; ready to plug into detail-page galleries once per-unit images are scraped (M2)."
       >
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="group max-w-md">
-            <Label>Multi-image (6 images)</Label>
+            <Label>Multi-image (6)</Label>
             <Carousel
               images={demoImages}
               alt="Carousel demo"
@@ -252,289 +211,103 @@ export default function PreviewPage() {
         </div>
       </Section>
 
-      {/* SECTION 4 — AI CHAT AGENT */}
+      {/* SECTION 4 — AI agent explanation */}
       <Section
         num="04"
-        title="AI sales agent · Layla"
-        intent="The primary CTA on every card is a Smart CTA — it rotates through 5 intents (ASK ANYTHING · SEE BETTER ALTERNATIVES · MATCH MY PAYMENT PLAN · WHY IS THIS A DEAL · WHEN CAN I MOVE IN) with multi-directional slide animations, pauses on hover. Tapping any intent opens the chat with that question pre-sent — Layla picks up the lane immediately. Match the visitor's language, never hallucinate numbers, hand off to Ahmed on WhatsApp after 2-3 turns or on buying intent."
+        title="Smart CTA + Layla"
+        intent="The black panel on every card is the Smart CTA — Layla's chat preview. Avatar + online status + typing dots + speech bubble holding a rotating intent prompt. Tap any intent and the chat opens with that question already sent — Layla picks up the lane immediately."
       >
-        {unitA && (
-          <>
-            {/* TRY-IT CARDS — EN + AR side by side */}
-            <div className="grid gap-8 sm:grid-cols-2">
-              <div>
-                <Label>English card · click the black CTA</Label>
-                <div className="w-full max-w-xs">
-                  <PropertyCardV2 unit={unitA} locale="en" />
-                </div>
-                <p className="mt-3 text-[11px] text-slate">
-                  Layla opens in English. Tap CALL or WHATSAPP for instant
-                  human contact instead.
-                </p>
-              </div>
-              <div>
-                <Label>Arabic card · RTL · Layla replies in Arabic</Label>
-                <div className="w-full max-w-xs">
-                  <PropertyCardV2 unit={unitA} locale="ar" />
-                </div>
-                <p className="mt-3 text-[11px] text-slate">
-                  Same card on the <code>/ar/*</code> tree. Direction flips to
-                  RTL. Chat opens, types, and responds in Arabic.
-                </p>
-              </div>
-            </div>
-
-            {/* HOW IT WORKS */}
-            <div className="mt-10 border border-data bg-paper p-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-taupe">
-                How the agent works
-              </p>
-              <h3 className="mt-1 text-[18px] font-bold uppercase tracking-tight text-ink">
-                Deal opener, not a chatbot
-              </h3>
-              <ol className="mt-4 grid gap-3 text-[12px] leading-relaxed text-slate sm:grid-cols-2">
-                <li>
-                  <strong className="text-ink">0. Smart rotating CTA.</strong>{" "}
-                  Button cycles through 5 intent prompts with up / right /
-                  left slide animations. Pauses on hover. Tap any intent → chat
-                  opens with that question already sent.
-                </li>
-                <li>
-                  <strong className="text-ink">1. Locale auto-match.</strong>{" "}
-                  Card on <code>/properties/...</code> → English. Card on{" "}
-                  <code>/ar/properties/...</code> → Arabic. RTL flips
-                  everywhere.
-                </li>
-                <li>
-                  <strong className="text-ink">2. Professional + warm tone.</strong>{" "}
-                  Speaks like a senior advisor — confident, no hype, no emoji,
-                  no exclamation marks unless warranted.
-                </li>
-                <li>
-                  <strong className="text-ink">3. Grounded answers.</strong>{" "}
-                  Price, monthly payment, down %, ready date, beds, area —
-                  injected from Supabase as context. She literally cannot
-                  invent numbers.
-                </li>
-                <li>
-                  <strong className="text-ink">4. Quick reply chips.</strong>{" "}
-                  3 suggested follow-ups every turn — in the user&apos;s
-                  language. One-tap engagement.
-                </li>
-                <li>
-                  <strong className="text-ink">5. Soft pivot to WhatsApp.</strong>{" "}
-                  After 2-3 turns or buying intent (&quot;I&apos;m
-                  interested&quot; / &quot;مهتم&quot;), she offers the handoff.
-                </li>
-                <li>
-                  <strong className="text-ink">6. Pre-filled handoff.</strong>{" "}
-                  Tap CONTINUE ON WHATSAPP → opens chat to{" "}
-                  <code>+20 102 330 3230</code> with unit, price, extracted
-                  name + phone, and full transcript.
-                </li>
-              </ol>
-              <div className="mt-5 border-t border-data pt-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-taupe">
-                  Card has three direct CTAs (in this order):
-                </p>
-                <div className="mt-2 grid gap-2 text-[11px] text-slate sm:grid-cols-3">
-                  <div className="border border-data p-2">
-                    <p className="font-bold text-ink">
-                      ● ASK LAYLA (primary)
-                    </p>
-                    <p className="mt-1">
-                      AI chat opens · qualifies · hands off · transcripts to
-                      broker
-                    </p>
-                  </div>
-                  <div className="border border-data p-2">
-                    <p className="font-bold text-ink">CALL</p>
-                    <p className="mt-1">
-                      <code>tel:+20102…</code> — instant phone dial on mobile
-                    </p>
-                  </div>
-                  <div className="border border-data p-2">
-                    <p className="font-bold text-ink">WHATSAPP</p>
-                    <p className="mt-1">
-                      <code>wa.me</code> deep link · pre-filled with unit +
-                      price (locale-aware)
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-5 border-t border-data pt-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-taupe">
-                  Editable in <code>src/lib/chat-config.ts</code> — single file
-                </p>
-                <ul className="mt-2 grid gap-1 text-[11px] text-slate sm:grid-cols-2">
-                  <li>· Agent name (Layla)</li>
-                  <li>· Broker name (Ahmed)</li>
-                  <li>· Broker WhatsApp / phone</li>
-                  <li>· Gemini model + max tokens</li>
-                  <li>· Hand-off turn threshold</li>
-                  <li>· EN + AR opening lines + chips</li>
-                </ul>
-              </div>
-            </div>
-          </>
-        )}
-      </Section>
-
-      {/* SECTION 5 — SITE-WIDE UX (Phase 3 visual examples) */}
-      <Section
-        num="05"
-        title="Site-wide UX · Phase 3 examples"
-        intent="Static mockups of the site-wide journey changes. Built for real once you approve scope."
-      >
-        {/* Breadcrumbs */}
-        <div className="mb-10">
-          <Label>Breadcrumbs · on every detail page</Label>
-          <nav className="border border-data bg-paper px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-slate">
-            <Link href="/" className="hover:text-ink">Home</Link>
-            <span className="mx-2 text-data">/</span>
-            <Link href="/areas" className="hover:text-ink">Areas</Link>
-            <span className="mx-2 text-data">/</span>
-            <Link href="/areas" className="hover:text-ink">New Cairo</Link>
-            <span className="mx-2 text-data">/</span>
-            <span className="text-ink">Mountain View iCity</span>
-          </nav>
-        </div>
-
-        {/* Sticky filter bar */}
-        <div className="mb-10">
-          <Label>Sticky filter bar · /properties</Label>
-          <div className="border border-data bg-paper p-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[11px] font-bold uppercase tracking-[0.06em] text-ink">
-                Filters
-              </span>
-              {[
-                "New Cairo",
-                "Apartment",
-                "3 Bed",
-                "EGP 3M – 6M",
-                "Ready 2026",
-              ].map((c) => (
-                <span
-                  key={c}
-                  className="inline-flex items-center gap-1 border border-ink bg-paper px-2 py-1 text-[10px] font-bold uppercase tracking-[0.06em] text-ink"
-                >
-                  {c}
-                  <button
-                    type="button"
-                    className="text-slate hover:text-ink"
-                    aria-label={`Remove ${c}`}
-                  >
-                    ×
-                  </button>
-                </span>
-              ))}
-              <button
-                type="button"
-                className="ml-auto border border-data px-2 py-1 text-[10px] font-bold uppercase tracking-[0.06em] text-slate transition hover:border-ink hover:text-ink"
-              >
-                Clear all
-              </button>
-              <select className="border border-data bg-paper px-2 py-1 text-[10px] font-bold uppercase tracking-[0.06em] text-ink">
-                <option>Sort: Best match</option>
-                <option>Price ↑</option>
-                <option>Price ↓</option>
-                <option>Area ↓</option>
-                <option>Ready date</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile action bar */}
-        <div className="mb-10">
-          <Label>Mobile sticky action bar · on detail pages</Label>
-          <div className="max-w-sm">
-            <div className="relative h-40 border border-data bg-data/40 grid place-items-center text-[11px] font-bold uppercase tracking-[0.06em] text-slate">
-              property detail content
-              <div className="absolute inset-x-0 bottom-0 flex border-t border-ink bg-paper">
-                <button className="flex-1 border-r border-ink py-3 text-[11px] font-bold uppercase tracking-[0.06em] text-ink">
-                  Call
-                </button>
-                <button className="flex-1 border-r border-ink py-3 text-[11px] font-bold uppercase tracking-[0.06em] text-ink">
-                  WhatsApp
-                </button>
-                <button className="flex-1 bg-ink py-3 text-[11px] font-bold uppercase tracking-[0.06em] text-paper">
-                  Callback
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Saved listings */}
-        <div>
-          <Label>Saved listings · localStorage, no login</Label>
-          <div className="border border-data bg-paper p-4">
-            <div className="flex items-center justify-between border-b border-data pb-2">
-              <p className="text-[13px] font-bold uppercase tracking-tight text-ink">
-                Your saved deals (3)
-              </p>
-              <button className="text-[10px] font-bold uppercase tracking-[0.06em] text-slate hover:text-ink">
-                Compare all
-              </button>
-            </div>
-            <p className="mt-2 text-[11px] text-slate">
-              Tap the ♡ on any card to save it. Saved here without an account
-              (localStorage). Useful for the &quot;came back tomorrow&quot;
-              buyer.
+        <div className="border border-data bg-paper p-5">
+          <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-taupe">
+            Deal-opener playbook
+          </p>
+          <h3 className="mt-1 text-[18px] font-bold uppercase tracking-tight text-ink">
+            Six things Layla does
+          </h3>
+          <ol className="mt-4 grid gap-3 text-[12px] leading-relaxed text-slate sm:grid-cols-2">
+            <li>
+              <strong className="text-ink">1. Rotating intents.</strong> Card
+              cycles every 3.5s through 5 prompts with up / right / left
+              slide animations. Pauses on hover.
+            </li>
+            <li>
+              <strong className="text-ink">2. Locale auto-match.</strong>{" "}
+              English on <code>/properties/...</code>, Arabic on{" "}
+              <code>/ar/properties/...</code>. RTL flips end-to-end.
+            </li>
+            <li>
+              <strong className="text-ink">3. Professional + warm.</strong>{" "}
+              Speaks like a senior advisor — no hype, no emoji, no exclamation
+              marks unless warranted.
+            </li>
+            <li>
+              <strong className="text-ink">4. Grounded answers only.</strong>{" "}
+              Price, monthly payment, down %, ready date, beds, area — all
+              injected from Supabase. She literally cannot invent numbers.
+            </li>
+            <li>
+              <strong className="text-ink">5. Soft pivot to WhatsApp.</strong>{" "}
+              After 2-3 turns or buying intent (&quot;I&apos;m
+              interested&quot; / &quot;مهتم&quot;), she offers the handoff.
+            </li>
+            <li>
+              <strong className="text-ink">6. Pre-filled handoff.</strong>{" "}
+              CONTINUE ON WHATSAPP opens a chat to{" "}
+              <code>+20 102 330 3230</code> pre-filled with unit, price,
+              extracted name + phone, and full transcript.
+            </li>
+          </ol>
+          <div className="mt-5 border-t border-data pt-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-taupe">
+              Editable in <code>src/lib/chat-config.ts</code> and{" "}
+              <code>src/lib/chat-intents.ts</code>
             </p>
+            <ul className="mt-2 grid gap-1 text-[11px] text-slate sm:grid-cols-2">
+              <li>· Agent name (Layla) + persona</li>
+              <li>· Broker name (Ahmed) + phone</li>
+              <li>· Gemini model + max tokens</li>
+              <li>· Hand-off turn threshold</li>
+              <li>· Intent labels + seed messages (EN + AR)</li>
+              <li>· Animation directions per intent</li>
+            </ul>
           </div>
         </div>
       </Section>
 
-      {/* Footer: phase roadmap */}
+      {/* Footer */}
       <section className="bg-ink px-4 py-12 text-paper sm:px-6">
         <div className="mx-auto max-w-6xl">
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-data">
-            Roadmap from this preview
+            What&apos;s next
           </p>
           <h3 className="mt-2 text-[28px] font-black uppercase tracking-tight">
-            What ships when
+            Phase 2 + 3
           </h3>
-          <ol className="mt-6 grid gap-4 sm:grid-cols-3">
+          <ol className="mt-6 grid gap-4 sm:grid-cols-2">
             <li className="border border-data/30 p-4">
               <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-data">
-                Phase 1 · this preview
+                Phase 2 · per-unit gallery
               </p>
               <p className="mt-2 text-[14px] font-bold">
-                Cards + AI sales agent + carousels
+                Real multi-image carousels on every unit
               </p>
               <p className="mt-2 text-[12px] leading-relaxed text-data">
-                Approve → replace cards everywhere. Wire <code>/api/chat</code>
-                to also write each conversation into the Supabase{" "}
-                <code>leads</code> table (audit trail). Plug in the real broker
-                WhatsApp number.
+                Re-scrape nawy unit detail pages so each unit carries its own
+                gallery (today we aggregate sibling images from the same
+                compound). Schema adds <code>units.images text[]</code>.
               </p>
             </li>
             <li className="border border-data/30 p-4">
               <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-data">
-                Phase 2 · half day
+                Phase 3 · site-wide UX
               </p>
               <p className="mt-2 text-[14px] font-bold">
-                Per-unit image gallery
+                Breadcrumbs · sticky filters · saved listings
               </p>
               <p className="mt-2 text-[12px] leading-relaxed text-data">
-                Re-scrape nawy unit detail pages → multi-image carousel on
-                <em> every</em> unit card (not just compounds). Schema adds
-                <code>units.images text[]</code>.
-              </p>
-            </li>
-            <li className="border border-data/30 p-4">
-              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-data">
-                Phase 3 · ~1 day
-              </p>
-              <p className="mt-2 text-[14px] font-bold">
-                Site-wide UX + client journey
-              </p>
-              <p className="mt-2 text-[12px] leading-relaxed text-data">
-                Breadcrumbs, sticky filters, sort options, saved listings,
-                mobile action bar, strategic lead-capture moments.
+                Wire <code>/api/chat</code> conversations into the Supabase{" "}
+                <code>leads</code> table (audit trail). Add filter bar,
+                sort options, mobile action bar, breadcrumbs.
               </p>
             </li>
           </ol>

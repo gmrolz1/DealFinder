@@ -342,6 +342,23 @@ export function getUnitsByCompound(compoundId: number): EnrichedUnit[] {
     .map(enrich);
 }
 
+/** Best-effort per-unit gallery: the unit's own image first, then a handful
+ * of other unit images from the same compound. Lets every property card
+ * have a multi-image carousel until Phase 2 (per-unit detail scrape) lands. */
+export function getUnitGallery(unit: Unit, max = 8): string[] {
+  const own = unit.image_url ? [unit.image_url] : [];
+  if (!unit.compound_nawy_id) return own;
+  const siblings = store()
+    .units.filter(
+      (u) =>
+        u.compound_nawy_id === unit.compound_nawy_id &&
+        u.nawy_id !== unit.nawy_id &&
+        u.image_url
+    )
+    .map((u) => u.image_url as string);
+  return Array.from(new Set([...own, ...siblings])).slice(0, max);
+}
+
 export function getUnitsByDeveloper(devId: number): EnrichedUnit[] {
   return store()
     .units.filter((u) => u.developer_nawy_id === devId)

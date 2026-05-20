@@ -20,15 +20,19 @@ import { compoundDealBadges, formatPriceCompact } from "@/lib/conversion";
 export function CompoundCardV2({
   compound,
   locale = "en",
+  subtitle: subtitleOverride,
 }: {
   compound: WithCount<Compound>;
   locale?: Locale;
+  /** Optional caption shown under the name (e.g. "in New Cairo" on a
+   * developer page). Falls back to the compound's own subtitle field. */
+  subtitle?: string | null;
 }) {
   const isAr = locale === "ar";
   const name = isAr ? compound.name_ar ?? compound.name : compound.name;
-  const subtitle = isAr
-    ? compound.subtitle_ar ?? compound.subtitle
-    : compound.subtitle;
+  const subtitle =
+    subtitleOverride ??
+    (isAr ? compound.subtitle_ar ?? compound.subtitle : compound.subtitle);
 
   const units = getUnitsByCompound(compound.nawy_id);
   const allImages = [
