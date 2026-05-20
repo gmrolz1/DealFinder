@@ -1,23 +1,27 @@
 "use client";
 
-// Button that opens the chat sheet. Sized to drop in as a CTA on cards.
+// "Ask Layla about this unit" button. Locale-aware label.
 
 import { useState } from "react";
 import type { EnrichedUnit } from "@/lib/data";
+import type { Locale } from "@/lib/i18n";
 import { ChatSheet } from "./chat-sheet";
-import { CHAT_CONFIG } from "@/lib/chat-config";
+import { CHAT_UI } from "@/lib/chat-config";
 
 export function ChatTrigger({
   unit,
+  locale = "en",
   className = "",
   size = "md",
 }: {
   unit: EnrichedUnit;
+  locale?: Locale;
   className?: string;
   size?: "sm" | "md";
 }) {
   const [open, setOpen] = useState(false);
-  const padding = size === "sm" ? "py-1.5 px-3" : "py-2 px-3";
+  const ui = CHAT_UI[locale];
+  const padding = size === "sm" ? "py-1.5 px-3" : "py-2.5 px-3";
 
   return (
     <>
@@ -34,9 +38,11 @@ export function ChatTrigger({
           className="inline-block h-1.5 w-1.5 bg-green-400 group-hover:bg-ink"
           aria-hidden="true"
         />
-        Ask {CHAT_CONFIG.aiName} about this unit
+        {ui.triggerLabel}
       </button>
-      {open && <ChatSheet unit={unit} onClose={() => setOpen(false)} />}
+      {open && (
+        <ChatSheet unit={unit} locale={locale} onClose={() => setOpen(false)} />
+      )}
     </>
   );
 }
