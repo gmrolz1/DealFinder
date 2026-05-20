@@ -1,0 +1,6 @@
+# Force LF endings on shell scripts — Windows bash chokes on CRLF in #!/usr/bin/env scripts.
+*.sh        text eol=lf
+.husky/*    text eol=lf
+
+# JSON config is happiest with LF too.
+*.json      text eol=lf

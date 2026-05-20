@@ -1,0 +1,78 @@
+#!/usr/bin/env sh
+# DealFinder pre-commit hook
+# Runs:
+#   1. Secret scan on staged content (refuses if a secret is detected)
+#   2. .env file check (refuses to commit any .env* except .env.local.example)
+#   3. ESLint on the working tree
+#
+# To skip in an emergency, the standard `git commit --no-verify` is BLOCKED
+# by .claude/hooks/block-secrets.sh when an AI tries it. A human can still
+# bypass — please don't.
+
+set -e
+
+echo "→ pre-commit checks running..."
+
+# ────────────────────────────────────────────────────────────────────
+# 1. Block accidental .env commits
+# ────────────────────────────────────────────────────────────────────
+BAD_ENV=$(git diff --cached --name-only --diff-filter=AM | grep -E '^\.env($|\.)' | grep -v '^\.env\.local\.example$' || true)
+if [ -n "$BAD_ENV" ]; then
+  echo ""
+  echo "🚫 Refusing to commit env files containing secrets:"
+  echo "$BAD_ENV" | sed 's/^/   /'
+  echo ""
+  echo "   These belong in your password manager, not git."
+  echo "   Use .env.local.example for the template instead."
+  echo "   See docs/AI-RULES.md."
+  exit 1
+fi
+
+# ────────────────────────────────────────────────────────────────────
+# 2. Scan staged content for likely secrets
+# ────────────────────────────────────────────────────────────────────
+# Patterns we refuse to commit:
+#   - Supabase service role / secret keys (sb_secret_*)
+#   - GitHub Personal Access Tokens (ghp_, gho_, ghs_, ghr_)
+#   - Stripe secret keys (sk_live_, sk_test_)
+#   - Generic "SERVICE_ROLE_KEY=" with a value
+#
+# We allow:
+#   - Documentation files (docs/, *.md) that explain the patterns
+#   - .claude/ config that references them by name
+
+SECRET_PATTERNS='sb_secret_[A-Za-z0-9_-]+|ghp_[A-Za-z0-9]{30,}|gho_[A-Za-z0-9]{30,}|ghs_[A-Za-z0-9]{30,}|ghr_[A-Za-z0-9]{30,}|sk_live_[A-Za-z0-9]{20,}|sk_test_[A-Za-z0-9]{20,}|SUPABASE_SERVICE_ROLE_KEY[[:space:]]*=[[:space:]]*[A-Za-z0-9._-]{20,}'
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM | grep -vE '\.(md|lock)$' | grep -vE '^(docs/|\.claude/|brand/|node_modules/)' || true)
+
+if [ -n "$STAGED_FILES" ]; then
+  HITS=""
+  for f in $STAGED_FILES; do
+    if [ -f "$f" ]; then
+      MATCH=$(git diff --cached -- "$f" | grep -E "^\+" | grep -EH "$SECRET_PATTERNS" || true)
+      if [ -n "$MATCH" ]; then
+        HITS="$HITS\n  $f"
+      fi
+    fi
+  done
+  if [ -n "$HITS" ]; then
+    printf "\n🚫 Refusing to commit — likely secret(s) detected in:%b\n\n" "$HITS"
+    echo "   Rotate the secret, remove from the diff, and try again."
+    echo "   If this is a false positive, edit .husky/pre-commit to whitelist."
+    exit 1
+  fi
+fi
+
+# ────────────────────────────────────────────────────────────────────
+# 3. Lint
+# ────────────────────────────────────────────────────────────────────
+# Only run lint if a JS/TS/CSS file is staged (skips doc-only commits).
+LINT_FILES=$(git diff --cached --name-only --diff-filter=AM | grep -E '\.(ts|tsx|js|jsx|mjs|css)$' || true)
+if [ -n "$LINT_FILES" ]; then
+  echo "→ running npm run lint..."
+  npm run lint --silent
+else
+  echo "→ no JS/TS/CSS changes — skipping lint"
+fi
+
+echo "✅ pre-commit checks passed"
