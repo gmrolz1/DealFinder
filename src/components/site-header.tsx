@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/wordmark";
 import { BrandIcon } from "@/components/brand-icon";
-import { type Locale, t, localizedPath } from "@/lib/i18n";
+import { type Locale, t, localizedPath, switchLocaleHref } from "@/lib/i18n";
 
 const NAV_KEYS: [string, string][] = [
   ["nav.properties", "/properties"],
@@ -10,9 +10,16 @@ const NAV_KEYS: [string, string][] = [
   ["nav.newLaunches", "/new-launches"],
 ];
 
-export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
+export function SiteHeader({
+  locale = "en",
+  pathname = "/",
+}: {
+  locale?: Locale;
+  pathname?: string;
+}) {
   const otherLocale: Locale = locale === "ar" ? "en" : "ar";
   const otherLabel = otherLocale === "ar" ? "عربي" : "EN";
+  const switchHref = switchLocaleHref(pathname, otherLocale);
   return (
     <header className="sticky top-0 z-50 border-b border-data bg-paper">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -38,7 +45,7 @@ export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
 
         <div className="flex items-center gap-3">
           <Link
-            href={localizedPath("/", otherLocale)}
+            href={switchHref}
             className="border border-data px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-slate transition hover:border-ink hover:text-ink"
             aria-label={`Switch to ${otherLocale}`}
           >

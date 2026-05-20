@@ -18,6 +18,25 @@ export const localizedPath = (path: string, locale: Locale) => {
   return locale === "ar" ? `/ar${clean}` : clean;
 };
 
+// Given the current pathname, return the equivalent path in the other locale.
+// "/developers/foo" ↔ "/ar/developers/foo", "/" ↔ "/ar".
+export function switchLocaleHref(pathname: string, target: Locale): string {
+  // Strip locale prefix and query/hash off if any
+  const [pathOnly, query = ""] = pathname.split("?");
+  const stripped =
+    pathOnly === "/ar"
+      ? "/"
+      : pathOnly.startsWith("/ar/")
+        ? pathOnly.slice(3)
+        : pathOnly;
+  const withLocale = target === "ar"
+    ? stripped === "/"
+      ? "/ar"
+      : `/ar${stripped}`
+    : stripped;
+  return query ? `${withLocale}?${query}` : withLocale;
+}
+
 // UI string dictionary — keep small and grow as we add bilingual pages.
 type Strings = Record<string, { en: string; ar: string }>;
 const S: Strings = {

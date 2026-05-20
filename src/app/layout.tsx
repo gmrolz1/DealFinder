@@ -27,7 +27,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={dir} className={`${magnetik.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-paper text-ink">
-        <SiteHeader locale={locale} />
+        <SiteHeader locale={locale} pathname={pathname} />
         <main className="flex-1 pb-16 md:pb-0">{children}</main>
         <SiteFooter locale={locale} />
         <MobileTabBar locale={locale} />
