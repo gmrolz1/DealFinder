@@ -86,17 +86,21 @@ for (const d of devFull) {
   devById.set(d.nawy_id, {
     nawy_id: d.nawy_id,
     name: d.name ?? `Developer ${d.nawy_id}`,
+    name_ar: d.name_ar ?? null,
     slug: slugify(d.slug_en || `${d.nawy_id}-${d.name}`),
     logo_url: d.logo_url ?? null,
     established_year: d.established_year ?? null,
     leadership: d.leadership ?? null,
+    leadership_ar: d.leadership_ar ?? null,
     nawy_min_price: d.min_price ?? null,
     nawy_areas: Array.isArray(d.areas) ? d.areas : [],
+    nawy_areas_ar: Array.isArray(d.areas_ar) ? d.areas_ar : [],
     // computed below:
     min_price: null,
     compounds_count: 0,
     properties_count: 0,
     areas: [],
+    areas_ar: [],
     top_projects: [],
   });
   devNameToId.set(norm(d.name), d.nawy_id);
@@ -113,16 +117,20 @@ function resolveDeveloper(devName, devNawyId, devLogo) {
     devById.set(id, {
       nawy_id: id,
       name: devName,
+      name_ar: null,
       slug: slugify(`${id}-${devName}`),
       logo_url: devLogo ?? null,
       established_year: null,
       leadership: null,
+      leadership_ar: null,
       nawy_min_price: null,
       nawy_areas: [],
+      nawy_areas_ar: [],
       min_price: null,
       compounds_count: 0,
       properties_count: 0,
       areas: [],
+      areas_ar: [],
       top_projects: [],
     });
     devNameToId.set(norm(devName), id);
@@ -167,6 +175,18 @@ for (const u of primary) {
 }
 console.log(`Compounds: ${rawComp.size} (incl. ${orphanCompounds} orphans)`);
 
+// EN→AR area name map, sourced from per-developer paired areas/areas_ar
+// (nawy returns them in the same order under en/ar Accept-Language).
+const areaNameArMap = new Map();
+for (const d of devFull) {
+  const en = Array.isArray(d.areas) ? d.areas : [];
+  const ar = Array.isArray(d.areas_ar) ? d.areas_ar : [];
+  for (let i = 0; i < Math.min(en.length, ar.length); i++) {
+    if (en[i] && ar[i] && !areaNameArMap.has(norm(en[i])))
+      areaNameArMap.set(norm(en[i]), ar[i]);
+  }
+}
+
 // ── 2. areas — distinct by name ────────────────────────────────────────
 const areaByName = new Map();
 let synthArea = SYNTH_AREA;
@@ -177,6 +197,7 @@ for (const c of rawComp.values()) {
     areaByName.set(key, {
       nawy_id: areaIdByName.get(key) ?? synthArea++,
       name: c.areaName,
+      name_ar: areaNameArMap.get(key) ?? null,
       image_url: null,
       compounds_count: 0,
       properties_count: 0,
@@ -292,17 +313,21 @@ const devUnits = new Map();
 const areaUnits = new Map();
 const devMinPrice = new Map();
 const devAreaNames = new Map();
+const devAreaNamesAr = new Map();
 const addSet = (m, k, v) => {
   if (k == null) return;
   if (!m.has(k)) m.set(k, new Set());
   m.get(k).add(v);
 };
+const areaById = new Map(areaList.map((a) => [a.nawy_id, a]));
 for (const c of compounds) {
   addSet(devCompSet, c.developer_nawy_id, c.nawy_id);
   addSet(areaCompSet, c.area_nawy_id, c.nawy_id);
-  const aName = areaList.find((a) => a.nawy_id === c.area_nawy_id)?.name;
-  if (c.developer_nawy_id != null && aName)
-    addSet(devAreaNames, c.developer_nawy_id, aName);
+  const area = areaById.get(c.area_nawy_id);
+  if (c.developer_nawy_id != null && area?.name)
+    addSet(devAreaNames, c.developer_nawy_id, area.name);
+  if (c.developer_nawy_id != null && area?.name_ar)
+    addSet(devAreaNamesAr, c.developer_nawy_id, area.name_ar);
 }
 for (const u of units) {
   if (u.developer_nawy_id != null)
@@ -437,18 +462,128 @@ function buildAbout(d) {
   }
   return bits.join(" ");
 }
+
+// ── Arabic copy (MSA register with Egyptian-market vocabulary) ─────────
+const fmtPriceAr = (n) =>
+  n == null ? null : Math.round(n).toLocaleString("en-US") + " جنيه";
+
+function nameAr(d) {
+  return d.name_ar || d.name;
+}
+
+function buildAboutAr(d) {
+  const n = nameAr(d);
+  const proj = d.compounds_count;
+  const props = d.properties_count;
+  const areasAr = d.areas_ar.length ? d.areas_ar : d.nawy_areas_ar;
+  const bits = [];
+  bits.push(
+    `${n} هي شركة تطوير عقاري مصرية` +
+      (d.established_year ? `، تأسست عام ${d.established_year}` : "") +
+      "."
+  );
+  if (proj > 0) {
+    const areaPart = areasAr.length
+      ? areasAr.length === 1
+        ? ` في ${areasAr[0]}`
+        : ` في ${areasAr.slice(0, 4).join("، ")}` +
+          (areasAr.length > 4 ? ` و${areasAr.length - 4} مناطق أخرى` : "")
+      : "";
+    bits.push(
+      `تمتلك حالياً ${props.toLocaleString("en-US")} عقاراً للبيع ضمن ` +
+        `${proj} ${proj === 1 ? "مشروع" : "مشاريع"}${areaPart} على DealFinder.`
+    );
+    if (d.min_price)
+      bits.push(`تبدأ الأسعار من ${fmtPriceAr(d.min_price)}.`);
+  } else {
+    bits.push(
+      `تصفح ملف الشركة وسجّل اهتمامك لتصلك أحدث المشاريع فور إطلاقها من ${n}.`
+    );
+  }
+  return bits.join(" ");
+}
+
+function buildFaqsAr(d) {
+  const n = nameAr(d);
+  const proj = d.compounds_count;
+  const props = d.properties_count;
+  const areasAr = d.areas_ar.length ? d.areas_ar : d.nawy_areas_ar;
+  const lead = d.leadership_ar || d.leadership;
+  const faqs = [];
+
+  if (d.established_year)
+    faqs.push({
+      q: `متى تأسست ${n}؟`,
+      a: `تأسست ${n} عام ${d.established_year} وهي شركة تطوير عقاري مصرية.`,
+    });
+  if (lead)
+    faqs.push({
+      q: `من يقود شركة ${n}؟`,
+      a: `يقود شركة ${n} ${lead}.`,
+    });
+  if (proj > 0)
+    faqs.push({
+      q: `كم عدد مشاريع ${n} على DealFinder؟`,
+      a:
+        `تمتلك ${n} ${proj} ${proj === 1 ? "مشروعاً" : "مشاريع"} مدرجة على ` +
+        `DealFinder، مع ${props.toLocaleString("en-US")} ` +
+        `${props === 1 ? "عقار" : "عقاراً"} متاحاً للبيع.`,
+    });
+  else
+    faqs.push({
+      q: `هل تمتلك ${n} عقارات للبيع على DealFinder؟`,
+      a:
+        `لا توجد وحدات أولية مدرجة حالياً. سجّل اهتمامك على هذه الصفحة ` +
+        `وسيتواصل معك فريقنا فور إطلاق مشاريع جديدة.`,
+    });
+  if (d.top_projects.length)
+    faqs.push({
+      q: `ما هي أبرز مشاريع ${n}؟`,
+      a:
+        `تشمل أبرز مشاريع ${n} على DealFinder: ${d.top_projects.join("، ")}.`,
+    });
+  if (areasAr.length)
+    faqs.push({
+      q: `أين تطوّر ${n} مشاريعها في مصر؟`,
+      a:
+        `تطوّر ${n} مشاريعها في ` +
+        areasAr.slice(0, 6).join("، ") +
+        (areasAr.length > 6 ? ` ومناطق أخرى` : "") +
+        ".",
+    });
+  if (d.min_price)
+    faqs.push({
+      q: `ما هي أسعار عقارات ${n}؟`,
+      a:
+        `تبدأ أسعار عقارات ${n} على DealFinder من ${fmtPriceAr(d.min_price)}. ` +
+        `تختلف الأسعار حسب المشروع ونوع الوحدة وخطة السداد.`,
+    });
+  faqs.push({
+    q: `كيف يمكنني شراء عقار من ${n}؟`,
+    a:
+      `تصفح قوائم ${n} على DealFinder، قارن الأسعار وخطط السداد، ` +
+      `ثم اطلب اتصالاً — يتولى فريقنا المعاينات وإتمام الحجز من البداية حتى النهاية.`,
+  });
+  return faqs;
+}
+
 const developers = [];
 for (const d of devById.values()) {
   d.compounds_count = devCompSet.get(d.nawy_id)?.size ?? 0;
   d.properties_count = devUnits.get(d.nawy_id) ?? 0;
   d.min_price = devMinPrice.get(d.nawy_id) ?? d.nawy_min_price ?? null;
   const ourAreas = [...(devAreaNames.get(d.nawy_id) ?? [])];
+  const ourAreasAr = [...(devAreaNamesAr.get(d.nawy_id) ?? [])];
   d.areas = ourAreas.length ? ourAreas : d.nawy_areas;
+  d.areas_ar = ourAreasAr.length ? ourAreasAr : d.nawy_areas_ar;
   d.top_projects = devTopProjects.get(d.nawy_id) ?? [];
   const about = buildAbout(d);
+  const about_ar = buildAboutAr(d);
+  const nAr = nameAr(d);
   developers.push({
     nawy_id: d.nawy_id,
     name: d.name,
+    name_ar: d.name_ar,
     slug: d.slug,
     logo_url: d.logo_url,
     min_price: d.min_price,
@@ -456,9 +591,13 @@ for (const d of devById.values()) {
     properties_count: d.properties_count,
     established_year: d.established_year,
     areas: d.areas,
+    areas_ar: d.areas_ar,
     about,
+    about_ar,
     faqs: buildFaqs(d),
+    faqs_ar: buildFaqsAr(d),
     meta_title: `${d.name} — Projects & Properties for Sale | DealFinder`,
+    meta_title_ar: `${nAr} — مشاريع وعقارات للبيع | DealFinder`,
     meta_description:
       d.properties_count > 0
         ? `Explore ${d.properties_count.toLocaleString("en-US")} properties ` +
@@ -466,6 +605,13 @@ for (const d of devById.values()) {
           `Compare prices, payment plans and request a callback on DealFinder.`
         : `${d.name} developer profile on DealFinder. ` +
           `Register your interest for upcoming projects and new launches.`,
+    meta_description_ar:
+      d.properties_count > 0
+        ? `استكشف ${d.properties_count.toLocaleString("en-US")} عقاراً من ` +
+          `${nAr} ضمن ${d.compounds_count} مشروعاً. قارن الأسعار وخطط السداد ` +
+          `واطلب اتصالاً على DealFinder.`
+        : `صفحة ${nAr} على DealFinder. سجّل اهتمامك للمشاريع القادمة ` +
+          `والإطلاقات الجديدة.`,
   });
 }
 developers.sort((a, b) => b.properties_count - a.properties_count);

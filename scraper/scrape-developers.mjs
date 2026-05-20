@@ -27,11 +27,15 @@ const clean = (s) =>
     .replace(/\s+/g, " ")
     .trim();
 
-async function getJson(url, tries = 6) {
+async function getJson(url, tries = 6, lang = "en") {
   for (let i = 0; i < tries; i++) {
     try {
       const res = await fetch(url, {
-        headers: { "user-agent": "Mozilla/5.0", accept: "application/json" },
+        headers: {
+          "user-agent": "Mozilla/5.0",
+          accept: "application/json",
+          "accept-language": lang,
+        },
       });
       if (res.ok) return await res.json();
       if (res.status === 404) return null;
@@ -66,23 +70,48 @@ function facts(faqs) {
   return out;
 }
 
-function toRecord(d) {
-  const faqs = (d.faqs || [])
+function cleanFaqs(arr) {
+  return (arr || [])
     .map((f) => ({ question: clean(f.question), answer: clean(f.answer) }))
     .filter((f) => f.question && f.answer);
+}
+
+// Build a single record that carries BOTH English and Arabic factual fields.
+// d_en = nawy detail with Accept-Language: en  (default English)
+// d_ar = nawy detail with Accept-Language: ar  (same id, Arabic strings)
+function toRecord(d_en, d_ar) {
   return {
-    nawy_id: d.id,
-    name: d.name,
-    slug_en: d.slugEn ?? d.slug ?? null,
-    slug_ar: d.slugAr ?? null,
-    logo_url: d.image ?? null,
-    min_price: d.minPrice ?? null,
-    properties_count: d.propertiesCount ?? null,
-    areas: Array.isArray(d.areas) ? d.areas.map((a) => a.name).filter(Boolean) : [],
-    ...facts(d.faqs),
-    nawy_faqs: faqs,
-    nawy_description: d.description ?? null, // raw — reference only
-    launches_count: Array.isArray(d.launches) ? d.launches.length : 0,
+    nawy_id: d_en.id,
+    name: clean(d_en.name) || null,
+    name_ar: clean(d_ar?.name) || null,
+    slug_en: d_en.slugEn ?? d_en.slug ?? null,
+    slug_ar: d_en.slugAr ?? d_ar?.slugAr ?? null,
+    logo_url: d_en.image ?? null,
+    min_price: d_en.minPrice ?? null,
+    properties_count: d_en.propertiesCount ?? null,
+    areas: Array.isArray(d_en.areas)
+      ? d_en.areas.map((a) => a.name).filter(Boolean)
+      : [],
+    areas_ar: Array.isArray(d_ar?.areas)
+      ? d_ar.areas.map((a) => a.name).filter(Boolean)
+      : [],
+    ...facts(d_en.faqs),
+    // Arabic leadership: pull the same way from Arabic FAQs (CEO/founder Q).
+    leadership_ar: (() => {
+      for (const f of d_ar?.faqs || []) {
+        const q = (f.question || "").toLowerCase();
+        const a = clean(f.answer);
+        if (!a) continue;
+        // Arabic CEO/founder keywords: مؤسس, صاحب, رئيس
+        if (/مؤسس|صاحب|رئيس|ceo|chairman/.test(q) && a.length <= 80) return a;
+      }
+      return null;
+    })(),
+    nawy_faqs: cleanFaqs(d_en.faqs),
+    nawy_faqs_ar: cleanFaqs(d_ar?.faqs),
+    nawy_description: d_en.description ?? null, // raw — reference only
+    nawy_description_ar: d_ar?.description ?? null,
+    launches_count: Array.isArray(d_en.launches) ? d_en.launches.length : 0,
   };
 }
 
@@ -120,15 +149,19 @@ async function main() {
 
   async function worker(queue) {
     for (const id of queue) {
-      const d = await getJson(`${API}/v1/developers/${id}`);
+      // fetch EN + AR in parallel
+      const [d_en, d_ar] = await Promise.all([
+        getJson(`${API}/v1/developers/${id}`, 6, "en"),
+        getJson(`${API}/v1/developers/${id}`, 6, "ar"),
+      ]);
       done++;
       if (done % 50 === 0) console.log(`  ${done}/${ids.length}`);
-      if (d === undefined) {
+      if (d_en === undefined) {
         failed.push(id);
         continue;
       }
-      if (d === null) continue;
-      results.push(toRecord(d));
+      if (d_en === null) continue;
+      results.push(toRecord(d_en, d_ar));
       await sleep(40);
     }
   }
@@ -140,8 +173,11 @@ async function main() {
   if (failed.length) {
     console.log(`Retrying ${failed.length} failed...`);
     for (const id of failed) {
-      const d = await getJson(`${API}/v1/developers/${id}`, 8);
-      if (d) results.push(toRecord(d));
+      const [d_en, d_ar] = await Promise.all([
+        getJson(`${API}/v1/developers/${id}`, 8, "en"),
+        getJson(`${API}/v1/developers/${id}`, 8, "ar"),
+      ]);
+      if (d_en) results.push(toRecord(d_en, d_ar));
       await sleep(200);
     }
   }

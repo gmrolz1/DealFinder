@@ -12,10 +12,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  return developerMetadata(slug, "en");
+  return developerMetadata(slug, "ar");
 }
 
-export default async function DeveloperPageEn({
+export default async function DeveloperPageAr({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -23,5 +23,5 @@ export default async function DeveloperPageEn({
   const { slug } = await params;
   const dev = getDeveloperBySlug(slug);
   if (!dev) notFound();
-  return <DeveloperDetail dev={dev} locale="en" />;
+  return <DeveloperDetail dev={dev} locale="ar" />;
 }

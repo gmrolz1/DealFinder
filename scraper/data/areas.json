@@ -2,6 +2,7 @@
  {
   "nawy_id": 34,
   "name": "New Zayed",
+  "name_ar": "الشيخ زايد الجديدة",
   "image_url": null,
   "compounds_count": 44,
   "properties_count": 1506,
@@ -10,6 +11,7 @@
  {
   "nawy_id": 133,
   "name": "6th settlement",
+  "name_ar": "التجمع السادس",
   "image_url": null,
   "compounds_count": 32,
   "properties_count": 998,
@@ -18,6 +20,7 @@
  {
   "nawy_id": 15,
   "name": "Mostakbal City",
+  "name_ar": "مدينة المستقبل",
   "image_url": null,
   "compounds_count": 49,
   "properties_count": 1969,
@@ -26,6 +29,7 @@
  {
   "nawy_id": 5,
   "name": "New Cairo",
+  "name_ar": "القاهرة الجديدة",
   "image_url": null,
   "compounds_count": 250,
   "properties_count": 4522,
@@ -34,6 +38,7 @@
  {
   "nawy_id": 12,
   "name": "6th of October City",
+  "name_ar": "مدينة السادس من أكتوبر",
   "image_url": null,
   "compounds_count": 116,
   "properties_count": 1753,
@@ -42,6 +47,7 @@
  {
   "nawy_id": 21,
   "name": "El Sheikh Zayed",
+  "name_ar": "الشيخ زايد",
   "image_url": null,
   "compounds_count": 71,
   "properties_count": 903,
@@ -50,6 +56,7 @@
  {
   "nawy_id": 36,
   "name": "October Gardens",
+  "name_ar": "حدائق اكتوبر",
   "image_url": null,
   "compounds_count": 29,
   "properties_count": 1037,
@@ -58,6 +65,7 @@
  {
   "nawy_id": 26,
   "name": "Ras El Hekma",
+  "name_ar": "رأس الحكمة",
   "image_url": null,
   "compounds_count": 94,
   "properties_count": 1523,
@@ -66,6 +74,7 @@
  {
   "nawy_id": 27,
   "name": "Sidi Heneish",
+  "name_ar": "سيدي حنيش",
   "image_url": null,
   "compounds_count": 17,
   "properties_count": 202,
@@ -74,6 +83,7 @@
  {
   "nawy_id": 28,
   "name": "Al Dabaa",
+  "name_ar": "الضبعة",
   "image_url": null,
   "compounds_count": 17,
   "properties_count": 200,
@@ -82,6 +92,7 @@
  {
   "nawy_id": 11,
   "name": "New Heliopolis",
+  "name_ar": "هيليوبوليس الجديدة",
   "image_url": null,
   "compounds_count": 10,
   "properties_count": 1391,
@@ -90,6 +101,7 @@
  {
   "nawy_id": 29,
   "name": "Sidi Abdel Rahman",
+  "name_ar": "سيدي عبد الرحمن",
   "image_url": null,
   "compounds_count": 23,
   "properties_count": 715,
@@ -98,6 +110,7 @@
  {
   "nawy_id": 35,
   "name": "Northern Expansion",
+  "name_ar": "التوسعات الشمالية",
   "image_url": null,
   "compounds_count": 30,
   "properties_count": 637,
@@ -106,6 +119,7 @@
  {
   "nawy_id": 7,
   "name": "El Shorouk",
+  "name_ar": "الشروق",
   "image_url": null,
   "compounds_count": 15,
   "properties_count": 50,
@@ -114,6 +128,7 @@
  {
   "nawy_id": 101,
   "name": "South New Cairo",
+  "name_ar": "جنوب القاهرة الجديدة",
   "image_url": null,
   "compounds_count": 5,
   "properties_count": 29,
@@ -122,6 +137,7 @@
  {
   "nawy_id": 202,
   "name": "Golden Square",
+  "name_ar": "جولدن سكوير",
   "image_url": null,
   "compounds_count": 11,
   "properties_count": 41,
@@ -130,6 +146,7 @@
  {
   "nawy_id": 14,
   "name": "Ain Sokhna",
+  "name_ar": "العين السخنة",
   "image_url": null,
   "compounds_count": 56,
   "properties_count": 883,
@@ -138,6 +155,7 @@
  {
   "nawy_id": 16,
   "name": "New Capital City",
+  "name_ar": "العاصمة الإدارية الجديدة",
   "image_url": null,
   "compounds_count": 154,
   "properties_count": 4744,
@@ -146,6 +164,7 @@
  {
   "nawy_id": 100,
   "name": "New Sphinx",
+  "name_ar": "سفنكس الجديدة",
   "image_url": null,
   "compounds_count": 2,
   "properties_count": 58,
@@ -154,6 +173,7 @@
  {
   "nawy_id": 32,
   "name": "North Coast-Sahel",
+  "name_ar": "الساحل الشمالي",
   "image_url": null,
   "compounds_count": 32,
   "properties_count": 74,
@@ -162,6 +182,7 @@
  {
   "nawy_id": 8000000,
   "name": "Madinaty",
+  "name_ar": "مدينتي",
   "image_url": null,
   "compounds_count": 2,
   "properties_count": 0,
@@ -170,6 +191,7 @@
  {
   "nawy_id": 20,
   "name": "Mokattam",
+  "name_ar": "مقطم",
   "image_url": null,
   "compounds_count": 2,
   "properties_count": 1,
@@ -178,6 +200,7 @@
  {
   "nawy_id": 201,
   "name": "North Investors",
+  "name_ar": "المستثمرين الشمالية",
   "image_url": null,
   "compounds_count": 17,
   "properties_count": 54,
@@ -186,6 +209,7 @@
  {
   "nawy_id": 3,
   "name": "Sahl Hasheesh",
+  "name_ar": "سهل حشيش",
   "image_url": null,
   "compounds_count": 6,
   "properties_count": 6,
@@ -194,6 +218,7 @@
  {
   "nawy_id": 8,
   "name": "El Gouna",
+  "name_ar": "الجونة",
   "image_url": null,
   "compounds_count": 14,
   "properties_count": 51,
@@ -202,6 +227,7 @@
  {
   "nawy_id": 9,
   "name": "Somabay",
+  "name_ar": "سوماباي",
   "image_url": null,
   "compounds_count": 20,
   "properties_count": 523,
@@ -210,6 +236,7 @@
  {
   "nawy_id": 19,
   "name": "Maadi",
+  "name_ar": "المعادي",
   "image_url": null,
   "compounds_count": 5,
   "properties_count": 63,
@@ -218,6 +245,7 @@
  {
   "nawy_id": 33,
   "name": "Al Alamein",
+  "name_ar": "العلمين",
   "image_url": null,
   "compounds_count": 18,
   "properties_count": 2145,
@@ -226,6 +254,7 @@
  {
   "nawy_id": 4,
   "name": "Hurghada",
+  "name_ar": "الغردقة",
   "image_url": null,
   "compounds_count": 5,
   "properties_count": 30,
@@ -234,6 +263,7 @@
  {
   "nawy_id": 30,
   "name": "Ghazala Bay",
+  "name_ar": "غزالة باي",
   "image_url": null,
   "compounds_count": 2,
   "properties_count": 22,
@@ -242,6 +272,7 @@
  {
   "nawy_id": 234,
   "name": "Downtown Cairo",
+  "name_ar": "وسط القاهرة",
   "image_url": null,
   "compounds_count": 3,
   "properties_count": 18,
@@ -250,6 +281,7 @@
  {
   "nawy_id": 17,
   "name": "Ras Sudr",
+  "name_ar": "راس سدر",
   "image_url": null,
   "compounds_count": 4,
   "properties_count": 265,
@@ -258,6 +290,7 @@
  {
   "nawy_id": 10,
   "name": "Alexandria",
+  "name_ar": "الإسكندرية",
   "image_url": null,
   "compounds_count": 2,
   "properties_count": 41,
@@ -266,6 +299,7 @@
  {
   "nawy_id": 167,
   "name": "Makadi",
+  "name_ar": "مكادي",
   "image_url": null,
   "compounds_count": 2,
   "properties_count": 26,
@@ -274,6 +308,7 @@
  {
   "nawy_id": 199,
   "name": "El Lotus",
+  "name_ar": "اللوتس",
   "image_url": null,
   "compounds_count": 9,
   "properties_count": 367,
@@ -282,6 +317,7 @@
  {
   "nawy_id": 232,
   "name": "South Investors",
+  "name_ar": "المستثمرين الجنوبية",
   "image_url": null,
   "compounds_count": 10,
   "properties_count": 69,
@@ -290,6 +326,7 @@
  {
   "nawy_id": 8000001,
   "name": "Port Said",
+  "name_ar": "بورسعيد",
   "image_url": null,
   "compounds_count": 1,
   "properties_count": 0,
@@ -298,6 +335,7 @@
  {
   "nawy_id": 233,
   "name": "Old Cairo",
+  "name_ar": "القاهرة القديمة",
   "image_url": null,
   "compounds_count": 1,
   "properties_count": 3,
@@ -306,6 +344,7 @@
  {
   "nawy_id": 235,
   "name": "Heliopolis",
+  "name_ar": "هيليوبوليس",
   "image_url": null,
   "compounds_count": 2,
   "properties_count": 16,
@@ -314,6 +353,7 @@
  {
   "nawy_id": 23,
   "name": "Central Cairo",
+  "name_ar": "القاهره",
   "image_url": null,
   "compounds_count": 3,
   "properties_count": 1,
@@ -322,6 +362,7 @@
  {
   "nawy_id": 200,
   "name": "El Choueifat",
+  "name_ar": "الشويفات",
   "image_url": null,
   "compounds_count": 3,
   "properties_count": 32,
@@ -330,6 +371,7 @@
  {
   "nawy_id": 8000002,
   "name": "New Capital Gardens",
+  "name_ar": "حدائق العاصمة الإدارية الجديدة",
   "image_url": null,
   "compounds_count": 1,
   "properties_count": 0,

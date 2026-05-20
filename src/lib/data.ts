@@ -38,6 +38,7 @@ function slugify(s: string): string {
 export type Area = {
   nawy_id: number;
   name: string;
+  name_ar: string | null;
   slug: string;
   image_url: string | null;
   compounds_count: number | null;
@@ -47,6 +48,7 @@ export type Area = {
 export type Developer = {
   nawy_id: number;
   name: string;
+  name_ar: string | null;
   slug: string;
   logo_url: string | null;
   min_price: number | null;
@@ -54,10 +56,15 @@ export type Developer = {
   properties_count: number | null;
   established_year: number | null;
   areas: string[];
+  areas_ar: string[];
   about: string | null;
+  about_ar: string | null;
   faqs: { q: string; a: string }[];
+  faqs_ar: { q: string; a: string }[];
   meta_title: string | null;
+  meta_title_ar: string | null;
   meta_description: string | null;
+  meta_description_ar: string | null;
 };
 
 export type Compound = {
