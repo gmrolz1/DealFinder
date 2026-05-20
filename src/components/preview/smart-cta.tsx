@@ -16,7 +16,7 @@
 // avatar — the universal "speech bubble" cue. Square corners (brand
 // requires no rounded corners). The whole block is one clickable button.
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { EnrichedUnit } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
 import { ChatSheet } from "./chat-sheet";
