@@ -11,6 +11,8 @@ import {
   CHAT_UI,
   openingMessage,
   buildHandoffWhatsApp,
+  aiNameFor,
+  aiInitialFor,
   type ChatMessage,
 } from "@/lib/chat-config";
 
@@ -171,11 +173,11 @@ export function ChatSheet({
         <div className="flex items-start justify-between gap-3 border-b border-ink bg-ink px-4 py-3 text-paper">
           <div className="flex min-w-0 items-start gap-3">
             <div className="grid h-9 w-9 shrink-0 place-items-center border border-paper bg-paper text-[14px] font-black uppercase text-ink">
-              {CHAT_CONFIG.aiName.charAt(0)}
+              {aiInitialFor(locale)}
             </div>
             <div className="min-w-0">
               <p className="flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-tight">
-                {CHAT_CONFIG.aiName}
+                {aiNameFor(locale)}
                 <span
                   className="inline-block h-1.5 w-1.5 bg-green-400"
                   aria-label={ui.online}
@@ -225,9 +227,9 @@ export function ChatSheet({
           className="flex-1 space-y-3 overflow-y-auto bg-paper px-4 py-4"
         >
           {messages.map((m, i) => (
-            <MessageBubble key={i} msg={m} rtl={rtl} />
+            <MessageBubble key={i} msg={m} rtl={rtl} locale={locale} />
           ))}
-          {loading && <TypingIndicator />}
+          {loading && <TypingIndicator locale={locale} />}
           {error && (
             <div className="border border-ink bg-paper p-3 text-[11px] font-semibold uppercase tracking-[0.06em] text-ink">
               {ui.errorPrefix} {error}
@@ -296,7 +298,15 @@ export function ChatSheet({
   );
 }
 
-function MessageBubble({ msg, rtl }: { msg: ChatMessage; rtl: boolean }) {
+function MessageBubble({
+  msg,
+  rtl,
+  locale,
+}: {
+  msg: ChatMessage;
+  rtl: boolean;
+  locale: Locale;
+}) {
   const isUser = msg.role === "user";
   // In RTL: user bubbles still align "logical end" (left visually), so we
   // use flex-row-reverse implicitly via dir="rtl" on the parent.
@@ -304,7 +314,7 @@ function MessageBubble({ msg, rtl }: { msg: ChatMessage; rtl: boolean }) {
     <div className={`flex gap-2 ${isUser ? "justify-end" : "justify-start"}`}>
       {!isUser && (
         <div className="grid h-7 w-7 shrink-0 place-items-center border border-ink bg-ink text-[11px] font-black uppercase text-paper">
-          {CHAT_CONFIG.aiName.charAt(0)}
+          {aiInitialFor(locale)}
         </div>
       )}
       <div
@@ -321,11 +331,11 @@ function MessageBubble({ msg, rtl }: { msg: ChatMessage; rtl: boolean }) {
   );
 }
 
-function TypingIndicator() {
+function TypingIndicator({ locale }: { locale: Locale }) {
   return (
     <div className="flex items-center gap-2">
       <div className="grid h-7 w-7 shrink-0 place-items-center border border-ink bg-ink text-[11px] font-black uppercase text-paper">
-        {CHAT_CONFIG.aiName.charAt(0)}
+        {aiInitialFor(locale)}
       </div>
       <div className="border border-data bg-paper px-3 py-2.5">
         <div className="flex items-center gap-1">

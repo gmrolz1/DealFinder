@@ -4,8 +4,10 @@
 import type { Locale } from "./i18n";
 
 export const CHAT_CONFIG = {
-  /** Display name of the AI agent */
+  /** Display name of the AI agent (English / canonical brand name) */
   aiName: "Layla",
+  /** Localized Arabic name shown on AR pages */
+  aiNameAr: "ليلى",
   /** Display name of the brokerage / brand */
   brand: "DealFinder",
   /** Human broker who takes over on WhatsApp */
@@ -68,6 +70,18 @@ export const CHAT_UI = {
   },
 } as const;
 
+/** Localized display name of the agent — use this anywhere the name is
+ * shown on screen. The system prompt still references the canonical
+ * English name internally. */
+export function aiNameFor(locale: Locale): string {
+  return locale === "ar" ? CHAT_CONFIG.aiNameAr : CHAT_CONFIG.aiName;
+}
+
+/** First glyph of the agent's name — used by the avatar tile. */
+export function aiInitialFor(locale: Locale): string {
+  return aiNameFor(locale).charAt(0);
+}
+
 /** Initial agent message — short, warm, locale-aware. Suggestion chips set
  * the conversational lane the user is likely to take. */
 export function openingMessage(
@@ -77,7 +91,7 @@ export function openingMessage(
   if (locale === "ar") {
     return {
       role: "model",
-      text: `اختيار ممتاز — ${compoundName}. أنا ليلى من ${CHAT_CONFIG.brand}. ماذا تريد أن تعرف أولاً — خطة الدفع، موعد التسليم، أم لماذا تعتبر هذه صفقة جيدة؟`,
+      text: `اختيار ممتاز — ${compoundName}. أنا ${CHAT_CONFIG.aiNameAr} من ${CHAT_CONFIG.brand}. ماذا تريد أن تعرف أولاً — خطة الدفع، موعد التسليم، أم لماذا تعتبر هذه صفقة جيدة؟`,
       suggestions: ["خطة الدفع؟", "موعد التسليم؟", "لماذا هذه صفقة جيدة؟"],
     };
   }

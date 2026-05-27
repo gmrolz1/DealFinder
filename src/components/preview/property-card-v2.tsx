@@ -144,11 +144,7 @@ export function PropertyCardV2({
           />
           <DealCell
             label={t.monthly}
-            value={
-              monthly
-                ? `EGP ${monthly.toLocaleString("en-US").replace(/,000$/, "K")}`
-                : "—"
-            }
+            value={monthly ? formatPriceCompact(monthly) : "—"}
             sub={monthly ? t.perMonth : null}
           />
           <DealCell

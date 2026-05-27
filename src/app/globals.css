@@ -63,22 +63,25 @@ body {
   }
 }
 
-/* ---- Smart CTA — rotating intent label, multi-directional slide-in ---- */
+/* ---- Smart CTA — rotating intent label, multi-directional slide-in ----
+ * Animation starts at opacity 0.55 (not 0) so the bubble never looks
+ * empty mid-transition. Translation distance is smaller (40-50%) so
+ * the slide feels punchy without leaving an empty hole. */
 @keyframes smart-cta-up {
-  from { transform: translateY(110%); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from { transform: translateY(50%); opacity: 0.55; }
+  to   { transform: translateY(0);   opacity: 1; }
 }
 @keyframes smart-cta-right {
-  from { transform: translateX(-110%); opacity: 0; }
-  to   { transform: translateX(0);     opacity: 1; }
-}
-@keyframes smart-cta-left {
-  from { transform: translateX(110%); opacity: 0; }
+  from { transform: translateX(-50%); opacity: 0.55; }
   to   { transform: translateX(0);    opacity: 1; }
 }
-.smart-cta-anim-up    { animation: smart-cta-up    0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.smart-cta-anim-right { animation: smart-cta-right 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.smart-cta-anim-left  { animation: smart-cta-left  0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@keyframes smart-cta-left {
+  from { transform: translateX(50%); opacity: 0.55; }
+  to   { transform: translateX(0);   opacity: 1; }
+}
+.smart-cta-anim-up    { animation: smart-cta-up    0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.smart-cta-anim-right { animation: smart-cta-right 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.smart-cta-anim-left  { animation: smart-cta-left  0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
 
 @media (prefers-reduced-motion: reduce) {
   .smart-cta-anim-up,

@@ -38,59 +38,90 @@ export default function Home() {
 
   return (
     <div className="bg-paper">
-      {/* Hero */}
-      <section className="border-b border-data px-4 py-20 sm:px-6 sm:py-28">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-taupe">
-            Egypt Property Marketplace
-          </p>
-          <h1 className="mt-4 text-[46px] font-black uppercase leading-[0.95] tracking-tight text-ink sm:text-[88px]">
-            Where <span className="glitch">Deals</span>
-            <br />
-            Happen
-          </h1>
-          <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-slate sm:text-[18px]">
-            {formatNumber(stats.units)} primary properties from{" "}
-            {stats.developers} trusted developers across Egypt. Precision over
-            reach.
-          </p>
+      {/* Hero — text on the left, monolith stats panel on the right (lg+) */}
+      <section className="border-b border-data px-4 py-16 sm:px-6 sm:py-24">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1fr_auto]">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-taupe">
+              Egypt Property Marketplace
+            </p>
+            <h1 className="mt-4 text-[46px] font-black uppercase leading-[0.95] tracking-tight text-ink sm:text-[72px] lg:text-[80px]">
+              Where <span className="glitch">Deals</span>
+              <br />
+              Happen
+            </h1>
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-slate sm:text-[18px]">
+              {formatNumber(stats.units)} primary properties from{" "}
+              {stats.developers} trusted developers across Egypt. Precision
+              over reach.
+            </p>
 
-          <form
-            action="/properties"
-            className="mt-8 flex max-w-2xl flex-col gap-2 sm:flex-row"
-          >
-            <input
-              name="q"
-              placeholder="Search compound or area"
-              className="min-w-0 flex-1 border border-data bg-paper px-4 py-3 text-[14px] text-ink outline-none placeholder:text-slate/50 focus:border-ink"
-            />
-            <select
-              name="area"
-              className="border border-data bg-paper px-4 py-3 text-[14px] text-slate outline-none focus:border-ink"
+            <form
+              action="/properties"
+              className="mt-8 flex max-w-2xl flex-col gap-2 sm:flex-row"
             >
-              <option value="">All areas</option>
-              {areas.map((a) => (
-                <option key={a.nawy_id} value={a.nawy_id}>
-                  {a.name}
-                </option>
-              ))}
-            </select>
-            <button className="border border-ink bg-ink px-7 py-3 text-[12px] font-bold uppercase tracking-[0.08em] text-paper transition hover:bg-paper hover:text-ink">
-              Search
-            </button>
-          </form>
-
-          <div className="mt-5 flex flex-wrap gap-2">
-            {types.slice(0, 7).map((t) => (
-              <Link
-                key={t}
-                href={`/properties?type=${encodeURIComponent(t)}`}
-                className="border border-data px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-slate transition hover:border-ink hover:text-ink"
+              <input
+                name="q"
+                placeholder="Search compound or area"
+                className="min-w-0 flex-1 border border-data bg-paper px-4 py-3 text-[14px] text-ink outline-none placeholder:text-slate/50 focus:border-ink"
+              />
+              <select
+                name="area"
+                className="border border-data bg-paper px-4 py-3 text-[14px] text-slate outline-none focus:border-ink"
               >
-                {t}
-              </Link>
-            ))}
+                <option value="">All areas</option>
+                {areas.map((a) => (
+                  <option key={a.nawy_id} value={a.nawy_id}>
+                    {a.name}
+                  </option>
+                ))}
+              </select>
+              <button className="border border-ink bg-ink px-7 py-3 text-[12px] font-bold uppercase tracking-[0.08em] text-paper transition hover:bg-paper hover:text-ink">
+                Search
+              </button>
+            </form>
+
+            <div className="mt-5 flex flex-wrap gap-2">
+              {types.slice(0, 7).map((t) => (
+                <Link
+                  key={t}
+                  href={`/properties?type=${encodeURIComponent(t)}`}
+                  className="border border-data px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-slate transition hover:border-ink hover:text-ink"
+                >
+                  {t}
+                </Link>
+              ))}
+            </div>
           </div>
+
+          {/* Stats monolith — fills the empty right half at lg+ */}
+          <aside className="hidden lg:block">
+            <div className="border border-ink">
+              <p className="border-b border-ink bg-ink px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.18em] text-paper">
+                Across the marketplace
+              </p>
+              <div className="grid grid-cols-2 bg-data">
+                {[
+                  ["Properties", stats.units],
+                  ["Developers", stats.developers],
+                  ["Compounds", stats.compounds],
+                  ["Areas", stats.areas],
+                ].map(([label, value]) => (
+                  <div
+                    key={label as string}
+                    className="bg-paper p-5"
+                  >
+                    <p className="text-[28px] font-black leading-none tracking-tight text-ink">
+                      {formatNumber(value as number)}
+                    </p>
+                    <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.14em] text-taupe">
+                      {label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
 

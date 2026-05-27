@@ -29,16 +29,38 @@ export function Carousel({
   const valid = images.filter(Boolean);
   const count = valid.length;
 
-  // No-image placeholder
+  // No-image placeholder — subtle diagonal-stripe texture + camera-off icon.
+  // Reads as "intentionally empty" rather than "broken".
   if (count === 0) {
     return (
       <div
-        className={`relative grid place-items-center bg-data ${className}`}
-        style={{ aspectRatio }}
+        className={`relative grid place-items-center overflow-hidden bg-data ${className}`}
+        style={{
+          aspectRatio,
+          backgroundImage:
+            "repeating-linear-gradient(45deg, transparent 0 14px, rgba(0,0,0,0.04) 14px 15px)",
+        }}
       >
-        <span className="text-[11px] uppercase tracking-[0.08em] text-slate">
-          No image
-        </span>
+        <div className="flex flex-col items-center gap-1.5 opacity-50">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="text-slate"
+            aria-hidden="true"
+          >
+            <path d="M3 3l18 18" />
+            <path d="M21 17V8a2 2 0 0 0-2-2h-3l-2-2H10l-1 1" />
+            <path d="M3 8v9a2 2 0 0 0 2 2h13" />
+            <path d="M9 11a3 3 0 0 0 4 4" />
+          </svg>
+          <span className="text-[9px] uppercase tracking-[0.12em] text-slate">
+            No photo
+          </span>
+        </div>
       </div>
     );
   }

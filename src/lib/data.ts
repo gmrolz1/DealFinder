@@ -233,22 +233,39 @@ export function getPropertyTypes(): string[] {
   return [...set].sort();
 }
 
+/** Dedupe a unit list down to one entry per compound — keeps featured /
+ * new-launch sections from showing the same project 6 times in a row. */
+function uniqueByCompound(list: Unit[]): Unit[] {
+  const seen = new Set<number>();
+  const out: Unit[] = [];
+  for (const u of list) {
+    const c = u.compound_nawy_id;
+    if (c == null) {
+      out.push(u);
+      continue;
+    }
+    if (seen.has(c)) continue;
+    seen.add(c);
+    out.push(u);
+  }
+  return out;
+}
+
 export function getFeaturedUnits(n: number): EnrichedUnit[] {
-  return store()
-    .units.filter((u) => u.image_url && (u.price ?? 0) > 0)
-    .slice(40, 40 + n)
-    .map(enrich);
+  const candidates = store().units.filter(
+    (u) => u.image_url && (u.price ?? 0) > 0
+  );
+  return uniqueByCompound(candidates).slice(40, 40 + n).map(enrich);
 }
 
 export function getNewLaunchUnits(n: number): EnrichedUnit[] {
-  return [...store().units]
+  const sorted = [...store().units]
     .filter((u) => u.image_url && u.ready_by)
     .sort(
       (a, b) =>
         new Date(b.ready_by!).getTime() - new Date(a.ready_by!).getTime()
-    )
-    .slice(0, n)
-    .map(enrich);
+    );
+  return uniqueByCompound(sorted).slice(0, n).map(enrich);
 }
 
 // --- areas -----------------------------------------------------------------

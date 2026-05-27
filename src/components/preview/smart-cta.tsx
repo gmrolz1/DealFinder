@@ -20,7 +20,11 @@ import { useEffect, useState } from "react";
 import type { EnrichedUnit } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
 import { ChatSheet } from "./chat-sheet";
-import { CHAT_CONFIG, CHAT_UI } from "@/lib/chat-config";
+import {
+  CHAT_UI,
+  aiNameFor,
+  aiInitialFor,
+} from "@/lib/chat-config";
 import {
   DEFAULT_INTENTS,
   type ChatIntent,
@@ -44,7 +48,11 @@ export function SmartCTA({
   locale?: Locale;
   intents?: ChatIntent[];
 }) {
-  const [index, setIndex] = useState(0);
+  // Seed each card's starting index from its unit id so the rotation looks
+  // independent across the grid. Deterministic on both server and client
+  // so hydration matches.
+  const initialIndex = unit.nawy_id % intents.length;
+  const [index, setIndex] = useState(initialIndex);
   const [open, setOpen] = useState(false);
   const [paused, setPaused] = useState(false);
 
@@ -53,15 +61,28 @@ export function SmartCTA({
 
   useEffect(() => {
     if (paused || open || intents.length < 2) return;
-    const t = window.setInterval(() => {
+    // Jitter the first tick by up to one rotation window so cards drift
+    // out of sync over time even if they all mount in the same frame.
+    const jitter = Math.floor(((unit.nawy_id * 2654435761) % ROTATE_MS));
+    let interval = 0;
+    const start = window.setTimeout(() => {
       setIndex((i) => (i + 1) % intents.length);
-    }, ROTATE_MS);
-    return () => window.clearInterval(t);
-  }, [paused, open, intents.length]);
+      interval = window.setInterval(() => {
+        setIndex((i) => (i + 1) % intents.length);
+      }, ROTATE_MS);
+    }, jitter);
+    return () => {
+      window.clearTimeout(start);
+      if (interval) window.clearInterval(interval);
+    };
+  }, [paused, open, intents.length, unit.nawy_id]);
 
   const current = intents[index];
   const label = current.label[locale];
   const seed = current.seed?.[locale];
+
+  const displayName = aiNameFor(locale);
+  const displayInitial = aiInitialFor(locale);
 
   return (
     <>
@@ -77,16 +98,16 @@ export function SmartCTA({
         onFocus={() => setPaused(true)}
         onBlur={() => setPaused(false)}
         className="group block w-full border border-ink bg-ink text-paper text-left transition hover:bg-[#0a0a0a]"
-        aria-label={`${CHAT_CONFIG.aiName} · ${label} · ${ui.smartCtaTapReply}`}
+        aria-label={`${displayName} · ${label} · ${ui.smartCtaTapReply}`}
         dir={isAr ? "rtl" : "ltr"}
       >
         {/* HEADER ROW — avatar + name + online status + typing dots */}
         <div className="flex items-center gap-2 border-b border-paper/15 px-2.5 py-1.5">
           <span className="grid h-5 w-5 shrink-0 place-items-center bg-paper text-[10px] font-black uppercase text-ink">
-            {CHAT_CONFIG.aiName.charAt(0)}
+            {displayInitial}
           </span>
           <span className="text-[10px] font-bold uppercase tracking-[0.06em]">
-            {CHAT_CONFIG.aiName}
+            {displayName}
           </span>
           <span className="flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.06em] text-paper/70">
             <span className="inline-block h-1.5 w-1.5 bg-green-400" />
