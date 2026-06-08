@@ -37,6 +37,21 @@ export function NewCapitalLanding({
 
   return (
     <div className="bg-paper pb-40 md:pb-28" dir={isAr ? "rtl" : "ltr"}>
+      {/* ── Brand bar (standalone — MAP) ──────────────────────────────── */}
+      {/* Swap the MAP wordmark below for <img src="/map-logo.png" .../> once
+          the client logo is added to /public. */}
+      <header className="flex items-center justify-between border-b border-ink px-4 py-3 sm:px-6">
+        <span className="text-[20px] font-black uppercase tracking-tight text-ink">
+          MAP
+        </span>
+        <a
+          href={campaignTelHref}
+          className="flex items-center gap-1.5 border border-ink px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-ink hover:text-paper"
+        >
+          <PhoneIcon size={13} /> {c.callCta}
+        </a>
+      </header>
+
       {/* ── Hero ──────────────────────────────────────────────────────── */}
       <section className="border-b border-data px-4 py-14 sm:px-6 sm:py-20">
         <div className="mx-auto max-w-3xl">

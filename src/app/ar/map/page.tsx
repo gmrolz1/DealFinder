@@ -8,16 +8,16 @@ export const metadata: Metadata = {
   description:
     "شقق وفيلات أولية في العاصمة الإدارية الجديدة من كبار المطوّرين. تبدأ من 1.8 مليون جنيه، 10% مقدم، تقسيط حتى 8 سنوات. تواصل معنا على واتساب لأفضل العروض.",
   alternates: {
-    canonical: "/ar/new-capital",
+    canonical: "/ar/map",
     languages: {
-      en: "/new-capital",
-      ar: "/ar/new-capital",
-      "x-default": "/new-capital",
+      en: "/map",
+      ar: "/ar/map",
+      "x-default": "/map",
     },
   },
 };
 
-export default function NewCapitalPageAr() {
+export default function MapLandingPageAr() {
   const deals = getAreaDeals(CAMPAIGN.areaId, 24);
   const compounds = getCompoundsByArea(CAMPAIGN.areaId);
   const unitCount = searchUnits({ area: String(CAMPAIGN.areaId) }).total;

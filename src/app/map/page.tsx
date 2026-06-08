@@ -8,16 +8,16 @@ export const metadata: Metadata = {
   description:
     "Primary apartments & villas in Egypt's New Administrative Capital from top developers. From EGP 1.8M, 10% down, up to 8-year plans. WhatsApp us for the best deals.",
   alternates: {
-    canonical: "/new-capital",
+    canonical: "/map",
     languages: {
-      en: "/new-capital",
-      ar: "/ar/new-capital",
-      "x-default": "/new-capital",
+      en: "/map",
+      ar: "/ar/map",
+      "x-default": "/map",
     },
   },
 };
 
-export default function NewCapitalPage() {
+export default function MapLandingPage() {
   const deals = getAreaDeals(CAMPAIGN.areaId, 24);
   const compounds = getCompoundsByArea(CAMPAIGN.areaId);
   const unitCount = searchUnits({ area: String(CAMPAIGN.areaId) }).total;

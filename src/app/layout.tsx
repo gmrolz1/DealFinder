@@ -23,14 +23,22 @@ export default async function RootLayout({
   const pathname = h.get("x-pathname") ?? "/";
   const locale = localeFromPath(pathname);
   const dir = isRtl(locale) ? "rtl" : "ltr";
+  // Standalone (no DealFinder chrome) for client campaign landing pages.
+  const standalone = pathname === "/map" || pathname === "/ar/map";
 
   return (
     <html lang={locale} dir={dir} className={`${magnetik.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-paper text-ink">
-        <SiteHeader locale={locale} pathname={pathname} />
-        <main className="flex-1 pb-16 md:pb-0">{children}</main>
-        <SiteFooter locale={locale} />
-        <MobileTabBar locale={locale} />
+        {standalone ? (
+          <main className="flex-1">{children}</main>
+        ) : (
+          <>
+            <SiteHeader locale={locale} pathname={pathname} />
+            <main className="flex-1 pb-16 md:pb-0">{children}</main>
+            <SiteFooter locale={locale} />
+            <MobileTabBar locale={locale} />
+          </>
+        )}
       </body>
     </html>
   );
