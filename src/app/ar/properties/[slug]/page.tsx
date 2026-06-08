@@ -201,7 +201,7 @@ export default async function PropertyPageAr({
           <h2 className="text-[18px] font-bold uppercase tracking-tight text-ink">
             المزيد في {areaName ?? "هذه المنطقة"}
           </h2>
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {similar.map((u) => (
               <PropertyCard key={u.nawy_id} unit={u} locale="ar" />
             ))}

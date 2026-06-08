@@ -25,7 +25,7 @@ export default function NewLaunchesPageAr() {
       <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.08em] text-taupe">
         أحدث الإطلاقات الأولية من المطورين في جميع أنحاء مصر
       </p>
-      <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {units.map((u) => (
           <PropertyCard key={u.nawy_id} unit={u} locale="ar" />
         ))}

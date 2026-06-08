@@ -377,6 +377,44 @@ export function getSimilarUnits(unit: EnrichedUnit, n: number): EnrichedUnit[] {
     .map(enrich);
 }
 
+// --- area deals (campaign landing) ----------------------------------------
+/** Best-value units in an area for a lead-gen landing page. Ranks by deal
+ * strength (low down-payment %, long installment plan), diversifies to at
+ * most 2 units per compound, and only returns units with a photo + price. */
+export function getAreaDeals(areaId: number, n: number): EnrichedUnit[] {
+  const scored = store()
+    .units.filter(
+      (u) => u.area_nawy_id === areaId && u.image_url && (u.price ?? 0) > 0
+    )
+    .map((u) => {
+      const pct =
+        u.down_payment && u.price ? (u.down_payment / u.price) * 100 : null;
+      let score = 0;
+      if (pct != null && pct > 0 && pct <= 10) score += 3;
+      else if (pct != null && pct > 0 && pct <= 15) score += 1;
+      if ((u.installment_years ?? 0) >= 7) score += 1;
+      return { u, pct: pct ?? 999, score };
+    })
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.pct - b.pct ||
+        (a.u.price ?? 0) - (b.u.price ?? 0)
+    );
+
+  const perCompound = new Map<number, number>();
+  const picked: Unit[] = [];
+  for (const { u } of scored) {
+    const c = u.compound_nawy_id ?? -1;
+    const used = perCompound.get(c) ?? 0;
+    if (used >= 2) continue;
+    perCompound.set(c, used + 1);
+    picked.push(u);
+    if (picked.length >= n) break;
+  }
+  return picked.map(enrich);
+}
+
 // --- search ----------------------------------------------------------------
 export type SearchParams = {
   q?: string;
