@@ -45,6 +45,7 @@ const S: Strings = {
   "nav.areas": { en: "Areas", ar: "المناطق" },
   "nav.compounds": { en: "Compounds", ar: "الكمبوندات" },
   "nav.newLaunches": { en: "New Launches", ar: "إطلاقات جديدة" },
+  "nav.map": { en: "Map", ar: "الخريطة" },
 
   "dev.label": { en: "Real Estate Developer", ar: "مطور عقاري" },
   "dev.establishedShort": { en: "Est.", ar: "تأسست" },

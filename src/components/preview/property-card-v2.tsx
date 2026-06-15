@@ -26,6 +26,7 @@ import {
   unitDealBadges,
   formatPriceCompact,
 } from "@/lib/conversion";
+import { unitUSP } from "@/lib/usp";
 import {
   CHAT_UI,
   brokerTelHref,
@@ -158,9 +159,12 @@ export function PropertyCardV2({
           />
         </div>
 
-        {/* Compound name + area + developer */}
+        {/* USP headline → compound → area · dev */}
         <div className="mt-3">
-          <p className="truncate text-[13px] font-bold text-ink">
+          <p className="truncate text-[10px] font-black uppercase tracking-[0.1em] text-ink">
+            {unitUSP(unit, locale)}
+          </p>
+          <p className="mt-1 truncate text-[13px] font-bold text-ink">
             {compoundLabel}
           </p>
           <p className="truncate text-[10px] font-medium uppercase tracking-[0.07em] text-taupe">
