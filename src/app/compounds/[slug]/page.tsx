@@ -101,7 +101,7 @@ export default async function CompoundPage({
             No primary units currently listed in this compound
           </p>
         ) : (
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {units.map((u) => (
               <PropertyCard key={u.nawy_id} unit={u} />
             ))}

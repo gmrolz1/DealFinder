@@ -1,11 +1,15 @@
-// Exposes the request pathname to server components via a header. The root
-// layout reads x-pathname to set html lang/dir per locale.
+// Next.js 16 Proxy (formerly `middleware.ts`, now deprecated/renamed). Must live
+// at the same level as `app` — this project uses `src/app`, so it belongs here
+// at `src/proxy.ts`.
 //
-// Also handles a one-shot Arabic auto-redirect on the bare homepage so that
-// Arabic-speaking visitors land on /ar by default. After a user's first
-// page load anywhere on the site, a `locale` cookie is set reflecting the
-// path they're on — so future visits to "/" don't keep bouncing them
-// somewhere they didn't ask for.
+// Responsibilities:
+//   1. Expose the request pathname to server components via a request header,
+//      so the root layout can set <html lang/dir> per locale and toggle off
+//      site chrome for standalone campaign pages.
+//   2. Send first-time Arabic-language visitors from "/" to "/ar" so the
+//      marketplace defaults to Arabic for its Arabic-speaking audience.
+//   3. Persist a `locale` cookie on every page load reflecting the path
+//      the visitor is on, so the auto-redirect only fires once.
 
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -27,12 +31,12 @@ function localeFromPath(path: string): "en" | "ar" {
 
 const COOKIE_NAME = "locale";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   // First-time Arabic visitors get sent from "/" to "/ar". After their first
-  // page load, the locale cookie is set and this branch is skipped — so a
-  // visitor who clicks EN later won't be re-bounced.
+  // page load anywhere, the locale cookie is set and this branch skips — so
+  // a visitor who clicks EN later won't be re-bounced.
   if (path === "/" || path === "") {
     const hasChoice = request.cookies.get(COOKIE_NAME);
     if (!hasChoice && prefersArabic(request)) {
@@ -42,8 +46,11 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  const res = NextResponse.next();
-  res.headers.set("x-pathname", path);
+  // Forward x-pathname to server components via REQUEST headers (Next.js 16
+  // pattern; response-header forwarding stopped working).
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", path);
+  const res = NextResponse.next({ request: { headers: requestHeaders } });
   res.cookies.set(COOKIE_NAME, localeFromPath(path), {
     maxAge: 60 * 60 * 24 * 365,
     sameSite: "lax",

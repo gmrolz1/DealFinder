@@ -273,7 +273,7 @@ export function DeveloperDetail({
             <h2 className="text-[20px] font-bold uppercase tracking-tight text-ink">
               {t("section.projectsBy", locale)} {name}
             </h2>
-            <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {compounds.slice(0, 8).map((c) => (
                 <CompoundCard
                   key={c.nawy_id}
@@ -298,7 +298,7 @@ export function DeveloperDetail({
                 {t("section.seeAll", locale)} {formatNumber(units.length)}
               </Link>
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {units.slice(0, 8).map((u) => (
                 <PropertyCard key={u.nawy_id} unit={u} />
               ))}
