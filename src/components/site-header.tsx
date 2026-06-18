@@ -7,7 +7,7 @@ const NAV_KEYS: [string, string][] = [
   ["nav.properties", "/properties"],
   ["nav.areas", "/areas"],
   ["nav.developers", "/developers"],
-  ["nav.map", "/map"],
+  ["nav.explore", "/explore"],
   ["nav.newLaunches", "/new-launches"],
 ];
 

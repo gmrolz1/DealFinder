@@ -24,8 +24,7 @@ export default async function RootLayout({
   const locale = localeFromPath(pathname);
   const dir = isRtl(locale) ? "rtl" : "ltr";
   // Standalone (no DealFinder chrome) for client campaign landing pages.
-  const standalone =
-    pathname === "/new-capital" || pathname === "/ar/new-capital";
+  const standalone = pathname === "/map" || pathname === "/ar/map";
 
   return (
     <html lang={locale} dir={dir} className={`${magnetik.variable} h-full`}>

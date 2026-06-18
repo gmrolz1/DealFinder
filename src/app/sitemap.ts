@@ -37,9 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/new-launches", { priority: 0.8, changeFrequency: "daily" })
   );
   out.push(entry("/map", { priority: 0.9, changeFrequency: "daily" }));
-  out.push(
-    entry("/new-capital", { priority: 0.9, changeFrequency: "daily" })
-  );
+  out.push(entry("/explore", { priority: 0.8, changeFrequency: "daily" }));
 
   // Areas
   for (const a of getAreas()) {
