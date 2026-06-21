@@ -20,7 +20,10 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const h = await headers();
-  const pathname = h.get("x-pathname") ?? "/";
+  const rawPath = h.get("x-pathname") ?? "/";
+  // /newcapital is the clean ad alias that rewrites to the Arabic landing —
+  // normalize it so locale (RTL) and standalone chrome resolve correctly.
+  const pathname = rawPath === "/newcapital" ? "/ar/new-capital" : rawPath;
   const locale = localeFromPath(pathname);
   const dir = isRtl(locale) ? "rtl" : "ltr";
   // Standalone (no DealFinder chrome) for client campaign landing pages.
