@@ -57,7 +57,7 @@ export function CampaignCard({
 
   return (
     <div
-      className="flex flex-col overflow-hidden border border-data bg-paper transition hover:border-ink"
+      className="flex h-full flex-col overflow-hidden border border-data bg-paper transition hover:border-ink"
       dir={isAr ? "rtl" : "ltr"}
     >
       <div className="relative aspect-[4/3] bg-ink">
@@ -104,7 +104,7 @@ export function CampaignCard({
           {priceLabel}
         </p>
         <div className="mt-2">
-          <p className="line-clamp-2 min-h-[2.4em] text-[13px] font-bold leading-[1.2] text-ink">
+          <p className="line-clamp-2 min-h-[2.5em] text-[17px] font-bold leading-[1.25] text-ink">
             {listingTitle}
           </p>
           <p className="mt-1 truncate text-[10px] font-medium uppercase tracking-[0.07em] text-taupe">
@@ -192,10 +192,11 @@ function Spec({
   value: number | null | undefined;
   label: string;
 }) {
-  if (value == null) return <div />;
   return (
     <div className="text-center">
-      <p className="text-[16px] font-black leading-none text-ink">{value}</p>
+      <p className="text-[16px] font-black leading-none text-ink">
+        {value ?? "—"}
+      </p>
       <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-slate">
         {label}
       </p>
