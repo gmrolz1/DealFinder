@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   getStats,
   getAreas,
@@ -147,15 +148,13 @@ export default function Home() {
               href={`/areas/${a.slug}`}
               className="relative h-48 w-40 shrink-0 overflow-hidden border border-data bg-ink"
             >
-              {a.image_url && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={a.image_url}
-                  alt={a.name}
-                  loading="lazy"
-                  className="h-full w-full object-cover opacity-70"
-                />
-              )}
+              <Image
+                src={`/areas/${a.slug}.png`}
+                alt={a.name}
+                fill
+                sizes="160px"
+                className="object-cover opacity-70"
+              />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
                 <p className="text-[13px] font-bold uppercase tracking-[0.02em] text-paper">
                   {a.name}
