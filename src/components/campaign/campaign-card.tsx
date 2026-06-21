@@ -12,6 +12,7 @@ import {
   formatPriceCompact,
 } from "@/lib/conversion";
 import { campaignTelHref, campaignWhatsAppUnit } from "@/lib/campaign";
+import { unitListingTitle } from "@/lib/usp";
 import { PhoneIcon, WhatsAppIcon } from "./icons";
 
 export function CampaignCard({
@@ -34,6 +35,7 @@ export function CampaignCard({
     : unit.property_type;
   const title = isAr ? unit.title_ar ?? unit.title : unit.title;
   const label = compoundName ?? title;
+  const listingTitle = unitListingTitle(unit, locale);
 
   const priceLabel = formatPrice(unit.price, unit.currency);
   const monthly = monthlyPayment(unit);
@@ -102,8 +104,10 @@ export function CampaignCard({
           {priceLabel}
         </p>
         <div className="mt-2">
-          <p className="truncate text-[13px] font-bold text-ink">{label}</p>
-          <p className="truncate text-[10px] font-medium uppercase tracking-[0.07em] text-taupe">
+          <p className="line-clamp-2 min-h-[2.4em] text-[13px] font-bold leading-[1.2] text-ink">
+            {listingTitle}
+          </p>
+          <p className="mt-1 truncate text-[10px] font-medium uppercase tracking-[0.07em] text-taupe">
             {[areaName, developerName].filter(Boolean).join(" · ")}
           </p>
         </div>
