@@ -119,9 +119,30 @@ export type EnrichedUnit = Unit & {
   compoundSlug: string | null;
   developerName: string | null;
   developerNameAr: string | null;
+  // Gemini-generated ad titles (scraper/data/usp-titles.json). null when none
+  // has been generated for this unit — lib/usp.ts falls back to a template.
+  uspTitleEn: string | null;
+  uspTitleAr: string | null;
 };
 
 export type WithCount<T> = T & { available: number };
+
+// Gemini-generated marketing titles, written by scripts/gen-usp-titles.mjs.
+// Keyed by unit nawy_id.
+type UspTitle = { en?: string; ar?: string };
+
+function loadUspTitles(): Map<number, UspTitle> {
+  try {
+    const raw = JSON.parse(
+      fs.readFileSync(path.join(DATA_DIR, "usp-titles.json"), "utf8")
+    ) as Record<string, UspTitle>;
+    return new Map(
+      Object.entries(raw).map(([k, v]) => [Number(k), v])
+    );
+  } catch {
+    return new Map();
+  }
+}
 
 // --- in-memory store -------------------------------------------------------
 type Store = {
@@ -138,6 +159,7 @@ type Store = {
   unitsByArea: Map<number, number>;
   unitsByCompound: Map<number, number>;
   unitsByDeveloper: Map<number, number>;
+  uspTitles: Map<number, UspTitle>;
 };
 
 let _store: Store | null = null;
@@ -187,6 +209,7 @@ function store(): Store {
     unitsByArea,
     unitsByCompound,
     unitsByDeveloper,
+    uspTitles: loadUspTitles(),
   };
   return _store;
 }
@@ -210,6 +233,8 @@ function enrich(u: Unit): EnrichedUnit {
     compoundSlug: compound?.slug ?? null,
     developerName: dev?.name ?? null,
     developerNameAr: dev?.name_ar ?? null,
+    uspTitleEn: s.uspTitles.get(u.nawy_id)?.en ?? null,
+    uspTitleAr: s.uspTitles.get(u.nawy_id)?.ar ?? null,
   };
 }
 

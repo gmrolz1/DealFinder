@@ -93,6 +93,13 @@ function scoreSignals(unit: EnrichedUnit): Signal[] {
  * points. Every unit gets a distinct title driven by its own facts. */
 export function unitListingTitle(unit: EnrichedUnit, locale: Locale): string {
   const isAr = locale === "ar";
+
+  // Prefer a Gemini-generated, uniquely-phrased ad title when one exists for
+  // this unit (scripts/gen-usp-titles.mjs → scraper/data/usp-titles.json).
+  // Falls back to the deterministic template below when absent.
+  const generated = isAr ? unit.uspTitleAr : unit.uspTitleEn;
+  if (generated && generated.trim()) return generated.trim();
+
   const type =
     (isAr ? unit.property_type_ar ?? unit.property_type : unit.property_type) ??
     (isAr ? "وحدة" : "Property");
