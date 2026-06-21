@@ -376,6 +376,39 @@ export function getUnitGallery(unit: Unit, max = 8): string[] {
   return Array.from(new Set([...own, ...siblings])).slice(0, max);
 }
 
+/** Official photos dropped into public/compounds/<slug>/ — lets the team add
+ * developer-supplied renders without touching code. Returns web paths. */
+export function getLocalCompoundImages(slug: string): string[] {
+  try {
+    const dir = path.join(process.cwd(), "public", "compounds", slug);
+    return fs
+      .readdirSync(dir)
+      .filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f))
+      .sort()
+      .map((f) => `/compounds/${slug}/${f}`);
+  } catch {
+    return [];
+  }
+}
+
+/** Compound-level gallery: official local photos first, then the compound hero
+ * image, then the distinct unit/brochure images already in the dataset. No new
+ * images are stored — these are the same URLs the property cards already show. */
+export function getCompoundGallery(
+  compoundId: number,
+  slug: string,
+  max = 12
+): string[] {
+  const s = store();
+  const compound = s.compoundById.get(compoundId);
+  const local = getLocalCompoundImages(slug);
+  const hero = compound?.image_url ? [compound.image_url] : [];
+  const unitImgs = s.units
+    .filter((u) => u.compound_nawy_id === compoundId && u.image_url)
+    .map((u) => u.image_url as string);
+  return Array.from(new Set([...local, ...hero, ...unitImgs])).slice(0, max);
+}
+
 export function getUnitsByDeveloper(devId: number): EnrichedUnit[] {
   return store()
     .units.filter((u) => u.developer_nawy_id === devId)

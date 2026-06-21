@@ -4,11 +4,15 @@ import { notFound } from "next/navigation";
 import {
   getCompoundBySlug,
   getUnitsByCompound,
+  getCompoundGallery,
   getAreaNameAr,
   getDeveloperOfCompound,
 } from "@/lib/data";
 import { formatNumber, formatPrice } from "@/lib/format";
+import { campaignTelHref, campaignWhatsAppCompound } from "@/lib/campaign";
 import { PropertyCard } from "@/components/property-card";
+import { Carousel } from "@/components/preview/carousel";
+import { ContactButtons, StickyContact } from "@/components/campaign/sticky-contact";
 import { localizedPath } from "@/lib/i18n";
 
 export async function generateMetadata({
@@ -50,17 +54,20 @@ export default async function CompoundPageAr({
     ? developer.name_ar ?? developer.name
     : null;
   const areaName = getAreaNameAr(compound.area_nawy_id);
+  const gallery = getCompoundGallery(compound.nawy_id, compound.slug);
   const minPrice =
     units.length > 0
       ? Math.min(...units.map((u) => u.price ?? Infinity))
       : compound.min_price;
+  const priceLabel = formatPrice(minPrice === Infinity ? null : minPrice);
+  const waHref = campaignWhatsAppCompound(name, areaName, priceLabel, "ar");
   const propertyTypes =
     compound.property_types_ar.length > 0
       ? compound.property_types_ar
       : compound.property_types;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 pb-28 pt-7 sm:px-6">
       <nav className="text-[10px] font-semibold uppercase tracking-[0.08em] text-taupe">
         <Link
           href={localizedPath("/properties", "ar")}
@@ -71,42 +78,56 @@ export default async function CompoundPageAr({
         {areaName && <span> / {areaName}</span>}
       </nav>
 
-      <div className="mt-3 aspect-[16/9] overflow-hidden border border-data bg-data sm:aspect-[16/7]">
-        {compound.image_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={compound.image_url}
-            alt={name}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div className="grid h-full place-items-center text-[12px] uppercase tracking-[0.08em] text-slate">
-            لا توجد صورة
-          </div>
-        )}
+      {/* المعرض — تمرير باللمس على الموبايل */}
+      <div className="group mt-3 aspect-[4/3] overflow-hidden border border-data bg-data sm:aspect-[16/8]">
+        <Carousel
+          images={gallery}
+          alt={name}
+          aspectRatio="auto"
+          className="!h-full"
+        />
       </div>
+      {gallery.length > 1 && (
+        <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.08em] text-taupe">
+          {formatNumber(gallery.length)} صورة · اسحب للتصفح
+        </p>
+      )}
 
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
+      <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-[26px] font-extrabold uppercase tracking-tight text-ink sm:text-[34px]">
+          <h1 className="text-[26px] font-extrabold uppercase leading-[1.05] tracking-tight text-ink sm:text-[34px]">
             {name}
           </h1>
           <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-taupe">
             {[areaName, developerName].filter(Boolean).join(" · ")}
           </p>
         </div>
-        <div className="border border-data px-5 py-3">
+        <div className="shrink-0 border border-data px-5 py-3">
           <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-taupe">
             تبدأ من
           </p>
           <p className="mt-0.5 text-[20px] font-black tracking-tight text-ink">
-            {formatPrice(minPrice === Infinity ? null : minPrice)}
+            {priceLabel}
           </p>
         </div>
       </div>
 
+      {/* زر التواصل — الإجراء الأساسي لزيارات الإعلان */}
+      <div className="mt-5">
+        <ContactButtons
+          waHref={waHref}
+          callHref={campaignTelHref}
+          waLabel="تواصل واتساب"
+          callLabel="اتصل الآن"
+          locale="ar"
+        />
+        <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.07em] text-slate">
+          استشارة مجانية · الأسعار وخطط السداد · بدون إزعاج
+        </p>
+      </div>
+
       {propertyTypes.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-wrap gap-2">
           {propertyTypes.map((t) => (
             <span
               key={t}
@@ -143,6 +164,8 @@ export default async function CompoundPageAr({
           </div>
         )}
       </section>
+
+      <StickyContact locale="ar" waHref={waHref} callHref={campaignTelHref} />
     </div>
   );
 }

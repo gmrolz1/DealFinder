@@ -46,6 +46,24 @@ export function campaignWhatsAppUnit(
   );
 }
 
+/** Per-compound link — used on a compound's detail page when it's an ad target. */
+export function campaignWhatsAppCompound(
+  name: string,
+  areaLabel: string | null,
+  priceLabel: string,
+  locale: Locale
+): string {
+  return campaignWhatsApp(
+    locale === "ar"
+      ? `السلام عليكم، مهتم بمشروع ${name}${
+          areaLabel ? ` في ${areaLabel}` : ""
+        } (يبدأ من ${priceLabel}). ممكن تبعتلي التفاصيل وخطة السداد والصور المتاحة؟`
+      : `Hi, I'm interested in ${name}${
+          areaLabel ? ` in ${areaLabel}` : ""
+        } (from ${priceLabel}). Could you send details, the payment plan, and available photos?`
+  );
+}
+
 // ── Bilingual landing copy ─────────────────────────────────────────────────
 // Co-located here (like CHAT_UI in chat-config.ts) so the whole campaign lives
 // in one module. Both locales are required.
