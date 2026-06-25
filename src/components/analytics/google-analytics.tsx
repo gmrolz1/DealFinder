@@ -8,6 +8,11 @@
 
 import Script from "next/script";
 
+// Google Ads conversion tag — "the deal makers" account (386-792-3119).
+// Public ID; powers the WhatsApp/Call lead conversion fired in
+// conversion-tracking.tsx. Loaded alongside GA4 on the same gtag.js.
+export const GOOGLE_ADS_ID = "AW-18195355585";
+
 export function GoogleAnalytics({ gaId }: { gaId?: string }) {
   if (!gaId) return null;
   return (
@@ -22,6 +27,7 @@ export function GoogleAnalytics({ gaId }: { gaId?: string }) {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${gaId}');
+          gtag('config', '${GOOGLE_ADS_ID}');
         `}
       </Script>
     </>

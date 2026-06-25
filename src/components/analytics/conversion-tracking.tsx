@@ -12,6 +12,10 @@
 
 import { useEffect } from "react";
 
+// Google Ads conversion to fire on a WhatsApp/Call lead — "WhatsApp / Call
+// Lead - egy.deals" in the "the deal makers" account. Public send_to value.
+const GOOGLE_ADS_LEAD_SEND_TO = "AW-18195355585/NMfzCPzfrMUcEMGvnORD";
+
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
@@ -38,13 +42,22 @@ export function ConversionTracking() {
       }
       if (!event || typeof window.gtag !== "function") return;
 
+      const pagePath =
+        typeof location !== "undefined" ? location.pathname : undefined;
+
+      // GA4 lead event (mark as Key Event in GA4).
       window.gtag("event", event, {
         method,
         // send before the browser navigates away (tel:/app handoff)
         transport_type: "beacon",
-        page_path:
-          typeof location !== "undefined" ? location.pathname : undefined,
+        page_path: pagePath,
         link_url: href,
+      });
+
+      // Google Ads conversion — counts the same WhatsApp/Call click as a lead.
+      window.gtag("event", "conversion", {
+        send_to: GOOGLE_ADS_LEAD_SEND_TO,
+        transport_type: "beacon",
       });
     }
 
