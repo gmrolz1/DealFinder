@@ -5,6 +5,8 @@ import { magnetik } from "@/lib/fonts";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MobileTabBar } from "@/components/mobile-tabbar";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
+import { ConversionTracking } from "@/components/analytics/conversion-tracking";
 import { localeFromPath, isRtl } from "@/lib/i18n";
 
 export const metadata: Metadata = {
@@ -33,6 +35,8 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={dir} className={`${magnetik.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-paper text-ink">
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        <ConversionTracking />
         {standalone ? (
           <main className="flex-1">{children}</main>
         ) : (
