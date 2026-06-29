@@ -11,7 +11,7 @@ export const CAMPAIGN = {
   /** New Administrative Capital — area nawy_id in the dataset. */
   areaId: 16,
   /** Campaign broker number (E.164). WhatsApp + tap-to-call. */
-  phone: "+201207171710",
+  phone: "+201210222246",
 } as const;
 
 const WA_NUMBER = CAMPAIGN.phone.replace(/[^0-9]/g, "");
