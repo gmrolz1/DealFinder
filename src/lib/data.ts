@@ -384,10 +384,28 @@ export function getUnitsByCompound(compoundId: number): EnrichedUnit[] {
     .map(enrich);
 }
 
-/** Best-effort per-unit gallery: the unit's own image first, then a handful
- * of other unit images from the same compound. Lets every property card
- * have a multi-image carousel until Phase 2 (per-unit detail scrape) lands. */
+/** Official per-unit photos dropped into public/units/<nawy_id>/ — lets the
+ * team replace a single listing's images with developer-supplied ones without
+ * touching code or the dataset. Returns web paths, sorted by filename. */
+export function getLocalUnitImages(nawyId: number): string[] {
+  try {
+    const dir = path.join(process.cwd(), "public", "units", String(nawyId));
+    return fs
+      .readdirSync(dir)
+      .filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f))
+      .sort()
+      .map((f) => `/units/${nawyId}/${f}`);
+  } catch {
+    return [];
+  }
+}
+
+/** Best-effort per-unit gallery: official local photos (public/units/<id>/)
+ * fully replace the dataset images when present; otherwise the unit's own image
+ * first, then a handful of other unit images from the same compound. */
 export function getUnitGallery(unit: Unit, max = 8): string[] {
+  const local = getLocalUnitImages(unit.nawy_id);
+  if (local.length) return local.slice(0, max);
   const own = unit.image_url ? [unit.image_url] : [];
   if (!unit.compound_nawy_id) return own;
   const siblings = store()
