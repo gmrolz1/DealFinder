@@ -15,7 +15,10 @@ const ALLOWED_SALE_TYPES = new Set(["primary"]);
 // Compounds hidden from the entire site. The scraped data is kept intact —
 // these are just never served (survives re-scrapes; reversible). Add a
 // compound nawy_id here to remove a whole project everywhere at once.
-const HIDDEN_COMPOUND_IDS = new Set<number>([392]); // The Groove (Ain Sokhna)
+const HIDDEN_COMPOUND_IDS = new Set<number>([
+  392, // The Groove (Ain Sokhna)
+  488, // Tonino Lamborghini Residences
+]);
 
 function loadFile<T>(name: string): T[] {
   try {
