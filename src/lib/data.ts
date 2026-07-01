@@ -12,6 +12,11 @@ import path from "node:path";
 const DATA_DIR = path.join(process.cwd(), "scraper", "data");
 const ALLOWED_SALE_TYPES = new Set(["primary"]);
 
+// Compounds hidden from the entire site. The scraped data is kept intact —
+// these are just never served (survives re-scrapes; reversible). Add a
+// compound nawy_id here to remove a whole project everywhere at once.
+const HIDDEN_COMPOUND_IDS = new Set<number>([392]); // The Groove (Ain Sokhna)
+
 function loadFile<T>(name: string): T[] {
   try {
     return JSON.parse(
@@ -175,12 +180,15 @@ function store(): Store {
     ...d,
     slug: slugify(d.slug),
   }));
-  const compounds = loadFile<Compound>("compounds").map((c) => ({
-    ...c,
-    slug: slugify(c.slug),
-  }));
+  const compounds = loadFile<Compound>("compounds")
+    .filter((c) => !HIDDEN_COMPOUND_IDS.has(c.nawy_id))
+    .map((c) => ({
+      ...c,
+      slug: slugify(c.slug),
+    }));
   const units = loadFile<Unit>("units")
     .filter((u) => u.sale_type != null && ALLOWED_SALE_TYPES.has(u.sale_type))
+    .filter((u) => !HIDDEN_COMPOUND_IDS.has(u.compound_nawy_id ?? -1))
     .map((u) => ({ ...u, slug: slugify(u.slug) }));
 
   const unitsByArea = new Map<number, number>();
