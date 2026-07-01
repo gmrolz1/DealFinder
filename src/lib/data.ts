@@ -18,6 +18,7 @@ const ALLOWED_SALE_TYPES = new Set(["primary"]);
 const HIDDEN_COMPOUND_IDS = new Set<number>([
   392, // The Groove (Ain Sokhna)
   488, // Tonino Lamborghini Residences
+  542, // Zia Business Complex
 ]);
 
 function loadFile<T>(name: string): T[] {
