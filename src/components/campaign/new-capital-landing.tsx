@@ -9,6 +9,8 @@ import {
   CAMPAIGN_COPY,
   campaignTelHref,
   campaignWhatsAppGeneric,
+  type CampaignCopy,
+  type CampaignAreaLabel,
 } from "@/lib/campaign";
 import { CampaignCard } from "./campaign-card";
 import { StickyContact } from "./sticky-contact";
@@ -20,16 +22,22 @@ export function NewCapitalLanding({
   unitCount,
   compoundCount,
   developerCount,
+  copy = CAMPAIGN_COPY,
+  waArea,
 }: {
   locale?: Locale;
   deals: EnrichedUnit[];
   unitCount: number;
   compoundCount: number;
   developerCount: number;
+  /** Landing copy — defaults to the New Capital campaign. */
+  copy?: CampaignCopy;
+  /** Area wording for the prefilled WhatsApp messages (defaults to New Capital). */
+  waArea?: CampaignAreaLabel;
 }) {
   const isAr = locale === "ar";
-  const c = CAMPAIGN_COPY[locale];
-  const waHref = campaignWhatsAppGeneric(locale);
+  const c = copy[locale];
+  const waHref = campaignWhatsAppGeneric(locale, waArea);
   const stats = c.statsTpl
     .replace("{units}", formatNumber(unitCount))
     .replace("{compounds}", formatNumber(compoundCount))
@@ -111,7 +119,7 @@ export function NewCapitalLanding({
         </p>
         <div className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {deals.map((u) => (
-            <CampaignCard key={u.nawy_id} unit={u} locale={locale} />
+            <CampaignCard key={u.nawy_id} unit={u} locale={locale} waArea={waArea} />
           ))}
         </div>
       </section>
@@ -161,7 +169,7 @@ export function NewCapitalLanding({
         </div>
       </section>
 
-      <StickyContact locale={locale} />
+      <StickyContact locale={locale} waHref={waHref} />
     </div>
   );
 }

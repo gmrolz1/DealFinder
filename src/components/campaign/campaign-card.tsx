@@ -11,16 +11,23 @@ import {
   unitDealBadges,
   formatPriceCompact,
 } from "@/lib/conversion";
-import { campaignTelHref, campaignWhatsAppUnit } from "@/lib/campaign";
+import {
+  campaignTelHref,
+  campaignWhatsAppUnit,
+  type CampaignAreaLabel,
+} from "@/lib/campaign";
 import { unitListingTitle } from "@/lib/usp";
 import { PhoneIcon, WhatsAppIcon } from "./icons";
 
 export function CampaignCard({
   unit,
   locale = "en",
+  waArea,
 }: {
   unit: EnrichedUnit;
   locale?: Locale;
+  /** Area wording for the prefilled WhatsApp message (defaults to New Capital). */
+  waArea?: CampaignAreaLabel;
 }) {
   const isAr = locale === "ar";
   const compoundName = isAr
@@ -41,7 +48,7 @@ export function CampaignCard({
   const monthly = monthlyPayment(unit);
   const downPct = downPaymentPct(unit);
   const badges = unitDealBadges(unit);
-  const waHref = campaignWhatsAppUnit(label, priceLabel, locale);
+  const waHref = campaignWhatsAppUnit(label, priceLabel, locale, waArea);
 
   const t = {
     bed: isAr ? "غرفة" : "Bed",

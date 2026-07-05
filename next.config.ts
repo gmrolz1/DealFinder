@@ -6,11 +6,15 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/**": ["./scraper/data/*.json"],
   },
-  // Clean ad URL: /newcapital serves the Arabic New Capital landing page
-  // (egy.deals/newcapital) while keeping the URL clean for Google Ads. The
-  // layout normalizes x-pathname so locale (RTL) + standalone chrome are correct.
+  // Clean ad URLs: /newcapital and /tagamo3 serve the Arabic campaign landing
+  // pages (egy.deals/newcapital, egy.deals/tagamo3) while keeping the URLs
+  // clean for Google Ads. The layout normalizes x-pathname so locale (RTL) +
+  // standalone chrome are correct.
   async rewrites() {
-    return [{ source: "/newcapital", destination: "/ar/new-capital" }];
+    return [
+      { source: "/newcapital", destination: "/ar/new-capital" },
+      { source: "/tagamo3", destination: "/ar/fifth-settlement" },
+    ];
   },
 };
 

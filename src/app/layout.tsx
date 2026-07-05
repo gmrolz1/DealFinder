@@ -23,14 +23,21 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const h = await headers();
   const rawPath = h.get("x-pathname") ?? "/";
-  // /newcapital is the clean ad alias that rewrites to the Arabic landing —
-  // normalize it so locale (RTL) and standalone chrome resolve correctly.
-  const pathname = rawPath === "/newcapital" ? "/ar/new-capital" : rawPath;
+  // /newcapital and /tagamo3 are clean ad aliases that rewrite to the Arabic
+  // landings — normalize them so locale (RTL) and standalone chrome resolve.
+  const AD_ALIASES: Record<string, string> = {
+    "/newcapital": "/ar/new-capital",
+    "/tagamo3": "/ar/fifth-settlement",
+  };
+  const pathname = AD_ALIASES[rawPath] ?? rawPath;
   const locale = localeFromPath(pathname);
   const dir = isRtl(locale) ? "rtl" : "ltr";
   // Standalone (no DealFinder chrome) for client campaign landing pages.
   const standalone =
-    pathname === "/new-capital" || pathname === "/ar/new-capital";
+    pathname === "/new-capital" ||
+    pathname === "/ar/new-capital" ||
+    pathname === "/fifth-settlement" ||
+    pathname === "/ar/fifth-settlement";
 
   return (
     <html lang={locale} dir={dir} className={`${magnetik.variable} h-full`}>

@@ -40,6 +40,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   out.push(
     entry("/new-capital", { priority: 0.9, changeFrequency: "daily" })
   );
+  out.push(
+    entry("/fifth-settlement", { priority: 0.9, changeFrequency: "daily" })
+  );
 
   // Areas
   for (const a of getAreas()) {

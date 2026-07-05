@@ -350,10 +350,13 @@ export function getCompoundBySlug(slug: string): Compound | null {
   return store().compoundBySlug.get(slug) ?? null;
 }
 
-export function getCompoundsByArea(areaId: number): WithCount<Compound>[] {
+export function getCompoundsByArea(
+  areaId: number | number[]
+): WithCount<Compound>[] {
   const s = store();
+  const ids = new Set(Array.isArray(areaId) ? areaId : [areaId]);
   return s.compounds
-    .filter((c) => c.area_nawy_id === areaId)
+    .filter((c) => c.area_nawy_id != null && ids.has(c.area_nawy_id))
     .map((c) => ({ ...c, available: s.unitsByCompound.get(c.nawy_id) ?? 0 }))
     .filter((c) => c.available > 0)
     .sort((a, b) => b.available - a.available);
@@ -483,13 +486,57 @@ export function getSimilarUnits(unit: EnrichedUnit, n: number): EnrichedUnit[] {
 }
 
 // --- area deals (campaign landing) ----------------------------------------
-/** Best-value units in an area for a lead-gen landing page. Ranks by deal
- * strength (low down-payment %, long installment plan), diversifies to at
- * most 2 units per compound, and only returns units with a photo + price. */
-export function getAreaDeals(areaId: number, n: number): EnrichedUnit[] {
-  const scored = store()
-    .units.filter(
-      (u) => u.area_nawy_id === areaId && u.image_url && (u.price ?? 0) > 0
+
+/** Collapse a compound name to its project "family" so phases, strip malls and
+ * numbered sisters of one project count together (VILLAGE DE LA CAPITALE-Phase
+ * 1/2 → one family; "De joya 2 strip mall" / "De Joya 3" → the De Joya brand). */
+function compoundFamily(name: string | null | undefined): string {
+  return (name ?? "")
+    .toLowerCase()
+    .replace(/[-–—_]/g, " ")
+    .replace(/\b(?:phase|ph)\s*\d+\b/g, "")
+    .replace(/المرحلة\s+\S+/g, "")
+    .replace(/\bstrip\s*mall\b/g, "")
+    .replace(/\s+\d+\s*$/g, "") // trailing standalone number: "de joya 2" → "de joya"
+    .replace(/\s+/g, ""); // collapse spacing variants: "De joya" / "DeJoya"
+}
+
+/** Units whose image_url is a dead link (verified 403/404) — never put these
+ * on a paid landing page, the card renders as an empty black box. */
+const BROKEN_IMAGE_UNIT_IDS = new Set([74151]);
+
+/** Clinic / office / retail all read as "commercial" to a visitor scanning
+ * cards — treat them as one bucket when checking for near-duplicate offers. */
+function typeBucket(t: string | null): string {
+  const x = (t ?? "").toLowerCase();
+  return x === "clinic" || x === "administrative" || x === "office" || x === "retail"
+    ? "commercial"
+    : x;
+}
+
+/** Best-value units in one or more areas for a lead-gen landing page. Ranks by
+ * deal strength (low down-payment %, long installment plan) and enforces that
+ * every card on the page is visibly distinct:
+ *   - never two cards for effectively the same offer (same project family +
+ *     type + beds + size, price within 3%) — phases of one launch collapse;
+ *   - never two cards sharing the same photo;
+ *   - at most 2 cards per project family (so one brand can't flood the grid);
+ *   - up to a quarter of the slots reserved for budget units under EGP 3M,
+ *     when the area has them, so the page covers more than one budget. */
+export function getAreaDeals(
+  areaId: number | number[],
+  n: number
+): EnrichedUnit[] {
+  const s = store();
+  const ids = new Set(Array.isArray(areaId) ? areaId : [areaId]);
+  const scored = s.units
+    .filter(
+      (u) =>
+        u.area_nawy_id != null &&
+        ids.has(u.area_nawy_id) &&
+        u.image_url &&
+        !BROKEN_IMAGE_UNIT_IDS.has(u.nawy_id) &&
+        (u.price ?? 0) > 0
     )
     .map((u) => {
       const pct =
@@ -507,16 +554,70 @@ export function getAreaDeals(areaId: number, n: number): EnrichedUnit[] {
         (a.u.price ?? 0) - (b.u.price ?? 0)
     );
 
-  const perCompound = new Map<number, number>();
+  const usedImages = new Set<string>();
+  const perFamily = new Map<string, Unit[]>();
   const picked: Unit[] = [];
-  for (const { u } of scored) {
-    const c = u.compound_nawy_id ?? -1;
-    const used = perCompound.get(c) ?? 0;
-    if (used >= 2) continue;
-    perCompound.set(c, used + 1);
+
+  const familyOf = (u: Unit) =>
+    compoundFamily(
+      (u.compound_nawy_id != null
+        ? s.compoundById.get(u.compound_nawy_id)?.name
+        : null) ?? u.title
+    );
+
+  const accepts = (u: Unit): boolean => {
+    if (usedImages.has(u.image_url!)) return false;
+    const siblings = perFamily.get(familyOf(u)) ?? [];
+    if (siblings.length >= 2) return false;
+    for (const p of siblings) {
+      const samePrice =
+        p.price != null &&
+        u.price != null &&
+        Math.abs(p.price - u.price) / p.price <= 0.08;
+      const sameSize =
+        p.area_sqm != null &&
+        u.area_sqm != null &&
+        Math.abs(p.area_sqm - u.area_sqm) / p.area_sqm <= 0.15;
+      if (
+        samePrice &&
+        sameSize &&
+        typeBucket(p.property_type) === typeBucket(u.property_type) &&
+        p.bedrooms === u.bedrooms
+      )
+        return false; // effectively the same offer — one card is enough
+    }
+    return true;
+  };
+
+  const take = (u: Unit) => {
     picked.push(u);
-    if (picked.length >= n) break;
+    usedImages.add(u.image_url!);
+    const fam = familyOf(u);
+    perFamily.set(fam, [...(perFamily.get(fam) ?? []), u]);
+  };
+
+  // Pass 1: reserve budget slots (< EGP 3M) so the page isn't all one bracket.
+  const budgetQuota = Math.floor(n / 4);
+  let budgetPicked = 0;
+  for (const { u } of scored) {
+    if (budgetPicked >= budgetQuota) break;
+    if ((u.price ?? 0) >= 3_000_000 || !accepts(u)) continue;
+    take(u);
+    budgetPicked++;
   }
+
+  // Pass 2: fill the rest with the strongest remaining distinct deals.
+  for (const { u } of scored) {
+    if (picked.length >= n) break;
+    if (picked.some((p) => p.nawy_id === u.nawy_id) || !accepts(u)) continue;
+    take(u);
+  }
+
+  // Present in deal-strength order regardless of which pass picked the unit.
+  const rank = new Map(scored.map((x, i) => [x.u.nawy_id, i]));
+  picked.sort(
+    (a, b) => (rank.get(a.nawy_id) ?? 0) - (rank.get(b.nawy_id) ?? 0)
+  );
   return picked.map(enrich);
 }
 
