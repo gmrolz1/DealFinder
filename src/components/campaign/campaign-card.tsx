@@ -1,9 +1,10 @@
 // Mobile-first listing card for the campaign landing. Self-contained: the only
 // actions are Call + WhatsApp to the campaign number (no navigation away, no
-// chat). Server component.
+// chat). Server component; the image carousel is the shared client Carousel.
 
-import type { EnrichedUnit } from "@/lib/data";
+import { getUnitGallery, type EnrichedUnit } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
+import { Carousel } from "@/components/preview/carousel";
 import { formatPrice } from "@/lib/format";
 import {
   monthlyPayment,
@@ -67,19 +68,14 @@ export function CampaignCard({
       className="flex h-full flex-col overflow-hidden border border-data bg-paper transition hover:border-ink"
       dir={isAr ? "rtl" : "ltr"}
     >
-      <div className="relative aspect-[4/3] bg-ink">
-        {unit.image_url && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={unit.image_url}
-            alt={label}
-            loading="lazy"
-            className="h-full w-full object-cover"
-          />
-        )}
+      <div className="relative">
+        {/* Multi-image carousel — unit photo first, then real photos of
+            sibling units in the same compound (same behavior as the main
+            site's property cards). */}
+        <Carousel images={getUnitGallery(unit, 6)} alt={label} aspectRatio="4/3" />
         {propertyType && (
           <span
-            className={`absolute top-2 ${
+            className={`pointer-events-none absolute top-2 ${
               isAr ? "right-2" : "left-2"
             } bg-ink px-2 py-1 text-[9px] font-bold uppercase tracking-[0.09em] text-paper`}
           >
@@ -88,7 +84,7 @@ export function CampaignCard({
         )}
         {badges.length > 0 && (
           <div
-            className={`absolute bottom-2 ${
+            className={`pointer-events-none absolute bottom-2 ${
               isAr ? "right-2" : "left-2"
             } flex flex-wrap gap-1`}
           >
