@@ -129,9 +129,9 @@ export const CAMPAIGN_COPY: CampaignCopy = {
     waCta: "WhatsApp Us",
     callCta: "Call Now",
     hooks: [
-      { v: "FROM 1.8M", l: "EGP entry price" },
-      { v: "10% DOWN", l: "on many units" },
-      { v: "UP TO 8 YRS", l: "installments" },
+      { v: "FROM 2.7M", l: "EGP entry price" },
+      { v: "FROM 1% DOWN", l: "on featured units" },
+      { v: "UP TO 15 YRS", l: "installments" },
       { v: "150+", l: "compounds" },
     ],
     statsTpl:
@@ -175,9 +175,9 @@ export const CAMPAIGN_COPY: CampaignCopy = {
     waCta: "تواصل واتساب",
     callCta: "اتصل الآن",
     hooks: [
-      { v: "من 1.8 مليون", l: "جنيه سعر البداية" },
-      { v: "10% مقدم", l: "على وحدات كثيرة" },
-      { v: "حتى 8 سنوات", l: "تقسيط" },
+      { v: "من 2.7 مليون", l: "جنيه سعر البداية" },
+      { v: "من 1% مقدم", l: "على وحدات مختارة" },
+      { v: "حتى 15 سنة", l: "تقسيط" },
       { v: "+150", l: "كمبوند" },
     ],
     statsTpl: "{units} وحدة أولية · {compounds} كمبوند · {developers} مطوّر",

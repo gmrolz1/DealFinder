@@ -6,7 +6,7 @@ import { NewCapitalLanding } from "@/components/campaign/new-capital-landing";
 export const metadata: Metadata = {
   title: "New Capital Properties for Sale — Best Deals & Payment Plans",
   description:
-    "Primary apartments & villas in Egypt's New Administrative Capital from top developers. From EGP 1.8M, 10% down, up to 8-year plans. WhatsApp us for the best deals.",
+    "Primary apartments & villas in Egypt's New Administrative Capital from top developers. From EGP 2.7M, from 1% down, up to 15-year plans. WhatsApp us for the best deals.",
   alternates: {
     canonical: "/new-capital",
     languages: {
