@@ -171,6 +171,26 @@ type Store = {
   uspTitles: Map<number, UspTitle>;
 };
 
+// Card-image overrides — swaps a unit's default photo for a stronger render
+// of the same project already in the dataset (same CDN, no rehosting). Used
+// where the default is a generic landscape / interior / lobby shot that makes
+// the campaign card unreadable at grid size.
+const UNIT_IMAGE_OVERRIDES: Record<number, string> = {
+  // Zomra East studio: default was a golf-course landscape with no building.
+  229268:
+    "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/property_image/image/452503/Screenshot_2025-07-21_164050.png",
+  // Notion apartment: default was a kitchen interior for a semi-finished unit.
+  125867:
+    "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/compound/cover_image/1108/Screenshot_2025-06-01_110747_notion.png",
+  // Garnet studio: default was an entrance-lobby shot.
+  280181:
+    "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/inventory/brochure_images/Jadeer%20Realestate/garnet/1-Sales_Presentation_17-9-2024_Page_20_Image_0001%202/1-Sales_Presentation_17-9-2024_Page_20_Image_0001%202.jpg",
+  // RIVAN 3-bed: default was a living-room shot; aerial compound view reads
+  // better next to the sibling RIVAN card.
+  278153:
+    "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/compound_image/image/1974/YMI13Qw1t9JnCrK4AEp05DnQC7VlfW.jpg",
+};
+
 let _store: Store | null = null;
 
 function store(): Store {
@@ -193,7 +213,11 @@ function store(): Store {
   const units = loadFile<Unit>("units")
     .filter((u) => u.sale_type != null && ALLOWED_SALE_TYPES.has(u.sale_type))
     .filter((u) => !HIDDEN_COMPOUND_IDS.has(u.compound_nawy_id ?? -1))
-    .map((u) => ({ ...u, slug: slugify(u.slug) }));
+    .map((u) => ({
+      ...u,
+      slug: slugify(u.slug),
+      image_url: UNIT_IMAGE_OVERRIDES[u.nawy_id] ?? u.image_url,
+    }));
 
   const unitsByArea = new Map<number, number>();
   const unitsByCompound = new Map<number, number>();
@@ -505,6 +529,42 @@ function compoundFamily(name: string | null | undefined): string {
  * on a paid landing page, the card renders as an empty black box. */
 const BROKEN_IMAGE_UNIT_IDS = new Set([74151]);
 
+/** Units pulled from the campaign landings at the owner's request.
+ * 124148: Madar Mall clinic — was the "cheapest on page" card, but the ads
+ * search-term report shows buyers want cheap APARTMENTS, not a 20%-down
+ * clinic. */
+const CAMPAIGN_EXCLUDED_UNIT_IDS = new Set([124148]);
+
+/** Project families excluded from the campaign landings entirely — without
+ * this, removing one Madar Mall unit just lets its near-identical sibling
+ * take the slot. */
+const CAMPAIGN_EXCLUDED_FAMILY_KEYWORDS = ["madarmall"];
+
+// ── Search-demand signals (Google Ads account 386-792-3119, search-terms
+// report 28 May – 9 Jul 2026) ────────────────────────────────────────────────
+// What buyers actually type: «ارخص شقق في العاصمة الإدارية» (top category,
+// 10k–100k monthly volume, 6 conversions), «استلام فوري» (4 conv, 6.6% CR),
+// «شقق رخيصة بالتجمع الخامس», «شقق بمقدم ١٠٠ الف», «شقق تمليك بالتقسيط», and
+// by name «كمبوند جاليريا التجمع الخامس» (11% conv rate). The boosts below
+// bias the landing-page grid toward that demand.
+
+/** Compound families buyers search for by name (substring match against the
+ * normalized family key). */
+const SEARCHED_FAMILY_KEYWORDS = ["galleria", "zomra"];
+
+const RESIDENTIAL_TYPES = new Set([
+  "apartment",
+  "studio",
+  "duplex",
+  "penthouse",
+]);
+
+function readyYearOf(u: Unit): number | null {
+  if (!u.ready_by) return null;
+  const d = new Date(u.ready_by);
+  return Number.isNaN(d.getTime()) ? null : d.getFullYear();
+}
+
 /** Clinic / office / retail all read as "commercial" to a visitor scanning
  * cards — treat them as one bucket when checking for near-duplicate offers. */
 function typeBucket(t: string | null): string {
@@ -529,6 +589,14 @@ export function getAreaDeals(
 ): EnrichedUnit[] {
   const s = store();
   const ids = new Set(Array.isArray(areaId) ? areaId : [areaId]);
+  const excludedFamily = (u: Unit) => {
+    const fam = compoundFamily(
+      (u.compound_nawy_id != null
+        ? s.compoundById.get(u.compound_nawy_id)?.name
+        : null) ?? u.title
+    );
+    return CAMPAIGN_EXCLUDED_FAMILY_KEYWORDS.some((k) => fam.includes(k));
+  };
   const scored = s.units
     .filter(
       (u) =>
@@ -536,15 +604,48 @@ export function getAreaDeals(
         ids.has(u.area_nawy_id) &&
         u.image_url &&
         !BROKEN_IMAGE_UNIT_IDS.has(u.nawy_id) &&
+        !CAMPAIGN_EXCLUDED_UNIT_IDS.has(u.nawy_id) &&
+        !excludedFamily(u) &&
         (u.price ?? 0) > 0
     )
     .map((u) => {
       const pct =
         u.down_payment && u.price ? (u.down_payment / u.price) * 100 : null;
+      // Deal strength: low down-payment %, long plan.
       let score = 0;
       if (pct != null && pct > 0 && pct <= 10) score += 3;
       else if (pct != null && pct > 0 && pct <= 15) score += 1;
       if ((u.installment_years ?? 0) >= 7) score += 1;
+      // Search-demand boosts (see SEARCHED_FAMILY_KEYWORDS block above).
+      const residential = RESIDENTIAL_TYPES.has(
+        (u.property_type ?? "").toLowerCase()
+      );
+      if (residential && u.price! <= 3_500_000) score += 2; // «ارخص شقق»
+      else if (residential && u.price! <= 4_500_000) score += 1;
+      if (u.down_payment && u.down_payment <= 150_000) score += 1; // «مقدم ١٠٠ الف»
+      // «استلام فوري»: move-in ready — finished, delivering within a year,
+      // and not luxury stock (the demand is affordability, not 30M+ villas).
+      const yr = readyYearOf(u);
+      const finished = ["finished", "fully_finished", "fully finished", "furnished"].includes(
+        (u.finishing ?? "").toLowerCase()
+      );
+      if (
+        finished &&
+        yr != null &&
+        yr <= new Date().getFullYear() + 1 &&
+        u.price! <= 12_000_000
+      )
+        score += 1;
+      const fam = compoundFamily(
+        (u.compound_nawy_id != null
+          ? s.compoundById.get(u.compound_nawy_id)?.name
+          : null) ?? u.title
+      );
+      // «كمبوند جاليريا» / «زمرة» — searched by name, residential demand only
+      // («شقق للبيع كمبوند جاليريا التجمع الخامس», 11% conv rate in the ads
+      // account). Family cap below still limits each to 2 cards.
+      if (residential && SEARCHED_FAMILY_KEYWORDS.some((k) => fam.includes(k)))
+        score += 5;
       return { u, pct: pct ?? 999, score };
     })
     .sort(
