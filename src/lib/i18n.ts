@@ -103,6 +103,37 @@ const S: Strings = {
   "section.faqLabel": { en: "Questions & Answers", ar: "أسئلة وأجوبة" },
   "section.faqHeading": { en: "FAQ", ar: "الأسئلة الشائعة" },
 
+  // Developer page v2 (high-conversion)
+  "dev.waCta": { en: "Get prices on WhatsApp", ar: "اعرف الأسعار على واتساب" },
+  "dev.callCta": { en: "Call now", ar: "اتصل الآن" },
+  "dev.browseByType": { en: "Browse by type", ar: "تصفّح حسب النوع" },
+  "dev.units": { en: "units", ar: "وحدة" },
+  "dev.from": { en: "From", ar: "من" },
+  "dev.perMonth": { en: "/mo", ar: "/شهر" },
+  "dev.down": { en: "down", ar: "مقدم" },
+  "dev.beds": { en: "beds", ar: "غرف" },
+  "dev.delivery": { en: "Delivery", ar: "الاستلام" },
+  "dev.readyNow": { en: "Ready now", ar: "استلام فوري" },
+  "dev.seeAllType": { en: "See all", ar: "عرض الكل" },
+  "dev.replyFast": {
+    en: "We reply on WhatsApp within ~5 min · verified official pricing.",
+    ar: "نرد على واتساب خلال ٥ دقائق · أسعار رسمية موثّقة.",
+  },
+  "dev.pricesUpdated": {
+    en: "Prices are indicative and subject to change.",
+    ar: "الأسعار استرشادية وقابلة للتغيير.",
+  },
+  "dev.buildingSince": { en: "Building since", ar: "خبرة منذ" },
+  "dev.formTitle": { en: "Get the full price list", ar: "احصل على قائمة الأسعار كاملة" },
+  "dev.formSub": {
+    en: "Prices, payment plans and availability — sent to you directly.",
+    ar: "الأسعار وخطط السداد والوحدات المتاحة — مباشرةً إليك.",
+  },
+  "dev.formSubmit": { en: "Send me the prices", ar: "أرسل لي الأسعار" },
+  "dev.formSending": { en: "Sending…", ar: "جارٍ الإرسال…" },
+  "dev.formDone": { en: "Got it — we'll message you shortly.", ar: "تم — سنراسلك قريباً." },
+  "dev.orChat": { en: "or chat on WhatsApp now", ar: "أو تواصل على واتساب الآن" },
+
   "cta.interestedIn": { en: "Interested in", ar: "مهتم بـ" },
   "cta.browseAll": {
     en: "Browse every available home or request a callback from our team.",

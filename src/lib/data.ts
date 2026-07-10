@@ -497,6 +497,63 @@ export function getUnitsByDeveloper(devId: number): EnrichedUnit[] {
     .map(enrich);
 }
 
+// A "browse by type" group for a developer page: one property type with its
+// count, from-price, monthly, a hero image, and a few sample units. Sorted
+// by inventory size so the biggest categories lead.
+export type UnitTypeGroup = {
+  type: string;
+  typeAr: string | null;
+  count: number;
+  minPrice: number | null;
+  minMonthly: number | null;
+  image: string | null;
+  samples: EnrichedUnit[];
+};
+
+/** Group a developer's (or any) units by property_type, image-forward. */
+export function groupUnitsByType(units: EnrichedUnit[]): UnitTypeGroup[] {
+  const byType = new Map<string, EnrichedUnit[]>();
+  for (const u of units) {
+    const key = u.property_type ?? "Other";
+    const arr = byType.get(key);
+    if (arr) arr.push(u);
+    else byType.set(key, [u]);
+  }
+  const groups: UnitTypeGroup[] = [];
+  for (const [type, list] of byType) {
+    const prices = list
+      .map((u) => u.price)
+      .filter((p): p is number => typeof p === "number" && p > 0);
+    const monthlies = list
+      .map((u) =>
+        u.price && u.installment_years && u.installment_years > 0
+          ? Math.round(u.price / u.installment_years / 12)
+          : null
+      )
+      .filter((m): m is number => m != null && m > 0);
+    // Prefer a unit that actually has an image for the group hero.
+    const withImg = list.find((u) => u.image_url);
+    groups.push({
+      type,
+      typeAr: list.find((u) => u.property_type_ar)?.property_type_ar ?? null,
+      count: list.length,
+      minPrice: prices.length ? Math.min(...prices) : null,
+      minMonthly: monthlies.length ? Math.min(...monthlies) : null,
+      image: withImg?.image_url ?? null,
+      // Image-first samples for the group's preview strip.
+      samples: [...list]
+        .sort((a, b) => (b.image_url ? 1 : 0) - (a.image_url ? 1 : 0))
+        .slice(0, 8),
+    });
+  }
+  return groups.sort((a, b) => b.count - a.count);
+}
+
+/** Convenience: type groups for one developer. */
+export function getDeveloperTypeGroups(devId: number): UnitTypeGroup[] {
+  return groupUnitsByType(getUnitsByDeveloper(devId));
+}
+
 export function getSimilarUnits(unit: EnrichedUnit, n: number): EnrichedUnit[] {
   return store()
     .units.filter(
