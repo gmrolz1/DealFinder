@@ -13,10 +13,18 @@ export const COOKIE_ADMIN = "df_admin"; // dashboard auth token
 
 // ── routing ────────────────────────────────────────────────────────────────
 /** Landing-page path → client slug. A lead born on one of these paths is
- * PINNED to that client (even over quota). Everything else rotates. */
+ * PINNED to that client (even over quota). Everything else rotates.
+ * The area campaigns (new-capital / fifth-settlement + the /newcapital and
+ * /tagamo3 ad aliases) are MAP's ad campaigns → pinned to MAP. */
 export const PINNED_ROUTES: Record<string, string> = {
   "/map": "map",
   "/ar/map": "map",
+  "/new-capital": "map",
+  "/ar/new-capital": "map",
+  "/newcapital": "map",
+  "/fifth-settlement": "map",
+  "/ar/fifth-settlement": "map",
+  "/tagamo3": "map",
   "/arabian-estate": "arabian-estate",
   "/ar/arabian-estate": "arabian-estate",
   "/elite-homes": "elite-homes",

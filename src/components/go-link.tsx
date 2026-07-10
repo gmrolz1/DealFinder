@@ -1,11 +1,9 @@
-"use client";
-
-// CTA anchor for /api/go redirects. A plain <a> (NEVER next/link — prefetch
-// would fire lead assignments) that also fires the Ads conversion beacon on
-// click without blocking navigation.
+// CTA anchor for /api/go redirects. A plain <a> — NEVER next/link, because
+// prefetch would fire lead assignments. Conversion events are handled
+// site-wide by <ConversionTracking>'s delegated click listener (it matches
+// /api/go hrefs), so no onClick is needed here. Server component.
 
 import type { AnchorHTMLAttributes, ReactNode } from "react";
-import { fireLeadConversion } from "@/lib/gtag";
 
 export function GoLink({
   href,
@@ -16,12 +14,7 @@ export function GoLink({
   children: ReactNode;
 }) {
   return (
-    <a
-      href={href}
-      onClick={() => fireLeadConversion()}
-      rel="nofollow"
-      {...rest}
-    >
+    <a href={href} rel="nofollow" {...rest}>
       {children}
     </a>
   );

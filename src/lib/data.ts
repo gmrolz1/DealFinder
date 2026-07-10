@@ -12,6 +12,15 @@ import path from "node:path";
 const DATA_DIR = path.join(process.cwd(), "scraper", "data");
 const ALLOWED_SALE_TYPES = new Set(["primary"]);
 
+// Compounds hidden from the entire site. The scraped data is kept intact —
+// these are just never served (survives re-scrapes; reversible). Add a
+// compound nawy_id here to remove a whole project everywhere at once.
+const HIDDEN_COMPOUND_IDS = new Set<number>([
+  392, // The Groove (Ain Sokhna)
+  488, // Tonino Lamborghini Residences
+  542, // Zia Business Complex
+]);
+
 function loadFile<T>(name: string): T[] {
   try {
     return JSON.parse(
@@ -119,9 +128,30 @@ export type EnrichedUnit = Unit & {
   compoundSlug: string | null;
   developerName: string | null;
   developerNameAr: string | null;
+  // Gemini-generated ad titles (scraper/data/usp-titles.json). null when none
+  // has been generated for this unit — lib/usp.ts falls back to a template.
+  uspTitleEn: string | null;
+  uspTitleAr: string | null;
 };
 
 export type WithCount<T> = T & { available: number };
+
+// Gemini-generated marketing titles, written by scripts/gen-usp-titles.mjs.
+// Keyed by unit nawy_id.
+type UspTitle = { en?: string; ar?: string };
+
+function loadUspTitles(): Map<number, UspTitle> {
+  try {
+    const raw = JSON.parse(
+      fs.readFileSync(path.join(DATA_DIR, "usp-titles.json"), "utf8")
+    ) as Record<string, UspTitle>;
+    return new Map(
+      Object.entries(raw).map(([k, v]) => [Number(k), v])
+    );
+  } catch {
+    return new Map();
+  }
+}
 
 // --- in-memory store -------------------------------------------------------
 type Store = {
@@ -138,6 +168,27 @@ type Store = {
   unitsByArea: Map<number, number>;
   unitsByCompound: Map<number, number>;
   unitsByDeveloper: Map<number, number>;
+  uspTitles: Map<number, UspTitle>;
+};
+
+// Card-image overrides — swaps a unit's default photo for a stronger render
+// of the same project already in the dataset (same CDN, no rehosting). Used
+// where the default is a generic landscape / interior / lobby shot that makes
+// the campaign card unreadable at grid size.
+const UNIT_IMAGE_OVERRIDES: Record<number, string> = {
+  // Zomra East studio: default was a golf-course landscape with no building.
+  229268:
+    "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/property_image/image/452503/Screenshot_2025-07-21_164050.png",
+  // Notion apartment: default was a kitchen interior for a semi-finished unit.
+  125867:
+    "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/compound/cover_image/1108/Screenshot_2025-06-01_110747_notion.png",
+  // Garnet studio: default was an entrance-lobby shot.
+  280181:
+    "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/inventory/brochure_images/Jadeer%20Realestate/garnet/1-Sales_Presentation_17-9-2024_Page_20_Image_0001%202/1-Sales_Presentation_17-9-2024_Page_20_Image_0001%202.jpg",
+  // RIVAN 3-bed: default was a living-room shot; aerial compound view reads
+  // better next to the sibling RIVAN card.
+  278153:
+    "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/compound_image/image/1974/YMI13Qw1t9JnCrK4AEp05DnQC7VlfW.jpg",
 };
 
 let _store: Store | null = null;
@@ -153,13 +204,20 @@ function store(): Store {
     ...d,
     slug: slugify(d.slug),
   }));
-  const compounds = loadFile<Compound>("compounds").map((c) => ({
-    ...c,
-    slug: slugify(c.slug),
-  }));
+  const compounds = loadFile<Compound>("compounds")
+    .filter((c) => !HIDDEN_COMPOUND_IDS.has(c.nawy_id))
+    .map((c) => ({
+      ...c,
+      slug: slugify(c.slug),
+    }));
   const units = loadFile<Unit>("units")
     .filter((u) => u.sale_type != null && ALLOWED_SALE_TYPES.has(u.sale_type))
-    .map((u) => ({ ...u, slug: slugify(u.slug) }));
+    .filter((u) => !HIDDEN_COMPOUND_IDS.has(u.compound_nawy_id ?? -1))
+    .map((u) => ({
+      ...u,
+      slug: slugify(u.slug),
+      image_url: UNIT_IMAGE_OVERRIDES[u.nawy_id] ?? u.image_url,
+    }));
 
   const unitsByArea = new Map<number, number>();
   const unitsByCompound = new Map<number, number>();
@@ -187,6 +245,7 @@ function store(): Store {
     unitsByArea,
     unitsByCompound,
     unitsByDeveloper,
+    uspTitles: loadUspTitles(),
   };
   return _store;
 }
@@ -210,6 +269,8 @@ function enrich(u: Unit): EnrichedUnit {
     compoundSlug: compound?.slug ?? null,
     developerName: dev?.name ?? null,
     developerNameAr: dev?.name_ar ?? null,
+    uspTitleEn: s.uspTitles.get(u.nawy_id)?.en ?? null,
+    uspTitleAr: s.uspTitles.get(u.nawy_id)?.ar ?? null,
   };
 }
 
@@ -313,10 +374,13 @@ export function getCompoundBySlug(slug: string): Compound | null {
   return store().compoundBySlug.get(slug) ?? null;
 }
 
-export function getCompoundsByArea(areaId: number): WithCount<Compound>[] {
+export function getCompoundsByArea(
+  areaId: number | number[]
+): WithCount<Compound>[] {
   const s = store();
+  const ids = new Set(Array.isArray(areaId) ? areaId : [areaId]);
   return s.compounds
-    .filter((c) => c.area_nawy_id === areaId)
+    .filter((c) => c.area_nawy_id != null && ids.has(c.area_nawy_id))
     .map((c) => ({ ...c, available: s.unitsByCompound.get(c.nawy_id) ?? 0 }))
     .filter((c) => c.available > 0)
     .sort((a, b) => b.available - a.available);
@@ -359,10 +423,28 @@ export function getUnitsByCompound(compoundId: number): EnrichedUnit[] {
     .map(enrich);
 }
 
-/** Best-effort per-unit gallery: the unit's own image first, then a handful
- * of other unit images from the same compound. Lets every property card
- * have a multi-image carousel until Phase 2 (per-unit detail scrape) lands. */
+/** Official per-unit photos dropped into public/units/<nawy_id>/ — lets the
+ * team replace a single listing's images with developer-supplied ones without
+ * touching code or the dataset. Returns web paths, sorted by filename. */
+export function getLocalUnitImages(nawyId: number): string[] {
+  try {
+    const dir = path.join(process.cwd(), "public", "units", String(nawyId));
+    return fs
+      .readdirSync(dir)
+      .filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f))
+      .sort()
+      .map((f) => `/units/${nawyId}/${f}`);
+  } catch {
+    return [];
+  }
+}
+
+/** Best-effort per-unit gallery: official local photos (public/units/<id>/)
+ * fully replace the dataset images when present; otherwise the unit's own image
+ * first, then a handful of other unit images from the same compound. */
 export function getUnitGallery(unit: Unit, max = 8): string[] {
+  const local = getLocalUnitImages(unit.nawy_id);
+  if (local.length) return local.slice(0, max);
   const own = unit.image_url ? [unit.image_url] : [];
   if (!unit.compound_nawy_id) return own;
   const siblings = store()
@@ -374,6 +456,39 @@ export function getUnitGallery(unit: Unit, max = 8): string[] {
     )
     .map((u) => u.image_url as string);
   return Array.from(new Set([...own, ...siblings])).slice(0, max);
+}
+
+/** Official photos dropped into public/compounds/<slug>/ — lets the team add
+ * developer-supplied renders without touching code. Returns web paths. */
+export function getLocalCompoundImages(slug: string): string[] {
+  try {
+    const dir = path.join(process.cwd(), "public", "compounds", slug);
+    return fs
+      .readdirSync(dir)
+      .filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f))
+      .sort()
+      .map((f) => `/compounds/${slug}/${f}`);
+  } catch {
+    return [];
+  }
+}
+
+/** Compound-level gallery: official local photos first, then the compound hero
+ * image, then the distinct unit/brochure images already in the dataset. No new
+ * images are stored — these are the same URLs the property cards already show. */
+export function getCompoundGallery(
+  compoundId: number,
+  slug: string,
+  max = 12
+): string[] {
+  const s = store();
+  const compound = s.compoundById.get(compoundId);
+  const local = getLocalCompoundImages(slug);
+  const hero = compound?.image_url ? [compound.image_url] : [];
+  const unitImgs = s.units
+    .filter((u) => u.compound_nawy_id === compoundId && u.image_url)
+    .map((u) => u.image_url as string);
+  return Array.from(new Set([...local, ...hero, ...unitImgs])).slice(0, max);
 }
 
 export function getUnitsByDeveloper(devId: number): EnrichedUnit[] {
@@ -395,21 +510,142 @@ export function getSimilarUnits(unit: EnrichedUnit, n: number): EnrichedUnit[] {
 }
 
 // --- area deals (campaign landing) ----------------------------------------
-/** Best-value units in an area for a lead-gen landing page. Ranks by deal
- * strength (low down-payment %, long installment plan), diversifies to at
- * most 2 units per compound, and only returns units with a photo + price. */
-export function getAreaDeals(areaId: number, n: number): EnrichedUnit[] {
-  const scored = store()
-    .units.filter(
-      (u) => u.area_nawy_id === areaId && u.image_url && (u.price ?? 0) > 0
+
+/** Collapse a compound name to its project "family" so phases, strip malls and
+ * numbered sisters of one project count together (VILLAGE DE LA CAPITALE-Phase
+ * 1/2 → one family; "De joya 2 strip mall" / "De Joya 3" → the De Joya brand). */
+function compoundFamily(name: string | null | undefined): string {
+  return (name ?? "")
+    .toLowerCase()
+    .replace(/[-–—_]/g, " ")
+    .replace(/\b(?:phase|ph)\s*\d+\b/g, "")
+    .replace(/المرحلة\s+\S+/g, "")
+    .replace(/\bstrip\s*mall\b/g, "")
+    .replace(/\s+\d+\s*$/g, "") // trailing standalone number: "de joya 2" → "de joya"
+    .replace(/\s+/g, ""); // collapse spacing variants: "De joya" / "DeJoya"
+}
+
+/** Units whose image_url is a dead link (verified 403/404) — never put these
+ * on a paid landing page, the card renders as an empty black box. */
+const BROKEN_IMAGE_UNIT_IDS = new Set([74151]);
+
+/** Units pulled from the campaign landings at the owner's request.
+ * 124148: Madar Mall clinic — was the "cheapest on page" card, but the ads
+ * search-term report shows buyers want cheap APARTMENTS, not a 20%-down
+ * clinic. */
+const CAMPAIGN_EXCLUDED_UNIT_IDS = new Set([124148]);
+
+/** Project families excluded from the campaign landings entirely — without
+ * this, removing one Madar Mall unit just lets its near-identical sibling
+ * take the slot. */
+const CAMPAIGN_EXCLUDED_FAMILY_KEYWORDS = ["madarmall"];
+
+// ── Search-demand signals (Google Ads account 386-792-3119, search-terms
+// report 28 May – 9 Jul 2026) ────────────────────────────────────────────────
+// What buyers actually type: «ارخص شقق في العاصمة الإدارية» (top category,
+// 10k–100k monthly volume, 6 conversions), «استلام فوري» (4 conv, 6.6% CR),
+// «شقق رخيصة بالتجمع الخامس», «شقق بمقدم ١٠٠ الف», «شقق تمليك بالتقسيط», and
+// by name «كمبوند جاليريا التجمع الخامس» (11% conv rate). The boosts below
+// bias the landing-page grid toward that demand.
+
+/** Compound families buyers search for by name (substring match against the
+ * normalized family key). */
+const SEARCHED_FAMILY_KEYWORDS = ["galleria", "zomra"];
+
+const RESIDENTIAL_TYPES = new Set([
+  "apartment",
+  "studio",
+  "duplex",
+  "penthouse",
+]);
+
+function readyYearOf(u: Unit): number | null {
+  if (!u.ready_by) return null;
+  const d = new Date(u.ready_by);
+  return Number.isNaN(d.getTime()) ? null : d.getFullYear();
+}
+
+/** Clinic / office / retail all read as "commercial" to a visitor scanning
+ * cards — treat them as one bucket when checking for near-duplicate offers. */
+function typeBucket(t: string | null): string {
+  const x = (t ?? "").toLowerCase();
+  return x === "clinic" || x === "administrative" || x === "office" || x === "retail"
+    ? "commercial"
+    : x;
+}
+
+/** Best-value units in one or more areas for a lead-gen landing page. Ranks by
+ * deal strength (low down-payment %, long installment plan) and enforces that
+ * every card on the page is visibly distinct:
+ *   - never two cards for effectively the same offer (same project family +
+ *     type + beds + size, price within 3%) — phases of one launch collapse;
+ *   - never two cards sharing the same photo;
+ *   - at most 2 cards per project family (so one brand can't flood the grid);
+ *   - up to a quarter of the slots reserved for budget units under EGP 3M,
+ *     when the area has them, so the page covers more than one budget. */
+export function getAreaDeals(
+  areaId: number | number[],
+  n: number
+): EnrichedUnit[] {
+  const s = store();
+  const ids = new Set(Array.isArray(areaId) ? areaId : [areaId]);
+  const excludedFamily = (u: Unit) => {
+    const fam = compoundFamily(
+      (u.compound_nawy_id != null
+        ? s.compoundById.get(u.compound_nawy_id)?.name
+        : null) ?? u.title
+    );
+    return CAMPAIGN_EXCLUDED_FAMILY_KEYWORDS.some((k) => fam.includes(k));
+  };
+  const scored = s.units
+    .filter(
+      (u) =>
+        u.area_nawy_id != null &&
+        ids.has(u.area_nawy_id) &&
+        u.image_url &&
+        !BROKEN_IMAGE_UNIT_IDS.has(u.nawy_id) &&
+        !CAMPAIGN_EXCLUDED_UNIT_IDS.has(u.nawy_id) &&
+        !excludedFamily(u) &&
+        (u.price ?? 0) > 0
     )
     .map((u) => {
       const pct =
         u.down_payment && u.price ? (u.down_payment / u.price) * 100 : null;
+      // Deal strength: low down-payment %, long plan.
       let score = 0;
       if (pct != null && pct > 0 && pct <= 10) score += 3;
       else if (pct != null && pct > 0 && pct <= 15) score += 1;
       if ((u.installment_years ?? 0) >= 7) score += 1;
+      // Search-demand boosts (see SEARCHED_FAMILY_KEYWORDS block above).
+      const residential = RESIDENTIAL_TYPES.has(
+        (u.property_type ?? "").toLowerCase()
+      );
+      if (residential && u.price! <= 3_500_000) score += 2; // «ارخص شقق»
+      else if (residential && u.price! <= 4_500_000) score += 1;
+      if (u.down_payment && u.down_payment <= 150_000) score += 1; // «مقدم ١٠٠ الف»
+      // «استلام فوري»: move-in ready — finished, delivering within a year,
+      // and not luxury stock (the demand is affordability, not 30M+ villas).
+      const yr = readyYearOf(u);
+      const finished = ["finished", "fully_finished", "fully finished", "furnished"].includes(
+        (u.finishing ?? "").toLowerCase()
+      );
+      if (
+        finished &&
+        yr != null &&
+        yr <= new Date().getFullYear() + 1 &&
+        u.price! <= 12_000_000
+      )
+        score += 1;
+      const fam = compoundFamily(
+        (u.compound_nawy_id != null
+          ? s.compoundById.get(u.compound_nawy_id)?.name
+          : null) ?? u.title
+      );
+      // «كمبوند جاليريا» / «زمرة» — searched by name, residential demand only
+      // («شقق للبيع كمبوند جاليريا التجمع الخامس», 11% conv rate in the ads
+      // account). Family cap below still limits each to 2 cards.
+      if (residential && SEARCHED_FAMILY_KEYWORDS.some((k) => fam.includes(k)))
+        score += 5;
       return { u, pct: pct ?? 999, score };
     })
     .sort(
@@ -419,16 +655,70 @@ export function getAreaDeals(areaId: number, n: number): EnrichedUnit[] {
         (a.u.price ?? 0) - (b.u.price ?? 0)
     );
 
-  const perCompound = new Map<number, number>();
+  const usedImages = new Set<string>();
+  const perFamily = new Map<string, Unit[]>();
   const picked: Unit[] = [];
-  for (const { u } of scored) {
-    const c = u.compound_nawy_id ?? -1;
-    const used = perCompound.get(c) ?? 0;
-    if (used >= 2) continue;
-    perCompound.set(c, used + 1);
+
+  const familyOf = (u: Unit) =>
+    compoundFamily(
+      (u.compound_nawy_id != null
+        ? s.compoundById.get(u.compound_nawy_id)?.name
+        : null) ?? u.title
+    );
+
+  const accepts = (u: Unit): boolean => {
+    if (usedImages.has(u.image_url!)) return false;
+    const siblings = perFamily.get(familyOf(u)) ?? [];
+    if (siblings.length >= 2) return false;
+    for (const p of siblings) {
+      const samePrice =
+        p.price != null &&
+        u.price != null &&
+        Math.abs(p.price - u.price) / p.price <= 0.08;
+      const sameSize =
+        p.area_sqm != null &&
+        u.area_sqm != null &&
+        Math.abs(p.area_sqm - u.area_sqm) / p.area_sqm <= 0.15;
+      if (
+        samePrice &&
+        sameSize &&
+        typeBucket(p.property_type) === typeBucket(u.property_type) &&
+        p.bedrooms === u.bedrooms
+      )
+        return false; // effectively the same offer — one card is enough
+    }
+    return true;
+  };
+
+  const take = (u: Unit) => {
     picked.push(u);
-    if (picked.length >= n) break;
+    usedImages.add(u.image_url!);
+    const fam = familyOf(u);
+    perFamily.set(fam, [...(perFamily.get(fam) ?? []), u]);
+  };
+
+  // Pass 1: reserve budget slots (< EGP 3M) so the page isn't all one bracket.
+  const budgetQuota = Math.floor(n / 4);
+  let budgetPicked = 0;
+  for (const { u } of scored) {
+    if (budgetPicked >= budgetQuota) break;
+    if ((u.price ?? 0) >= 3_000_000 || !accepts(u)) continue;
+    take(u);
+    budgetPicked++;
   }
+
+  // Pass 2: fill the rest with the strongest remaining distinct deals.
+  for (const { u } of scored) {
+    if (picked.length >= n) break;
+    if (picked.some((p) => p.nawy_id === u.nawy_id) || !accepts(u)) continue;
+    take(u);
+  }
+
+  // Present in deal-strength order regardless of which pass picked the unit.
+  const rank = new Map(scored.map((x, i) => [x.u.nawy_id, i]));
+  picked.sort(
+    (a, b) => (rank.get(a.nawy_id) ?? 0) - (rank.get(b.nawy_id) ?? 0)
+  );
   return picked.map(enrich);
 }
 

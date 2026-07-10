@@ -1,9 +1,11 @@
 // Mobile-first listing card for the campaign landing. Self-contained: the only
 // actions are Call + WhatsApp, routed through /api/go so each tap is recorded
-// and pinned to the landing's client. Server component.
+// as a lead and pinned to the landing's client before redirecting to the
+// assigned broker's number. The image carousel is the shared client Carousel.
 
-import type { EnrichedUnit } from "@/lib/data";
+import { getUnitGallery, type EnrichedUnit } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
+import { Carousel } from "@/components/preview/carousel";
 import { formatPrice } from "@/lib/format";
 import {
   monthlyPayment,
@@ -13,16 +15,25 @@ import {
 } from "@/lib/conversion";
 import { goHref } from "@/lib/leads";
 import { GoLink } from "@/components/go-link";
+import {
+  campaignWaTextUnit,
+  type CampaignAreaLabel,
+} from "@/lib/campaign";
+import { unitListingTitle } from "@/lib/usp";
 import { PhoneIcon, WhatsAppIcon } from "./icons";
 
 export function CampaignCard({
   unit,
   locale = "en",
   landingPath,
+  waArea,
 }: {
   unit: EnrichedUnit;
   locale?: Locale;
+  /** The landing page path — /api/go maps it to the pinned client. */
   landingPath: string;
+  /** Area wording for the prefilled WhatsApp message (defaults to New Capital). */
+  waArea?: CampaignAreaLabel;
 }) {
   const isAr = locale === "ar";
   const compoundName = isAr
@@ -37,16 +48,19 @@ export function CampaignCard({
     : unit.property_type;
   const title = isAr ? unit.title_ar ?? unit.title : unit.title;
   const label = compoundName ?? title;
+  const listingTitle = unitListingTitle(unit, locale);
 
   const priceLabel = formatPrice(unit.price, unit.currency);
   const monthly = monthlyPayment(unit);
   const downPct = downPaymentPct(unit);
   const badges = unitDealBadges(unit);
+
   const waGo = goHref({
     channel: "wa",
     unitSlug: unit.slug,
     pinnedPath: landingPath,
     locale,
+    text: campaignWaTextUnit(label, priceLabel, locale, waArea),
   });
   const telGo = goHref({
     channel: "tel",
@@ -69,22 +83,17 @@ export function CampaignCard({
 
   return (
     <div
-      className="flex flex-col overflow-hidden border border-data bg-paper transition hover:border-ink"
+      className="flex h-full flex-col overflow-hidden border border-data bg-paper transition hover:border-ink"
       dir={isAr ? "rtl" : "ltr"}
     >
-      <div className="relative aspect-[4/3] bg-ink">
-        {unit.image_url && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={unit.image_url}
-            alt={label}
-            loading="lazy"
-            className="h-full w-full object-cover"
-          />
-        )}
+      <div className="relative">
+        {/* Multi-image carousel — unit photo first, then real photos of
+            sibling units in the same compound (same behavior as the main
+            site's property cards). */}
+        <Carousel images={getUnitGallery(unit, 6)} alt={label} aspectRatio="4/3" />
         {propertyType && (
           <span
-            className={`absolute top-2 ${
+            className={`pointer-events-none absolute top-2 ${
               isAr ? "right-2" : "left-2"
             } bg-ink px-2 py-1 text-[9px] font-bold uppercase tracking-[0.09em] text-paper`}
           >
@@ -93,7 +102,7 @@ export function CampaignCard({
         )}
         {badges.length > 0 && (
           <div
-            className={`absolute bottom-2 ${
+            className={`pointer-events-none absolute bottom-2 ${
               isAr ? "right-2" : "left-2"
             } flex flex-wrap gap-1`}
           >
@@ -116,8 +125,10 @@ export function CampaignCard({
           {priceLabel}
         </p>
         <div className="mt-2">
-          <p className="truncate text-[13px] font-bold text-ink">{label}</p>
-          <p className="truncate text-[10px] font-medium uppercase tracking-[0.07em] text-taupe">
+          <p className="line-clamp-2 min-h-[2.5em] text-[17px] font-bold leading-[1.25] text-ink">
+            {listingTitle}
+          </p>
+          <p className="mt-1 truncate text-[10px] font-medium uppercase tracking-[0.07em] text-taupe">
             {[areaName, developerName].filter(Boolean).join(" · ")}
           </p>
         </div>
@@ -202,10 +213,11 @@ function Spec({
   value: number | null | undefined;
   label: string;
 }) {
-  if (value == null) return <div />;
   return (
     <div className="text-center">
-      <p className="text-[16px] font-black leading-none text-ink">{value}</p>
+      <p className="text-[16px] font-black leading-none text-ink">
+        {value ?? "—"}
+      </p>
       <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-slate">
         {label}
       </p>

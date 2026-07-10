@@ -87,6 +87,49 @@ function scoreSignals(unit: EnrichedUnit): Signal[] {
   return out;
 }
 
+/** PropertyFinder-style listing title — a unique, descriptive headline per
+ * unit: "{beds} BR {type} in {compound} | {usp} | {usp}". Leads with what +
+ * where (what a buyer scans for), then appends the unit's strongest selling
+ * points. Every unit gets a distinct title driven by its own facts. */
+export function unitListingTitle(unit: EnrichedUnit, locale: Locale): string {
+  const isAr = locale === "ar";
+
+  // Prefer a Gemini-generated, uniquely-phrased ad title when one exists for
+  // this unit (scripts/gen-usp-titles.mjs → scraper/data/usp-titles.json).
+  // Falls back to the deterministic template below when absent.
+  const generated = isAr ? unit.uspTitleAr : unit.uspTitleEn;
+  if (generated && generated.trim()) return generated.trim();
+
+  const type =
+    (isAr ? unit.property_type_ar ?? unit.property_type : unit.property_type) ??
+    (isAr ? "وحدة" : "Property");
+  const where = isAr
+    ? unit.compoundNameAr ?? unit.compoundName ?? unit.areaNameAr ?? unit.areaName
+    : unit.compoundName ?? unit.areaName;
+  const beds = unit.bedrooms;
+
+  // Base: "3 BR Apartment" (en) / "شقة 3 غرف" (ar). Studios (0 beds) drop the
+  // count. Arabic uses correct grammatical number: غرفة (1), غرفتين (2), غرف (3+).
+  let base: string;
+  if (isAr) {
+    let bedsAr = "";
+    if (beds === 1) bedsAr = " غرفة";
+    else if (beds === 2) bedsAr = " غرفتين";
+    else if (beds && beds > 2) bedsAr = ` ${beds} غرف`;
+    base = `${type}${bedsAr}`;
+  } else {
+    base = beds && beds > 0 ? `${beds} BR ${type}` : type;
+  }
+  if (where) base += isAr ? ` في ${where}` : ` in ${where}`;
+
+  // Append up to 2 of the unit's strongest USP signals.
+  const signals = scoreSignals(unit)
+    .slice(0, 2)
+    .map((s) => (isAr ? s.ar : s.en));
+
+  return [base, ...signals].join(" | ");
+}
+
 /** Headline for a property card / detail page hero. 1–2 signals max. */
 export function unitUSP(unit: EnrichedUnit, locale: Locale): string {
   const signals = scoreSignals(unit);

@@ -87,7 +87,7 @@ export function Carousel({
 
   return (
     <div
-      className={`relative overflow-hidden bg-data ${className}`}
+      className={`group relative overflow-hidden bg-data ${className}`}
       style={{ aspectRatio }}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}

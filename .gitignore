@@ -55,3 +55,4 @@ next-env.d.ts
 !/scraper/data/compounds.json
 !/scraper/data/units.json
 !/scraper/data/arabian-estate.json
+!/scraper/data/usp-titles.json

@@ -42,6 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/arabian-estate", { priority: 0.9, changeFrequency: "daily" })
   );
   out.push(entry("/elite-homes", { priority: 0.9, changeFrequency: "daily" }));
+  out.push(
+    entry("/new-capital", { priority: 0.9, changeFrequency: "daily" })
+  );
+  out.push(
+    entry("/fifth-settlement", { priority: 0.9, changeFrequency: "daily" })
+  );
 
   // Areas
   for (const a of getAreas()) {

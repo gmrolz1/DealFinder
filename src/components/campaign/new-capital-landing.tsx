@@ -1,14 +1,19 @@
 // Client campaign landing body (EN / AR). Mobile-first, single goal: get the
-// visitor to WhatsApp or call. One component serves every broker client —
-// the route passes brandName + landingPath (which /api/go maps to the pinned
-// client) and optionally overrides the copy block.
+// visitor to WhatsApp or call. One component serves every landing — the route
+// passes brandName + landingPath (which /api/go maps to the pinned client),
+// optionally a copy record and a waArea label for the prefilled messages.
 //
 // Server component; data is passed in by the route.
 
 import type { EnrichedUnit } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
 import { formatNumber } from "@/lib/format";
-import { CAMPAIGN_COPY, type CampaignCopy } from "@/lib/campaign";
+import {
+  CAMPAIGN_COPY,
+  campaignWaTextGeneric,
+  type CampaignCopy,
+  type CampaignAreaLabel,
+} from "@/lib/campaign";
 import { goHref } from "@/lib/leads";
 import { GoLink } from "@/components/go-link";
 import { CampaignCard } from "./campaign-card";
@@ -23,20 +28,31 @@ export function NewCapitalLanding({
   developerCount,
   brandName = "MAP",
   landingPath = "/map",
-  copy,
+  copy = CAMPAIGN_COPY,
+  waArea,
 }: {
   locale?: Locale;
   deals: EnrichedUnit[];
   unitCount: number;
   compoundCount: number;
   developerCount: number;
+  /** Brand bar wordmark (client or campaign brand). */
   brandName?: string;
+  /** Landing path — /api/go maps it to the pinned client for lead routing. */
   landingPath?: string;
+  /** Landing copy — defaults to the New Capital campaign. */
   copy?: CampaignCopy;
+  /** Area wording for the prefilled WhatsApp messages (defaults to New Capital). */
+  waArea?: CampaignAreaLabel;
 }) {
   const isAr = locale === "ar";
-  const c = copy ?? CAMPAIGN_COPY[locale];
-  const waGo = goHref({ channel: "wa", pinnedPath: landingPath, locale });
+  const c = copy[locale];
+  const waGo = goHref({
+    channel: "wa",
+    pinnedPath: landingPath,
+    locale,
+    text: campaignWaTextGeneric(locale, waArea),
+  });
   const telGo = goHref({ channel: "tel", pinnedPath: landingPath, locale });
   const stats = c.statsTpl
     .replace("{units}", formatNumber(unitCount))
@@ -122,6 +138,7 @@ export function NewCapitalLanding({
               unit={u}
               locale={locale}
               landingPath={landingPath}
+              waArea={waArea}
             />
           ))}
         </div>
@@ -172,7 +189,7 @@ export function NewCapitalLanding({
         </div>
       </section>
 
-      <StickyContact locale={locale} landingPath={landingPath} />
+      <StickyContact locale={locale} landingPath={landingPath} waArea={waArea} />
     </div>
   );
 }

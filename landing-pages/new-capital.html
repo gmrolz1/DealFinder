@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="brand">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>عقارات العاصمة الإدارية الجديدة — أفضل العروض وخطط السداد</title>
+<meta name="description" content="وحدات أولية في العاصمة الإدارية الجديدة من كبار المطوّرين. تبدأ من 1.8 مليون جنيه، مقدم 10%، تقسيط حتى 8 سنوات. تواصل واتساب الآن لأفضل العروض." />
+<meta name="robots" content="index,follow" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="عقارات العاصمة الإدارية الجديدة — أفضل العروض" />
+<meta property="og:image" content="new-capital.png" />
+
+<!-- GOOGLE ADS CONVERSION TRACKING — replace AW-XXXXXXXXXX and the send_to label -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-XXXXXXXXXX');
+  function reportConversion(url){
+    var done=false; function go(){ if(done) return; done=true; if(url) location.href=url; }
+    try { gtag('event','conversion',{send_to:'AW-XXXXXXXXXX/yyyyyyyy', event_callback:go}); } catch(e){ go(); }
+    setTimeout(go,800); return false;
+  }
+</script>
+
+<style>
+  /* ===== Base (theme-driven via CSS variables) ===== */
+  :root{ --wa:#000000; --wa-fg:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg); color:var(--fg); line-height:1.55;
+    font-family:var(--font); padding-bottom:84px;
+    background-attachment:fixed;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+  .narrow{max-width:760px;margin:0 auto;padding:0 18px}
+
+  /* ===== Theme tokens ===== */
+  [data-theme="modern"]{
+    --bg:#f5f7f6; --fg:#0f1720; --muted:#5c6873; --line:#e4e9e7;
+    --card-bg:#ffffff; --card-fg:#0f1720; --accent:#0f9d72; --accent-fg:#fff;
+    --display:600; --tt:none; --radius:16px; --shadow:0 6px 24px rgba(15,40,30,.08);
+    --hero-ov:linear-gradient(180deg,rgba(8,20,16,.45),rgba(8,20,16,.78));
+    --font:"Segoe UI",Tahoma,system-ui,Arial,sans-serif;
+  }
+  [data-theme="luxury"]{
+    --bg:#0b0c10; --fg:#f3eee4; --muted:#b3ad9f; --line:rgba(197,165,114,.28);
+    --card-bg:#13151b; --card-fg:#f3eee4; --accent:#c5a572; --accent-fg:#180f02;
+    --display:600; --tt:none; --radius:3px; --shadow:0 10px 30px rgba(0,0,0,.5);
+    --hero-ov:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.85));
+    --font:"Segoe UI",Tahoma,system-ui,Arial,sans-serif;
+  }
+  [data-theme="luxury"] h1,[data-theme="luxury"] .sec,[data-theme="luxury"] .price,[data-theme="luxury"] .final h2{
+    font-family:Georgia,"Times New Roman",serif; font-weight:600; letter-spacing:0;
+  }
+  [data-theme="bold"]{
+    --bg:radial-gradient(120% 120% at 0% 0%,#6d28d9 0%,#4f46e5 38%,#0ea5e9 100%);
+    --fg:#ffffff; --muted:#dfe6ff; --line:rgba(255,255,255,.22);
+    --card-bg:#ffffff; --card-fg:#16121f; --accent:#ffd23f; --accent-fg:#1a1400;
+    --display:900; --tt:uppercase; --radius:18px; --shadow:0 14px 40px rgba(20,10,60,.35);
+    --hero-ov:linear-gradient(180deg,rgba(40,20,90,.35),rgba(20,10,60,.78));
+    --font:"Segoe UI",Tahoma,system-ui,Arial,sans-serif;
+  }
+  [data-theme="brand"]{
+    --bg:#ffffff; --fg:#000000; --muted:#474747; --line:#d9d9d9;
+    --card-bg:#ffffff; --card-fg:#000000; --accent:#000000; --accent-fg:#ffffff;
+    --taupe:#6f5e57; --display:900; --tt:uppercase; --radius:0px; --shadow:none;
+    --hero-ov:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.82));
+    --font:"Segoe UI",Tahoma,system-ui,Arial,sans-serif;
+  }
+
+  /* ===== Design switcher (preview aid — removed once you pick) ===== */
+  .switcher{position:sticky;top:0;z-index:40;display:flex;gap:6px;align-items:center;
+    background:#0e0e0e;color:#fff;padding:8px 12px;overflow-x:auto;font-family:system-ui,sans-serif}
+  .switcher b{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;white-space:nowrap}
+  .switcher button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+    padding:6px 12px;font-size:12px;font-weight:700;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .switcher button.on{background:#fff;color:#0e0e0e}
+
+  /* ===== Header ===== */
+  header{display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;border-bottom:1px solid var(--line)}
+  .brand{font-weight:900;font-size:20px;letter-spacing:-.02em;text-transform:uppercase}
+  .langbtn{border:1px solid currentColor;padding:6px 12px;font-size:12px;font-weight:700;
+    cursor:pointer;background:transparent;color:inherit;border-radius:999px}
+
+  /* ===== Hero ===== */
+  .hero{position:relative;color:#fff;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;
+    background:var(--hero-ov),center/cover no-repeat url("new-capital.webp")}
+  .hero-inner{position:relative;padding:38px 18px 30px;max-width:1100px;margin:0 auto}
+  .eyebrow{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#fff;opacity:.85}
+  h1{font-size:clamp(32px,7vw,56px);line-height:1.04;font-weight:var(--display);
+    margin-top:10px;text-transform:var(--tt);letter-spacing:-.01em;max-width:14ch}
+  h1 .hl{background:#fff;color:#000;padding:0 .12em}
+  .sub{margin-top:14px;font-size:clamp(15px,4vw,19px);max-width:560px;opacity:.95}
+
+  .ctas{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+  .btn{flex:1 1 160px;display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:15px 18px;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;
+    cursor:pointer;border:0;border-radius:var(--radius)}
+  .btn-wa{background:var(--wa);color:var(--wa-fg)}
+  .btn-call{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.85)}
+  .ico{width:18px;height:18px;flex:none}
+
+  .hooks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:26px;max-width:620px}
+  .hook{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+    border-radius:var(--radius);padding:14px;backdrop-filter:blur(2px)}
+  .hook .v{font-size:21px;font-weight:900;color:#fff}
+  .hook .l{font-size:11px;font-weight:700;opacity:.85;text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+  .trust{margin-top:16px;font-size:12px;font-weight:700;opacity:.9;text-transform:uppercase;letter-spacing:.05em}
+
+  /* ===== Lead form ===== */
+  .formcard{background:var(--card-bg);color:var(--card-fg);border:1px solid var(--line);
+    border-radius:var(--radius);box-shadow:var(--shadow);
+    margin:-26px auto 0;position:relative;z-index:5;padding:22px;max-width:760px}
+  .formcard h2{font-size:21px;font-weight:900;text-transform:var(--tt)}
+  .formcard .hint{font-size:13px;color:var(--muted);margin-top:6px}
+  .field{margin-top:12px}
+  .field label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+  .field input,.field select{width:100%;padding:13px;border:1px solid var(--line);font-size:15px;
+    background:var(--card-bg);color:var(--card-fg);font-family:inherit;border-radius:calc(var(--radius)*.6)}
+  .field input:focus,.field select:focus{outline:0;border-color:var(--accent)}
+  .submit{width:100%;margin-top:16px;background:var(--wa);color:var(--wa-fg);border:0;padding:16px;
+    font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--radius)}
+  .or{text-align:center;font-size:12px;color:var(--muted);margin-top:12px;text-transform:uppercase;letter-spacing:.06em}
+
+  /* ===== Sections ===== */
+  section.block{padding:46px 0}
+  .sec{font-size:clamp(22px,5vw,32px);font-weight:900;text-transform:var(--tt);letter-spacing:-.01em}
+  .sec-sub{margin-top:8px;color:var(--muted);font-size:14px;max-width:560px}
+
+  /* ===== Listings ===== */
+  .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:24px}
+  @media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:880px){.grid{grid-template-columns:1fr 1fr 1fr}}
+  .card{background:var(--card-bg);color:var(--card-fg);border:1px solid var(--line);
+    border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .card .ph{position:relative;aspect-ratio:4/3;background:#111}
+  .card .ph img{width:100%;height:100%;object-fit:cover}
+  .tag{position:absolute;top:10px;inset-inline-start:10px;background:var(--accent);color:var(--accent-fg);
+    font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:4px 8px;border-radius:999px}
+  .badges{position:absolute;bottom:10px;inset-inline-start:10px;display:flex;gap:6px;flex-wrap:wrap}
+  .bdg{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:4px 8px;border-radius:999px;
+    background:rgba(255,255,255,.92);color:#0e0e0e}
+  .bdg.hot{background:var(--accent);color:var(--accent-fg)}
+  .card .body{padding:14px;display:flex;flex-direction:column;flex:1}
+  .card .price{font-size:22px;font-weight:900;letter-spacing:-.01em}
+  .card .name{font-size:14px;font-weight:700;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .card .meta{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .plan{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0}
+  .plan .c{text-align:center}
+  .plan .cl{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .plan .cv{font-size:13px;font-weight:800;margin-top:2px}
+  .specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+  .specs .s{text-align:center}
+  .specs .sv{font-size:16px;font-weight:900;line-height:1}
+  .specs .sl{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+  .cardcta{display:flex;gap:8px;margin-top:14px}
+  .cardcta a{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;
+    font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:calc(var(--radius)*.6)}
+  .cardcta .c-wa{background:var(--wa);color:var(--wa-fg)}
+  .cardcta .c-call{background:transparent;color:var(--card-fg);border:1.5px solid var(--line)}
+
+  /* ===== Why us ===== */
+  .why{margin-top:8px}
+  .whygrid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:24px}
+  @media(min-width:560px){.whygrid{grid-template-columns:1fr 1fr}}
+  .whyitem{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:18px}
+  .whyitem .t{font-size:14px;font-weight:800;text-transform:uppercase}
+  .whyitem .d{font-size:13px;color:var(--muted);margin-top:7px}
+
+  /* ===== Final ===== */
+  .final{text-align:center;padding:54px 18px}
+  .final h2{font-size:clamp(24px,6vw,38px);font-weight:900;text-transform:var(--tt)}
+  .final p{font-size:14px;color:var(--muted);margin:10px auto 0;max-width:520px}
+  .final .ctas{justify-content:center;margin-top:24px;max-width:520px;margin-inline:auto}
+  .final .btn-call{color:var(--fg);border-color:var(--fg)}
+
+  /* ===== Sticky bar ===== */
+  .sticky{position:fixed;left:0;right:0;bottom:0;display:flex;z-index:35;border-top:1px solid var(--line);
+    box-shadow:0 -6px 18px rgba(0,0,0,.18)}
+  .sticky a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 10px;
+    font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+  .sticky .s-wa{background:var(--wa);color:var(--wa-fg)}
+  .sticky .s-call{background:#fff;color:#000;border-inline-start:1px solid #d9d9d9}
+
+  footer{padding:24px 18px;text-align:center;font-size:11px;color:var(--muted);border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="brand">MAP</span>
+  <button class="langbtn" id="langToggle" type="button">English</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow" data-ar="العاصمة الإدارية الجديدة" data-en="New Administrative Capital">العاصمة الإدارية الجديدة</p>
+    <h1 data-ar='امتلك وحدتك في <span class="hl">العاصمة الإدارية</span>' data-en='Own a Home in the <span class="hl">New Capital</span>'>امتلك وحدتك في <span class="hl">العاصمة الإدارية</span></h1>
+    <p class="sub" data-ar="وحدات أولية مباشرة من كبار المطوّرين — مقدمات منخفضة وخطط سداد مرنة. أرسل لنا ميزانيتك ونرجع لك بأفضل العروض اليوم." data-en="Primary units direct from top developers — low down payments and flexible plans. Send us your budget and we'll reply with the best deals today.">وحدات أولية مباشرة من كبار المطوّرين — مقدمات منخفضة وخطط سداد مرنة. أرسل لنا ميزانيتك ونرجع لك بأفضل العروض اليوم.</p>
+
+    <div class="ctas">
+      <a class="btn btn-wa" id="heroWa" href="#" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.13A11.87 11.87 0 0 1 .14 11.9C.14 5.35 5.49.02 12.06.02a11.8 11.8 0 0 1 8.4 3.48 11.74 11.74 0 0 1 3.48 8.4c0 6.55-5.35 11.88-11.92 11.88a11.95 11.95 0 0 1-5.7-1.45L.06 24zm6.6-3.8c1.68 1 3.28 1.6 5.4 1.6 5.45 0 9.9-4.43 9.9-9.88a9.8 9.8 0 0 0-2.9-7A9.74 9.74 0 0 0 12.06 2c-5.46 0-9.9 4.43-9.9 9.9 0 2.06.6 3.6 1.62 5.27l-.66 2.4 2.54-.67z"/></svg>
+        <span data-ar="تواصل واتساب" data-en="WhatsApp Us">تواصل واتساب</span>
+      </a>
+      <a class="btn btn-call" id="heroCall" href="#">
+        <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.5-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg>
+        <span data-ar="اتصل الآن" data-en="Call Now">اتصل الآن</span>
+      </a>
+    </div>
+
+    <div class="hooks">
+      <div class="hook"><div class="v" data-ar="من 1.8 مليون" data-en="FROM 1.8M">من 1.8 مليون</div><div class="l" data-ar="جنيه سعر البداية" data-en="EGP entry price">جنيه سعر البداية</div></div>
+      <div class="hook"><div class="v" data-ar="10% مقدم" data-en="10% DOWN">10% مقدم</div><div class="l" data-ar="على وحدات كثيرة" data-en="on many units">على وحدات كثيرة</div></div>
+      <div class="hook"><div class="v" data-ar="حتى 8 سنوات" data-en="UP TO 8 YRS">حتى 8 سنوات</div><div class="l" data-ar="تقسيط" data-en="installments">تقسيط</div></div>
+      <div class="hook"><div class="v" data-ar="+150" data-en="150+">+150</div><div class="l" data-ar="كمبوند" data-en="compounds">كمبوند</div></div>
+    </div>
+    <p class="trust" data-ar="4,744 وحدة أولية · 154 كمبوند · 68 مطوّر" data-en="4,744 primary units · 154 compounds · 68 developers">4,744 وحدة أولية · 154 كمبوند · 68 مطوّر</p>
+  </div>
+</div>
+
+<div class="formcard">
+  <h2 data-ar="أخبرنا بميزانيتك" data-en="Tell Us Your Budget">أخبرنا بميزانيتك</h2>
+  <p class="hint" data-ar="املأ بياناتك ونرجع لك على واتساب بأفضل الوحدات التي تناسب ميزانيتك." data-en="Fill in your details and we'll reply on WhatsApp with the best units for your budget.">املأ بياناتك ونرجع لك على واتساب بأفضل الوحدات التي تناسب ميزانيتك.</p>
+  <form id="leadForm">
+    <div class="field"><label data-ar="الاسم" data-en="Name">الاسم</label><input type="text" id="f_name" autocomplete="name" required /></div>
+    <div class="field"><label data-ar="رقم الهاتف" data-en="Phone number">رقم الهاتف</label><input type="tel" id="f_phone" inputmode="tel" autocomplete="tel" required /></div>
+    <div class="field"><label data-ar="الميزانية" data-en="Budget">الميزانية</label>
+      <select id="f_budget">
+        <option value="" data-ar="اختر الميزانية" data-en="Select budget">اختر الميزانية</option>
+        <option data-ar="1.8 - 3 مليون" data-en="1.8M - 3M">1.8 - 3 مليون</option>
+        <option data-ar="3 - 5 مليون" data-en="3M - 5M">3 - 5 مليون</option>
+        <option data-ar="5 - 8 مليون" data-en="5M - 8M">5 - 8 مليون</option>
+        <option data-ar="أكثر من 8 مليون" data-en="8M+">أكثر من 8 مليون</option>
+      </select>
+    </div>
+    <button class="submit" type="submit">
+      <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.13A11.87 11.87 0 0 1 .14 11.9C.14 5.35 5.49.02 12.06.02a11.8 11.8 0 0 1 8.4 3.48 11.74 11.74 0 0 1 3.48 8.4c0 6.55-5.35 11.88-11.92 11.88a11.95 11.95 0 0 1-5.7-1.45L.06 24zm6.6-3.8c1.68 1 3.28 1.6 5.4 1.6 5.45 0 9.9-4.43 9.9-9.88a9.8 9.8 0 0 0-2.9-7A9.74 9.74 0 0 0 12.06 2c-5.46 0-9.9 4.43-9.9 9.9 0 2.06.6 3.6 1.62 5.27l-.66 2.4 2.54-.67z"/></svg>
+      <span data-ar="أرسل عبر واتساب" data-en="Send via WhatsApp">أرسل عبر واتساب</span>
+    </button>
+    <p class="or" data-ar="أو اتصل مباشرة 01207171710" data-en="Or call us directly 01207171710">أو اتصل مباشرة 01207171710</p>
+  </form>
+</div>
+
+<section class="block">
+  <div class="wrap">
+    <h2 class="sec" data-ar="أفضل العروض هذا الأسبوع" data-en="Best Deals This Week">أفضل العروض هذا الأسبوع</h2>
+    <p class="sec-sub" data-ar="وحدات مختارة في العاصمة الإدارية بأقوى خطط السداد. اضغط واتساب على أي وحدة للسعر والتوفر." data-en="Handpicked New Capital units with the strongest payment plans. Tap WhatsApp on any unit for price and availability.">وحدات مختارة في العاصمة الإدارية بأقوى خطط السداد. اضغط واتساب على أي وحدة للسعر والتوفر.</p>
+    <div class="grid" id="dealsGrid"></div>
+  </div>
+</section>
+
+<section class="block why">
+  <div class="wrap">
+    <h2 class="sec" data-ar="لماذا تشتري معنا" data-en="Why Buy Through Us">لماذا تشتري معنا</h2>
+    <div class="whygrid">
+      <div class="whyitem"><div class="t" data-ar="وحدات أولية موثّقة" data-en="Verified Primary Units">وحدات أولية موثّقة</div><div class="d" data-ar="كل وحدة مباشرة من المطوّر — بدون تخمين إعادة البيع." data-en="Every listing is a developer (primary) unit — no resale guesswork.">كل وحدة مباشرة من المطوّر — بدون تخمين إعادة البيع.</div></div>
+      <div class="whyitem"><div class="t" data-ar="خطط من المطوّر مباشرة" data-en="Direct Developer Plans">خطط من المطوّر مباشرة</div><div class="d" data-ar="أسعار حقيقية وأحدث خطط السداد مباشرةً من المطوّر." data-en="Real prices and the latest payment plans, straight from the developer.">أسعار حقيقية وأحدث خطط السداد مباشرةً من المطوّر.</div></div>
+      <div class="whyitem"><div class="t" data-ar="نطابق ميزانيتك" data-en="We Match Your Budget">نطابق ميزانيتك</div><div class="d" data-ar="أخبرنا برقمك ونرشّح لك الوحدات التي تناسبه فعلاً." data-en="Tell us your number and we shortlist the units that actually fit it.">أخبرنا برقمك ونرشّح لك الوحدات التي تناسبه فعلاً.</div></div>
+      <div class="whyitem"><div class="t" data-ar="تواصل فوري" data-en="One Tap to a Human">تواصل فوري</div><div class="d" data-ar="بدون انتظار — تواصل مع مستشارنا على واتساب أو هاتفياً فوراً." data-en="No waiting — reach our advisor on WhatsApp or by phone instantly.">بدون انتظار — تواصل مع مستشارنا على واتساب أو هاتفياً فوراً.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <h2 data-ar="جاهز تبدأ؟" data-en="Ready to Start?">جاهز تبدأ؟</h2>
+  <p data-ar="رسالة واحدة تكفي. أرسل ميزانيتك وموعد التسليم المفضّل ونرجع لك بقائمة أفضل عروض العاصمة الإدارية." data-en="One message is enough. Send your budget and preferred delivery date and we'll reply with the best New Capital deals.">رسالة واحدة تكفي. أرسل ميزانيتك وموعد التسليم المفضّل ونرجع لك بقائمة أفضل عروض العاصمة الإدارية.</p>
+  <div class="ctas">
+    <a class="btn btn-wa" id="finalWa" href="#" target="_blank" rel="noopener">
+      <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.13A11.87 11.87 0 0 1 .14 11.9C.14 5.35 5.49.02 12.06.02a11.8 11.8 0 0 1 8.4 3.48 11.74 11.74 0 0 1 3.48 8.4c0 6.55-5.35 11.88-11.92 11.88a11.95 11.95 0 0 1-5.7-1.45L.06 24zm6.6-3.8c1.68 1 3.28 1.6 5.4 1.6 5.45 0 9.9-4.43 9.9-9.88a9.8 9.8 0 0 0-2.9-7A9.74 9.74 0 0 0 12.06 2c-5.46 0-9.9 4.43-9.9 9.9 0 2.06.6 3.6 1.62 5.27l-.66 2.4 2.54-.67z"/></svg>
+      <span data-ar="تواصل واتساب" data-en="WhatsApp Us">تواصل واتساب</span>
+    </a>
+    <a class="btn btn-call" id="finalCall" href="#">
+      <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.5-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg>
+      <span data-ar="اتصل الآن" data-en="Call Now">اتصل الآن</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span data-ar="© العاصمة الإدارية الجديدة — وحدات أولية من كبار المطوّرين." data-en="© New Administrative Capital — primary units from top developers.">© العاصمة الإدارية الجديدة — وحدات أولية من كبار المطوّرين.</span>
+</footer>
+
+<div class="sticky">
+  <a class="s-call" id="stickyCall" href="#">
+    <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.5-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg>
+    <span data-ar="اتصال" data-en="Call">اتصال</span>
+  </a>
+  <a class="s-wa" id="stickyWa" href="#" target="_blank" rel="noopener">
+    <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.13A11.87 11.87 0 0 1 .14 11.9C.14 5.35 5.49.02 12.06.02a11.8 11.8 0 0 1 8.4 3.48 11.74 11.74 0 0 1 3.48 8.4c0 6.55-5.35 11.88-11.92 11.88a11.95 11.95 0 0 1-5.7-1.45L.06 24zm6.6-3.8c1.68 1 3.28 1.6 5.4 1.6 5.45 0 9.9-4.43 9.9-9.88a9.8 9.8 0 0 0-2.9-7A9.74 9.74 0 0 0 12.06 2c-5.46 0-9.9 4.43-9.9 9.9 0 2.06.6 3.6 1.62 5.27l-.66 2.4 2.54-.67z"/></svg>
+    <span data-ar="واتساب" data-en="WhatsApp">واتساب</span>
+  </a>
+</div>
+
+<!-- Real listings pulled from the DealFinder dataset -->
+<script id="listings-data">
+// Auto-generated from the DealFinder dataset. Do not edit by hand.
+window.LISTINGS = {"area":"New Capital City","areaAr":"العاصمة الإدارية الجديدة","deals":[{"label":"Capital Park","labelAr":"كابيتال بارك","type":"Administrative","typeAr":"Administrative","developer":"RFCO Development","developerAr":"رافكو للتطوير العقاري","price":"EGP 5,528,880","bedrooms":0,"bathrooms":0,"area_sqm":39,"down":"EGP 55K","downPct":1,"monthly":"EGP 66K","years":7,"image":"https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/inventory/brochure_images/RFCO%20Development/capitalpark/5/5.png","badges":[{"label":"1% DOWN","hot":true},{"label":"DELIVERS 2029","hot":false}]},{"label":"Jade Park","labelAr":"جاد بارك","type":"Apartment","typeAr":"شقة","developer":"City Edge Developments","developerAr":"سيتي إيدج للتطوير العقاري","price":"EGP 8,100,000","bedrooms":1,"bathrooms":1,"area_sqm":119,"down":"EGP 97K","downPct":1,"monthly":"EGP 56K","years":12,"image":"https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/property_image/image/441433/jade3.png","badges":[{"label":"1% DOWN","hot":true},{"label":"READY 2026","hot":false}]},{"label":"Jade Park","labelAr":"جاد بارك","type":"Apartment","typeAr":"شقة","developer":"City Edge Developments","developerAr":"سيتي إيدج للتطوير العقاري","price":"EGP 10,000,000","bedrooms":1,"bathrooms":1,"area_sqm":127,"down":"EGP 120K","downPct":1,"monthly":"EGP 69K","years":12,"image":"https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/property_image/image/594761/jade5.jpg","badges":[{"label":"1% DOWN","hot":true},{"label":"READY 2026","hot":false}]},{"label":"VILLAGE DE LA CAPITALE-Phase 1","labelAr":"المرحلة الاولى- فيلاج دو لا كابيتال","type":"Apartment","typeAr":"شقة","developer":"Palm Hills Developments","developerAr":"بالم هيلز للتطوير العقاري","price":"EGP 13,346,000","bedrooms":3,"bathrooms":3,"area_sqm":146,"down":"EGP 200K","downPct":2,"monthly":"EGP 101K","years":11,"image":"https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/inventory/brochure_images/Palm%20Hills%20Developments/villagedelacapitalephase1/VILLAGE%20DE%20LA%20CAPITALE%20picc/VILLAGE%20DE%20LA%20CAPITALE%20picc.png","badges":[{"label":"2% DOWN","hot":true},{"label":"DELIVERS 2030","hot":false}]},{"label":"VILLAGE DE LA CAPITALE-Phase 1","labelAr":"المرحلة الاولى- فيلاج دو لا كابيتال","type":"Apartment","typeAr":"شقة","developer":"Palm Hills Developments","developerAr":"بالم هيلز للتطوير العقاري","price":"EGP 13,346,000","bedrooms":3,"bathrooms":3,"area_sqm":146,"down":"EGP 200K","downPct":2,"monthly":"EGP 101K","years":11,"image":"https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/inventory/brochure_images/Palm%20Hills%20Developments/villagedelacapitalephase1/VILLAGE%20DE%20LA%20CAPITALE%20picc/VILLAGE%20DE%20LA%20CAPITALE%20picc.png","badges":[{"label":"2% DOWN","hot":true},{"label":"DELIVERS 2030","hot":false}]},{"label":"VILLAGE DE LA CAPITALE-Phase 2","labelAr":"المرحلة الثانية- فيلاج دو لا كابيتال","type":"Apartment","typeAr":"شقة","developer":"Palm Hills Developments","developerAr":"بالم هيلز للتطوير العقاري","price":"EGP 13,354,000","bedrooms":3,"bathrooms":3,"area_sqm":146,"down":"EGP 200K","downPct":2,"monthly":"EGP 101K","years":11,"image":"https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/inventory/brochure_images/Palm%20Hills%20Developments/villagedelacapitalephase2/VILLAGE%20DE%20LA%20CAPITALE%20pic%20000/VILLAGE%20DE%20LA%20CAPITALE%20pic%20000.png","badges":[{"label":"2% DOWN","hot":true},{"label":"DELIVERS 2030","hot":false}]},{"label":"VILLAGE DE LA CAPITALE-Phase 2","labelAr":"المرحلة الثانية- فيلاج دو لا كابيتال","type":"Apartment","typeAr":"شقة","developer":"Palm Hills Developments","developerAr":"بالم هيلز للتطوير العقاري","price":"EGP 13,404,000","bedrooms":3,"bathrooms":3,"area_sqm":146,"down":"EGP 201K","downPct":2,"monthly":"EGP 102K","years":11,"image":"https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/inventory/brochure_images/Palm%20Hills%20Developments/villagedelacapitalephase2/VILLAGE%20DE%20LA%20CAPITALE%20pic%20000/VILLAGE%20DE%20LA%20CAPITALE%20pic%20000.png","badges":[{"label":"2% DOWN","hot":true},{"label":"DELIVERS 2030","hot":false}]},{"label":"Moonreal Tower ","labelAr":"مون ريل تاور ","type":"Apartment","typeAr":"شقة","developer":"Emaar Rezk Group Developments","developerAr":"اعمار رزق جروب للتطوير العقاري","price":"EGP 7,092,777","bedrooms":1,"bathrooms":1,"area_sqm":76,"down":"EGP 177K","downPct":2,"monthly":"EGP 59K","years":10,"image":"https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/inventory/brochure_images/Emaar%20Rezk%20Group%20Developments/moonrealtower/Screenshot_6/Screenshot_6.jpg","badges":[{"label":"2% DOWN","hot":true},{"label":"DELIVERS 2028","hot":false}]},{"label":"Moonreal Tower ","labelAr":"مون ريل تاور ","type":"Apartment","typeAr":"شقة","developer":"Emaar Rezk Group Developments","developerAr":"اعمار رزق جروب للتطوير العقاري","price":"EGP 7,092,777","bedrooms":1,"bathrooms":1,"area_sqm":76,"down":"EGP 177K","downPct":2,"monthly":"EGP 59K","years":10,"image":"https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/inventory/brochure_images/Emaar%20Rezk%20Group%20Developments/moonrealtower/Screenshot_6/Screenshot_6.jpg","badges":[{"label":"2% DOWN","hot":true},{"label":"DELIVERS 2028","hot":false}]}]};
+
+</script>
+<script>
+  var PHONE="+201207171710", WA="201207171710";
+  var AREA_AR="العاصمة الإدارية الجديدة", AREA_EN="the New Capital";
+  var MSG={
+    ar:"السلام عليكم، مهتم بعقارات العاصمة الإدارية الجديدة. ممكن تبعتلي أفضل العروض وخطط السداد؟",
+    en:"Hi, I'm interested in New Capital properties. Could you send me the best deals and payment plans?"
+  };
+  function waLink(t){ return "https://wa.me/"+WA+"?text="+encodeURIComponent(t); }
+  function telLink(){ return "tel:"+PHONE; }
+
+  var lang=(new URLSearchParams(location.search).get("lang")==="en")?"en":"ar";
+
+  // ---- Listings ----
+  var T={ down:{ar:"مقدم",en:"Down"}, monthly:{ar:"شهري",en:"Monthly"}, plan:{ar:"خطة",en:"Plan"},
+    yrs:{ar:"سنة",en:"yrs"}, bed:{ar:"غرفة",en:"Bed"}, bath:{ar:"حمام",en:"Bath"}, sqm:{ar:"م²",en:"m²"},
+    wa:{ar:"واتساب",en:"WhatsApp"}, call:{ar:"اتصال",en:"Call"} };
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function spec(v,l){ return (v==null||v==="")?'<div class="s"></div>':'<div class="s"><div class="sv">'+esc(v)+'</div><div class="sl">'+l+'</div></div>'; }
+  function renderDeals(){
+    var grid=document.getElementById("dealsGrid");
+    if(!window.LISTINGS||!grid){ return; }
+    grid.innerHTML = window.LISTINGS.deals.map(function(d){
+      var label = lang==="ar" ? (d.labelAr||d.label) : d.label;
+      var dev = lang==="ar" ? (d.developerAr||d.developer) : d.developer;
+      var type = lang==="ar" ? (d.typeAr||d.type) : d.type;
+      var area = lang==="ar" ? (window.LISTINGS.areaAr||window.LISTINGS.area) : window.LISTINGS.area;
+      var meta=[area,dev].filter(Boolean).join(" · ");
+      var bdg=(d.badges||[]).map(function(b){return '<span class="bdg'+(b.hot?' hot':'')+'">'+esc(b.label)+'</span>';}).join("");
+      var msg = lang==="ar"
+        ? "السلام عليكم، مهتم بـ "+label+" في "+AREA_AR+(d.price?" ("+d.price+")":"")+". ممكن التفاصيل وخطة السداد؟"
+        : "Hi, I'm interested in "+label+" in "+AREA_EN+(d.price?" ("+d.price+")":"")+". Can you send details and the payment plan?";
+      return ''
+        +'<div class="card">'
+        +  '<div class="ph">'+(d.image?'<img loading="lazy" src="'+esc(d.image)+'" alt="'+esc(label)+'">':'')
+        +     (type?'<span class="tag">'+esc(type)+'</span>':'')
+        +     (bdg?'<div class="badges">'+bdg+'</div>':'')
+        +  '</div>'
+        +  '<div class="body">'
+        +    '<div class="price">'+esc(d.price||"")+'</div>'
+        +    '<div class="name">'+esc(label)+'</div>'
+        +    '<div class="meta">'+esc(meta)+'</div>'
+        +    '<div class="plan">'
+        +      '<div class="c"><div class="cl">'+T.down[lang]+'</div><div class="cv">'+esc(d.down||"—")+(d.downPct?'<br><span style="font-weight:600;opacity:.7">'+d.downPct+'%</span>':'')+'</div></div>'
+        +      '<div class="c"><div class="cl">'+T.monthly[lang]+'</div><div class="cv">'+esc(d.monthly||"—")+'</div></div>'
+        +      '<div class="c"><div class="cl">'+T.plan[lang]+'</div><div class="cv">'+(d.years?d.years+' '+T.yrs[lang]:"—")+'</div></div>'
+        +    '</div>'
+        +    '<div class="specs">'+spec(d.bedrooms,T.bed[lang])+spec(d.bathrooms,T.bath[lang])+spec(d.area_sqm,T.sqm[lang])+'</div>'
+        +    '<div class="cardcta">'
+        +      '<a class="c-call deal-call" href="'+telLink()+'"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.5-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg>'+T.call[lang]+'</a>'
+        +      '<a class="c-wa deal-wa" target="_blank" rel="noopener" href="'+esc(waLink(msg))+'"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.13A11.87 11.87 0 0 1 .14 11.9C.14 5.35 5.49.02 12.06.02a11.8 11.8 0 0 1 8.4 3.48 11.74 11.74 0 0 1 3.48 8.4c0 6.55-5.35 11.88-11.92 11.88a11.95 11.95 0 0 1-5.7-1.45L.06 24zm6.6-3.8c1.68 1 3.28 1.6 5.4 1.6 5.45 0 9.9-4.43 9.9-9.88a9.8 9.8 0 0 0-2.9-7A9.74 9.74 0 0 0 12.06 2c-5.46 0-9.9 4.43-9.9 9.9 0 2.06.6 3.6 1.62 5.27l-.66 2.4 2.54-.67z"/></svg>'+T.wa[lang]+'</a>'
+        +    '</div>'
+        +  '</div>'
+        +'</div>';
+    }).join("");
+    wireDealTracking();
+  }
+
+  // ---- Language ----
+  function applyLang(){
+    document.documentElement.lang=lang;
+    document.documentElement.dir=(lang==="ar")?"rtl":"ltr";
+    document.querySelectorAll("[data-ar]").forEach(function(el){
+      var v=el.getAttribute("data-"+lang); if(v==null) return;
+      if(/<[a-z]/i.test(v)) el.innerHTML=v; else el.textContent=v;
+    });
+    document.getElementById("langToggle").textContent=(lang==="ar")?"English":"العربية";
+    var wa=waLink(MSG[lang]);
+    ["heroWa","finalWa","stickyWa"].forEach(function(id){document.getElementById(id).href=wa;});
+    ["heroCall","finalCall","stickyCall"].forEach(function(id){document.getElementById(id).href=telLink();});
+    renderDeals();
+  }
+  document.getElementById("langToggle").addEventListener("click",function(){ lang=(lang==="ar")?"en":"ar"; applyLang(); });
+
+  // ---- Conversion tracking ----
+  function trackTo(href,newTab){ return function(e){ e.preventDefault();
+    if(newTab){ try{gtag('event','conversion',{send_to:'AW-XXXXXXXXXX/yyyyyyyy'});}catch(_){} window.open(href,"_blank","noopener"); }
+    else { reportConversion(href); } }; }
+  function wire(ids,newTab){ ids.forEach(function(id){ var el=document.getElementById(id); el.addEventListener("click",trackTo(el.href,newTab)); }); }
+  function wireDealTracking(){
+    document.querySelectorAll(".deal-wa").forEach(function(el){ el.addEventListener("click",trackTo(el.href,true)); });
+    document.querySelectorAll(".deal-call").forEach(function(el){ el.addEventListener("click",trackTo(el.href,false)); });
+  }
+
+  document.getElementById("leadForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    var n=document.getElementById("f_name").value.trim();
+    var p=document.getElementById("f_phone").value.trim();
+    var b=document.getElementById("f_budget").value.trim();
+    var t=(lang==="ar")
+      ? "السلام عليكم، اسمي "+n+" ("+p+"). مهتم بعقارات العاصمة الإدارية الجديدة"+(b?"، ميزانيتي "+b:"")+". ممكن أفضل العروض وخطط السداد؟"
+      : "Hi, my name is "+n+" ("+p+"). I'm interested in New Capital properties"+(b?", budget "+b:"")+". Could you send the best deals and payment plans?";
+    try{gtag('event','conversion',{send_to:'AW-XXXXXXXXXX/yyyyyyyy'});}catch(_){}
+    window.open(waLink(t),"_blank","noopener");
+  });
+
+  applyLang();
+  wire(["heroWa","finalWa","stickyWa"],true);
+  wire(["heroCall","finalCall","stickyCall"],false);
+</script>
+</body>
+</html>

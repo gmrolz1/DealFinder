@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import Script from "next/script";
 import "./globals.css";
 import { magnetik } from "@/lib/fonts";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MobileTabBar } from "@/components/mobile-tabbar";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
+import { ConversionTracking } from "@/components/analytics/conversion-tracking";
 import { localeFromPath, isRtl } from "@/lib/i18n";
 import { isStandalonePath } from "@/lib/leads";
-
-const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -24,29 +23,24 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const h = await headers();
-  const pathname = h.get("x-pathname") ?? "/";
+  const rawPath = h.get("x-pathname") ?? "/";
+  // /newcapital and /tagamo3 are clean ad aliases that rewrite to the Arabic
+  // landings — normalize them so locale (RTL) and standalone chrome resolve.
+  const AD_ALIASES: Record<string, string> = {
+    "/newcapital": "/ar/new-capital",
+    "/tagamo3": "/ar/fifth-settlement",
+  };
+  const pathname = AD_ALIASES[rawPath] ?? rawPath;
   const locale = localeFromPath(pathname);
   const dir = isRtl(locale) ? "rtl" : "ltr";
-  // Standalone (no DealFinder chrome): client campaign landings + dashboard.
+  // Standalone (no DealFinder chrome): campaign landings + dashboard.
   const standalone = isStandalonePath(pathname);
 
   return (
     <html lang={locale} dir={dir} className={`${magnetik.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-paper text-ink">
-        {GADS_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="gtag-init" strategy="afterInteractive">
-              {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${GADS_ID}');`}
-            </Script>
-          </>
-        )}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        <ConversionTracking />
         {standalone ? (
           <main className="flex-1">{children}</main>
         ) : (

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getArabianListings, getArabianStats } from "@/lib/client-listings";
-import { ARABIAN_ESTATE_COPY } from "@/lib/campaign";
+import { ARABIAN_ESTATE_COPY, ARABIAN_ESTATE_AREA } from "@/lib/campaign";
 import { NewCapitalLanding } from "@/components/campaign/new-capital-landing";
 
 export const metadata: Metadata = {
@@ -30,7 +30,8 @@ export default function ArabianEstateLandingPageAr() {
       developerCount={stats.developers}
       brandName="ARABIAN ESTATE"
       landingPath="/ar/arabian-estate"
-      copy={ARABIAN_ESTATE_COPY.ar}
+      copy={ARABIAN_ESTATE_COPY}
+      waArea={ARABIAN_ESTATE_AREA}
     />
   );
 }

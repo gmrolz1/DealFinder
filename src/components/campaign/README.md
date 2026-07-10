@@ -12,7 +12,7 @@ Self-contained UI for paid-campaign landing pages (Google Ads → leads).
 ## Conventions
 
 - **Server components.** No interactivity here — every CTA is a plain `<a>` (`tel:` / `wa.me`). No `"use client"`.
-- **Campaign number, not the chat broker.** CTAs use `CAMPAIGN.phone` from `@/lib/campaign` (`+201207171710`), kept separate from the site-wide broker in `chat-config.ts`.
+- **Campaign number, not the chat broker.** CTAs use `CAMPAIGN.phone` from `@/lib/campaign` (`+201210222246`), kept separate from the site-wide broker in `chat-config.ts`.
 - **Copy is bilingual** via `CAMPAIGN_COPY[locale]` in `@/lib/campaign` — never hard-code English.
 - **Data is passed in.** Pages fetch via `getAreaDeals()` etc. and pass props; components don't fetch.
 

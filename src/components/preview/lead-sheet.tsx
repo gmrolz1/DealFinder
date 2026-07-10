@@ -9,7 +9,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { formatPrice } from "@/lib/format";
 import type { EnrichedUnit } from "@/lib/data";
-import { fireLeadConversion } from "@/lib/gtag";
+import { GOOGLE_ADS_LEAD_SEND_TO } from "@/components/analytics/conversion-tracking";
 
 export function LeadSheetTrigger({
   unit,
@@ -84,7 +84,16 @@ function LeadSheet({
         error?: string;
       };
       if (!res.ok || !data.ok) throw new Error(data.error || "Failed");
-      if (!data.deduped) fireLeadConversion(data.leadId);
+      // Form leads don't pass through a wa.me/tel link, so the delegated
+      // tracker can't see them — fire the Ads conversion directly, with the
+      // lead id so Ads dedupes retries.
+      if (!data.deduped && typeof window.gtag === "function") {
+        window.gtag("event", "conversion", {
+          send_to: GOOGLE_ADS_LEAD_SEND_TO,
+          transport_type: "beacon",
+          transaction_id: data.leadId,
+        });
+      }
       setStatus("done");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
