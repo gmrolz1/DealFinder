@@ -41,18 +41,40 @@ const NO_STORE = {
   "X-Robots-Tag": "noindex, nofollow",
 };
 
-function telInterstitial(phone: string): NextResponse {
+/** Absolute site origin for links we put in WhatsApp messages + return
+ * redirects. Prefers the configured production domain. */
+function siteOrigin(): string {
+  return process.env.NEXT_PUBLIC_SITE_URL || "https://www.egy.deals";
+}
+
+function telInterstitial(
+  phone: string,
+  backPath: string | null,
+  locale: "en" | "ar"
+): NextResponse {
   const href = telHref(phone);
-  const html = `<!doctype html><html><head><meta charset="utf-8">
+  // After the dialer opens (app-switch on mobile), quietly send this tab back
+  // to the page the visitor came from — when they finish the call and return
+  // to the browser, they're on the website again, not a dead-end screen.
+  const backUrl = `${siteOrigin()}${backPath ?? (locale === "ar" ? "/ar" : "/")}`;
+  const backLabel = locale === "ar" ? "العودة إلى الموقع" : "Back to the website";
+  const connecting = locale === "ar" ? "جارٍ الاتصال…" : "Connecting your call…";
+  const html = `<!doctype html><html dir="${locale === "ar" ? "rtl" : "ltr"}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="refresh" content="0;url=${href}">
-<title>Calling…</title></head>
+<title>${connecting}</title></head>
 <body style="font-family:system-ui;display:grid;place-items:center;min-height:100vh;margin:0;background:#fff;color:#000">
 <div style="text-align:center">
-<p style="font-size:14px;letter-spacing:.08em;text-transform:uppercase">Connecting your call…</p>
+<p style="font-size:14px;letter-spacing:.08em;text-transform:uppercase">${connecting}</p>
 <a href="${href}" style="font-size:24px;font-weight:800;color:#000">${phone}</a>
+<p style="margin-top:28px"><a href="${backUrl}" style="display:inline-block;border:1px solid #000;padding:10px 18px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#000;text-decoration:none">${backLabel}</a></p>
 </div>
-<script>location.replace(${JSON.stringify(href)})</script>
+<script>
+location.replace(${JSON.stringify(href)});
+// Once the dialer has taken over, return this tab to the site so ending the
+// call lands the visitor back on the page they were browsing.
+setTimeout(function(){ location.href = ${JSON.stringify(backUrl)}; }, 2500);
+</script>
 </body></html>`;
   return new NextResponse(html, {
     status: 200,
@@ -127,9 +149,19 @@ export async function GET(req: NextRequest) {
   }
   if (!phone) phone = fallbackPhone();
 
-  if (ch === "tel") return telInterstitial(phone);
+  if (ch === "tel") return telInterstitial(phone, pagePath, locale);
 
-  const text = prefill?.slice(0, 1800) || buildWaText(unitLabel, priceLabel, locale);
+  // Prefill text + the exact unit's page link, so the broker's WhatsApp
+  // thread opens with a tappable link to what the visitor was looking at.
+  let text = prefill?.slice(0, 1600) || buildWaText(unitLabel, priceLabel, locale);
+  if (unit) {
+    const arPrefix = locale === "ar" ? "/ar" : "";
+    // Arabian Estate listings have no /properties page — link their landing.
+    const unitUrl = unit.slug.startsWith("ae-")
+      ? `${siteOrigin()}${arPrefix}/arabian-estate`
+      : `${siteOrigin()}${arPrefix}/properties/${unit.slug}`;
+    text += `\n\n${unitUrl}`;
+  }
   return NextResponse.redirect(waHref(phone, text), {
     status: 302,
     headers: NO_STORE,
