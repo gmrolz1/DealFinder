@@ -33,11 +33,9 @@ import { unitUSP } from "@/lib/usp";
 import { PropertyCard } from "@/components/property-card";
 import { Carousel } from "@/components/preview/carousel";
 import { SmartCTA } from "@/components/preview/smart-cta";
-import {
-  CHAT_UI,
-  brokerTelHref,
-  buildDirectWhatsApp,
-} from "@/lib/chat-config";
+import { CHAT_UI } from "@/lib/chat-config";
+import { goHref } from "@/lib/leads";
+import { GoLink } from "@/components/go-link";
 
 export function UnitDetail({
   unit,
@@ -71,7 +69,9 @@ export function UnitDetail({
   const priceLabel = formatFull(unit.price, unit.currency);
   const usp = unitUSP(unit, locale);
 
-  const waHref = buildDirectWhatsApp(compoundLabel, priceLabel, locale);
+  // Shared surface → no pin: /api/go rotates the lead to the next broker.
+  const waGo = goHref({ channel: "wa", unitSlug: unit.slug, locale });
+  const telGo = goHref({ channel: "tel", unitSlug: unit.slug, locale });
 
   // Localized micro-strings
   const t = {
@@ -244,8 +244,8 @@ export function UnitDetail({
           <div className="mt-5 border border-ink lg:hidden">
             <SmartCTA unit={unit} locale={locale} />
             <div className="flex">
-              <a
-                href={brokerTelHref}
+              <GoLink
+                href={telGo}
                 className={`flex flex-1 items-center justify-center gap-2 bg-paper py-4 text-[13px] font-bold uppercase tracking-[0.06em] text-ink transition active:bg-ink active:text-paper ${
                   isAr ? "border-l" : "border-r"
                 } border-data`}
@@ -253,17 +253,17 @@ export function UnitDetail({
               >
                 <PhoneIcon big />
                 {ui.callLabel}
-              </a>
-              <a
-                href={waHref}
+              </GoLink>
+              <GoLink
+                href={waGo}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="flex flex-1 items-center justify-center gap-2 bg-paper py-4 text-[13px] font-bold uppercase tracking-[0.06em] text-ink transition active:bg-ink active:text-paper"
                 aria-label={ui.whatsappLabel}
               >
                 <WhatsAppIcon big />
                 {ui.whatsappLabel}
-              </a>
+              </GoLink>
             </div>
           </div>
 
@@ -336,8 +336,8 @@ export function UnitDetail({
 
             <SmartCTA unit={unit} locale={locale} />
             <div className="flex border-t border-data">
-              <a
-                href={brokerTelHref}
+              <GoLink
+                href={telGo}
                 className={`flex flex-1 items-center justify-center gap-2 bg-paper py-3.5 text-[12px] font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-ink hover:text-paper ${
                   isAr ? "border-l" : "border-r"
                 } border-data`}
@@ -345,17 +345,17 @@ export function UnitDetail({
               >
                 <PhoneIcon />
                 {ui.callLabel}
-              </a>
-              <a
-                href={waHref}
+              </GoLink>
+              <GoLink
+                href={waGo}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="flex flex-1 items-center justify-center gap-2 bg-paper py-3.5 text-[12px] font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-ink hover:text-paper"
                 aria-label={ui.whatsappLabel}
               >
                 <WhatsAppIcon />
                 {ui.whatsappLabel}
-              </a>
+              </GoLink>
             </div>
           </div>
         </aside>

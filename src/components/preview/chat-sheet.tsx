@@ -10,11 +10,11 @@ import {
   CHAT_CONFIG,
   CHAT_UI,
   openingMessage,
-  buildHandoffWhatsApp,
   aiNameFor,
   aiInitialFor,
   type ChatMessage,
 } from "@/lib/chat-config";
+import { goHref } from "@/lib/leads";
 
 export function ChatSheet({
   unit,
@@ -141,13 +141,26 @@ export function ChatSheet({
     const nameMatch = userText.match(
       /(?:i'?m|i am|my name is|name's|اسمي|انا)\s+([\p{L}][\p{L}\s'-]{1,30})/iu
     );
-    return buildHandoffWhatsApp(
-      compoundLabel,
-      priceLabel,
+    // Broker-facing prefill. The assigned broker varies (rotation), so the
+    // greeting is generic; /api/go records the lead and picks the number.
+    const lines = [
+      "New lead from DealFinder.",
+      "",
+      `🏠 Unit: ${compoundLabel}`,
+      `💰 Price: ${priceLabel}`,
+      nameMatch ? `👤 Name: ${nameMatch[1].trim()}` : null,
+      phoneMatch ? `📞 Phone: ${phoneMatch[1]}` : null,
+      "",
+      "💬 Chat summary:",
       summary,
-      nameMatch?.[1]?.trim() ?? null,
-      phoneMatch?.[1] ?? null
-    );
+    ].filter((x): x is string => x !== null);
+    return goHref({
+      channel: "wa",
+      source: "chat",
+      unitSlug: unit.slug,
+      locale,
+      text: lines.join("\n"),
+    });
   }
 
   const lastIdx = messages.length - 1;
@@ -237,17 +250,17 @@ export function ChatSheet({
           )}
         </div>
 
-        {/* HANDOFF CTA */}
+        {/* HANDOFF CTA — /api/go records the chat lead + picks the broker */}
         {handoffArmed && (
           <a
             href={handoffHref()}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
             className="mx-3 mb-2 grid place-items-center border border-ink bg-ink py-2.5 text-[12px] font-bold uppercase tracking-[0.08em] text-paper transition hover:bg-paper hover:text-ink"
           >
             <span className="flex items-center gap-2">
               <WhatsAppIcon />
-              {ui.handoffPrefix} {CHAT_CONFIG.brokerName}
+              {ui.handoffLabel}
             </span>
           </a>
         )}

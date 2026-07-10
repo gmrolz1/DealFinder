@@ -1,18 +1,44 @@
-// New Capital lead-gen campaign — config + bilingual copy.
+// Lead-gen campaign config + bilingual copy.
 //
-// Self-contained for the /new-capital landing page (built for Google Ads).
-// CTAs go to the campaign broker number below — intentionally separate from
-// the site-wide chat broker in chat-config.ts. All copy is generated from
-// factual data; nothing is copied from nawy or any other source.
+// NOTE (lead routing): CTAs no longer link to the number below directly —
+// every landing CTA goes through /api/go, which records the lead and
+// redirects to the assigned client's number from the `clients` table.
+// The phone here remains only as documentation of MAP's number; the legacy
+// deep-link builders below are kept for reference but have no consumers.
+// All copy is generated from factual data; nothing copied from nawy.
 
 import type { Locale } from "./i18n";
 
 export const CAMPAIGN = {
   /** New Administrative Capital — area nawy_id in the dataset. */
   areaId: 16,
-  /** Campaign broker number (E.164). WhatsApp + tap-to-call. */
+  /** MAP campaign broker number (E.164) — canonical copy lives in DB `clients`. */
   phone: "+201207171710",
 } as const;
+
+/** Shape of one locale's landing copy — structural (not literal) so
+ * per-client overrides with different text type-check. */
+export type CampaignCopy = {
+  eyebrow: string;
+  h1a: string;
+  h1b: string;
+  sub: string;
+  waCta: string;
+  callCta: string;
+  hooks: ReadonlyArray<{ v: string; l: string }>;
+  statsTpl: string;
+  dealsTitle: string;
+  dealsSub: string;
+  whyTitle: string;
+  why: ReadonlyArray<{ t: string; d: string }>;
+  finalTitle: string;
+  finalSub: string;
+  perUnitWa: string;
+  perUnitCall: string;
+  stickyLabel: string;
+  from: string;
+  seeAll: string;
+};
 
 const WA_NUMBER = CAMPAIGN.phone.replace(/[^0-9]/g, "");
 
@@ -49,6 +75,104 @@ export function campaignWhatsAppUnit(
 // ── Bilingual landing copy ─────────────────────────────────────────────────
 // Co-located here (like CHAT_UI in chat-config.ts) so the whole campaign lives
 // in one module. Both locales are required.
+
+// ── Arabian Estate landing copy ────────────────────────────────────────────
+// Their sheet spans many districts (New Capital, Mostakbal, Shorouk, Sokhna,
+// North Coast), so the copy is multi-area — unlike the New-Capital-specific
+// default below.
+
+export const ARABIAN_ESTATE_COPY: Record<Locale, CampaignCopy> = {
+  en: {
+    eyebrow: "Arabian Estate",
+    h1a: "Find Your Next",
+    h1b: "Home Deal",
+    sub: "Hand-picked primary units across Egypt's fastest-growing districts — flexible plans, low down payments, trusted developers. Message us and get today's best offers.",
+    waCta: "WhatsApp Us",
+    callCta: "Call Now",
+    hooks: [
+      { v: "FROM 5% DOWN", l: "entry offers" },
+      { v: "UP TO 15 YRS", l: "installments" },
+      { v: "130+", l: "listed units" },
+      { v: "70+", l: "trusted developers" },
+    ],
+    statsTpl: "{units} listed units · {compounds} projects · {developers} developers",
+    dealsTitle: "This Week's Best Deals",
+    dealsSub:
+      "Every unit below is verified with the developer's latest prices and payment plans. Tap WhatsApp on any unit for availability.",
+    whyTitle: "Why Arabian Estate",
+    why: [
+      {
+        t: "Verified Primary Units",
+        d: "Every listing is a developer (primary) unit with a real, current price.",
+      },
+      {
+        t: "All Districts Covered",
+        d: "New Capital, Mostakbal City, Shorouk, Sokhna, North Coast — one advisor for all of them.",
+      },
+      {
+        t: "We Match Your Budget",
+        d: "Tell us your number and we shortlist the units that actually fit it.",
+      },
+      {
+        t: "One Tap to a Human",
+        d: "No forms, no waiting — reach our advisor on WhatsApp or by phone instantly.",
+      },
+    ],
+    finalTitle: "Tell Us Your Budget",
+    finalSub:
+      "Send one message with your budget and preferred area. We'll reply with a shortlist of the best matching deals — no spam, just options.",
+    perUnitWa: "WhatsApp",
+    perUnitCall: "Call",
+    stickyLabel: "Talk to an advisor",
+    from: "From",
+    seeAll: "See all units",
+  },
+  ar: {
+    eyebrow: "أريبيان استيت",
+    h1a: "اعثر على",
+    h1b: "صفقتك القادمة",
+    sub: "وحدات أولية مختارة بعناية في أسرع مناطق مصر نمواً — خطط مرنة، مقدمات منخفضة، مطوّرون موثوقون. راسلنا واحصل على أفضل عروض اليوم.",
+    waCta: "تواصل واتساب",
+    callCta: "اتصل الآن",
+    hooks: [
+      { v: "من 5% مقدم", l: "عروض البداية" },
+      { v: "حتى 15 سنة", l: "تقسيط" },
+      { v: "+130", l: "وحدة معروضة" },
+      { v: "+70", l: "مطوّر موثوق" },
+    ],
+    statsTpl: "{units} وحدة معروضة · {compounds} مشروع · {developers} مطوّر",
+    dealsTitle: "أفضل عروض هذا الأسبوع",
+    dealsSub:
+      "كل وحدة أدناه موثّقة بأحدث أسعار المطوّر وخطط السداد. اضغط واتساب على أي وحدة لمعرفة التوفر.",
+    whyTitle: "لماذا أريبيان استيت",
+    why: [
+      {
+        t: "وحدات أولية موثّقة",
+        d: "كل وحدة مباشرة من المطوّر وبسعر حقيقي محدث.",
+      },
+      {
+        t: "كل المناطق مغطاة",
+        d: "العاصمة الإدارية، المستقبل، الشروق، السخنة، الساحل — مستشار واحد لكل المناطق.",
+      },
+      {
+        t: "نطابق ميزانيتك",
+        d: "أخبرنا برقمك ونرشّح لك الوحدات التي تناسبه فعلاً.",
+      },
+      {
+        t: "تواصل فوري",
+        d: "بدون نماذج أو انتظار — تواصل مع مستشارنا على واتساب أو هاتفياً فوراً.",
+      },
+    ],
+    finalTitle: "أخبرنا بميزانيتك",
+    finalSub:
+      "أرسل رسالة واحدة بميزانيتك ومنطقتك المفضّلة، وسنرد عليك بقائمة أفضل العروض المطابقة — بدون إزعاج، خيارات فقط.",
+    perUnitWa: "واتساب",
+    perUnitCall: "اتصال",
+    stickyLabel: "تحدّث مع مستشار",
+    from: "يبدأ من",
+    seeAll: "عرض كل الوحدات",
+  },
+};
 
 export const CAMPAIGN_COPY = {
   en: {

@@ -1,6 +1,6 @@
 // Mobile-first listing card for the campaign landing. Self-contained: the only
-// actions are Call + WhatsApp to the campaign number (no navigation away, no
-// chat). Server component.
+// actions are Call + WhatsApp, routed through /api/go so each tap is recorded
+// and pinned to the landing's client. Server component.
 
 import type { EnrichedUnit } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
@@ -11,15 +11,18 @@ import {
   unitDealBadges,
   formatPriceCompact,
 } from "@/lib/conversion";
-import { campaignTelHref, campaignWhatsAppUnit } from "@/lib/campaign";
+import { goHref } from "@/lib/leads";
+import { GoLink } from "@/components/go-link";
 import { PhoneIcon, WhatsAppIcon } from "./icons";
 
 export function CampaignCard({
   unit,
   locale = "en",
+  landingPath,
 }: {
   unit: EnrichedUnit;
   locale?: Locale;
+  landingPath: string;
 }) {
   const isAr = locale === "ar";
   const compoundName = isAr
@@ -39,7 +42,18 @@ export function CampaignCard({
   const monthly = monthlyPayment(unit);
   const downPct = downPaymentPct(unit);
   const badges = unitDealBadges(unit);
-  const waHref = campaignWhatsAppUnit(label, priceLabel, locale);
+  const waGo = goHref({
+    channel: "wa",
+    unitSlug: unit.slug,
+    pinnedPath: landingPath,
+    locale,
+  });
+  const telGo = goHref({
+    channel: "tel",
+    unitSlug: unit.slug,
+    pinnedPath: landingPath,
+    locale,
+  });
 
   const t = {
     bed: isAr ? "غرفة" : "Bed",
@@ -134,8 +148,8 @@ export function CampaignCard({
       </div>
 
       <div className="mt-auto flex border-t border-data">
-        <a
-          href={campaignTelHref}
+        <GoLink
+          href={telGo}
           className={`flex flex-1 items-center justify-center gap-1.5 py-3 text-[12px] font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-ink hover:text-paper ${
             isAr ? "border-l" : "border-r"
           } border-data`}
@@ -143,17 +157,17 @@ export function CampaignCard({
         >
           <PhoneIcon size={14} />
           {t.call}
-        </a>
-        <a
-          href={waHref}
+        </GoLink>
+        <GoLink
+          href={waGo}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer nofollow"
           className="flex flex-1 items-center justify-center gap-1.5 bg-ink py-3 text-[12px] font-bold uppercase tracking-[0.06em] text-paper transition hover:opacity-90"
           aria-label={t.wa}
         >
           <WhatsAppIcon size={14} />
           {t.wa}
-        </a>
+        </GoLink>
       </div>
     </div>
   );

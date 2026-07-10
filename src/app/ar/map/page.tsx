@@ -32,6 +32,8 @@ export default function MapLandingPageAr() {
       unitCount={unitCount}
       compoundCount={compounds.length}
       developerCount={developerCount}
+      brandName="MAP"
+      landingPath="/ar/map"
     />
   );
 }

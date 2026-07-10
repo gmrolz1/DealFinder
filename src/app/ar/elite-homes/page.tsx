@@ -4,20 +4,21 @@ import { CAMPAIGN } from "@/lib/campaign";
 import { NewCapitalLanding } from "@/components/campaign/new-capital-landing";
 
 export const metadata: Metadata = {
-  title: "MAP Real Estate — New Capital Properties for Sale",
+  title: "إيليت هومز — عقارات العاصمة الإدارية للبيع",
   description:
-    "Primary apartments & villas in Egypt's New Administrative Capital from top developers. From EGP 1.8M, 10% down, up to 8-year plans. WhatsApp us for the best deals.",
+    "شقق وفيلات أولية في العاصمة الإدارية الجديدة من كبار المطوّرين. خطط مرنة ومقدمات منخفضة. تواصل واتساب لأفضل العروض.",
   alternates: {
-    canonical: "/map",
+    canonical: "/ar/elite-homes",
     languages: {
-      en: "/map",
-      ar: "/ar/map",
-      "x-default": "/map",
+      en: "/elite-homes",
+      ar: "/ar/elite-homes",
+      "x-default": "/elite-homes",
     },
   },
 };
 
-export default function MapLandingPage() {
+// Shared deal-ranked inventory until Elite Homes supplies its own listings.
+export default function EliteHomesLandingPageAr() {
   const deals = getAreaDeals(CAMPAIGN.areaId, 24);
   const compounds = getCompoundsByArea(CAMPAIGN.areaId);
   const unitCount = searchUnits({ area: String(CAMPAIGN.areaId) }).total;
@@ -27,13 +28,13 @@ export default function MapLandingPage() {
 
   return (
     <NewCapitalLanding
-      locale="en"
+      locale="ar"
       deals={deals}
       unitCount={unitCount}
       compoundCount={compounds.length}
       developerCount={developerCount}
-      brandName="MAP"
-      landingPath="/map"
+      brandName="ELITE HOMES"
+      landingPath="/ar/elite-homes"
     />
   );
 }

@@ -27,11 +27,9 @@ import {
   formatPriceCompact,
 } from "@/lib/conversion";
 import { unitUSP } from "@/lib/usp";
-import {
-  CHAT_UI,
-  brokerTelHref,
-  buildDirectWhatsApp,
-} from "@/lib/chat-config";
+import { CHAT_UI } from "@/lib/chat-config";
+import { goHref } from "@/lib/leads";
+import { GoLink } from "@/components/go-link";
 import { formatPrice } from "@/lib/format";
 
 export function PropertyCardV2({
@@ -66,7 +64,9 @@ export function PropertyCardV2({
   const priceLabel = formatPrice(unit.price, unit.currency);
 
   const detailHref = localizedPath(`/properties/${unit.slug}`, locale);
-  const waHref = buildDirectWhatsApp(compoundLabel, priceLabel, locale);
+  // Shared surface → no pin: /api/go rotates the lead to the next broker.
+  const waGo = goHref({ channel: "wa", unitSlug: unit.slug, locale });
+  const telGo = goHref({ channel: "tel", unitSlug: unit.slug, locale });
 
   // Localized micro-strings — only used on this card.
   const t = {
@@ -180,12 +180,12 @@ export function PropertyCardV2({
         </div>
       </Link>
 
-      {/* ── CTAs — chat preview + call + whatsapp ───────────────────────── */}
+      {/* ── CTAs — chat preview + call + whatsapp (rotated via /api/go) ── */}
       <div className="mt-3 border-t border-data">
         <SmartCTA unit={unit} locale={locale} />
         <div className="flex">
-          <a
-            href={brokerTelHref}
+          <GoLink
+            href={telGo}
             className={`flex flex-1 items-center justify-center gap-1.5 bg-paper py-2.5 text-[11px] font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-ink hover:text-paper ${
               isAr ? "border-l" : "border-r"
             } border-data`}
@@ -193,17 +193,17 @@ export function PropertyCardV2({
           >
             <PhoneIcon />
             {ui.callLabel}
-          </a>
-          <a
-            href={waHref}
+          </GoLink>
+          <GoLink
+            href={waGo}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
             className="flex flex-1 items-center justify-center gap-1.5 bg-paper py-2.5 text-[11px] font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-ink hover:text-paper"
             aria-label={ui.whatsappLabel}
           >
             <WhatsAppIcon />
             {ui.whatsappLabel}
-          </a>
+          </GoLink>
         </div>
       </div>
     </div>

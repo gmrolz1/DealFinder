@@ -1,15 +1,16 @@
-// New Capital lead-gen landing page body (EN / AR). Mobile-first, single goal:
-// get the visitor to WhatsApp or call the campaign advisor. Server component;
-// data is passed in by the route. No map — just the best listings + strong CTAs.
+// Client campaign landing body (EN / AR). Mobile-first, single goal: get the
+// visitor to WhatsApp or call. One component serves every broker client —
+// the route passes brandName + landingPath (which /api/go maps to the pinned
+// client) and optionally overrides the copy block.
+//
+// Server component; data is passed in by the route.
 
 import type { EnrichedUnit } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
 import { formatNumber } from "@/lib/format";
-import {
-  CAMPAIGN_COPY,
-  campaignTelHref,
-  campaignWhatsAppGeneric,
-} from "@/lib/campaign";
+import { CAMPAIGN_COPY, type CampaignCopy } from "@/lib/campaign";
+import { goHref } from "@/lib/leads";
+import { GoLink } from "@/components/go-link";
 import { CampaignCard } from "./campaign-card";
 import { StickyContact } from "./sticky-contact";
 import { PhoneIcon, WhatsAppIcon } from "./icons";
@@ -20,16 +21,23 @@ export function NewCapitalLanding({
   unitCount,
   compoundCount,
   developerCount,
+  brandName = "MAP",
+  landingPath = "/map",
+  copy,
 }: {
   locale?: Locale;
   deals: EnrichedUnit[];
   unitCount: number;
   compoundCount: number;
   developerCount: number;
+  brandName?: string;
+  landingPath?: string;
+  copy?: CampaignCopy;
 }) {
   const isAr = locale === "ar";
-  const c = CAMPAIGN_COPY[locale];
-  const waHref = campaignWhatsAppGeneric(locale);
+  const c = copy ?? CAMPAIGN_COPY[locale];
+  const waGo = goHref({ channel: "wa", pinnedPath: landingPath, locale });
+  const telGo = goHref({ channel: "tel", pinnedPath: landingPath, locale });
   const stats = c.statsTpl
     .replace("{units}", formatNumber(unitCount))
     .replace("{compounds}", formatNumber(compoundCount))
@@ -37,19 +45,17 @@ export function NewCapitalLanding({
 
   return (
     <div className="bg-paper pb-40 md:pb-28" dir={isAr ? "rtl" : "ltr"}>
-      {/* ── Brand bar (standalone — MAP) ──────────────────────────────── */}
-      {/* Swap the MAP wordmark below for <img src="/map-logo.png" .../> once
-          the client logo is added to /public. */}
+      {/* ── Brand bar (standalone) ────────────────────────────────────── */}
       <header className="flex items-center justify-between border-b border-ink px-4 py-3 sm:px-6">
         <span className="text-[20px] font-black uppercase tracking-tight text-ink">
-          MAP
+          {brandName}
         </span>
-        <a
-          href={campaignTelHref}
+        <GoLink
+          href={telGo}
           className="flex items-center gap-1.5 border border-ink px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-ink hover:text-paper"
         >
           <PhoneIcon size={13} /> {c.callCta}
-        </a>
+        </GoLink>
       </header>
 
       {/* ── Hero ──────────────────────────────────────────────────────── */}
@@ -66,20 +72,20 @@ export function NewCapitalLanding({
           </p>
 
           <div className="mt-7 flex flex-col gap-2 sm:flex-row">
-            <a
-              href={waHref}
+            <GoLink
+              href={waGo}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               className="flex items-center justify-center gap-2 bg-ink px-7 py-4 text-[13px] font-bold uppercase tracking-[0.07em] text-paper transition hover:opacity-90"
             >
               <WhatsAppIcon size={17} /> {c.waCta}
-            </a>
-            <a
-              href={campaignTelHref}
+            </GoLink>
+            <GoLink
+              href={telGo}
               className="flex items-center justify-center gap-2 border border-ink bg-paper px-7 py-4 text-[13px] font-bold uppercase tracking-[0.07em] text-ink transition hover:bg-ink hover:text-paper"
             >
               <PhoneIcon size={17} /> {c.callCta}
-            </a>
+            </GoLink>
           </div>
 
           <div className="mt-9 grid grid-cols-2 border-l border-t border-data sm:grid-cols-4">
@@ -111,7 +117,12 @@ export function NewCapitalLanding({
         </p>
         <div className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {deals.map((u) => (
-            <CampaignCard key={u.nawy_id} unit={u} locale={locale} />
+            <CampaignCard
+              key={u.nawy_id}
+              unit={u}
+              locale={locale}
+              landingPath={landingPath}
+            />
           ))}
         </div>
       </section>
@@ -144,24 +155,24 @@ export function NewCapitalLanding({
           {c.finalSub}
         </p>
         <div className="mt-8 flex flex-col justify-center gap-2 sm:flex-row">
-          <a
-            href={waHref}
+          <GoLink
+            href={waGo}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
             className="flex items-center justify-center gap-2 bg-ink px-8 py-4 text-[13px] font-bold uppercase tracking-[0.07em] text-paper transition hover:opacity-90"
           >
             <WhatsAppIcon size={17} /> {c.waCta}
-          </a>
-          <a
-            href={campaignTelHref}
+          </GoLink>
+          <GoLink
+            href={telGo}
             className="flex items-center justify-center gap-2 border border-ink bg-paper px-8 py-4 text-[13px] font-bold uppercase tracking-[0.07em] text-ink transition hover:bg-ink hover:text-paper"
           >
             <PhoneIcon size={17} /> {c.callCta}
-          </a>
+          </GoLink>
         </div>
       </section>
 
-      <StickyContact locale={locale} />
+      <StickyContact locale={locale} landingPath={landingPath} />
     </div>
   );
 }

@@ -125,6 +125,42 @@ Chronological record of every step taken. Newest at the bottom.
 
 <!-- Next steps logged below as they happen -->
 
+## 2026-07-15
+
+### Step 20 — Lead routing engine + client dashboard
+- Business model: sell lead packages to broker clients (MAP, Arabian
+  Estate, Elite Homes — 5 leads each). Every WhatsApp/Call click, form
+  submit, and chat handoff is now a recorded lead.
+- DB (applied live via Supabase MCP, migration `lead_routing_v1`):
+  `clients` table, `leads` extensions (nullable name/phone, source/status/
+  pinned/session/utm/gclid/meta), `client_rotation` view, atomic
+  `assign_lead()` RPC (advisory lock; 24h session dedupe; pin > force_next
+  > least-counted > rotation_order; junk frees slots), `ad_spend`
+  placeholder. RPC + tables locked to service role; dropped the public
+  insert policy on leads.
+- Plumbing: `/api/go` (click capture + 302 to the ASSIGNED broker's
+  wa.me; tel via interstitial; bot-guarded but bots still get redirected),
+  `/api/lead` (form/chat), `df_sid` + `df_utm` first-touch cookies in
+  src/proxy.ts, gtag conversion hooks (env-gated), robots disallow /api.
+- All 7 CTA surfaces rewired through /api/go — numbers now live only in
+  the clients table + LEAD_FALLBACK_PHONE.
+- Landings: /arabian-estate (+/ar) renders their own 133-listing sheet
+  import (scripts/import-arabian-estate.mjs → scraper/data/
+  arabian-estate.json); /elite-homes (+/ar) on shared inventory;
+  new-capital-landing generalized (brandName/landingPath/copy props).
+- /dashboard: admin password (HMAC cookie), per-client quota cards,
+  who's-next, leads table w/ status control, rotation control panel
+  (quota/order/phone/name/active/force-next — placeholder numbers get
+  replaced here, no deploy).
+- Verified: RPC rotation A→B→C, dedupe (same lead + same client on
+  repeat), pin, force_next consume, junk-frees-slot, anon lockout — all
+  against the live DB. Local: all routes 200, auth flow, /api/go
+  redirect + tel interstitial.
+
 ## Next up (blocked on you)
-- Run `docs/SETUP.md` steps 1–2 (add Supabase MCP server + authenticate).
-- Then the assistant creates DB tables and loads the scraped data.
+- Add `SUPABASE_SERVICE_ROLE_KEY` + `ADMIN_PASSWORD` to Vercel env (and
+  .env.local for local testing) — leads won't record without the key.
+- Fix the cached GitHub credential (gmrolz → gmrolz1) and push.
+- Real numbers for Arabian Estate + Elite Homes (edit in /dashboard).
+- Phase 7: copy GOOGLE_ADS_* creds from the other Vercel project for the
+  spend pull → CPL per campaign in the dashboard.

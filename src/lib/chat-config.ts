@@ -53,6 +53,7 @@ export const CHAT_UI = {
     callbackIn: "Callback in 30 minutes",
     smartCtaTapReply: "Tap to reply",
     smartCtaTyping: "typing",
+    handoffLabel: "Continue on WhatsApp",
   },
   ar: {
     triggerLabel: "اسأل ليلى عن هذه الوحدة",
@@ -67,6 +68,7 @@ export const CHAT_UI = {
     callbackIn: "اتصال خلال 30 دقيقة",
     smartCtaTapReply: "اضغط للرد",
     smartCtaTyping: "يكتب",
+    handoffLabel: "تابع على واتساب",
   },
 } as const;
 

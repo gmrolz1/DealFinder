@@ -38,6 +38,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   out.push(entry("/map", { priority: 0.9, changeFrequency: "daily" }));
   out.push(entry("/explore", { priority: 0.8, changeFrequency: "daily" }));
+  out.push(
+    entry("/arabian-estate", { priority: 0.9, changeFrequency: "daily" })
+  );
+  out.push(entry("/elite-homes", { priority: 0.9, changeFrequency: "daily" }));
 
   // Areas
   for (const a of getAreas()) {

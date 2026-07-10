@@ -1,15 +1,15 @@
 "use client";
 
-// Lead capture: slides up from the bottom on mobile, centered modal on desktop.
-// Triggered by the CTA on the new property card.
-//
-// For the preview page this is a UX demo — the form does NOT post to Supabase
-// yet. Real wiring goes in Phase 1 implementation: POST to /api/leads which
-// inserts into the leads table (RLS allows public insert).
+// Lead capture: slides up from the bottom on mobile, centered modal on
+// desktop. Submits to /api/lead — the server assigns the broker (pinned on
+// client landings, rotation elsewhere) and the Ads conversion fires with the
+// lead id for exact dedupe.
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { formatPrice } from "@/lib/format";
 import type { EnrichedUnit } from "@/lib/data";
+import { fireLeadConversion } from "@/lib/gtag";
 
 export function LeadSheetTrigger({
   unit,
@@ -56,13 +56,40 @@ function LeadSheet({
   onClose: () => void;
 }) {
   const [status, setStatus] = useState<"idle" | "submitting" | "done">("idle");
+  const [error, setError] = useState<string | null>(null);
+  const pathname = usePathname();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
     setStatus("submitting");
-    // Demo: simulate a 400ms request. Real version POSTs to /api/leads.
-    await new Promise((r) => setTimeout(r, 400));
-    setStatus("done");
+    const fd = new FormData(e.currentTarget);
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          unitSlug: unit.slug,
+          name: String(fd.get("name") ?? ""),
+          phone: String(fd.get("phone") ?? ""),
+          message: String(fd.get("message") ?? "") || undefined,
+          pagePath: pathname,
+          locale: pathname.startsWith("/ar") ? "ar" : "en",
+        }),
+      });
+      const data = (await res.json()) as {
+        ok: boolean;
+        leadId?: string;
+        deduped?: boolean;
+        error?: string;
+      };
+      if (!res.ok || !data.ok) throw new Error(data.error || "Failed");
+      if (!data.deduped) fireLeadConversion(data.leadId);
+      setStatus("done");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+      setStatus("idle");
+    }
   };
 
   return (
@@ -128,8 +155,13 @@ function LeadSheet({
             >
               {status === "submitting" ? "Sending…" : "Get my callback"}
             </button>
+            {error && (
+              <p className="text-center text-[11px] font-semibold text-ink">
+                {error} — please try again.
+              </p>
+            )}
             <p className="text-center text-[10px] text-slate">
-              No spam — just deals. Demo only: this form doesn&apos;t post yet.
+              No spam — just deals.
             </p>
           </form>
         ) : (
@@ -138,7 +170,7 @@ function LeadSheet({
               Got it.
             </p>
             <p className="mt-2 text-[13px] text-slate">
-              In real life we&apos;ll call you within 30 minutes.
+              Our advisor will call you within 30 minutes.
             </p>
             <button
               type="button"

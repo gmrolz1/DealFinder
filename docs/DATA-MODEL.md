@@ -158,3 +158,40 @@ And log the change in [`docs/LOG.md`](LOG.md).
 ## Bilingual fields
 
 The Postgres schema currently stores EN values only. AR translations live in `scraper/data/{compounds,developers}.json` (as `name_ar`, `subtitle_ar`, etc.) and are exposed via the TypeScript types. Migrating these into Postgres is part of milestone M0/M1 in [ROADMAP.md](ROADMAP.md).
+
+---
+
+## Lead routing (2026-07)
+
+Conversions (WhatsApp/Call clicks, form submits, chat handoffs) are recorded as leads and routed to broker clients. Full SQL in [`supabase/schema.sql`](../supabase/schema.sql) under "LEAD ROUTING".
+
+### `clients`
+
+```sql
+id uuid pk · slug unique ('map'|'arabian-estate'|'elite-homes') · name
+phone (E.164 — the wa.me/tel target) · quota int default 5 · active bool
+rotation_order int (tie-break, lower first) · force_next bool (dashboard
+"next lead here"; cleared on use) · landing_path · created_at
+```
+
+RLS enabled with **no policies** — service-role only. Numbers are edited from the dashboard, not code.
+
+### `leads` extensions
+
+`name`/`phone` are now nullable (click-leads carry neither). New columns: `client_id fk`, `source` (`form|whatsapp|call|chat`), `status` (`new|contacted|junk`), `pinned bool`, `session_id`, `page_path`, `locale`, `unit_title` (snapshot), `utm jsonb` (first-touch), `gclid`, `meta jsonb` (`{sources:[…]}` channel history). The old `public insert leads` policy is **dropped** — all writes go through the server.
+
+### `client_rotation` view
+
+`clients` + computed `counted_leads` (`status <> 'junk'`). The ONE definition of "counted" — used by both the RPC and the dashboard. Junk-marking a lead automatically frees its quota slot because counting is computed, never stored.
+
+### `assign_lead(...)` RPC
+
+`SECURITY DEFINER`; execute revoked from `anon`/`authenticated`, granted to `service_role` only. Inside one `pg_advisory_xact_lock`:
+
+1. **Dedupe** — same `session_id` + same unit bucket within 24h (any source) → returns the existing lead, appends the new channel to `meta.sources`, and a later form submit upgrades the click-lead with name/phone.
+2. **Pin** — active client by slug (a client's own landing traffic is always theirs, even over quota).
+3. **Rotation** — `ORDER BY force_next DESC, counted_leads ASC, rotation_order ASC` among active clients under quota; `force_next` is cleared on the picked client. No eligible client → lead records with `client_id NULL` (overflow → house fallback number).
+
+### `ad_spend`
+
+Placeholder for the Google Ads spend pull (Phase 7): `day, campaign_id, campaign, spend, clicks, impressions`, unique per day+campaign. RLS locked.

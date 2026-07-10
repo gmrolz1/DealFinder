@@ -33,6 +33,34 @@ Today the runtime data layer reads scraped JSON from `scraper/data/*.json` (bund
 
 ---
 
+## Lead routing (conversions → brokers)
+
+Every contact CTA is a **conversion** that gets recorded and routed to a broker client. Client landing pages pin their own leads; shared marketplace pages rotate lead-by-lead among clients under quota.
+
+```
+   visitor taps CTA
+        │
+        ├── WhatsApp / Call click ──► GET /api/go ──┐
+        ├── LeadSheet form ─────────► POST /api/lead ├──► assign_lead() RPC (Postgres)
+        └── chat handoff ───────────► GET /api/go ──┘      │  advisory lock:
+                                                           │  1. 24h session dedupe
+                                                           │  2. pinned? → that client
+                                                           │  3. else rotation:
+                                                           │     force_next → least
+                                                           │     counted → order
+                                                           ▼
+                                    302 → wa.me/<assigned client's number>
+                                    (tel: → micro-interstitial page)
+```
+
+Key files: `src/app/api/go/route.ts` (click capture + redirect, bot-guarded), `src/app/api/lead/route.ts` (form/chat JSON), `src/lib/leads.ts` (pin map, cookies, `goHref`), `src/lib/leads-server.ts` (RPC wrapper), `src/lib/supabase-admin.ts` (service-role client), `src/proxy.ts` (mints `df_sid` session + `df_utm` first-touch cookies). Broker numbers live **only** in the `clients` table (+ `LEAD_FALLBACK_PHONE` env) — edited from `/dashboard`, no deploys.
+
+`/dashboard` (single admin password → HMAC cookie) shows per-client counted/quota, source breakdown, who's next, the leads table with status control (junk frees the slot), and the rotation control panel (quota / order / active / phone / force-next). Schema details: [DATA-MODEL.md](DATA-MODEL.md#lead-routing-2026-07).
+
+Client landings: `/map` (MAP, shared New-Capital inventory), `/arabian-estate` (their own 133 sheet listings via `scripts/import-arabian-estate.mjs` → `scraper/data/arabian-estate.json` → `src/lib/client-listings.ts`), `/elite-homes` (shared inventory until they supply listings). All reuse `src/components/campaign/new-capital-landing.tsx` with `brandName` / `landingPath` / `copy` props.
+
+---
+
 ## Repository layout
 
 ```
