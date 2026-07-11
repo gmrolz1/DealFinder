@@ -38,15 +38,8 @@ export const TAGAMO3_AREA: CampaignAreaLabel = {
   en: "Fifth Settlement (New Cairo)",
 };
 
-const WA_NUMBER = CAMPAIGN.phone.replace(/[^0-9]/g, "");
-
 /** tap-to-call href for the campaign number. */
 export const campaignTelHref = `tel:${CAMPAIGN.phone.replace(/[^0-9+]/g, "")}`;
-
-/** WhatsApp deep link with a prefilled message. */
-export function campaignWhatsApp(message: string): string {
-  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-}
 
 // TEXT builders — the lead-routing /api/go endpoint takes the message as a
 // `t=` param and redirects to the ASSIGNED broker's number (rotation/pin
@@ -74,24 +67,6 @@ export function campaignWaTextUnit(
     : `Hi, I'm interested in ${unitLabel} in ${area.en} (${priceLabel}). Can you send details and the payment plan?`;
 }
 
-/** Generic "send me the best deals" link — legacy deep link (pre-routing). */
-export function campaignWhatsAppGeneric(
-  locale: Locale,
-  area: CampaignAreaLabel = NEW_CAPITAL_AREA
-): string {
-  return campaignWhatsApp(campaignWaTextGeneric(locale, area));
-}
-
-/** Per-unit link — legacy deep link (pre-routing). */
-export function campaignWhatsAppUnit(
-  unitLabel: string,
-  priceLabel: string,
-  locale: Locale,
-  area: CampaignAreaLabel = NEW_CAPITAL_AREA
-): string {
-  return campaignWhatsApp(campaignWaTextUnit(unitLabel, priceLabel, locale, area));
-}
-
 /** Per-compound message text — compound detail pages (ad targets). */
 export function campaignWaTextCompound(
   name: string,
@@ -106,16 +81,6 @@ export function campaignWaTextCompound(
     : `Hi, I'm interested in ${name}${
         areaLabel ? ` in ${areaLabel}` : ""
       } (from ${priceLabel}). Could you send details, the payment plan, and available photos?`;
-}
-
-/** Per-compound link — legacy deep link (pre-routing). */
-export function campaignWhatsAppCompound(
-  name: string,
-  areaLabel: string | null,
-  priceLabel: string,
-  locale: Locale
-): string {
-  return campaignWhatsApp(campaignWaTextCompound(name, areaLabel, priceLabel, locale));
 }
 
 // ── Bilingual landing copy ─────────────────────────────────────────────────

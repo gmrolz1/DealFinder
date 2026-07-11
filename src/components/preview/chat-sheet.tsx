@@ -49,6 +49,10 @@ export function ChatSheet({
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const seedSentRef = useRef(false);
+  // Once we've recorded the chat lead server-side (on first phone number),
+  // don't record it again — dedupe would collapse it anyway, but skipping the
+  // extra round-trip keeps the UI snappy.
+  const capturedRef = useRef(false);
 
   useEffect(() => {
     const el = scrollerRef.current;
@@ -116,6 +120,17 @@ export function ChatSheet({
       if (data.shouldHandoff || userTurns >= CHAT_CONFIG.handoffAfterMessages) {
         setHandoffArmed(true);
       }
+      // Auto-capture: the instant the visitor has shared a phone number, record
+      // the lead server-side so it enters the SAME broker rotation as the
+      // "Continue on WhatsApp" button — even if they never tap it. /api/lead
+      // dedupes on session + unit, so a later tap resolves to the same broker
+      // (no double lead, no double conversion). Fire-and-forget; the button
+      // still records + rotates on tap if this fails.
+      const contact = extractContact(nextMessages);
+      if (contact.phone && !capturedRef.current) {
+        capturedRef.current = true;
+        void captureChatLead(contact, buildSummary(nextMessages));
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
@@ -123,8 +138,29 @@ export function ChatSheet({
     }
   }
 
-  function handoffHref() {
-    const summary = messages
+  // Pull the visitor's name/phone out of what they've typed. Handles Latin and
+  // Arabic name introductions; phone is the Egyptian mobile format.
+  function extractContact(msgs: ChatMessage[]): {
+    name: string | null;
+    phone: string | null;
+  } {
+    const userText = msgs
+      .filter((m) => m.role === "user")
+      .map((m) => m.text)
+      .join(" ");
+    const phoneMatch = userText.match(/\b(\+?2?01[0-9]{9})\b/);
+    const nameMatch = userText.match(
+      /(?:i'?m|i am|my name is|name's|اسمي|انا)\s+([\p{L}][\p{L}\s'-]{1,30})/iu
+    );
+    return {
+      name: nameMatch ? nameMatch[1].trim() : null,
+      phone: phoneMatch ? phoneMatch[1] : null,
+    };
+  }
+
+  // A readable transcript for the broker (skips the AI's opening greeting).
+  function buildSummary(msgs: ChatMessage[]): string {
+    return msgs
       .slice(1)
       .map((m) =>
         m.role === "user"
@@ -132,15 +168,39 @@ export function ChatSheet({
           : `${CHAT_CONFIG.aiName}: ${m.text}`
       )
       .join("\n");
-    const userText = messages
-      .filter((m) => m.role === "user")
-      .map((m) => m.text)
-      .join(" ");
-    const phoneMatch = userText.match(/\b(\+?2?01[0-9]{9})\b/);
-    // Look for Latin OR Arabic name introductions
-    const nameMatch = userText.match(
-      /(?:i'?m|i am|my name is|name's|اسمي|انا)\s+([\p{L}][\p{L}\s'-]{1,30})/iu
-    );
+  }
+
+  // Record the chat lead the moment a phone number appears — same rotation as
+  // the button. source:"chat" lets /api/lead accept a phone with no name.
+  async function captureChatLead(
+    contact: { name: string | null; phone: string | null },
+    summary: string
+  ) {
+    try {
+      await fetch("/api/lead", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          source: "chat",
+          unitSlug: unit.slug,
+          name: contact.name ?? undefined,
+          phone: contact.phone ?? undefined,
+          message: `AI chat · ${compoundLabel} · ${priceLabel}\n\n${summary}`.slice(
+            0,
+            1800
+          ),
+          pagePath:
+            typeof location !== "undefined" ? location.pathname : undefined,
+          locale,
+        }),
+      });
+    } catch {
+      // Non-blocking: the handoff button still records + rotates on tap.
+    }
+  }
+
+  function handoffHref() {
+    const { name, phone } = extractContact(messages);
     // Broker-facing prefill. The assigned broker varies (rotation), so the
     // greeting is generic; /api/go records the lead and picks the number.
     const lines = [
@@ -148,11 +208,11 @@ export function ChatSheet({
       "",
       `🏠 Unit: ${compoundLabel}`,
       `💰 Price: ${priceLabel}`,
-      nameMatch ? `👤 Name: ${nameMatch[1].trim()}` : null,
-      phoneMatch ? `📞 Phone: ${phoneMatch[1]}` : null,
+      name ? `👤 Name: ${name}` : null,
+      phone ? `📞 Phone: ${phone}` : null,
       "",
       "💬 Chat summary:",
-      summary,
+      buildSummary(messages),
     ].filter((x): x is string => x !== null);
     return goHref({
       channel: "wa",

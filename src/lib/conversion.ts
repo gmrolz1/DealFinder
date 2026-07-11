@@ -47,15 +47,6 @@ export function formatPriceCompact(n: number | null | undefined): string {
   return `EGP ${n.toLocaleString("en-US")}`;
 }
 
-/** Build a WhatsApp deep link for the brand number with a prefilled message. */
-export function whatsappHref(
-  brandNumber: string,
-  message: string
-): string {
-  const cleanNum = brandNumber.replace(/[^0-9]/g, "");
-  return `https://wa.me/${cleanNum}?text=${encodeURIComponent(message)}`;
-}
-
 /** Deal badges to render on a unit card. Order = visual priority. */
 export type DealBadge = {
   key: string;

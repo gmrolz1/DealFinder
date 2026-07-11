@@ -104,47 +104,7 @@ export function openingMessage(
   };
 }
 
-/** WhatsApp deep link the user clicks to continue with the human broker.
- * Message body is bilingual-friendly: structured fields + raw chat transcript. */
-export function buildHandoffWhatsApp(
-  unitLabel: string,
-  unitPrice: string,
-  summary: string,
-  visitorName: string | null,
-  visitorPhone: string | null
-): string {
-  const lines = [
-    `Hi ${CHAT_CONFIG.brokerName} — new lead from ${CHAT_CONFIG.brand}.`,
-    ``,
-    `🏠 Unit: ${unitLabel}`,
-    `💰 Price: ${unitPrice}`,
-    visitorName ? `👤 Name: ${visitorName}` : null,
-    visitorPhone ? `📞 Phone: ${visitorPhone}` : null,
-    ``,
-    `💬 Chat summary:`,
-    summary,
-    ``,
-    `Please follow up.`,
-  ].filter(Boolean);
-  const message = lines.join("\n");
-  const cleanNum = CHAT_CONFIG.brokerWhatsApp.replace(/[^0-9]/g, "");
-  return `https://wa.me/${cleanNum}?text=${encodeURIComponent(message)}`;
-}
-
-/** Per-unit WhatsApp deep link for the direct WhatsApp icon on the card —
- * used when the visitor skips the AI and goes straight to the broker. */
-export function buildDirectWhatsApp(
-  unitLabel: string,
-  unitPrice: string,
-  locale: Locale = "en"
-): string {
-  const message =
-    locale === "ar"
-      ? `مرحباً — أنا مهتم بـ ${unitLabel} (${unitPrice}). ممكن تبعتلي التفاصيل؟`
-      : `Hi — I'm interested in ${unitLabel} (${unitPrice}). Can you send details?`;
-  const cleanNum = CHAT_CONFIG.brokerWhatsApp.replace(/[^0-9]/g, "");
-  return `https://wa.me/${cleanNum}?text=${encodeURIComponent(message)}`;
-}
-
-/** tap-to-call link */
-export const brokerTelHref = `tel:${CHAT_CONFIG.brokerPhone.replace(/[^0-9+]/g, "")}`;
+// Note: the chat → WhatsApp handoff and every card CTA now route through
+// `/api/go` (see src/lib/leads.ts `goHref`), which records the lead and picks
+// the assigned broker via rotation. Direct wa.me/tel builders were removed so
+// no surface can bypass that rotation.
