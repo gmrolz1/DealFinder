@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type Locale, localizedPath } from "@/lib/i18n";
+import { localizedPath, localeFromPath } from "@/lib/i18n";
 
 const TABS: {
   enLabel: string;
@@ -42,8 +42,11 @@ const TABS: {
   },
 ];
 
-export function MobileTabBar({ locale = "en" }: { locale?: Locale }) {
-  const pathname = usePathname();
+export function MobileTabBar() {
+  // Locale from the live pathname — a frozen prop would keep the tab links +
+  // labels in the first-loaded locale after client navigation.
+  const pathname = usePathname() || "/";
+  const locale = localeFromPath(pathname);
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-data bg-paper md:hidden">

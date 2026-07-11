@@ -1,7 +1,23 @@
+"use client";
+
+// Client component: locale is derived from the LIVE pathname, not a prop.
+// The root layout renders once and never re-renders on client navigation, so
+// a prop-passed locale/pathname would freeze at the first page loaded — that
+// broke the language toggle (it always pointed at the first page's /ar URL).
+// usePathname() updates on every client navigation, so the toggle + nav
+// always reflect the page you're actually on.
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Wordmark } from "@/components/wordmark";
 import { BrandIcon } from "@/components/brand-icon";
-import { type Locale, t, localizedPath, switchLocaleHref } from "@/lib/i18n";
+import {
+  type Locale,
+  t,
+  localizedPath,
+  switchLocaleHref,
+  localeFromPath,
+} from "@/lib/i18n";
 
 const NAV_KEYS: [string, string][] = [
   ["nav.properties", "/properties"],
@@ -11,16 +27,13 @@ const NAV_KEYS: [string, string][] = [
   ["nav.newLaunches", "/new-launches"],
 ];
 
-export function SiteHeader({
-  locale = "en",
-  pathname = "/",
-}: {
-  locale?: Locale;
-  pathname?: string;
-}) {
+export function SiteHeader() {
+  const pathname = usePathname() || "/";
+  const locale: Locale = localeFromPath(pathname);
   const otherLocale: Locale = locale === "ar" ? "en" : "ar";
   const otherLabel = otherLocale === "ar" ? "عربي" : "EN";
   const switchHref = switchLocaleHref(pathname, otherLocale);
+
   return (
     <header className="sticky top-0 z-50 border-b border-data bg-paper">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">

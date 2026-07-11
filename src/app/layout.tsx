@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { MobileTabBar } from "@/components/mobile-tabbar";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { ConversionTracking } from "@/components/analytics/conversion-tracking";
+import { HtmlLangSync } from "@/components/html-lang-sync";
 import { localeFromPath, isRtl } from "@/lib/i18n";
 import { isStandalonePath } from "@/lib/leads";
 
@@ -41,14 +42,15 @@ export default async function RootLayout({
       <body className="flex min-h-full flex-col bg-paper text-ink">
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         <ConversionTracking />
+        <HtmlLangSync />
         {standalone ? (
           <main className="flex-1">{children}</main>
         ) : (
           <>
-            <SiteHeader locale={locale} pathname={pathname} />
+            <SiteHeader />
             <main className="flex-1 pb-16 md:pb-0">{children}</main>
-            <SiteFooter locale={locale} />
-            <MobileTabBar locale={locale} />
+            <SiteFooter />
+            <MobileTabBar />
           </>
         )}
       </body>

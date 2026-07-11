@@ -1,11 +1,18 @@
+"use client";
+
+// Client component: locale from the LIVE pathname (see site-header.tsx for
+// why a prop would freeze at the first-loaded page).
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Wordmark } from "@/components/wordmark";
 import { BrandIcon } from "@/components/brand-icon";
-import { type Locale, t, localizedPath } from "@/lib/i18n";
+import { t, localizedPath, localeFromPath } from "@/lib/i18n";
 
 const FACEBOOK = "https://www.facebook.com/profile.php?id=61552295002435";
 
-export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
+export function SiteFooter() {
+  const locale = localeFromPath(usePathname() || "/");
   const isAr = locale === "ar";
   return (
     <footer className="border-t border-data bg-paper">
