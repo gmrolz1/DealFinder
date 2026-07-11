@@ -39,25 +39,42 @@ In account **AW-18195355585 ("the deal makers", 386-792-3119)**, build and **ena
 - **Your own clients (Customer Match):** upload your existing client/lead list (phone numbers + emails from the broker CRM / the site's `leads` table) as a **Customer Match audience**. Add it in **Observation** to every campaign so you can (a) see how warm contacts perform and (b) build a **similar-audience** off it. Do NOT set it to "Targeting" (that would shrink reach to only known clients).
 - Keep everything **Search-only** — none of this turns on Display.
 
-## 3. Per-developer structure (repeat ×20)
+## 3. Per-developer structure — built for Quality Score (repeat ×20)
+
+**Goal: max Quality Score = keyword ⇄ ad ⇄ landing page all tightly matched.** We do this with **Single-Theme Ad Groups (STAG)** — one tightly-themed ad group per compound — **plus Dynamic Keyword Insertion (§4)**, NOT one giant ad group per developer.
+
+> **Why not literal 1-keyword-per-ad-group (SKAG)?** It used to be the QS trick, but it now *hurts*: (a) close-variant matching means one Exact keyword already catches all the singular/plural/word-order variants, so a separate ad group per variant is redundant; (b) our **Maximize Conversions** bidding needs conversion volume to learn — hundreds of one-keyword ad groups starve it; (c) each RSA needs impressions to optimize — splitting into 1-keyword shards under-trains every ad. **STAG + DKI gives the same keyword-in-the-ad relevance without the downsides.**
 
 ```
 Campaign:  "DEV — <Developer> — Search — Mobile"
-  Ad group (AR):  "<Developer> — AR"   →  final URL = the AR link below
-  Ad group (EN):  "<Developer> — EN"   →  final URL = the EN link below
+  ├─ Ad group  "<Compound 1> — AR"   → only Compound-1 AR keywords  → developer AR page
+  ├─ Ad group  "<Compound 1> — EN"   → only Compound-1 EN keywords  → developer EN page
+  ├─ Ad group  "<Compound 2> — AR"   → only Compound-2 AR keywords  → developer AR page
+  ├─ Ad group  "<Compound 2> — EN"   → …                             (repeat for the top 3–5 compounds in §7)
+  ├─ Ad group  "Brand+Area — AR"     → developer + area generic terms → developer AR page
+  └─ Ad group  "Brand+Area — EN"     → developer + area generic terms → developer EN page
 ```
-Each ad group: the keyword seeds below (expand with the §5 patterns), a Responsive Search Ad (§4), the shared negatives (§6). Add **sitelinks** (top compounds), **callouts** (Primary units · Flexible plans · Direct developer prices), and a **call extension** to the broker number.
 
-## 4. RSA copy (Arabic + English) — from the site's real hooks
+Rules that protect Quality Score:
+- **One compound theme per ad group.** Put ONLY that compound's close variants (name · name+prices · كمبوند+name · name+installments) in it — Exact + Phrase. Never mix two compounds in one ad group.
+- Take the **top 3–5 compounds per developer** from the `Compounds:` line in §7 (don't shard all of them — keep each RSA fed with impressions).
+- The **Brand+Area** ad group catches the broad head terms (`<developer> <area>`, `apartments for sale in <area>`) that don't belong to a single compound.
+- Each ad group gets its own **DKI Responsive Search Ad (§4)**, the shared negatives (§6), **sitelinks** (the developer's other compounds), **callouts** (Primary units · Flexible plans · Direct developer prices), and a **call extension** to the broker number.
+- **Landing page:** the developer page (URLs in §7) — it features that compound, shows price, and is wired to the WhatsApp/Call conversion. *Optional higher-relevance upgrade:* point a compound ad group at that compound's own page `…/compounds/<slug>` (same conversion CTAs) once you confirm the slug.
 
-Name the **developer + a top compound + area + starting price**. Hooks: from 5–10% down · up to 8–15-year installments · primary units, developer-direct prices · fully-finished options · WhatsApp for the price list.
+## 4. RSA copy — Dynamic Keyword Insertion for top ad relevance
 
-- **AR headlines** (≤30 chars): `<مطور> — <منطقة>` · `شقق تقسيط 15 سنة` · `مقدم 10% وتقسيط طويل` · `<كمبوند> بأفضل سعر` · `تواصل واتساب للأسعار` · `وحدات أولية بالسعر المباشر`
-- **AR description** (≤90): `وحدات أولية من <مطور> في <منطقة>. مقدم من 10% وتقسيط حتى 15 سنة. راسلنا واتساب للأسعار.`
-- **EN headlines** (≤30 chars): `<Developer> — <Area>` · `From <price> · 10% Down` · `Up to 15-Yr Installments` · `<Compound> Best Prices` · `WhatsApp for Price List` · `Primary Units, Direct`
-- **EN description** (≤90): `Primary units by <Developer> in <Area>. From 10% down, up to 15-yr plans. WhatsApp us for prices.`
+Each ad group's RSA is written for **that one compound**. Use **Dynamic Keyword Insertion** so the headline mirrors the exact search term (this is what drives the ad-relevance + expected-CTR halves of Quality Score):
 
-Pin the developer-name headline to position 1.
+- **Headline 1 (DKI, pinned pos 1):** `{KeyWord:<Compound>}` — Google swaps in the matched keyword; if too long it falls back to the compound name. (DKI syntax is the same in Arabic — the fallback text is just Arabic, e.g. `{KeyWord:طلاله}`.)
+- Name the **developer + compound + area + starting price** across the rest. Hooks: from 5–10% down · up to 8–15-year installments · primary units, developer-direct prices · fully-finished options · WhatsApp for the price list.
+
+- **AR headlines** (≤30 chars): `{KeyWord:<كمبوند>}` · `<كمبوند> — <منطقة>` · `شقق تقسيط 15 سنة` · `مقدم 10% وتقسيط طويل` · `<كمبوند> بأفضل سعر` · `تواصل واتساب للأسعار` · `وحدات أولية بالسعر المباشر`
+- **AR description** (≤90): `وحدات أولية في <كمبوند> من <مطور>. مقدم من 10% وتقسيط حتى 15 سنة. راسلنا واتساب للأسعار.`
+- **EN headlines** (≤30 chars): `{KeyWord:<Compound>}` · `<Compound> — <Area>` · `From <price> · 10% Down` · `Up to 15-Yr Installments` · `<Compound> Best Prices` · `WhatsApp for Price List`
+- **EN description** (≤90): `Primary units in <Compound> by <Developer>. From 10% down, up to 15-yr plans. WhatsApp us for prices.`
+
+Pin the DKI headline to position 1; give each RSA the compound name in ≥3 headlines so relevance stays high even when DKI doesn't fire.
 
 ## 5. Keyword patterns (expand the seeds with these)
 
@@ -72,6 +89,8 @@ Pin the developer-name headline to position 1.
 ---
 
 ## 7. The 20 campaigns — landing URLs + grounded keyword seeds
+
+> Per developer below: the **two URLs** are the AR + EN landing pages used by *all* of that developer's ad groups. The **`Compounds:` line** is your ad-group list — build one Single-Theme Ad Group per compound (AR + EN) for the top 3–5, following §3. The **keyword lines** are the seeds — put each compound's own keywords only in that compound's ad group; the `apartments/villas for sale in <area>` + `<developer> <area>` terms go in the **Brand+Area** ad group.
 
 ### Madinet Masr  ·  2823 units · from EGP 1.9M
 - **AR ad group** → https://www.egy.deals/ar/developers/54-madinet-masr
@@ -219,9 +238,9 @@ Pin the developer-name headline to position 1.
 
 1. Auto-tagging ON · `Lead - egy.deals` Primary + Recording · Enhanced Conversions ON.
 2. Create the shared **10,000 EGP/day** budget + portfolio **Maximize Conversions**.
-3. Build all 20 campaigns (Search · Egypt · AR+EN · **mobile-only**), each with AR + EN ad groups, keywords (seeds → §5 patterns), RSAs (§4), shared negatives (§6), sitelinks/callouts/call extension.
+3. Build all 20 campaigns (Search · Egypt + Gulf · AR+EN · **mobile-only**, age 35+). Per developer, split into **Single-Theme Ad Groups per compound + a Brand+Area ad group, each language** (§3); one **DKI RSA per ad group** (§4); shared negatives (§6); sitelinks/callouts/call extension. Landing URLs per developer are in §7.
 4. **Enable all 20 LIVE.**
-5. Verify one test click per campaign lands on the right `/ar/developers/<slug>` (AR) / `/developers/<slug>` (EN) page with `gclid` present.
+5. Verify one test click per campaign lands on the right `/ar/developers/<slug>` (AR) / `/developers/<slug>` (EN) page with `gclid` present, and that the DKI headline renders the searched compound.
 6. After ~1 week: report **CPL per developer**, shift shared budget toward the lowest CPL, pause spend-with-zero-conversion keywords.
 
 ## 9. Reference
