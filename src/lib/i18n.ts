@@ -133,6 +133,26 @@ const S: Strings = {
   "dev.formSending": { en: "Sending…", ar: "جارٍ الإرسال…" },
   "dev.formDone": { en: "Got it — we'll message you shortly.", ar: "تم — سنراسلك قريباً." },
   "dev.orChat": { en: "or chat on WhatsApp now", ar: "أو تواصل على واتساب الآن" },
+  // Developer explorer (drill-down + AI + live)
+  "dev.waAgent": { en: "WhatsApp developer agent", ar: "واتساب مع مستشار المطوّر" },
+  "dev.callAgent": { en: "Call developer agent", ar: "اتصل بمستشار المطوّر" },
+  "dev.liveNow": { en: "Live now", ar: "متاح الآن" },
+  "dev.tooMany": { en: "Too many options?", ar: "خيارات كثيرة؟" },
+  "dev.tooManySub": {
+    en: "Tell our AI advisor your budget and needs — get matched in seconds.",
+    ar: "أخبر مستشارنا الذكي بميزانيتك واحتياجك — واحصل على الأنسب في ثوانٍ.",
+  },
+  "dev.chatAi": { en: "Chat with AI to find your home", ar: "تحدّث مع الذكاء الاصطناعي" },
+  "dev.chooseType": { en: "Choose a property type", ar: "اختر نوع الوحدة" },
+  "dev.chooseBeds": { en: "Choose bedrooms", ar: "اختر عدد الغرف" },
+  "dev.chooseArea": { en: "Choose an area", ar: "اختر المنطقة" },
+  "dev.studio": { en: "Studio", ar: "استوديو" },
+  "dev.bed": { en: "Bed", ar: "غرفة" },
+  "dev.bedsPlus": { en: "+", ar: "+" },
+  "dev.allTypes": { en: "All types", ar: "كل الأنواع" },
+  "dev.back": { en: "Back", ar: "رجوع" },
+  "dev.viewUnits": { en: "View units", ar: "عرض الوحدات" },
+  "dev.askAboutSel": { en: "WhatsApp about this", ar: "واتساب عن هذا" },
 
   "cta.interestedIn": { en: "Interested in", ar: "مهتم بـ" },
   "cta.browseAll": {

@@ -3,18 +3,16 @@ import {
   getDeveloperBySlug,
   getCompoundsByDeveloper,
   getUnitsByDeveloper,
-  getDeveloperTypeGroups,
+  getDeveloperTypeTree,
   getAreaName,
   type Developer,
-  type UnitTypeGroup,
-  type EnrichedUnit,
 } from "@/lib/data";
 import { formatNumber, formatPrice } from "@/lib/format";
 import { readyYear } from "@/lib/conversion";
-import { PropertyCard } from "@/components/property-card";
 import { CompoundCard } from "@/components/compound-card";
 import { GoLink } from "@/components/go-link";
 import { DeveloperLeadForm } from "@/components/developer-lead-form";
+import { DeveloperExplorer } from "@/components/developer-explorer";
 import { goHref } from "@/lib/leads";
 import { type Locale, t, localizedPath } from "@/lib/i18n";
 
@@ -40,67 +38,6 @@ const fmtPriceLocale = (
   return formatPrice(n).replace(/^EGP /, "");
 };
 
-const typeSlug = (s: string) =>
-  s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-
-// Monochrome line glyph per property type — used on the fallback tile.
-function TypeIcon({ type }: { type: string }) {
-  const k = type.toLowerCase();
-  const common = {
-    width: 40,
-    height: 40,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.4,
-    "aria-hidden": true as const,
-  };
-  if (k.includes("villa") || k.includes("twin") || k.includes("family"))
-    return (
-      <svg {...common}>
-        <path d="M3 11l9-7 9 7" />
-        <path d="M5 10v10h14V10" />
-        <path d="M10 20v-6h4v6" />
-      </svg>
-    );
-  if (k.includes("chalet") || k.includes("cabin"))
-    return (
-      <svg {...common}>
-        <path d="M3 20l9-15 9 15" />
-        <path d="M7 20l5-8 5 8" />
-      </svg>
-    );
-  if (k.includes("town"))
-    return (
-      <svg {...common}>
-        <path d="M4 20V9l5-4 5 4v11" />
-        <path d="M14 20V11l3-2 3 2v9" />
-      </svg>
-    );
-  if (k.includes("retail") || k.includes("office") || k.includes("admin") || k.includes("clinic") || k.includes("pharmacy"))
-    return (
-      <svg {...common}>
-        <rect x="4" y="4" width="16" height="16" />
-        <path d="M4 9h16M9 9v11M14 9v11" />
-      </svg>
-    );
-  if (k.includes("penthouse") || k.includes("loft") || k.includes("duplex"))
-    return (
-      <svg {...common}>
-        <path d="M4 20V8h11v12" />
-        <path d="M15 20v-6h5v6" />
-        <path d="M7 20v-4h4v4" />
-      </svg>
-    );
-  // apartment / studio / default
-  return (
-    <svg {...common}>
-      <rect x="5" y="3" width="14" height="18" />
-      <path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2" />
-    </svg>
-  );
-}
-
 export function DeveloperDetail({
   dev,
   locale,
@@ -115,14 +52,14 @@ export function DeveloperDetail({
 
   const compounds = getCompoundsByDeveloper(dev.nawy_id);
   const units = getUnitsByDeveloper(dev.nawy_id);
-  const groups = getDeveloperTypeGroups(dev.nawy_id);
+  const tree = getDeveloperTypeTree(dev.nawy_id);
   const hasInventory = units.length > 0;
 
   const prices = units
     .map((u) => u.price)
     .filter((p): p is number => typeof p === "number" && p > 0);
   const minPrice = prices.length ? Math.min(...prices) : dev.min_price;
-  const monthlies = groups
+  const monthlies = tree
     .map((g) => g.minMonthly)
     .filter((m): m is number => m != null && m > 0);
   const minMonthly = monthlies.length ? Math.min(...monthlies) : null;
@@ -162,7 +99,6 @@ export function DeveloperDetail({
     : areaNamesEn;
 
   const pageUrl = localizedPath(`/developers/${dev.slug}`, locale);
-  const propsLink = `${localizedPath("/properties", locale)}?developer=${dev.nawy_id}`;
 
   // Contact links (rotation — no pinnedPath).
   const waText = isAr
@@ -293,15 +229,15 @@ export function DeveloperDetail({
                   href={waHref}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="flex flex-[1.5] items-center justify-center gap-2 bg-ink px-5 py-3.5 text-[13px] font-bold uppercase tracking-[0.06em] text-paper transition hover:opacity-90"
+                  className="flex flex-[1.6] items-center justify-center gap-2 bg-ink px-5 py-3.5 text-[13px] font-bold uppercase tracking-[0.06em] text-paper transition hover:opacity-90"
                 >
-                  <WhatsAppGlyph /> {t("dev.waCta", locale)}
+                  <LiveDot /> <WhatsAppGlyph /> {t("dev.waAgent", locale)}
                 </GoLink>
                 <GoLink
                   href={telHref}
                   className="flex flex-1 items-center justify-center gap-2 border border-ink bg-paper px-5 py-3.5 text-[13px] font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-ink hover:text-paper"
                 >
-                  <PhoneGlyph /> {t("dev.callCta", locale)}
+                  <PhoneGlyph /> {t("dev.callAgent", locale)}
                 </GoLink>
               </div>
               <p className="text-[10px] uppercase tracking-[0.06em] text-taupe">
@@ -340,29 +276,21 @@ export function DeveloperDetail({
           </p>
         )}
 
-        {/* ── 3. BROWSE BY TYPE — image-forward type cards ─────────────── */}
-        {groups.length > 0 && (
-          <section className="mt-10">
-            <h2 className="text-[20px] font-black uppercase tracking-tight text-ink sm:text-[26px]">
+        {/* ── 3. BROWSE BY TYPE — AI hook + drill-down (type→beds→areas) ── */}
+        {tree.length > 0 && (
+          <>
+            <h2 className="mt-10 text-[20px] font-black uppercase tracking-tight text-ink sm:text-[26px]">
               {t("dev.browseByType", locale)}
             </h2>
-            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {groups.map((g) => (
-                <TypeCard key={g.type} group={g} locale={locale} devName={name} />
-              ))}
-            </div>
-          </section>
+            <DeveloperExplorer
+              tree={tree}
+              locale={locale}
+              developerName={name}
+              developerId={dev.nawy_id}
+              heroUnit={heroUnit}
+            />
+          </>
         )}
-
-        {/* ── 4. PER-TYPE SECTIONS (anchor targets) ────────────────────── */}
-        {groups.map((g) => (
-          <TypeSection
-            key={g.type}
-            group={g}
-            locale={locale}
-            propsLink={propsLink}
-          />
-        ))}
 
         {/* ── 5. PROJECTS (compounds) ──────────────────────────────────── */}
         {compounds.length > 0 && (
@@ -476,9 +404,9 @@ export function DeveloperDetail({
             href={waHref}
             target="_blank"
             rel="noopener noreferrer nofollow"
-            className="shrink-0 border border-paper bg-paper px-6 py-3 text-[12px] font-bold uppercase tracking-[0.08em] text-ink transition hover:bg-ink hover:text-paper"
+            className="inline-flex shrink-0 items-center gap-2 border border-paper bg-paper px-6 py-3 text-[12px] font-bold uppercase tracking-[0.08em] text-ink transition hover:bg-ink hover:text-paper"
           >
-            {t("dev.waCta", locale)}
+            <LiveDot /> {t("dev.waAgent", locale)}
           </GoLink>
         </div>
       </section>
@@ -494,15 +422,15 @@ export function DeveloperDetail({
             href={telHref}
             className="flex flex-1 items-center justify-center gap-2 bg-paper py-3.5 text-[12px] font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-ink hover:text-paper"
           >
-            <PhoneGlyph /> {t("dev.callCta", locale)}
+            <PhoneGlyph /> {t("dev.callAgent", locale)}
           </GoLink>
           <GoLink
             href={waHref}
             target="_blank"
             rel="noopener noreferrer nofollow"
-            className="flex flex-[1.6] items-center justify-center gap-2 bg-ink py-3.5 text-[12px] font-bold uppercase tracking-[0.06em] text-paper transition hover:opacity-90"
+            className="flex flex-[1.7] items-center justify-center gap-2 bg-ink py-3.5 text-[12px] font-bold uppercase tracking-[0.06em] text-paper transition hover:opacity-90"
           >
-            <WhatsAppGlyph /> {t("dev.waCta", locale)}
+            <LiveDot /> <WhatsAppGlyph /> {t("dev.waAgent", locale)}
           </GoLink>
         </div>
       </div>
@@ -510,128 +438,13 @@ export function DeveloperDetail({
   );
 }
 
-// ── Type card (browse-by-type grid item) ──────────────────────────────────
-function TypeCard({
-  group,
-  locale,
-  devName,
-}: {
-  group: UnitTypeGroup;
-  locale: Locale;
-  devName: string;
-}) {
-  const isAr = locale === "ar";
-  const label = isAr ? group.typeAr ?? group.type : group.type;
-  const beds = group.samples
-    .map((u) => u.bedrooms)
-    .filter((b): b is number => b != null && b > 0);
-  const minBed = beds.length ? Math.min(...beds) : null;
-  const maxBed = beds.length ? Math.max(...beds) : null;
-
+// Small pulsing "live now" dot — signals a real agent is online.
+function LiveDot() {
   return (
-    <a
-      href={`#type-${typeSlug(group.type)}`}
-      className="group flex flex-col border border-ink bg-paper transition hover:opacity-95"
-    >
-      <div className="relative aspect-[4/3] overflow-hidden bg-ink">
-        {group.image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={group.image}
-            alt={`${label} — ${devName}`}
-            loading="lazy"
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="grid h-full place-items-center text-paper">
-            <TypeIcon type={group.type} />
-          </div>
-        )}
-        <span className="absolute top-0 left-0 bg-ink px-2 py-1 text-[9px] font-bold uppercase tracking-[0.08em] text-paper">
-          {formatNumber(group.count)} {t("dev.units", locale)}
-        </span>
-      </div>
-      <div className="p-2.5">
-        <p className="text-[12px] font-black uppercase tracking-[0.02em] text-ink">
-          {label}
-        </p>
-        {group.minMonthly ? (
-          <p className="mt-1 text-[15px] font-extrabold leading-none tracking-tight text-ink">
-            {t("dev.from", locale)} {fmtPriceLocale(group.minMonthly, locale)}
-            <span className="text-[10px] font-bold text-slate"> EGP{t("dev.perMonth", locale)}</span>
-          </p>
-        ) : group.minPrice ? (
-          <p className="mt-1 text-[14px] font-extrabold leading-none tracking-tight text-ink">
-            {t("dev.from", locale)} EGP {fmtPriceLocale(group.minPrice, locale)}
-          </p>
-        ) : null}
-        {(minBed != null || group.minPrice) && (
-          <p className="mt-1 truncate text-[9px] font-semibold uppercase tracking-[0.05em] text-taupe">
-            {minBed != null &&
-              `${minBed}${maxBed && maxBed !== minBed ? `–${maxBed}` : ""} ${t("dev.beds", locale)}`}
-            {minBed != null && group.minMonthly ? " · " : ""}
-            {group.minMonthly && group.minPrice
-              ? `${t("dev.from", locale)} EGP ${fmtPriceLocale(group.minPrice, locale)}`
-              : ""}
-          </p>
-        )}
-      </div>
-    </a>
-  );
-}
-
-// ── Per-type section (carousel of that type's units) ──────────────────────
-function TypeSection({
-  group,
-  locale,
-  propsLink,
-}: {
-  group: UnitTypeGroup;
-  locale: Locale;
-  propsLink: string;
-}) {
-  const isAr = locale === "ar";
-  const label = isAr ? group.typeAr ?? group.type : group.type;
-  const seeAll = `${propsLink}&type=${encodeURIComponent(group.type)}`;
-  return (
-    <section id={`type-${typeSlug(group.type)}`} className="mt-12 scroll-mt-20">
-      <div className="flex items-end justify-between">
-        <div>
-          <h3 className="text-[18px] font-black uppercase tracking-tight text-ink sm:text-[22px]">
-            {label}
-          </h3>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.05em] text-slate">
-            {formatNumber(group.count)} {t("dev.units", locale)}
-            {group.minMonthly
-              ? ` · ${t("dev.from", locale)} ${fmtPriceLocale(group.minMonthly, locale)} EGP${t("dev.perMonth", locale)}`
-              : group.minPrice
-                ? ` · ${t("dev.from", locale)} EGP ${fmtPriceLocale(group.minPrice, locale)}`
-                : ""}
-          </p>
-        </div>
-        <Link
-          href={seeAll}
-          className="shrink-0 text-[11px] font-bold uppercase tracking-[0.08em] text-slate hover:text-ink"
-        >
-          {t("dev.seeAllType", locale)} {formatNumber(group.count)}
-        </Link>
-      </div>
-      <div className="no-scrollbar mt-4 flex snap-x gap-3 overflow-x-auto pb-1">
-        {group.samples.map((u: EnrichedUnit) => (
-          <div key={u.nawy_id} className="w-[260px] shrink-0 snap-start">
-            <PropertyCard unit={u} locale={locale} />
-          </div>
-        ))}
-        <Link
-          href={seeAll}
-          className="grid w-[160px] shrink-0 snap-start place-items-center border border-ink bg-ink text-center text-[12px] font-bold uppercase tracking-[0.06em] text-paper transition hover:bg-paper hover:text-ink"
-        >
-          {t("dev.seeAllType", locale)}
-          <br />
-          {formatNumber(group.count)} {label} →
-        </Link>
-      </div>
-    </section>
+    <span className="relative flex h-2 w-2 shrink-0" aria-label="live">
+      <span className="absolute inline-flex h-full w-full animate-ping bg-green-400 opacity-75" />
+      <span className="relative inline-flex h-2 w-2 bg-green-400" />
+    </span>
   );
 }
 

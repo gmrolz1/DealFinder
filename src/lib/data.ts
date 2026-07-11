@@ -554,6 +554,111 @@ export function getDeveloperTypeGroups(devId: number): UnitTypeGroup[] {
   return groupUnitsByType(getUnitsByDeveloper(devId));
 }
 
+// Drill-down tree for the developer explorer: Type → Bedrooms → Areas.
+// Each level carries count + from-price + a representative unit slug (for the
+// WhatsApp prefill) so the client component can render without any extra data.
+export type AreaBucket = {
+  areaId: number | null;
+  area: string;
+  areaAr: string;
+  areaSlug: string | null;
+  count: number;
+  minPrice: number | null;
+  sampleSlug: string | null;
+};
+export type BedBucket = {
+  beds: number; // -1 = studio / unspecified
+  count: number;
+  minPrice: number | null;
+  minMonthly: number | null;
+  sampleSlug: string | null;
+  areas: AreaBucket[];
+};
+export type TypeNode = UnitTypeGroup & {
+  sampleSlug: string | null;
+  beds: BedBucket[];
+};
+
+function minPriceOf(list: EnrichedUnit[]): number | null {
+  const p = list
+    .map((u) => u.price)
+    .filter((x): x is number => typeof x === "number" && x > 0);
+  return p.length ? Math.min(...p) : null;
+}
+function minMonthlyOf(list: EnrichedUnit[]): number | null {
+  const m = list
+    .map((u) =>
+      u.price && u.installment_years && u.installment_years > 0
+        ? Math.round(u.price / u.installment_years / 12)
+        : null
+    )
+    .filter((x): x is number => x != null && x > 0);
+  return m.length ? Math.min(...m) : null;
+}
+// Cheapest unit that has an image → best CTA / prefill representative.
+function repSlug(list: EnrichedUnit[]): string | null {
+  const withImg = [...list]
+    .filter((u) => u.image_url && (u.price ?? 0) > 0)
+    .sort((a, b) => (a.price ?? 0) - (b.price ?? 0))[0];
+  return (withImg ?? list.find((u) => u.image_url) ?? list[0])?.slug ?? null;
+}
+
+export function getDeveloperTypeTree(devId: number): TypeNode[] {
+  const s = store();
+  const units = getUnitsByDeveloper(devId);
+  const groups = groupUnitsByType(units);
+  const byType = new Map<string, EnrichedUnit[]>();
+  for (const u of units) {
+    const k = u.property_type ?? "Other";
+    (byType.get(k) ?? byType.set(k, []).get(k)!).push(u);
+  }
+
+  return groups.map((g) => {
+    const list = byType.get(g.type) ?? [];
+    // group by bedrooms
+    const byBed = new Map<number, EnrichedUnit[]>();
+    for (const u of list) {
+      const b = u.bedrooms != null && u.bedrooms > 0 ? u.bedrooms : -1;
+      (byBed.get(b) ?? byBed.set(b, []).get(b)!).push(u);
+    }
+    const beds: BedBucket[] = [...byBed.entries()]
+      .map(([b, blist]) => {
+        // group by area within this type+bed
+        const byArea = new Map<number, EnrichedUnit[]>();
+        for (const u of blist) {
+          const a = u.area_nawy_id ?? -1;
+          (byArea.get(a) ?? byArea.set(a, []).get(a)!).push(u);
+        }
+        const areas: AreaBucket[] = [...byArea.entries()]
+          .map(([aid, alist]) => {
+            const area = aid > 0 ? s.areaById.get(aid) : undefined;
+            return {
+              areaId: aid > 0 ? aid : null,
+              area: area?.name ?? "—",
+              areaAr: area?.name_ar ?? area?.name ?? "—",
+              areaSlug: area?.slug ?? null,
+              count: alist.length,
+              minPrice: minPriceOf(alist),
+              sampleSlug: repSlug(alist),
+            };
+          })
+          .sort((x, y) => y.count - x.count);
+        return {
+          beds: b,
+          count: blist.length,
+          minPrice: minPriceOf(blist),
+          minMonthly: minMonthlyOf(blist),
+          sampleSlug: repSlug(blist),
+          areas,
+        };
+      })
+      // studio/unspecified last, otherwise ascending bedroom count
+      .sort((x, y) => (x.beds < 0 ? 99 : x.beds) - (y.beds < 0 ? 99 : y.beds));
+
+    return { ...g, sampleSlug: repSlug(list), beds };
+  });
+}
+
 export function getSimilarUnits(unit: EnrichedUnit, n: number): EnrichedUnit[] {
   return store()
     .units.filter(
