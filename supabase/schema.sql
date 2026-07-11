@@ -218,15 +218,48 @@ begin
   -- Global critical section (xact-scoped: auto-released, pooling-safe).
   perform pg_advisory_xact_lock(hashtext('assign_lead'));
 
-  -- 24h dedupe: same session + same unit bucket, ANY source. A follow-up
-  -- form submit upgrades the click-lead instead of burning a second slot,
-  -- and both channels resolve to the SAME client's number.
+  -- Resolve the pin FIRST — only an ACTIVE client counts as pinned. An
+  -- unresolved pin (unknown slug, or a client paused in the dashboard while its
+  -- landing route stays live) is deliberately treated as ordinary rotation
+  -- traffic below: otherwise that page would fall through to rotation on the
+  -- first click but, because the pinned-bucket dedupe only matches pinned=true
+  -- rows, re-rotate to a DIFFERENT broker on every later click — leaking a
+  -- competitor's number on the client's own page and draining paid quota.
+  if p_pinned_slug is not null then
+    select * into v_client from clients where slug = p_pinned_slug and active;
+    v_pinned := found;
+  end if;
+
+  -- 24h SESSION-STICKY dedupe (one broker number per active session):
+  --   • Non-pinned traffic — rotation OR an unresolved pin — collapses to the
+  --     session's single pinned=false lead, so every marketplace CTA the visitor
+  --     taps (ANY unit, ANY channel: card / unit page / chat handoff / form)
+  --     resolves to the SAME rotated broker's number for the whole session.
+  --   • An ACTIVE pin uses its own per-client bucket, so a client's own landing
+  --     always shows THAT client's number, even in a session that also browsed
+  --     the shared marketplace.
+  -- Only the lead ROW dedupes — the per-click WhatsApp message is still built
+  -- from the CURRENT unit, so the broker always sees exactly what the visitor
+  -- is viewing. Follow-up name/phone (form/chat) enriches the same lead instead
+  -- of burning a second rotation slot; every unit touched is logged in meta.
   if p_session_id is not null then
-    select * into v_lead from leads l
-    where l.session_id = p_session_id
-      and coalesce(l.unit_nawy_id, -1) = coalesce(p_unit_nawy_id, -1)
-      and l.created_at > now() - interval '24 hours'
-    order by l.created_at desc limit 1;
+    if not v_pinned then
+      -- rotation bucket: the session's single non-pinned lead
+      select * into v_lead from leads l
+      where l.session_id = p_session_id
+        and l.pinned = false
+        and l.created_at > now() - interval '24 hours'
+      order by l.created_at desc limit 1;
+    else
+      -- pinned bucket: prior lead this session pinned to the SAME client
+      select l.* into v_lead from leads l
+      join clients c on c.id = l.client_id
+      where l.session_id = p_session_id
+        and l.pinned = true
+        and c.slug = p_pinned_slug
+        and l.created_at > now() - interval '24 hours'
+      order by l.created_at desc limit 1;
+    end if;
 
     if found then
       update leads set
@@ -234,11 +267,19 @@ begin
         phone   = coalesce(leads.phone, p_phone),
         email   = coalesce(leads.email, p_email),
         message = coalesce(leads.message, p_message),
-        meta    = coalesce(leads.meta,'{}'::jsonb) || jsonb_build_object('sources',
-                    coalesce(leads.meta->'sources', to_jsonb(array[leads.source]))
-                    || to_jsonb(p_source))
+        meta    = coalesce(leads.meta,'{}'::jsonb)
+                  || jsonb_build_object('sources',
+                       coalesce(leads.meta->'sources', to_jsonb(array[leads.source]))
+                       || to_jsonb(p_source))
+                  || case when p_unit_title is null then '{}'::jsonb else
+                       jsonb_build_object('units',
+                         coalesce(leads.meta->'units', '[]'::jsonb)
+                         || to_jsonb(p_unit_title)) end
       where id = v_lead.id;
 
+      -- The matched lead's client is the source of truth (an overflow lead has
+      -- client_id NULL → house fallback), so re-read it and don't fall through.
+      v_client := null;
       if v_lead.client_id is not null then
         select * into v_client from clients where id = v_lead.client_id;
       end if;
@@ -248,14 +289,9 @@ begin
     end if;
   end if;
 
-  -- Pinned: a client's own landing traffic is always theirs (even over quota).
-  if p_pinned_slug is not null then
-    select * into v_client from clients where slug = p_pinned_slug and active;
-    v_pinned := found;
-  end if;
-
-  -- Rotation: force_next first, then least counted, tie-break rotation_order.
-  if v_client.id is null then
+  -- Rotation — only when NO active pin resolved (so unresolved pins rotate too).
+  -- force_next first, then least counted, tie-break rotation_order.
+  if not v_pinned then
     select c.* into v_client
     from clients c join client_rotation cr on cr.id = c.id
     where c.active and cr.counted_leads < c.quota
@@ -271,7 +307,10 @@ begin
     source, status, pinned, session_id, page_path, locale, unit_title, utm, gclid, meta)
   values (p_unit_nawy_id, p_name, p_phone, p_email, p_message, v_client.id,
     p_source, 'new', v_pinned, p_session_id, p_page_path, p_locale, p_unit_title,
-    p_utm, p_gclid, jsonb_build_object('sources', to_jsonb(array[p_source])))
+    p_utm, p_gclid,
+    jsonb_build_object('sources', to_jsonb(array[p_source]))
+    || case when p_unit_title is null then '{}'::jsonb else
+         jsonb_build_object('units', to_jsonb(array[p_unit_title])) end)
   returning * into v_lead;
 
   return jsonb_build_object('lead_id', v_lead.id, 'deduped', false,

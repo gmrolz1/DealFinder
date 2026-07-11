@@ -154,6 +154,12 @@ export async function GET(req: NextRequest) {
   // Prefill text + the exact unit's page link, so the broker's WhatsApp
   // thread opens with a tappable link to what the visitor was looking at.
   let text = prefill?.slice(0, 1600) || buildWaText(unitLabel, priceLabel, locale);
+  // Carry the ASSIGNED agent's number inside the message body. It's the same
+  // sticky number the visitor is messaging this session, so it travels with the
+  // lead — attribution when the thread is forwarded or logged in the portal.
+  const agentLine =
+    locale === "ar" ? `الوكيل المعيّن: ${phone}` : `Assigned agent: ${phone}`;
+  text += `\n\n${agentLine}`;
   if (unit) {
     const arPrefix = locale === "ar" ? "/ar" : "";
     // Arabian Estate listings have no /properties page — link their landing.

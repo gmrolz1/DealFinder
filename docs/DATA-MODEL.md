@@ -188,7 +188,7 @@ RLS enabled with **no policies** — service-role only. Numbers are edited from 
 
 `SECURITY DEFINER`; execute revoked from `anon`/`authenticated`, granted to `service_role` only. Inside one `pg_advisory_xact_lock`:
 
-1. **Dedupe** — same `session_id` + same unit bucket within 24h (any source) → returns the existing lead, appends the new channel to `meta.sources`, and a later form submit upgrades the click-lead with name/phone.
+1. **Dedupe (session-sticky)** — one broker number per active session. Rotation traffic (no pin) collapses to the session's single non-pinned lead within 24h **regardless of unit or channel**, so every marketplace CTA the visitor taps — card / unit page / chat handoff / form — resolves to the SAME rotated broker's number. Pinned traffic is bucketed per client (matched on `session_id` + `pinned=true` + same client slug), so a client's own landing always shows THAT client's number even in a session that also browsed the marketplace. The matched lead has the new channel appended to `meta.sources`, every unit touched appended to `meta.units`, and a later form/chat submit upgrades it with name/phone. Only the lead ROW dedupes — the per-click WhatsApp message is still built from the CURRENT unit, and now embeds the assigned agent's number so it travels with the lead.
 2. **Pin** — active client by slug (a client's own landing traffic is always theirs, even over quota).
 3. **Rotation** — `ORDER BY force_next DESC, counted_leads ASC, rotation_order ASC` among active clients under quota; `force_next` is cleared on the picked client. No eligible client → lead records with `client_id NULL` (overflow → house fallback number).
 
