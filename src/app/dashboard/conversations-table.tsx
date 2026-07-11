@@ -7,6 +7,13 @@ import { useMemo, useState } from "react";
 
 export type ConversationMessage = { role: string; text: string };
 
+export type ConversationLead = {
+  broker: string | null;
+  name: string | null;
+  phone: string | null;
+  status: string | null;
+};
+
 export type ConversationRow = {
   id: string;
   updated_at: string;
@@ -18,7 +25,63 @@ export type ConversationRow = {
   turns: number;
   handed_off: boolean;
   messages: ConversationMessage[];
+  lead?: ConversationLead | null;
 };
+
+// CSV helpers — module-level so they stay out of render (purity) and only run
+// on click. `new Date(arg)` is deterministic, so it's fine here.
+function csvEscape(v: unknown): string {
+  return `"${String(v ?? "").replace(/"/g, '""')}"`;
+}
+
+function conversationsToCsv(rows: ConversationRow[]): string {
+  const header = [
+    "When",
+    "Unit",
+    "Lang",
+    "Turns",
+    "HandedOff",
+    "Broker",
+    "ContactName",
+    "ContactPhone",
+    "LeadStatus",
+    "Transcript",
+  ];
+  const lines = [header.map(csvEscape).join(",")];
+  for (const r of rows) {
+    const transcript = r.messages
+      .map((m) => `${m.role === "user" ? "Visitor" : "Layla"}: ${m.text}`)
+      .join("  |  ");
+    lines.push(
+      [
+        new Date(r.updated_at).toISOString(),
+        r.unit_title ?? r.unit_slug ?? "",
+        (r.locale ?? "en").toUpperCase(),
+        r.turns,
+        r.handed_off ? "yes" : "no",
+        r.lead?.broker ?? "",
+        r.lead?.name ?? "",
+        r.lead?.phone ?? "",
+        r.lead?.status ?? "",
+        transcript,
+      ]
+        .map(csvEscape)
+        .join(",")
+    );
+  }
+  return lines.join("\r\n");
+}
+
+function downloadCsv(filename: string, csv: string) {
+  // Prepend BOM so Excel reads Arabic (UTF-8) correctly.
+  const blob = new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 
 type Range = "today" | "7d" | "30d" | "all";
 
@@ -89,6 +152,18 @@ export function ConversationsTable({ rows }: { rows: ConversationRow[] }) {
         <p className="text-[11px] font-bold uppercase tracking-[0.06em] text-slate">
           {filtered.length} chats · {handoffs} handoff{handoffs === 1 ? "" : "s"}
         </p>
+        <button
+          onClick={() =>
+            downloadCsv(
+              `layla-conversations-${range}.csv`,
+              conversationsToCsv(filtered)
+            )
+          }
+          disabled={filtered.length === 0}
+          className="border border-ink bg-paper px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-ink hover:text-paper disabled:opacity-40"
+        >
+          Export CSV
+        </button>
       </div>
 
       {filtered.length === 0 ? (
@@ -164,15 +239,22 @@ function ConversationRowEl({
         </td>
         <td className="px-3 py-2 font-bold text-ink">{r.turns}</td>
         <td className="px-3 py-2">
-          {r.handed_off ? (
-            <span className="border border-ink bg-ink px-1.5 py-0.5 text-[9px] font-bold uppercase text-paper">
-              handoff
-            </span>
-          ) : (
-            <span className="text-[10px] uppercase tracking-[0.06em] text-slate">
-              chat only
-            </span>
-          )}
+          <div className="flex flex-col gap-0.5">
+            {r.handed_off ? (
+              <span className="w-fit border border-ink bg-ink px-1.5 py-0.5 text-[9px] font-bold uppercase text-paper">
+                handoff
+              </span>
+            ) : (
+              <span className="text-[10px] uppercase tracking-[0.06em] text-slate">
+                chat only
+              </span>
+            )}
+            {r.lead?.broker && (
+              <span className="text-[10px] font-bold uppercase tracking-[0.04em] text-ink">
+                → {r.lead.broker}
+              </span>
+            )}
+          </div>
         </td>
         <td className="px-3 py-2 text-[16px] font-black text-taupe">
           {open ? "−" : "+"}
@@ -205,6 +287,32 @@ function ConversationRowEl({
                 );
               })}
             </div>
+            {r.lead && (r.lead.broker || r.lead.name || r.lead.phone) && (
+              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-data pt-2 text-[11px]">
+                <span className="font-bold uppercase tracking-[0.08em] text-taupe">
+                  Lead
+                </span>
+                {r.lead.broker && (
+                  <span className="font-bold uppercase tracking-[0.04em] text-ink">
+                    → {r.lead.broker}
+                  </span>
+                )}
+                {r.lead.name && (
+                  <span className="text-slate">
+                    Name:{" "}
+                    <span className="font-bold text-ink">{r.lead.name}</span>
+                  </span>
+                )}
+                {r.lead.phone && (
+                  <span className="font-mono text-slate">{r.lead.phone}</span>
+                )}
+                {r.lead.status && (
+                  <span className="uppercase tracking-[0.06em] text-taupe">
+                    [{r.lead.status}]
+                  </span>
+                )}
+              </div>
+            )}
             {r.page_path && (
               <p className="mt-2 font-mono text-[10px] text-taupe">
                 {r.page_path}

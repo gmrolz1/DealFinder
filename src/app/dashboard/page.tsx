@@ -36,6 +36,7 @@ type RawLead = {
   unit_title: string | null;
   page_path: string | null;
   locale: string | null;
+  session_id: string | null;
   utm: { cmp?: string } | null;
   gclid: string | null;
 };
@@ -53,14 +54,14 @@ export default async function DashboardPage() {
       db
         .from("leads")
         .select(
-          "id, created_at, client_id, source, status, pinned, name, phone, unit_title, page_path, locale, utm, gclid"
+          "id, created_at, client_id, source, status, pinned, name, phone, unit_title, page_path, locale, session_id, utm, gclid"
         )
         .order("created_at", { ascending: false })
         .limit(500),
       db
         .from("ai_conversations")
         .select(
-          "id, updated_at, created_at, unit_slug, unit_title, locale, page_path, turns, handed_off, messages"
+          "id, updated_at, created_at, unit_slug, unit_title, locale, page_path, turns, handed_off, messages, session_id"
         )
         .order("updated_at", { ascending: false })
         .limit(300),
@@ -68,8 +69,56 @@ export default async function DashboardPage() {
 
   const clients = (clientsRaw ?? []) as ClientRow[];
   const leads = (leadsRaw ?? []) as RawLead[];
-  const conversations = (convRaw ?? []) as ConversationRow[];
   const clientById = new Map(clients.map((c) => [c.id, c]));
+
+  // Link each conversation to the lead it produced. Chat and WhatsApp-handoff
+  // both dedupe to one lead per session+unit, so match by session_id; prefer a
+  // unit-title match, then a chat/whatsapp source, then the most recent.
+  const convRaws = (convRaw ?? []) as (ConversationRow & {
+    session_id?: string | null;
+  })[];
+  const leadsBySession = new Map<string, RawLead[]>();
+  for (const l of leads) {
+    if (!l.session_id) continue;
+    const arr = leadsBySession.get(l.session_id) ?? [];
+    arr.push(l);
+    leadsBySession.set(l.session_id, arr);
+  }
+  const srcRank = (s: string) =>
+    s === "chat" ? 3 : s === "whatsapp" ? 2 : s === "call" ? 1 : 0;
+  const conversations: ConversationRow[] = convRaws.map((c) => {
+    const cand = c.session_id ? leadsBySession.get(c.session_id) ?? [] : [];
+    const best =
+      cand.length === 0
+        ? null
+        : [...cand].sort((a, b) => {
+            const um = (l: RawLead) =>
+              l.unit_title && c.unit_title && l.unit_title === c.unit_title
+                ? 1
+                : 0;
+            return (
+              um(b) - um(a) ||
+              srcRank(b.source) - srcRank(a.source) ||
+              new Date(b.created_at).getTime() -
+                new Date(a.created_at).getTime()
+            );
+          })[0];
+    const { session_id: _sid, ...row } = c;
+    void _sid;
+    return {
+      ...row,
+      lead: best
+        ? {
+            broker: best.client_id
+              ? clientById.get(best.client_id)?.name ?? "?"
+              : null,
+            name: best.name,
+            phone: best.phone,
+            status: best.status,
+          }
+        : null,
+    };
+  });
 
   // Who takes the next rotated lead — the RPC's exact ORDER BY.
   const next = clients
