@@ -253,9 +253,20 @@ export function DeveloperDetail({
             dev.established_year
               ? [t("dev.buildingSince", locale), String(dev.established_year)]
               : null,
-            [t("dev.projects", locale), formatNumber(compounds.length)],
-            [t("dev.homesAvailable", locale), formatNumber(units.length)],
-            [t("dev.areas", locale), formatNumber(areaNames.length)],
+            // Live compound count when there's inventory; otherwise the developer's
+            // known portfolio size (compounds_count) so profile-only pages aren't "0".
+            (hasInventory ? compounds.length : dev.compounds_count ?? 0) > 0
+              ? [
+                  t("dev.projects", locale),
+                  formatNumber(hasInventory ? compounds.length : dev.compounds_count ?? 0),
+                ]
+              : null,
+            hasInventory
+              ? [t("dev.homesAvailable", locale), formatNumber(units.length)]
+              : null,
+            areaNames.length > 0
+              ? [t("dev.areas", locale), formatNumber(areaNames.length)]
+              : null,
           ]
             .filter((x): x is [string, string] => Boolean(x))
             .map(([label, value]) => (

@@ -31324,11 +31324,11 @@
  {
   "nawy_id": 9000001,
   "name": "ERG Developments",
-  "name_ar": "إعمار رزق للتطوير العقاري",
+  "name_ar": "إعمار رزق جروب للتطوير العقاري",
   "slug": "erg-developments",
   "logo_url": null,
   "min_price": null,
-  "compounds_count": null,
+  "compounds_count": 5,
   "properties_count": null,
   "established_year": 2012,
   "areas": [
@@ -31339,14 +31339,48 @@
    "العاصمة الإدارية الجديدة",
    "القاهرة الجديدة"
   ],
-  "about": "ERG Developments, officially Emaar Rezk Group Developments, is an Egyptian real-estate developer established in 2012 and led by Dr. Mohamed Rezk. It builds residential compounds, commercial towers, and mixed-use projects primarily in the New Administrative Capital and New Cairo (Fifth Settlement). Its portfolio includes the Ri8 and Eelaf Residence compounds, the Linwood villa community, and the Moonreal and Diamond commercial/mixed-use towers.",
-  "about_ar": "إعمار رزق للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2012، تعمل في العاصمة الإدارية الجديدة، القاهرة الجديدة.",
-  "faqs": [],
-  "faqs_ar": [],
-  "meta_title": "ERG Developments — Projects & Prices in Egypt | DealFinder",
-  "meta_title_ar": "إعمار رزق للتطوير العقاري — المشاريع والأسعار في مصر | DealFinder",
-  "meta_description": "ERG Developments, officially Emaar Rezk Group Developments, is an Egyptian real-estate developer established in 2012 and led by Dr. Mohamed Rezk. It builds",
-  "meta_description_ar": "إعمار رزق للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2012، تعمل في العاصمة الإدارية الجديدة، القاهرة الجديدة.",
+  "about": "ERG Developments (Emaar Rezk Group Developments) is an Egyptian real-estate developer launched in 2012 as the property arm of Emaar Rezk Group, a diversified group founded in 2005 by Dr. Mohamed Rizk. Chaired by Mohamed Hamdy Rizk, the company focuses on residential compounds and commercial and mixed-use towers, mainly in the New Administrative Capital and New Cairo. Its portfolio includes the Ri8 and Eelaf Residence compounds, the Linwood community, and the Moonreal and Diamond towers.",
+  "about_ar": "إعمار رزق جروب للتطوير العقاري (ERG) شركة تطوير عقاري مصرية انطلقت عام 2012 كذراع عقارية لمجموعة إعمار رزق التي تأسست عام 2005 على يد الدكتور محمد رزق، ويرأسها المهندس محمد حمدي رزق. تركّز الشركة على تطوير الكمبوندات السكنية والأبراج التجارية والمشروعات متعددة الاستخدامات، وتتركز أعمالها في العاصمة الإدارية الجديدة والقاهرة الجديدة. وتضم محفظتها كمبوندي رايت 8 (Ri8) وإيلاف ريزيدنس، ومجتمع لينوود، إضافة إلى برجي مون ريل ودايموند.",
+  "faqs": [
+   {
+    "q": "Where does ERG Developments build in Egypt?",
+    "a": "ERG Developments builds mainly in the New Administrative Capital and New Cairo, delivering residential compounds alongside commercial and mixed-use towers."
+   },
+   {
+    "q": "What are ERG Developments' main projects?",
+    "a": "Its best-known projects are the Ri8 compound, Eelaf Residence, the Linwood community, and the Moonreal and Diamond towers."
+   },
+   {
+    "q": "When was ERG Developments established?",
+    "a": "ERG Developments was launched in 2012 as the real-estate arm of Emaar Rezk Group, which was founded in 2005."
+   },
+   {
+    "q": "What unit types and payment options does ERG offer?",
+    "a": "ERG offers apartments, duplexes, penthouses and commercial and administrative units. As is common in the New Capital and New Cairo, purchases are typically available with a down payment and installments over several years."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "أين تطوّر شركة إعمار رزق جروب (ERG) مشروعاتها في مصر؟",
+    "a": "تتركز مشروعات إعمار رزق جروب في العاصمة الإدارية الجديدة والقاهرة الجديدة، وتشمل كمبوندات سكنية إلى جانب أبراج تجارية ومشروعات متعددة الاستخدامات."
+   },
+   {
+    "q": "ما أبرز مشروعات إعمار رزق جروب؟",
+    "a": "من أشهر مشروعاتها كمبوند رايت 8، وإيلاف ريزيدنس، ومجتمع لينوود، إضافة إلى برجي مون ريل ودايموند."
+   },
+   {
+    "q": "متى تأسست شركة إعمار رزق جروب؟",
+    "a": "انطلقت ERG للتطوير العقاري عام 2012 كذراع عقارية لمجموعة إعمار رزق التي تأسست عام 2005."
+   },
+   {
+    "q": "ما أنواع الوحدات وأنظمة السداد لدى الشركة؟",
+    "a": "توفّر الشركة شققاً ودوبلكس وبنتهاوس ووحدات تجارية وإدارية. وكما هو معتاد في العاصمة الإدارية والقاهرة الجديدة، يتاح الشراء عادةً بمقدم وأقساط تمتد على عدة سنوات."
+   }
+  ],
+  "meta_title": "ERG Developments: Projects & Prices in Egypt",
+  "meta_title_ar": "إعمار رزق جروب ERG: مشروعات وأسعار بمصر",
+  "meta_description": "Explore ERG Developments (Emaar Rezk Group) projects in Egypt: Ri8, Eelaf Residence, Linwood, Moonreal and Diamond in the New Capital and New Cairo.",
+  "meta_description_ar": "تعرّف على مشروعات إعمار رزق جروب (ERG) في مصر: رايت 8، إيلاف ريزيدنس، لينوود، مون ريل ودايموند في العاصمة الإدارية والقاهرة الجديدة.",
   "_source": "researched"
  },
  {
@@ -31356,7 +31390,7 @@
   "slug": "qurtuba-developments",
   "logo_url": null,
   "min_price": null,
-  "compounds_count": null,
+  "compounds_count": 5,
   "properties_count": null,
   "established_year": 2019,
   "areas": [
@@ -31373,14 +31407,48 @@
    "دمياط الجديدة",
    "العلمين الجديدة"
   ],
-  "about": "Qurtuba Developments is an Egyptian real-estate developer founded in 2019 and chaired by engineer Mohamed Omar, focusing on Egypt's fourth-generation cities. The company builds residential, commercial, medical, and hospitality projects, with a portfolio concentrated in the New Administrative Capital, New Cairo, New Mansoura, New Damietta, and New Alamein. Recent launches include Nuzul Tower in the New Capital (reported investments exceeding EGP 3bn) and One Business Center in New Mansoura.",
-  "about_ar": "قرطبة للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2019، تعمل في العاصمة الإدارية الجديدة، القاهرة الجديدة، المنصورة الجديدة، دمياط الجديدة، العلمين الجديدة.",
-  "faqs": [],
-  "faqs_ar": [],
-  "meta_title": "Qurtuba Developments — Projects & Prices in Egypt | DealFinder",
-  "meta_title_ar": "قرطبة للتطوير العقاري — المشاريع والأسعار في مصر | DealFinder",
-  "meta_description": "Qurtuba Developments is an Egyptian real-estate developer founded in 2019 and chaired by engineer Mohamed Omar, focusing on Egypt's fourth-generation citie",
-  "meta_description_ar": "قرطبة للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2019، تعمل في العاصمة الإدارية الجديدة، القاهرة الجديدة، المنصورة الجديدة، دمياط الجديدة، العلمين ا",
+  "about": "Qurtuba Developments is an Egyptian real-estate developer active since 2019 and chaired by Eng. Mohamed Omar. The company works across residential, commercial, medical, and hospitality real estate, concentrating on Egypt's fourth-generation cities, including the New Administrative Capital, New Cairo, New Mansoura, New Damietta, and New Alamein. Its portfolio includes Nuzul Tower in the New Administrative Capital, a mixed-use commercial, administrative and hotel tower launched with reported investments exceeding EGP 3bn, along with the HAVA residential development in R8, One Business Center (1BC) in New Mansoura, Levora Residence in New Damietta, and Nuzul-branded hospitality projects in New Alamein and New Damietta.",
+  "about_ar": "قرطبة للتطوير العقاري شركة مصرية تعمل في السوق منذ عام 2019 برئاسة المهندس محمد عمر. تنشط الشركة في تطوير المشروعات السكنية والتجارية والطبية والفندقية، وتركّز على مدن الجيل الرابع، وأبرزها العاصمة الإدارية الجديدة والقاهرة الجديدة والمنصورة الجديدة ودمياط الجديدة والعلمين الجديدة. وتضم محفظتها برج نُزُل في العاصمة الإدارية، وهو مشروع متعدد الاستخدامات يجمع وحدات تجارية وإدارية وفندقية أُطلق باستثمارات معلنة تتجاوز ثلاثة مليارات جنيه، إلى جانب مشروع هافا السكني في الحي الثامن (R8)، وون بيزنس سنتر في المنصورة الجديدة، وليفورا ريزيدنس في دمياط الجديدة، ومشروعات نُزُل الفندقية في العلمين الجديدة ودمياط الجديدة.",
+  "faqs": [
+   {
+    "q": "Where does Qurtuba Developments build in Egypt?",
+    "a": "Qurtuba focuses on Egypt's fourth-generation cities. Its projects are located in the New Administrative Capital, New Cairo, New Mansoura, New Damietta, and New Alamein."
+   },
+   {
+    "q": "What are Qurtuba Developments' main projects?",
+    "a": "Its developments include Nuzul Tower in the New Administrative Capital (a mixed-use commercial, administrative and hotel tower launched with reported investments above EGP 3bn), the HAVA residential development in R8, One Business Center (1BC) in New Mansoura, Levora Residence in New Damietta, and Nuzul-branded hospitality projects in New Alamein and New Damietta."
+   },
+   {
+    "q": "When was Qurtuba Developments established?",
+    "a": "The company has been operating since 2019 and is chaired by Eng. Mohamed Omar. It states that it has delivered more than 50 projects and over 4,000 residential units across its markets; these figures are the company's own reported numbers."
+   },
+   {
+    "q": "What unit types does Qurtuba offer and how are they usually sold?",
+    "a": "Its portfolio spans residential, commercial, administrative, medical, and hotel units. As is standard in Egypt's new cities, units are typically offered with a down payment followed by multi-year installment plans, with exact terms varying by project and launch phase."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "أين تنفّذ قرطبة للتطوير العقاري مشروعاتها في مصر؟",
+    "a": "تركّز قرطبة على مدن الجيل الرابع، وتنتشر مشروعاتها في العاصمة الإدارية الجديدة والقاهرة الجديدة والمنصورة الجديدة ودمياط الجديدة والعلمين الجديدة."
+   },
+   {
+    "q": "ما أبرز مشروعات قرطبة للتطوير العقاري؟",
+    "a": "تشمل مشروعاتها برج نُزُل في العاصمة الإدارية (مشروع متعدد الاستخدامات يضم وحدات تجارية وإدارية وفندقية أُطلق باستثمارات معلنة تتجاوز ثلاثة مليارات جنيه)، ومشروع هافا السكني في الحي الثامن (R8)، وون بيزنس سنتر في المنصورة الجديدة، وليفورا ريزيدنس في دمياط الجديدة، ومشروعات نُزُل الفندقية في العلمين الجديدة ودمياط الجديدة."
+   },
+   {
+    "q": "متى تأسست قرطبة للتطوير العقاري؟",
+    "a": "تعمل الشركة في السوق منذ عام 2019 برئاسة المهندس محمد عمر، وتشير إلى أنها سلّمت أكثر من 50 مشروعًا وما يزيد على 4000 وحدة سكنية في أسواقها المختلفة، وهي أرقام معلنة من الشركة نفسها."
+   },
+   {
+    "q": "ما أنواع الوحدات التي تقدّمها قرطبة وكيف تُطرح للبيع؟",
+    "a": "تشمل محفظتها وحدات سكنية وتجارية وإدارية وطبية وفندقية. وكما هو معتاد في المدن الجديدة، تُطرح الوحدات عادةً بمقدم يليه أنظمة تقسيط تمتد لسنوات، وتختلف الشروط حسب كل مشروع ومرحلة طرح."
+   }
+  ],
+  "meta_title": "Qurtuba Developments: Projects & Prices in Egypt",
+  "meta_title_ar": "قرطبة للتطوير العقاري: مشروعات وأسعار في مصر",
+  "meta_description": "Explore Qurtuba Developments projects and prices in Egypt: residential, commercial and hotel units in the New Capital, New Cairo, New Mansoura and beyond.",
+  "meta_description_ar": "تعرّف على مشروعات وأسعار قرطبة للتطوير العقاري في مصر: وحدات سكنية وتجارية وفندقية في العاصمة الإدارية والقاهرة الجديدة والمنصورة الجديدة وغيرها.",
   "_source": "researched"
  },
  {
@@ -31390,7 +31458,7 @@
   "slug": "dig-developments",
   "logo_url": null,
   "min_price": null,
-  "compounds_count": null,
+  "compounds_count": 3,
   "properties_count": null,
   "established_year": 2015,
   "areas": [
@@ -31405,14 +31473,48 @@
    "القاهرة الجديدة",
    "الشيخ زايد"
   ],
-  "about": "DIG Developments, the real-estate arm of Deals Investment Group, is an Egyptian developer that began as a contracting firm around 2015 and built more than 70 standalone residential buildings across East Cairo before entering the New Administrative Capital by late 2020. Led by Eng. Hussein Salah and Eng. Hany Helmy, it focuses on residential compounds and mixed-use commercial/administrative projects, with its flagship Defaf compound in the R8 district and its Track series of Downtown malls in the New Capital. The company also develops in Sixth of October (Life Hills) and has announced further mixed-use developments including a project in the R3 district.",
-  "about_ar": "شركة دي آي جي للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2015، تعمل في العاصمة الإدارية الجديدة، السادس من أكتوبر، القاهرة الجديدة، الشيخ زايد.",
-  "faqs": [],
-  "faqs_ar": [],
-  "meta_title": "DIG Developments — Projects & Prices in Egypt | DealFinder",
-  "meta_title_ar": "شركة دي آي جي للتطوير العقاري — المشاريع والأسعار في مصر | DealFinder",
-  "meta_description": "DIG Developments, the real-estate arm of Deals Investment Group, is an Egyptian developer that began as a contracting firm around 2015 and built more than ",
-  "meta_description_ar": "شركة دي آي جي للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2015، تعمل في العاصمة الإدارية الجديدة، السادس من أكتوبر، القاهرة الجديدة، الشيخ زايد.",
+  "about": "DIG Developments is the real-estate arm of Deals Investment Group (DIG), an Egyptian company that started in 2015 as a contractor and executed more than 70 standalone residential buildings across the prime districts of East Cairo before entering the New Administrative Capital toward the end of 2020. Led by Eng. Hussein Salah and Eng. Hany Helmy, who both bring over two decades of experience in the Egyptian property and contracting market, the company develops residential compounds as well as mixed-use commercial, administrative and medical projects. Its residential flagship is the Defaf compound in the R8 district, complemented by the Track series of Downtown malls (Track 10, 12, 14, 15, 20 and Track Rev) and the Life Hills compound in the Sixth of October area, with a further services project announced for the R3 district in 2026.",
+  "about_ar": "شركة دي آي جي للتطوير العقاري هي الذراع العقارية لمجموعة ديلز للاستثمار (Deals Investment Group)، وهي شركة مصرية انطلقت عام 2015 كشركة مقاولات نفّذت أكثر من 70 مبنى سكنيًا مستقلًا في أرقى مناطق شرق القاهرة قبل دخولها العاصمة الإدارية الجديدة في أواخر عام 2020. يقود الشركة المهندس حسين صلاح والمهندس هاني حلمي، ولكل منهما خبرة تتجاوز عشرين عامًا في سوقي العقارات والمقاولات في مصر، وتعمل الشركة في تطوير الكمبوندات السكنية إلى جانب المشروعات التجارية والإدارية والطبية متعددة الاستخدامات. ويأتي كمبوند ضفاف في حي R8 كأبرز مشروعاتها السكنية، إلى جانب سلسلة مولات تراك التجارية في منطقة الداون تاون (تراك 10 و12 و14 و15 و20 وتراك ريف) ومشروع لايف هيلز بمنطقة السادس من أكتوبر، مع مشروع خدمي جديد أُعلن عنه في منطقة R3 خلال عام 2026.",
+  "faqs": [
+   {
+    "q": "Where does DIG Developments build in Egypt?",
+    "a": "DIG concentrates on the New Administrative Capital, where it builds commercial, administrative and medical projects in the Downtown area and a residential compound in the R8 district. It also has projects in the Sixth of October and Sheikh Zayed areas, and its roots go back to standalone residential buildings across East Cairo (New Cairo)."
+   },
+   {
+    "q": "What are DIG Developments' flagship projects?",
+    "a": "Its flagship residential project is the Defaf compound in the R8 district of the New Administrative Capital. It also develops the Track series of Downtown commercial and administrative malls (Track 10, 12, 14, 15, 20 and Track Rev) and the Life Hills compound in the Sixth of October area."
+   },
+   {
+    "q": "When was DIG Developments established and what is its track record?",
+    "a": "DIG began in 2015 as a contracting firm and delivered more than 70 standalone residential buildings in East Cairo. It expanded into real-estate development in the New Administrative Capital toward the end of 2020 and now runs a portfolio of residential compounds and mixed-use malls."
+   },
+   {
+    "q": "What unit types and payment plans does DIG offer?",
+    "a": "DIG offers apartments and villas in residential compounds such as Defaf, and commercial, administrative and medical units in its Track malls. In line with New Capital market norms, it markets flexible plans with a modest down payment and installments spread over several years; confirm current prices and terms directly, as they change."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "أين تبني شركة دي آي جي مشروعاتها في مصر؟",
+    "a": "تركّز الشركة نشاطها في العاصمة الإدارية الجديدة، حيث تنفّذ مشروعات تجارية وإدارية وطبية في منطقة الداون تاون وكمبوندًا سكنيًا في حي R8، كما لديها مشروعات في منطقتي السادس من أكتوبر والشيخ زايد، وتعود جذورها إلى تنفيذ مبانٍ سكنية مستقلة في شرق القاهرة (القاهرة الجديدة)."
+   },
+   {
+    "q": "ما أبرز مشروعات شركة دي آي جي؟",
+    "a": "أبرز مشروعاتها السكنية هو كمبوند ضفاف في حي R8 بالعاصمة الإدارية الجديدة، كما تطوّر سلسلة مولات تراك التجارية والإدارية في الداون تاون (تراك 10 و12 و14 و15 و20 وتراك ريف) ومشروع لايف هيلز بمنطقة السادس من أكتوبر."
+   },
+   {
+    "q": "متى تأسست شركة دي آي جي وما سجلها؟",
+    "a": "انطلقت الشركة عام 2015 كشركة مقاولات ونفّذت أكثر من 70 مبنى سكنيًا مستقلًا في شرق القاهرة، ثم توسّعت في التطوير العقاري بالعاصمة الإدارية الجديدة في أواخر عام 2020، ولديها اليوم محفظة من الكمبوندات السكنية والمولات متعددة الاستخدامات."
+   },
+   {
+    "q": "ما أنواع الوحدات وأنظمة السداد التي تقدمها الشركة؟",
+    "a": "تقدّم الشركة شققًا وفيلات في كمبوندات مثل ضفاف، ووحدات تجارية وإدارية وطبية في مولات تراك. وتماشيًا مع أعراف سوق العاصمة الإدارية، تطرح أنظمة سداد مرنة بمقدم بسيط وأقساط تمتد لعدة سنوات، ويُنصح بالتأكد من الأسعار والشروط الحالية مباشرةً لأنها تتغير."
+   }
+  ],
+  "meta_title": "DIG Developments: Projects & Prices in Egypt",
+  "meta_title_ar": "دي آي جي للتطوير: مشروعات وأسعار في مصر",
+  "meta_description": "Explore DIG Developments projects and prices in Egypt, including the Defaf compound in R8, the Track Downtown malls in the New Capital, and Life Hills in Sixth of October.",
+  "meta_description_ar": "تعرّف على مشروعات وأسعار شركة دي آي جي للتطوير العقاري في مصر، ومنها كمبوند ضفاف في R8 ومولات تراك بالداون تاون بالعاصمة الإدارية ولايف هيلز بالسادس من أكتوبر.",
   "_source": "researched"
  },
  {
@@ -31422,7 +31524,7 @@
   "slug": "arabian-mark-developments",
   "logo_url": null,
   "min_price": null,
-  "compounds_count": null,
+  "compounds_count": 1,
   "properties_count": null,
   "established_year": 2025,
   "areas": [
@@ -31431,14 +31533,48 @@
   "areas_ar": [
    "القاهرة الجديدة"
   ],
-  "about": "Arabian Mark Developments is an Egyptian real estate developer founded in 2025 by a group of industry veterans, chaired by Eng. Ahmed Gamal with Eng. Sherif Abdo as vice chairman and founding partner. The company positions itself around a \"quiet luxury\" architectural philosophy that blends contemporary Arab identity with modern design, and plans residential, commercial, and administrative projects across Egypt. Its debut project is Rewaq (Riwaq) Residence, an approximately 7-acre gated compound in the Al-Andalus area of New Cairo's Fifth Settlement.",
-  "about_ar": "أربيان مارك للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2025، تعمل في القاهرة الجديدة.",
-  "faqs": [],
-  "faqs_ar": [],
-  "meta_title": "Arabian Mark Developments — Projects & Prices in Egypt | DealFinder",
-  "meta_title_ar": "أربيان مارك للتطوير العقاري — المشاريع والأسعار في مصر | DealFinder",
-  "meta_description": "Arabian Mark Developments is an Egyptian real estate developer founded in 2025 by a group of industry veterans, chaired by Eng. Ahmed Gamal with Eng. Sheri",
-  "meta_description_ar": "أربيان مارك للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2025، تعمل في القاهرة الجديدة.",
+  "about": "Arabian Mark Developments is an Egyptian real estate developer that entered the market in 2025, founded by a group of experienced industry professionals. It is chaired by Eng. Ahmed Gamal, a co-founder of Arqa Development Group, with Eng. Sherif Abdo serving as vice chairman and founding partner. The company positions itself around a design approach that blends a contemporary Arab identity with modern architecture and integrated, community-focused living, under the tagline \"Leave Your Mark.\" Its debut project is Rewaq (Riwaq) Residence, a gated compound of roughly 7 feddans and about 400 units in the Hadayek Al-Andalus area of New Cairo's Fifth Settlement, with most of the land kept as open and green space and only a small share built up.",
+  "about_ar": "أربيان مارك للتطوير العقاري شركة مصرية دخلت السوق العقاري عام 2025 على يد نخبة من ذوي الخبرة في القطاع، برئاسة المهندس أحمد جمال أحد مؤسسي مجموعة أرقا للتطوير، فيما يشغل المهندس شريف عبده منصب نائب رئيس مجلس الإدارة والشريك المؤسس. تتبنى الشركة فلسفة تصميمية تمزج بين الهوية العربية المعاصرة والعمارة الحديثة والمجتمعات المتكاملة التي تضع راحة الإنسان في المقدمة، تحت شعار \"اترك بصمتك\". ويُعد مشروع رواق ريزيدنس باكورة أعمالها، وهو كمبوند مسوَّر تبلغ مساحته نحو 7 أفدنة ويضم قرابة 400 وحدة في منطقة حدائق الأندلس بالتجمع الخامس بالقاهرة الجديدة، مع تخصيص النسبة الأكبر من المساحة للمسطحات الخضراء والمناطق المفتوحة وبنسبة بناء محدودة.",
+  "faqs": [
+   {
+    "q": "Where does Arabian Mark Developments build?",
+    "a": "The company currently focuses on New Cairo. Its debut project sits in the Hadayek Al-Andalus area of the Fifth Settlement, close to South 90th Street, the AUC and GUC, and major routes including the Ring Road."
+   },
+   {
+    "q": "What is Arabian Mark's flagship project?",
+    "a": "Its first project is Rewaq (Riwaq) Residence, a gated compound of roughly 7 feddans and about 400 units in New Cairo's Fifth Settlement, with most of the land reserved for open and green space."
+   },
+   {
+    "q": "When was Arabian Mark Developments established and what is its track record?",
+    "a": "The developer launched in Egypt in 2025. Although new as a company, it is led by experienced professionals: chairman Eng. Ahmed Gamal co-founded Arqa Development Group, while vice chairman and founding partner Eng. Sherif Abdo brings a background in architecture and project management."
+   },
+   {
+    "q": "What unit types and payment plans does Arabian Mark offer?",
+    "a": "At Rewaq Residence the mix ranges from studios and 2-to-4-bedroom apartments to villas, delivered semi-finished. Reported plans start from a low down payment with installments extending up to about 12 years and delivery within roughly three to four years. Prices change over time, so buyers should confirm current figures with the developer or a broker."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "أين تطوّر شركة أربيان مارك مشروعاتها؟",
+    "a": "تركّز الشركة حالياً على القاهرة الجديدة، ويقع مشروعها الأول في منطقة حدائق الأندلس بالتجمع الخامس بالقرب من التسعين الجنوبي والجامعة الأمريكية والجامعة الألمانية والمحاور الرئيسية ومنها الطريق الدائري."
+   },
+   {
+    "q": "ما أبرز مشروعات أربيان مارك؟",
+    "a": "مشروعها الأول هو رواق ريزيدنس، وهو كمبوند مسوَّر تبلغ مساحته نحو 7 أفدنة ويضم قرابة 400 وحدة بالتجمع الخامس، مع تخصيص النسبة الأكبر من المساحة للمسطحات الخضراء والمناطق المفتوحة."
+   },
+   {
+    "q": "متى تأسست شركة أربيان مارك وما سجلها؟",
+    "a": "دخلت الشركة السوق المصري عام 2025، ورغم حداثتها يقودها فريق من ذوي الخبرة؛ فرئيس مجلس الإدارة المهندس أحمد جمال أحد مؤسسي مجموعة أرقا للتطوير، ويتمتع نائبه والشريك المؤسس المهندس شريف عبده بخلفية في العمارة وإدارة المشروعات."
+   },
+   {
+    "q": "ما أنواع الوحدات وأنظمة السداد لدى أربيان مارك؟",
+    "a": "يقدم مشروع رواق ريزيدنس تشكيلة تمتد من الاستوديوهات والشقق بغرف نوم من اثنتين إلى أربع وصولاً إلى الفيلات، وتُسلَّم نصف تشطيب. وتبدأ الأنظمة المعلنة بمقدم منخفض وتقسيط يصل إلى نحو 12 عاماً مع تسليم خلال ثلاث إلى أربع سنوات تقريباً. وتتغيّر الأسعار من وقت لآخر، لذا يُنصح بمراجعة المطوّر أو أحد المسوّقين للتأكد من الأرقام الحالية."
+   }
+  ],
+  "meta_title": "Arabian Mark Developments: Projects & Prices in Egypt",
+  "meta_title_ar": "أربيان مارك للتطوير: مشروعات وأسعار في مصر",
+  "meta_description": "Explore Arabian Mark Developments in Egypt: leadership, Rewaq Residence in New Cairo's Fifth Settlement, unit types and payment plans.",
+  "meta_description_ar": "تعرّف على شركة أربيان مارك للتطوير العقاري في مصر: القيادة ومشروع رواق ريزيدنس بالتجمع الخامس وأنواع الوحدات وأنظمة السداد.",
   "_source": "researched"
  },
  {
@@ -31447,30 +31583,62 @@
   "name_ar": "عدن للتطوير العقاري",
   "slug": "eden-development",
   "logo_url": null,
-  "min_price": null,
-  "compounds_count": null,
+  "min_price": 2580000,
+  "compounds_count": 4,
   "properties_count": null,
   "established_year": 2021,
   "areas": [
    "New Capital",
-   "New Alamein",
    "North Coast",
-   "New Cairo"
+   "New Alamein"
   ],
   "areas_ar": [
    "العاصمة الإدارية الجديدة",
-   "العلمين الجديدة",
    "الساحل الشمالي",
-   "القاهرة الجديدة"
+   "العلمين الجديدة"
   ],
-  "about": "Eden Development (Eden Development Group) is an Egyptian real-estate developer registered as a shareholding company in 2021, with headquarters at Eden Mall in Rehab City, Cairo, and international offices in Georgia, Saudi Arabia, and the UAE. In Egypt it focuses on mixed-use, commercial, and resort projects, primarily in the New Administrative Capital along with the North Coast and New Alamein. Its Egyptian portfolio includes the E One Business Complex, Eden Walk 7, Eden Mall, and the Sequoia North Coast resort.",
-  "about_ar": "عدن للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2021، تعمل في العاصمة الإدارية الجديدة، العلمين الجديدة، الساحل الشمالي، القاهرة الجديدة.",
-  "faqs": [],
-  "faqs_ar": [],
-  "meta_title": "Eden Development — Projects & Prices in Egypt | DealFinder",
-  "meta_title_ar": "عدن للتطوير العقاري — المشاريع والأسعار في مصر | DealFinder",
-  "meta_description": "Eden Development (Eden Development Group) is an Egyptian real-estate developer registered as a shareholding company in 2021, with headquarters at Eden Mall",
-  "meta_description_ar": "عدن للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2021، تعمل في العاصمة الإدارية الجديدة، العلمين الجديدة، الساحل الشمالي، القاهرة الجديدة.",
+  "about": "Eden Development (also branded Eden Group / Eden Developments) is an Egyptian joint-stock company formed in 2021 by a consortium of firms whose shareholders trace their contracting and engineering activity back to 1982. It is headquartered in Cairo and operates additional offices in Georgia, Saudi Arabia, and the UAE. In Egypt the company focuses on commercial, mixed-use, and resort developments in the New Administrative Capital, on the North Coast, and in New Alamein. Its Egyptian portfolio includes the Eden One (E One) Business Complex and Eden Walk 7 in the New Administrative Capital, the Sequoia resort on the North Coast, and City View in New Alamein.",
+  "about_ar": "عدن للتطوير العقاري (تُعرف أيضاً باسم Eden Group أو Eden Developments) شركة مساهمة مصرية تأسست عام 2021 بتحالف من الشركات يعود نشاط مساهميها في مجالي المقاولات والهندسة إلى عام 1982. يقع مقرها الرئيسي في القاهرة، ولها مكاتب أخرى في جورجيا والسعودية والإمارات. وتركز الشركة في السوق المصري على المشروعات التجارية ومتعددة الاستخدامات والمنتجعات في العاصمة الإدارية الجديدة والساحل الشمالي والعلمين الجديدة. وتضم محفظتها في مصر مجمع عدن وان (E One) بيزنس كومبلكس ومشروع عدن ووك 7 بالعاصمة الإدارية الجديدة، ومنتجع سيكويا بالساحل الشمالي، ومشروع سيتي فيو بالعلمين الجديدة.",
+  "faqs": [
+   {
+    "q": "Where does Eden Development build in Egypt?",
+    "a": "Eden Development concentrates on the New Administrative Capital, where it is building in the Downtown area and the R7 district, alongside resort and coastal projects on the North Coast and in New Alamein."
+   },
+   {
+    "q": "What are Eden Development's flagship projects?",
+    "a": "Its main Egyptian projects are the Eden One (E One) Business Complex and Eden Walk 7 in the New Administrative Capital, the Sequoia resort village on the North Coast, and the City View project in New Alamein."
+   },
+   {
+    "q": "When was Eden Development established and what is its track record?",
+    "a": "Eden Development is an Egyptian joint-stock company formed in 2021 by a consortium of firms whose shareholders have worked in contracting and engineering since 1982. It also operates internationally, with offices in Georgia, Saudi Arabia, and the UAE."
+   },
+   {
+    "q": "What unit types and payment plans does Eden Development offer?",
+    "a": "Its New Administrative Capital complexes offer commercial, administrative, and medical units, while its coastal and Alamein projects offer chalets and apartments. Payment terms are typically flexible and vary by project; buyers should confirm the current down payment and installment period directly with the developer."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "أين تبني شركة عدن للتطوير العقاري في مصر؟",
+    "a": "تركز عدن للتطوير العقاري على العاصمة الإدارية الجديدة، حيث تنفذ مشروعاتها في منطقة الداون تاون وحي R7، إلى جانب مشروعات منتجعية وساحلية في الساحل الشمالي والعلمين الجديدة."
+   },
+   {
+    "q": "ما أبرز مشروعات شركة عدن للتطوير العقاري؟",
+    "a": "أبرز مشروعاتها في مصر هي مجمع عدن وان (E One) بيزنس كومبلكس ومشروع عدن ووك 7 بالعاصمة الإدارية الجديدة، ومنتجع سيكويا بالساحل الشمالي، ومشروع سيتي فيو بالعلمين الجديدة."
+   },
+   {
+    "q": "متى تأسست شركة عدن للتطوير العقاري وما سجل خبرتها؟",
+    "a": "عدن للتطوير العقاري شركة مساهمة مصرية تأسست عام 2021 بتحالف من الشركات يعمل مساهموها في مجالي المقاولات والهندسة منذ عام 1982، ولها حضور دولي عبر مكاتب في جورجيا والسعودية والإمارات."
+   },
+   {
+    "q": "ما أنواع الوحدات وأنظمة السداد لدى شركة عدن؟",
+    "a": "توفر مجمعاتها بالعاصمة الإدارية الجديدة وحدات تجارية وإدارية وطبية، بينما تضم مشروعاتها الساحلية وفي العلمين شاليهات وشققاً. وتتسم أنظمة السداد بالمرونة وتختلف من مشروع لآخر، ويُنصح بالتأكد من قيمة المقدم ومدة التقسيط الحالية مباشرةً من المطور."
+   }
+  ],
+  "meta_title": "Eden Development: Projects & Prices in Egypt",
+  "meta_title_ar": "عدن للتطوير العقاري: مشروعات وأسعار في مصر",
+  "meta_description": "Eden Development is an Egyptian developer behind Eden One, Eden Walk 7, Sequoia North Coast and City View New Alamein. See its projects and prices in Egypt.",
+  "meta_description_ar": "عدن للتطوير العقاري مطور مصري صاحب مشروعات عدن وان وعدن ووك 7 وسيكويا بالساحل الشمالي وسيتي فيو بالعلمين. تعرف على مشروعاته وأسعاره في مصر.",
   "_source": "researched"
  },
  {
@@ -31479,8 +31647,8 @@
   "name_ar": "البسيوني للتطوير العقاري",
   "slug": "al-basiony-developments",
   "logo_url": null,
-  "min_price": null,
-  "compounds_count": null,
+  "min_price": 2488894,
+  "compounds_count": 5,
   "properties_count": null,
   "established_year": 2018,
   "areas": [
@@ -31493,14 +31661,48 @@
    "دمياط الجديدة",
    "المنصورة الجديدة"
   ],
-  "about": "Al Basiony Developments is an Egyptian real-estate developer founded in 2018 and led by founder/CEO Ahmed Al Basiony. It initially built residential and commercial projects in the Delta cities of New Damietta and New Mansoura before expanding into New Cairo's Fifth Settlement, where its flagship Cavali Residence compound and adjacent Cavali Hub commercial project are located. Its portfolio spans residential compounds, malls, and mixed-use developments.",
-  "about_ar": "البسيوني للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2018، تعمل في القاهرة الجديدة، دمياط الجديدة، المنصورة الجديدة.",
-  "faqs": [],
-  "faqs_ar": [],
-  "meta_title": "Al Basiony Developments — Projects & Prices in Egypt | DealFinder",
-  "meta_title_ar": "البسيوني للتطوير العقاري — المشاريع والأسعار في مصر | DealFinder",
-  "meta_description": "Al Basiony Developments is an Egyptian real-estate developer founded in 2018 and led by founder/CEO Ahmed Al Basiony. It initially built residential and co",
-  "meta_description_ar": "البسيوني للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 2018، تعمل في القاهرة الجديدة، دمياط الجديدة، المنصورة الجديدة.",
+  "about": "Al Basiony Developments is an Egyptian real-estate developer founded in 2018 and led by founder and CEO Ahmed Al Basiony. It first built residential, commercial, and mixed-use projects in the Delta cities of New Damietta and New Mansoura before expanding into New Cairo's Fifth Settlement, where its flagship Cavali Residence compound and the adjacent Cavali Hub commercial and administrative project are located. Its portfolio spans residential compounds, malls, and mixed-use developments across the Delta and Greater Cairo.",
+  "about_ar": "البسيوني للتطوير العقاري شركة مصرية تأسست عام 2018 بقيادة مؤسسها ورئيسها التنفيذي المهندس أحمد البسيوني. بدأت الشركة نشاطها بمشروعات سكنية وتجارية ومتعددة الاستخدامات في مدينتي دمياط الجديدة والمنصورة الجديدة بالدلتا، ثم توسعت إلى التجمع الخامس بالقاهرة الجديدة حيث يقع مشروعها الأبرز كمبوند «كفالي ريزيدنس» ومشروع «كفالي هاب» التجاري والإداري المجاور له. تضم محفظتها كمبوندات سكنية ومولات ومشروعات متعددة الاستخدامات موزعة بين الدلتا والقاهرة الكبرى، وتقدم وحدات متنوعة بأنظمة سداد ميسّرة.",
+  "faqs": [
+   {
+    "q": "Where does Al Basiony Developments build in Egypt?",
+    "a": "The company develops projects in New Cairo's Fifth Settlement as well as the Delta cities of New Damietta and New Mansoura, covering both the Delta and Greater Cairo markets."
+   },
+   {
+    "q": "What are Al Basiony Developments' flagship projects?",
+    "a": "Its best-known project is the Cavali Residence compound in New Cairo, alongside the adjacent Cavali Hub commercial and administrative building, plus Rose Garden in the Fifth Settlement, Cavali New Mansoura, and Naseem in New Damietta."
+   },
+   {
+    "q": "When was Al Basiony Developments established?",
+    "a": "It was founded in 2018 by founder and CEO Ahmed Al Basiony, and has since delivered a range of residential, commercial, and mixed-use projects across the Delta and New Cairo."
+   },
+   {
+    "q": "What unit types and payment plans does Al Basiony offer?",
+    "a": "Its projects offer studios, apartments, penthouses, and commercial units. At Cavali Residence, plans typically start with a 10% down payment and installments of up to 8 to 10 years."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "أين تطوّر شركة البسيوني مشروعاتها في مصر؟",
+    "a": "تنفّذ الشركة مشروعاتها في التجمع الخامس بالقاهرة الجديدة، إلى جانب مدينتي دمياط الجديدة والمنصورة الجديدة بالدلتا، لتغطي أسواق الدلتا والقاهرة الكبرى."
+   },
+   {
+    "q": "ما أبرز مشروعات شركة البسيوني للتطوير العقاري؟",
+    "a": "أشهر مشروعاتها كمبوند «كفالي ريزيدنس» بالقاهرة الجديدة، إلى جانب مبنى «كفالي هاب» التجاري والإداري المجاور، ومشروع «روز جاردن» بالتجمع الخامس، و«كفالي» بالمنصورة الجديدة، و«نسيم» بدمياط الجديدة."
+   },
+   {
+    "q": "متى تأسست شركة البسيوني للتطوير العقاري؟",
+    "a": "تأسست عام 2018 على يد مؤسسها ورئيسها التنفيذي المهندس أحمد البسيوني، ونفّذت منذ ذلك الحين مشروعات سكنية وتجارية ومتعددة الاستخدامات في الدلتا والقاهرة الجديدة."
+   },
+   {
+    "q": "ما أنواع الوحدات وأنظمة السداد لدى البسيوني؟",
+    "a": "تطرح مشروعاتها استوديوهات وشققًا وبنتهاوس ووحدات تجارية. وفي كفالي ريزيدنس تبدأ الأنظمة عادةً بمقدم 10% وتقسيط يصل إلى 8 حتى 10 سنوات."
+   }
+  ],
+  "meta_title": "Al Basiony Developments: Projects & Prices in Egypt",
+  "meta_title_ar": "البسيوني للتطوير: مشروعات وأسعار في مصر",
+  "meta_description": "Explore Al Basiony Developments projects and prices in Egypt, including Cavali Residence and Cavali Hub in New Cairo, plus developments in New Damietta and New Mansoura.",
+  "meta_description_ar": "تعرّف على مشروعات وأسعار شركة البسيوني للتطوير العقاري في مصر، ومنها كفالي ريزيدنس وكفالي هاب بالقاهرة الجديدة ومشروعاتها في دمياط الجديدة والمنصورة الجديدة.",
   "_source": "researched"
  },
  {
@@ -31510,7 +31712,7 @@
   "slug": "founders-for-real-estate-marketing",
   "logo_url": null,
   "min_price": null,
-  "compounds_count": null,
+  "compounds_count": 4,
   "properties_count": null,
   "established_year": 2020,
   "areas": [
@@ -31525,14 +31727,48 @@
    "شرق القاهرة",
    "مدينة نصر"
   ],
-  "about": "Founders is an Egyptian real-estate company established in 2020 that originated as a subsidiary of Hyde Park Developments and operates primarily as a sales, marketing and development-consultancy arm for real-estate projects. It is associated with Gardenia City (Nasr City, owned by the National Bank of Egypt) and Wesal (on the Cairo-Suez Road in East Cairo, owned by Banque Misr), which it markets in alliance with Al Ahly Sabbour, as well as Granville in the New Administrative Capital and Hekayat in New Cairo. The company is headquartered in Heliopolis, Cairo, and ranked among Egypt's top real-estate sales companies in 2023.",
-  "about_ar": "فاوندرز للتسويق العقاري شركة تطوير عقاري مصرية، تأسست عام 2020، تعمل في العاصمة الإدارية الجديدة، القاهرة الجديدة، شرق القاهرة، مدينة نصر.",
-  "faqs": [],
-  "faqs_ar": [],
-  "meta_title": "Founders for Real Estate Marketing — Projects & Prices in Egypt | DealFinder",
-  "meta_title_ar": "فاوندرز للتسويق العقاري — المشاريع والأسعار في مصر | DealFinder",
-  "meta_description": "Founders is an Egyptian real-estate company established in 2020 that originated as a subsidiary of Hyde Park Developments and operates primarily as a sales",
-  "meta_description_ar": "فاوندرز للتسويق العقاري شركة تطوير عقاري مصرية، تأسست عام 2020، تعمل في العاصمة الإدارية الجديدة، القاهرة الجديدة، شرق القاهرة، مدينة نصر.",
+  "about": "Founders (Founders for Real Estate Marketing) is an Egyptian company set up in 2020 as the marketing and sales arm of Hyde Park Developments, chaired by Eng. Amin Serag, who is also Hyde Park's managing director. Working in alliance with Al Ahly Sabbour, it handles the commercial and sales plans for bank-owned projects, most notably Gardenia City in Nasr City and Wesal on the Cairo-Suez Road, both tied to the National Bank of Egypt and Banque Misr. The firm has since moved beyond pure marketing: it develops the Granville villa compound in the New Administrative Capital and, through a partnership with the New Urban Communities Authority, took over the ready-to-move Hekayat community in New Cairo. Founders was ranked among Egypt's leading real-estate sales companies in the first half of 2023.",
+  "about_ar": "فاوندرز للتسويق العقاري شركة مصرية تأسست عام 2020 لتكون ذراع التسويق والمبيعات لشركة هايد بارك للتطوير العقاري، ويرأس مجلس إدارتها المهندس أمين سراج الذي يشغل أيضاً منصب العضو المنتدب لهايد بارك. وبالتحالف مع الأهلي صبور، تتولى الشركة الخطط التجارية والبيعية لمشروعات مملوكة للبنوك، أبرزها جاردينيا سيتي بمدينة نصر ووصال على طريق القاهرة–السويس، وكلاهما مرتبط بالبنك الأهلي المصري وبنك مصر. وقد توسّعت فاوندرز لاحقاً خارج نطاق التسويق، فأصبحت تطوّر كمبوند جرانفيل بالعاصمة الإدارية الجديدة، كما استحوذت عبر شراكة مع هيئة المجتمعات العمرانية الجديدة على مشروع حكايات للاستلام الفوري بالقاهرة الجديدة. وقد صُنّفت الشركة ضمن كبرى شركات المبيعات العقارية في مصر خلال النصف الأول من عام 2023.",
+  "faqs": [
+   {
+    "q": "Where does Founders operate in Egypt?",
+    "a": "Founders works across Greater Cairo. It markets Gardenia City in Nasr City and Wesal on the Cairo-Suez Road in East Cairo, develops the Granville compound in the New Administrative Capital, and holds the Hekayat community in New Cairo's Fifth Settlement."
+   },
+   {
+    "q": "What are Founders' main projects?",
+    "a": "Its best-known projects are Gardenia City in Nasr City and Wesal on the Cairo-Suez Road, both handled with Al Ahly Sabbour for their bank owners, alongside Granville in the New Administrative Capital and Hekayat in New Cairo."
+   },
+   {
+    "q": "When was Founders established and what is its track record?",
+    "a": "Founders was established in 2020 as the marketing and sales arm of Hyde Park Developments. It ranked among Egypt's top real-estate sales companies in the first half of 2023 and has since expanded into direct development and project acquisitions."
+   },
+   {
+    "q": "What unit types and payment terms does Founders offer?",
+    "a": "Its portfolio includes apartments in Gardenia City and Hekayat, and standalone villas and palaces in the Granville compound. Payment terms are flexible, with down payments commonly starting around 5-10% and installments extending up to roughly 10 years, though figures vary by project and phase."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "أين تعمل فاوندرز في مصر؟",
+    "a": "تنشط فاوندرز في نطاق القاهرة الكبرى، إذ تسوّق جاردينيا سيتي بمدينة نصر ووصال على طريق القاهرة–السويس بشرق القاهرة، وتطوّر كمبوند جرانفيل بالعاصمة الإدارية الجديدة، وتمتلك مشروع حكايات بالتجمع الخامس في القاهرة الجديدة."
+   },
+   {
+    "q": "ما أبرز مشروعات فاوندرز؟",
+    "a": "أشهر مشروعاتها جاردينيا سيتي بمدينة نصر ووصال على طريق القاهرة–السويس، وكلاهما يُدار بالتعاون مع الأهلي صبور لصالح البنوك المالكة، إضافة إلى جرانفيل بالعاصمة الإدارية الجديدة وحكايات بالقاهرة الجديدة."
+   },
+   {
+    "q": "متى تأسست فاوندرز وما سجلّها؟",
+    "a": "تأسست فاوندرز عام 2020 كذراع للتسويق والمبيعات تابعة لشركة هايد بارك للتطوير العقاري، وصُنّفت ضمن كبرى شركات المبيعات العقارية في مصر خلال النصف الأول من عام 2023، ثم توسّعت في التطوير والاستحواذ المباشر على المشروعات."
+   },
+   {
+    "q": "ما أنواع الوحدات وأنظمة السداد لدى فاوندرز؟",
+    "a": "تشمل محفظتها شققاً في جاردينيا سيتي وحكايات، وفيلات وقصوراً مستقلة في كمبوند جرانفيل. وتتميّز أنظمة السداد بالمرونة، بمقدم يبدأ غالباً من نحو 5% إلى 10% وتقسيط يصل إلى نحو 10 سنوات، مع اختلاف الأرقام حسب المشروع والمرحلة."
+   }
+  ],
+  "meta_title": "Founders Real Estate: Projects & Prices in Egypt",
+  "meta_title_ar": "فاوندرز العقارية: مشاريع وأسعار في مصر",
+  "meta_description": "Founders, Hyde Park's marketing and sales arm: projects, prices and payment plans across Gardenia City, Wesal, Granville and Hekayat in Egypt.",
+  "meta_description_ar": "تعرّف على شركة فاوندرز العقارية، ذراع هايد بارك للتسويق والمبيعات: مشاريعها وأسعارها وأنظمة السداد في جاردينيا سيتي ووصال وجرانفيل وحكايات بمصر.",
   "_source": "researched"
  },
  {
@@ -31542,7 +31778,7 @@
   "slug": "mag-methaq-arab-group",
   "logo_url": null,
   "min_price": null,
-  "compounds_count": null,
+  "compounds_count": 1,
   "properties_count": null,
   "established_year": 2025,
   "areas": [
@@ -31551,14 +31787,48 @@
   "areas_ar": [
    "العاصمة الإدارية الجديدة"
   ],
-  "about": "MAG (Methaq Arab Group) is a real-estate developer that entered the Egyptian market in 2025, backed by an Emirati-Saudi-Egyptian investment alliance and led by management with more than 10 years of experience and 25+ delivered projects in Abu Dhabi. Its debut Egyptian project is La Reva Signature Residence, a roughly 38-acre mixed-use community combining residential units, hotel apartments and commercial space in the R8 district of the New Administrative Capital. The company has announced planned investments of about EGP 60 billion for its Egyptian operations.",
-  "about_ar": "ميثاق عرب جروب شركة تطوير عقاري مصرية، تأسست عام 2025، تعمل في العاصمة الإدارية الجديدة.",
-  "faqs": [],
-  "faqs_ar": [],
-  "meta_title": "MAG - Methaq Arab Group — Projects & Prices in Egypt | DealFinder",
-  "meta_title_ar": "ميثاق عرب جروب — المشاريع والأسعار في مصر | DealFinder",
-  "meta_description": "MAG (Methaq Arab Group) is a real-estate developer that entered the Egyptian market in 2025, backed by an Emirati-Saudi-Egyptian investment alliance and le",
-  "meta_description_ar": "ميثاق عرب جروب شركة تطوير عقاري مصرية، تأسست عام 2025، تعمل في العاصمة الإدارية الجديدة.",
+  "about": "MAG (Methaq Arab Group) is a real-estate developer that entered the Egyptian market in 2025, backed by an alliance of Emirati, Saudi and Egyptian investors and drawing on Gulf development experience, notably in Abu Dhabi. Its debut Egyptian development is La Reva Signature Residence, an integrated community of roughly 38 feddans in the R8 district of the New Administrative Capital, combining apartments, sky villas, ground villas, a hospitality component and retail, with a reported total investment of about EGP 26 billion (around USD 555 million). The company has stated plans to expand into other markets such as New Alamein, Sheikh Zayed and the Red Sea.",
+  "about_ar": "ميثاق عرب جروب (MAG) شركة تطوير عقاري دخلت السوق المصرية عام 2025 مدعومة بتحالف استثماري إماراتي سعودي مصري، وتستند إلى خبرة تطويرية خليجية أبرزها في أبوظبي. باكورة أعمالها في مصر مشروع لاريفا سيجنتشر ريزيدنس، وهو مجتمع متكامل تبلغ مساحته نحو 38 فدانًا في الحي الثامن (R8) بالعاصمة الإدارية الجديدة، ويضم شققًا وفيلات أرضية ووحدات سكاي فيلا ومكوّنًا فندقيًا ومساحات تجارية، باستثمارات إجمالية مُعلنة تقارب 26 مليار جنيه (نحو 555 مليون دولار). وأعلنت الشركة عن خطط للتوسّع في أسواق أخرى مثل العلمين الجديدة والشيخ زايد والبحر الأحمر.",
+  "faqs": [
+   {
+    "q": "Where does MAG build in Egypt?",
+    "a": "MAG's first Egyptian project is in the New Administrative Capital. Its flagship La Reva Signature Residence sits in the R8 (Eighth Residential) district, near the Diplomatic District and the Capital International Airport. The company has also announced intentions to develop in New Alamein, Sheikh Zayed and the Red Sea."
+   },
+   {
+    "q": "What is MAG's flagship project?",
+    "a": "Its debut Egyptian development is La Reva Signature Residence, an integrated community of about 38 feddans in R8 that combines residential units, a hospitality component and retail, with a reported total investment of roughly EGP 26 billion."
+   },
+   {
+    "q": "When did MAG enter the Egyptian market and who backs it?",
+    "a": "MAG entered the Egyptian market in 2025. It is described as an alliance of Emirati, Saudi and Egyptian investors that draws on Gulf real-estate experience, particularly in Abu Dhabi."
+   },
+   {
+    "q": "What unit types and payment plans does La Reva offer?",
+    "a": "La Reva offers studios, apartments, sky villas, ground villas and duplexes, with unit sizes reported from around 78 sqm upward. Publicly reported plans include down payments starting at about 10% with instalments of up to 12 years, and cash discounts of up to around 40%. Prices and terms change, so buyers should confirm current figures with the developer."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "أين تطوّر ميثاق عرب جروب في مصر؟",
+    "a": "أول مشاريع الشركة في مصر يقع بالعاصمة الإدارية الجديدة، حيث يوجد مشروعها الرئيسي لاريفا سيجنتشر ريزيدنس في الحي الثامن (R8) قرب الحي الدبلوماسي ومطار العاصمة الدولي. كما أعلنت الشركة عن نيتها التطوير في العلمين الجديدة والشيخ زايد والبحر الأحمر."
+   },
+   {
+    "q": "ما المشروع الرئيسي لميثاق عرب جروب؟",
+    "a": "باكورة أعمالها في مصر مشروع لاريفا سيجنتشر ريزيدنس، وهو مجتمع متكامل تبلغ مساحته نحو 38 فدانًا في الحي الثامن ويجمع بين وحدات سكنية ومكوّن فندقي ومساحات تجارية، باستثمارات إجمالية مُعلنة تقارب 26 مليار جنيه."
+   },
+   {
+    "q": "متى دخلت ميثاق عرب جروب السوق المصرية ومن يدعمها؟",
+    "a": "دخلت الشركة السوق المصرية عام 2025، وتُوصف بأنها تحالف استثماري إماراتي سعودي مصري يستند إلى خبرة تطويرية خليجية، لا سيما في أبوظبي."
+   },
+   {
+    "q": "ما أنواع الوحدات وأنظمة السداد في لاريفا؟",
+    "a": "يقدّم لاريفا استوديوهات وشققًا وسكاي فيلا وفيلات أرضية ودوبلكس، بمساحات مُعلنة تبدأ من نحو 78 مترًا مربعًا. وتشمل الأنظمة المعلنة مقدّمًا يبدأ من نحو 10% مع تقسيط يصل إلى 12 عامًا وخصومات نقدية تصل إلى نحو 40%. وتتغيّر الأسعار والشروط، لذا يُنصح بالتأكد من الأرقام الحالية من المطوّر."
+   }
+  ],
+  "meta_title": "MAG (Methaq Arab Group) Projects & Prices in Egypt",
+  "meta_title_ar": "ميثاق عرب جروب: مشاريع وأسعار في مصر",
+  "meta_description": "Explore MAG (Methaq Arab Group) projects and prices in Egypt, led by La Reva Signature Residence in the New Administrative Capital's R8 district.",
+  "meta_description_ar": "تعرّف على مشاريع وأسعار ميثاق عرب جروب في مصر، وأبرزها لاريفا سيجنتشر ريزيدنس في الحي الثامن R8 بالعاصمة الإدارية الجديدة.",
   "_source": "researched"
  },
  {
@@ -31568,23 +31838,59 @@
   "slug": "smart-view-developments",
   "logo_url": null,
   "min_price": null,
-  "compounds_count": null,
+  "compounds_count": 2,
   "properties_count": null,
   "established_year": 1999,
   "areas": [
-   "New Capital"
+   "New Capital",
+   "New Cairo"
   ],
   "areas_ar": [
-   "العاصمة الإدارية الجديدة"
+   "العاصمة الإدارية الجديدة",
+   "القاهرة الجديدة"
   ],
-  "about": "Smart View Developments (Smart View Real Estate Development) is an Egyptian real-estate developer most active in the New Administrative Capital, where it developed the Town Gate residential compound and the Town Gate Mall in the R7 district (plot J2). Most portals date the company's founding to 1999, positioning it as an experienced developer of residential and commercial projects. Its flagship Town Gate compound spans roughly 21 acres and offers apartments, duplexes and penthouses with extended payment plans.",
-  "about_ar": "سمارت فيو للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 1999، تعمل في العاصمة الإدارية الجديدة.",
-  "faqs": [],
-  "faqs_ar": [],
-  "meta_title": "Smart View Developments — Projects & Prices in Egypt | DealFinder",
-  "meta_title_ar": "سمارت فيو للتطوير العقاري — المشاريع والأسعار في مصر | DealFinder",
-  "meta_description": "Smart View Developments (Smart View Real Estate Development) is an Egyptian real-estate developer most active in the New Administrative Capital, where it d",
-  "meta_description_ar": "سمارت فيو للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 1999، تعمل في العاصمة الإدارية الجديدة.",
+  "about": "Smart View Developments (Smart View Real Estate Development) is an Egyptian real-estate developer that portals commonly date to 1999. Its most prominent current project is in the New Administrative Capital, where it is building the Town Gate residential compound together with the adjoining Town Gate Mall in the R7 district (plot J2). Town Gate spans roughly 21 acres with a low built-up ratio, leaving most of the land for landscaping, green areas and water features, and offers apartments, duplexes and penthouses on extended installment plans with core-and-shell (semi-finished) delivery. Earlier in New Cairo the company carried out residential and commercial work in the Fifth Settlement, including villas and a retail mall.",
+  "about_ar": "سمارت فيو للتطوير العقاري شركة مصرية تُرجِع معظم المنصات العقارية تأسيسها إلى عام 1999. يتمثّل أبرز نشاطها الحالي في العاصمة الإدارية الجديدة، حيث تنفّذ كمبوند تاون جيت السكني إلى جانب مول تاون جيت التجاري في الحي السابع (قطعة J2). يمتد مشروع تاون جيت على نحو 21 فداناً بنسبة بناء منخفضة تترك معظم المساحة للمناطق الخضراء والمسطحات المائية، ويضم شققاً ودوبلكسات وبنتهاوس تُطرح بأنظمة تقسيط ممتدة مع التسليم على مستوى المحارة (نصف تشطيب). كما سبق للشركة تنفيذ أعمال سكنية وتجارية في القاهرة الجديدة بالتجمع الخامس شملت فيلات ومولاً تجارياً.",
+  "faqs": [
+   {
+    "q": "Where does Smart View Developments build in Egypt?",
+    "a": "The company is most active in the New Administrative Capital, where its Town Gate compound and the adjoining Town Gate Mall sit in the R7 district on plot J2. It has also delivered residential and commercial work in New Cairo's Fifth Settlement, including villas and a retail mall."
+   },
+   {
+    "q": "What are Smart View's flagship projects?",
+    "a": "Its best-known development is the Town Gate residential compound in the New Administrative Capital, together with the adjoining Town Gate Mall, both located in the R7 district on plot J2."
+   },
+   {
+    "q": "When was Smart View established and what is its track record?",
+    "a": "Most Egyptian real-estate portals date the company's founding to around 1999, giving it more than two decades of experience across residential and commercial projects in the New Capital and New Cairo."
+   },
+   {
+    "q": "What unit types and payment plans does Smart View offer?",
+    "a": "At Town Gate the company offers apartments, duplexes and penthouses across a range of sizes, typically on multi-year installment plans and delivered on a core-and-shell (semi-finished) basis. Exact prices and terms change frequently, so buyers should confirm current figures with the developer or a listing portal."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "أين تطوّر شركة سمارت فيو مشروعاتها في مصر؟",
+    "a": "يتركّز نشاط الشركة في العاصمة الإدارية الجديدة، حيث يقع كمبوند تاون جيت ومول تاون جيت في الحي السابع على القطعة J2، كما نفّذت أعمالاً سكنية وتجارية في القاهرة الجديدة بالتجمع الخامس شملت فيلات ومولاً تجارياً."
+   },
+   {
+    "q": "ما أبرز مشروعات سمارت فيو؟",
+    "a": "أشهر مشروعاتها كمبوند تاون جيت السكني في العاصمة الإدارية الجديدة إلى جانب مول تاون جيت التجاري، وكلاهما في الحي السابع على القطعة J2."
+   },
+   {
+    "q": "متى تأسست سمارت فيو وما سجلها؟",
+    "a": "تُرجِع معظم المنصات العقارية المصرية تأسيس الشركة إلى نحو عام 1999، ما يمنحها خبرة تتجاوز عقدين في المشروعات السكنية والتجارية بالعاصمة الإدارية والقاهرة الجديدة."
+   },
+   {
+    "q": "ما أنواع الوحدات وأنظمة السداد لدى سمارت فيو؟",
+    "a": "في تاون جيت تطرح الشركة شققاً ودوبلكسات وبنتهاوس بمساحات متنوعة، غالباً بأنظمة تقسيط تمتد لعدة سنوات مع التسليم على مستوى المحارة (نصف تشطيب). ولأن الأسعار والشروط تتغيّر باستمرار يُنصح بالتأكد من الأرقام الحالية لدى المطوّر أو إحدى منصات العرض العقاري."
+   }
+  ],
+  "meta_title": "Smart View Developments: Projects & Prices in Egypt",
+  "meta_title_ar": "سمارت فيو للتطوير: مشاريع وأسعار في مصر",
+  "meta_description": "Explore Smart View Developments in Egypt — the Town Gate compound and mall in the New Administrative Capital, plus New Cairo work. See projects, unit types and prices.",
+  "meta_description_ar": "تعرّف على شركة سمارت فيو للتطوير العقاري في مصر — كمبوند ومول تاون جيت بالعاصمة الإدارية الجديدة وأعمالها في القاهرة الجديدة. مشاريعها وأنواع وحداتها وأسعارها.",
   "_source": "researched"
  },
  {
@@ -31594,27 +31900,120 @@
   "slug": "tameer-developments",
   "logo_url": null,
   "min_price": null,
-  "compounds_count": null,
+  "compounds_count": 5,
   "properties_count": null,
   "established_year": 1954,
   "areas": [
    "New Cairo",
-   "New Administrative Capital",
    "6th of October City"
   ],
   "areas_ar": [
    "القاهرة الجديدة",
-   "العاصمة الإدارية الجديدة",
-   "6th of October City"
+   "مدينة السادس من أكتوبر"
   ],
-  "about": "Tameer (El Tameer) is one of Egypt's oldest real-estate developers, tracing its origins to 1954 when it began as a government-linked housing body, and it has since delivered tens of thousands of residential units. Today it develops upscale residential, commercial, and mixed-use compounds concentrated in New Cairo, the New Administrative Capital, and 6th of October City. Its best-known developments include the Azad compound in New Cairo, the Diar compounds in 6th of October, and the Urban Business Lane mixed-use project.",
-  "about_ar": "شركة التعمير للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 1954، تعمل في القاهرة الجديدة، العاصمة الإدارية الجديدة، 6th of October City.",
-  "faqs": [],
-  "faqs_ar": [],
-  "meta_title": "Tameer Developments — Projects & Prices in Egypt | DealFinder",
-  "meta_title_ar": "شركة التعمير للتطوير العقاري — المشاريع والأسعار في مصر | DealFinder",
-  "meta_description": "Tameer (El Tameer) is one of Egypt's oldest real-estate developers, tracing its origins to 1954 when it began as a government-linked housing body, and it h",
-  "meta_description_ar": "شركة التعمير للتطوير العقاري شركة تطوير عقاري مصرية، تأسست عام 1954، تعمل في القاهرة الجديدة، العاصمة الإدارية الجديدة، 6th of October City.",
+  "about": "Tameer Developments (El Tameer) is one of Egypt's longest-established real-estate developers, tracing its roots to 1954 and now listed on the Egyptian Exchange. Over more than seven decades it has delivered over 27,000 units and a series of well-known landmarks. Chaired by Saad Alwazzan, the company today focuses on upscale residential and mixed-use communities in New Cairo and 6th of October City. Its current portfolio centres on the 55-feddan Azad compound in New Cairo and its Azad Views and Azad Walk extensions, the Diar developments in 6th of October, and the Urban Business Lane (UBL) commercial destination.",
+  "about_ar": "تُعد شركة التعمير للتطوير العقاري (El Tameer) من أعرق شركات التطوير العقاري في مصر، إذ يعود تاريخها إلى عام 1954 وأصبحت اليوم مُدرجة في البورصة المصرية. وعلى مدار أكثر من سبعة عقود سلّمت الشركة ما يزيد على 27 ألف وحدة إلى جانب عدد من المعالم المعروفة. وتتولى إدارتها برئاسة السيد سعد الوزان، وتركّز حاليًا على تطوير مجتمعات سكنية ومتعددة الاستخدامات راقية في القاهرة الجديدة ومدينة السادس من أكتوبر. وتشمل محفظتها الحالية كمبوند أزاد على مساحة 55 فدانًا بالقاهرة الجديدة وامتداداته أزاد فيوز وأزاد ووك، ومشروعات ديار بالسادس من أكتوبر، إضافة إلى الوجهة التجارية أوربان بيزنس لين.",
+  "faqs": [
+   {
+    "q": "Where in Egypt does Tameer Developments build?",
+    "a": "Tameer concentrates on New Cairo, including the Fifth Settlement, and 6th of October City, where it develops upscale residential, commercial and mixed-use communities."
+   },
+   {
+    "q": "What are Tameer Developments' flagship projects?",
+    "a": "Its best-known developments are the Azad compound and its Azad Views and Azad Walk extensions in New Cairo, the Diar projects in 6th of October City, and the Urban Business Lane (UBL) commercial destination."
+   },
+   {
+    "q": "When was Tameer established and what is its track record?",
+    "a": "Tameer traces back to 1954 and has more than 70 years of experience. Over that time it has delivered more than 27,000 units and is now listed on the Egyptian Exchange."
+   },
+   {
+    "q": "What unit types and payment options does Tameer offer?",
+    "a": "Its projects include apartments, penthouses, serviced apartments, offices and retail units, typically sold with a down payment followed by multi-year installment plans; current prices are set per project and confirmed directly with the developer's sales team."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "أين تُنفّذ شركة التعمير مشروعاتها في مصر؟",
+    "a": "تتركّز أعمال التعمير في القاهرة الجديدة ومنها التجمع الخامس، وفي مدينة السادس من أكتوبر، حيث تطوّر مجتمعات سكنية وتجارية ومتعددة الاستخدامات راقية."
+   },
+   {
+    "q": "ما أبرز مشروعات شركة التعمير؟",
+    "a": "من أشهر مشروعاتها كمبوند أزاد وامتداداه أزاد فيوز وأزاد ووك بالقاهرة الجديدة، ومشروعات ديار بمدينة السادس من أكتوبر، والوجهة التجارية أوربان بيزنس لين."
+   },
+   {
+    "q": "متى تأسست شركة التعمير وما سجلّها؟",
+    "a": "يعود تاريخ التعمير إلى عام 1954 ولديها خبرة تتجاوز 70 عامًا، سلّمت خلالها أكثر من 27 ألف وحدة، وهي اليوم مُدرجة في البورصة المصرية."
+   },
+   {
+    "q": "ما أنواع الوحدات وأنظمة السداد لدى التعمير؟",
+    "a": "تشمل المشروعات شققًا وبنتهاوس ووحدات فندقية ومكاتب ووحدات تجارية، وتُباع عادةً بمقدم وأقساط تمتد لسنوات، وتُحدَّد الأسعار الحالية لكل مشروع ويُرجَع فيها إلى فريق مبيعات المطوّر."
+   }
+  ],
+  "meta_title": "Tameer Developments: Projects & Prices in Egypt",
+  "meta_title_ar": "شركة التعمير: مشروعات وأسعار العقارات في مصر",
+  "meta_description": "Explore Tameer Developments (El Tameer), one of Egypt's oldest developers since 1954. See flagship Azad and Diar projects, unit types and locations in Egypt.",
+  "meta_description_ar": "تعرّف على شركة التعمير، من أعرق المطوّرين العقاريين في مصر منذ 1954. استكشف مشروعات أزاد وديار وأوربان بيزنس لين وأنواع الوحدات ومواقعها في مصر.",
   "_source": "researched"
+ },
+ {
+  "nawy_id": 9000011,
+  "name": "EG Master Group",
+  "name_ar": "إي جي ماستر جروب",
+  "slug": "eg-master-group",
+  "logo_url": null,
+  "min_price": null,
+  "compounds_count": 4,
+  "properties_count": null,
+  "established_year": 2015,
+  "areas": [
+   "New Administrative Capital",
+   "Ras Sudr"
+  ],
+  "areas_ar": [
+   "العاصمة الإدارية الجديدة",
+   "رأس سدر"
+  ],
+  "about": "EG Master Group, also styled EG Master Developments, is an Egyptian real-estate developer founded in 2015 and chaired by Rami Salib. The company works across commercial, residential and tourism development, and is best known for its commercial malls in the New Administrative Capital together with resort development on the Red Sea coast at Ras Sudr. It delivers its schemes in partnership with specialist consultants and contractors, combining mixed-use retail destinations with gated and coastal communities.",
+  "about_ar": "إي جي ماستر جروب، والمعروفة أيضاً باسم إي جي ماستر للتطوير العقاري، شركة تطوير عقاري مصرية تأسست عام 2015 ويرأسها المهندس رامي صليب. تعمل الشركة في المجالات التجارية والسكنية والسياحية، وتشتهر بمولاتها التجارية داخل العاصمة الإدارية الجديدة إلى جانب مشروعاتها المنتجعية على ساحل البحر الأحمر في رأس سدر. وتنفّذ الشركة مشروعاتها بالتعاون مع بيوت خبرة واستشاريين ومقاولين متخصصين، جامعةً بين الوجهات التجارية متعددة الاستخدامات والمجتمعات المسوّرة والمنتجعات الساحلية.",
+  "faqs": [
+   {
+    "q": "Who is EG Master Group?",
+    "a": "EG Master Group is an Egyptian real-estate developer founded in 2015 and chaired by Rami Salib. It works across commercial, residential and tourism projects."
+   },
+   {
+    "q": "Where does EG Master Group build its projects?",
+    "a": "Its verified developments are in the New Administrative Capital and on the Red Sea coast at Ras Sudr."
+   },
+   {
+    "q": "What are EG Master Group's main projects?",
+    "a": "Its portfolio includes the Aventura and Asgard commercial malls and the mixed-use The City Valley in the New Administrative Capital, along with the Valley Red Sea resort in Ras Sudr."
+   },
+   {
+    "q": "When was EG Master Group established?",
+    "a": "The company was established in 2015."
+   }
+  ],
+  "faqs_ar": [
+   {
+    "q": "ما هي شركة إي جي ماستر جروب؟",
+    "a": "إي جي ماستر جروب شركة تطوير عقاري مصرية تأسست عام 2015 ويرأسها المهندس رامي صليب، وتنفّذ مشروعات تجارية وسكنية وسياحية."
+   },
+   {
+    "q": "أين تنفّذ إي جي ماستر جروب مشروعاتها؟",
+    "a": "تتركّز مشروعاتها المؤكدة في العاصمة الإدارية الجديدة وعلى ساحل البحر الأحمر في رأس سدر."
+   },
+   {
+    "q": "ما أبرز مشروعات إي جي ماستر جروب؟",
+    "a": "تشمل محفظتها مولّي أفينتورا وأسجارد التجاريين ومشروع ذا سيتي فالي متعدد الاستخدامات بالعاصمة الإدارية، إلى جانب منتجع فالي ريد سي في رأس سدر."
+   },
+   {
+    "q": "متى تأسست إي جي ماستر جروب؟",
+    "a": "تأسست الشركة عام 2015."
+   }
+  ],
+  "meta_title": "EG Master Group | Egyptian Real-Estate Developer",
+  "meta_title_ar": "إي جي ماستر جروب | شركة تطوير عقاري مصرية",
+  "meta_description": "EG Master Group is an Egyptian developer founded in 2015, building commercial malls in the New Administrative Capital and resort projects at Ras Sudr on the Red Sea coast.",
+  "meta_description_ar": "إي جي ماستر جروب شركة تطوير عقاري مصرية تأسست عام 2015، تنفّذ مولات تجارية بالعاصمة الإدارية الجديدة ومنتجعات ساحلية في رأس سدر على البحر الأحمر."
  }
 ]
