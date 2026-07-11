@@ -14,6 +14,7 @@ import { GoLink } from "@/components/go-link";
 import { DeveloperLeadForm } from "@/components/developer-lead-form";
 import { DeveloperExplorer } from "@/components/developer-explorer";
 import { goHref } from "@/lib/leads";
+import { getDeveloperMedia } from "@/lib/developer-media";
 import { type Locale, t, localizedPath } from "@/lib/i18n";
 
 const NBSP = " ";
@@ -55,6 +56,10 @@ export function DeveloperDetail({
   const tree = getDeveloperTypeTree(dev.nawy_id);
   const hasInventory = units.length > 0;
 
+  // Local developer-supplied media (hero + project galleries) for profile-only
+  // developers that have no live catalog inventory.
+  const media = getDeveloperMedia(dev.slug);
+
   const prices = units
     .map((u) => u.price)
     .filter((p): p is number => typeof p === "number" && p > 0);
@@ -73,7 +78,10 @@ export function DeveloperDetail({
     units[0] ??
     null;
   const heroImage =
-    heroUnit?.image_url ?? compounds.find((c) => c.image_url)?.image_url ?? null;
+    heroUnit?.image_url ??
+    compounds.find((c) => c.image_url)?.image_url ??
+    media.hero ??
+    null;
   const downPct =
     heroUnit?.price && heroUnit?.down_payment
       ? Math.round((heroUnit.down_payment / heroUnit.price) * 100)
@@ -317,6 +325,45 @@ export function DeveloperDetail({
                   subtitle={getAreaName(c.area_nawy_id)}
                   locale={locale}
                 />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── 5b. PROJECT GALLERIES (local developer-supplied media) ─────── */}
+        {media.projects.length > 0 && (
+          <section className="mt-12">
+            <h2 className="text-[20px] font-bold uppercase tracking-tight text-ink">
+              {t("section.projectsBy", locale)} {name}
+            </h2>
+            <div className="mt-5 space-y-7">
+              {media.projects.map((p) => (
+                <div key={p.slug}>
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="text-[15px] font-extrabold uppercase tracking-tight text-ink">
+                      {pick(p.name, p.name_ar, locale)}
+                    </h3>
+                    <span className="shrink-0 text-[10px] font-bold uppercase tracking-[0.08em] text-taupe">
+                      {pick(p.area, p.area_ar, locale)}
+                    </span>
+                  </div>
+                  <div
+                    className="mt-2.5 flex gap-2 overflow-x-auto pb-2"
+                    style={{ scrollSnapType: "x mandatory" }}
+                  >
+                    {p.images.map((src, i) => (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        key={src}
+                        src={src}
+                        alt={`${pick(p.name, p.name_ar, locale)} — ${i + 1}`}
+                        loading="lazy"
+                        className="h-44 w-auto shrink-0 border border-data object-cover sm:h-56"
+                        style={{ scrollSnapAlign: "start" }}
+                      />
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </section>
