@@ -302,3 +302,31 @@ create table if not exists ad_spend (
 );
 alter table ad_spend enable row level security;
 revoke all on ad_spend from anon, authenticated;
+
+-- ═══════════════════════════════════════════════════════════════════════
+-- AI CHAT LOG — every Layla (AI advisor) conversation (2026-07)
+-- The /api/chat endpoint upserts one row per conversation (keyed by a
+-- client-generated conversation_id), growing the transcript each turn. The
+-- dashboard reads these to review what visitors asked and where handoffs
+-- happened. Service-role only — transcripts can contain a visitor's name/
+-- phone once they hand off, so the anon key must never read them.
+-- ═══════════════════════════════════════════════════════════════════════
+create table if not exists ai_conversations (
+  id              uuid primary key default gen_random_uuid(),
+  conversation_id text unique,                 -- client-generated stable key
+  session_id      text,                        -- df_sid (links to leads.session_id)
+  unit_slug       text,
+  unit_title      text,                        -- snapshot for the dashboard
+  locale          text,
+  page_path       text,
+  messages        jsonb not null default '[]', -- [{role:'user'|'model', text}]
+  turns           int  not null default 0,     -- visitor message count
+  handed_off      boolean not null default false,
+  lead_id         uuid references leads(id),
+  created_at      timestamptz not null default now(),
+  updated_at      timestamptz not null default now()
+);
+alter table ai_conversations enable row level security; -- NO policies: service-role only
+revoke all on ai_conversations from anon, authenticated;
+create index if not exists idx_ai_conv_updated on ai_conversations(updated_at desc);
+create index if not exists idx_ai_conv_session on ai_conversations(session_id);

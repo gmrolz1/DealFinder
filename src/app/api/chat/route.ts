@@ -10,6 +10,8 @@
 
 import { NextResponse } from "next/server";
 import { getUnitBySlug } from "@/lib/data";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { COOKIE_SID } from "@/lib/leads";
 import { formatPrice } from "@/lib/format";
 import {
   monthlyPayment,
@@ -164,6 +166,46 @@ type ParsedAgentReply = {
   shouldHandoff?: boolean;
 };
 
+// Persist the conversation for the dashboard chat log. Best-effort: one row
+// per conversation (keyed by a stable client id), upserted each turn so the
+// transcript grows. `handed_off` is sticky — only ever flipped to true.
+async function logConversation(opts: {
+  conversationId: string | null;
+  sessionId: string | null;
+  unitSlug: string;
+  unitTitle: string | null;
+  locale: Locale;
+  pagePath: string | null;
+  messages: ChatMessage[];
+  replyText: string;
+  handoff: boolean;
+}) {
+  const key =
+    opts.conversationId ||
+    (opts.sessionId ? `${opts.sessionId}:${opts.unitSlug}` : null);
+  if (!key) return; // no stable key (bot / no cookie) → skip
+
+  const transcript = [...opts.messages, { role: "model", text: opts.replyText }];
+  const turns = opts.messages.filter((m) => m.role === "user").length;
+
+  const row: Record<string, unknown> = {
+    conversation_id: key,
+    session_id: opts.sessionId,
+    unit_slug: opts.unitSlug,
+    unit_title: opts.unitTitle,
+    locale: opts.locale,
+    page_path: opts.pagePath,
+    messages: transcript,
+    turns,
+    updated_at: new Date().toISOString(),
+  };
+  if (opts.handoff) row.handed_off = true; // sticky — never downgrade
+
+  await getSupabaseAdmin()
+    .from("ai_conversations")
+    .upsert(row, { onConflict: "conversation_id" });
+}
+
 function parseAgentReply(raw: string): ParsedAgentReply {
   const cleaned = raw
     .trim()
@@ -193,7 +235,12 @@ export async function POST(req: Request) {
     );
   }
 
-  let body: { unitSlug?: string; locale?: Locale; messages?: ChatMessage[] };
+  let body: {
+    unitSlug?: string;
+    locale?: Locale;
+    messages?: ChatMessage[];
+    conversationId?: string;
+  };
   try {
     body = await req.json();
   } catch {
@@ -229,6 +276,38 @@ export async function POST(req: Request) {
   try {
     const raw = await callGemini(systemPrompt, conversation, apiKey);
     const reply = parseAgentReply(raw);
+
+    // Log to the dashboard chat log — best-effort, never breaks the reply.
+    try {
+      const cookieHeader = req.headers.get("cookie") ?? "";
+      const readCookie = (n: string) => {
+        const m = cookieHeader.match(new RegExp(`(?:^|;\\s*)${n}=([^;]+)`));
+        return m ? decodeURIComponent(m[1]) : undefined;
+      };
+      const sessionId =
+        readCookie(COOKIE_SID) ?? req.headers.get("x-df-sid") ?? null;
+      const referer = req.headers.get("referer");
+      let pagePath: string | null = null;
+      try {
+        pagePath = referer ? new URL(referer).pathname : null;
+      } catch {
+        /* ignore malformed referer */
+      }
+      await logConversation({
+        conversationId: body.conversationId ?? null,
+        sessionId,
+        unitSlug,
+        unitTitle: getUnitBySlug(unitSlug)?.title ?? null,
+        locale,
+        pagePath,
+        messages,
+        replyText: reply.text,
+        handoff: Boolean(reply.shouldHandoff),
+      });
+    } catch (logErr) {
+      console.error("[/api/chat] conversation log failed:", logErr);
+    }
+
     return NextResponse.json(reply);
   } catch (err) {
     const e = err as {

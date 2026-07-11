@@ -49,10 +49,22 @@ export function ChatSheet({
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const seedSentRef = useRef(false);
+  // Stable id for this chat, so the server logs one growing transcript row
+  // instead of a new row per turn. Set lazily on first send (client-only).
+  const conversationIdRef = useRef<string | null>(null);
   // Once we've recorded the chat lead server-side (on first phone number),
   // don't record it again — dedupe would collapse it anyway, but skipping the
   // extra round-trip keeps the UI snappy.
   const capturedRef = useRef(false);
+
+  // Mint the conversation id once, client-side (effects may be impure).
+  useEffect(() => {
+    if (conversationIdRef.current) return;
+    conversationIdRef.current =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `c_${Date.now()}_${Math.round(Math.random() * 1e9)}`;
+  }, []);
 
   useEffect(() => {
     const el = scrollerRef.current;
@@ -97,6 +109,8 @@ export function ChatSheet({
           unitSlug: unit.slug,
           locale,
           messages: nextMessages,
+          // null-safe: if unset, the server keys the log by session + unit.
+          conversationId: conversationIdRef.current ?? undefined,
         }),
       });
       const data = (await res.json()) as {

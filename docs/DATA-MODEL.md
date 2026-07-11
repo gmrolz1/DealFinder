@@ -195,3 +195,9 @@ RLS enabled with **no policies** — service-role only. Numbers are edited from 
 ### `ad_spend`
 
 Placeholder for the Google Ads spend pull (Phase 7): `day, campaign_id, campaign, spend, clicks, impressions`, unique per day+campaign. RLS locked.
+
+## AI chat log (2026-07)
+
+### `ai_conversations`
+
+Every conversation a visitor has with the Layla AI advisor. `/api/chat` **upserts** one row per chat (keyed by a client-generated `conversation_id`), overwriting `messages`/`turns`/`updated_at` each turn so the transcript grows in place — no row-per-message. Columns: `conversation_id` (unique), `session_id` (= `leads.session_id`), `unit_slug`, `unit_title` (snapshot), `locale`, `page_path`, `messages jsonb` (`[{role:'user'|'model', text}]`), `turns` (visitor message count), `handed_off bool` (sticky — set true when the reply contains the WhatsApp handoff; never downgraded), `lead_id fk`, `created_at`, `updated_at`. **RLS locked, service-role only** — transcripts can contain the visitor's name/phone after handoff, so the anon key must never read them. The dashboard reads it into the "AI conversations" panel (date-range + text filter, expandable transcripts).

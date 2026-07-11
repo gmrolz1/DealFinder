@@ -12,6 +12,10 @@ import {
   type ClientRow,
 } from "./clients-panel";
 import { LeadsTable, type LeadRow } from "./leads-table";
+import {
+  ConversationsTable,
+  type ConversationRow,
+} from "./conversations-table";
 
 export const metadata: Metadata = {
   title: "Lead Dashboard · DealFinder",
@@ -40,22 +44,31 @@ export default async function DashboardPage() {
   await requireAdmin();
   const db = getSupabaseAdmin();
 
-  const [{ data: clientsRaw }, { data: leadsRaw }] = await Promise.all([
-    db
-      .from("client_rotation")
-      .select("*")
-      .order("rotation_order", { ascending: true }),
-    db
-      .from("leads")
-      .select(
-        "id, created_at, client_id, source, status, pinned, name, phone, unit_title, page_path, locale, utm, gclid"
-      )
-      .order("created_at", { ascending: false })
-      .limit(500),
-  ]);
+  const [{ data: clientsRaw }, { data: leadsRaw }, { data: convRaw }] =
+    await Promise.all([
+      db
+        .from("client_rotation")
+        .select("*")
+        .order("rotation_order", { ascending: true }),
+      db
+        .from("leads")
+        .select(
+          "id, created_at, client_id, source, status, pinned, name, phone, unit_title, page_path, locale, utm, gclid"
+        )
+        .order("created_at", { ascending: false })
+        .limit(500),
+      db
+        .from("ai_conversations")
+        .select(
+          "id, updated_at, created_at, unit_slug, unit_title, locale, page_path, turns, handed_off, messages"
+        )
+        .order("updated_at", { ascending: false })
+        .limit(300),
+    ]);
 
   const clients = (clientsRaw ?? []) as ClientRow[];
   const leads = (leadsRaw ?? []) as RawLead[];
+  const conversations = (convRaw ?? []) as ConversationRow[];
   const clientById = new Map(clients.map((c) => [c.id, c]));
 
   // Who takes the next rotated lead — the RPC's exact ORDER BY.
@@ -246,6 +259,23 @@ export default async function DashboardPage() {
       <div className="mt-3">
         <LeadsTable leads={tableRows} />
       </div>
+
+      {/* AI chat log */}
+      <div className="mt-10 flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="text-[16px] font-bold uppercase tracking-tight text-ink">
+          AI conversations (Layla)
+        </h2>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-slate">
+          {conversations.length} logged ·{" "}
+          {conversations.filter((c) => c.handed_off).length} reached WhatsApp
+          handoff
+        </p>
+      </div>
+      <p className="mb-3 mt-1 text-[12px] text-slate">
+        Every chat a visitor had with the AI advisor. Filter by date, search
+        the text, click any row to read the full transcript.
+      </p>
+      <ConversationsTable rows={conversations} />
     </div>
   );
 }
