@@ -23,14 +23,21 @@ In account **AW-18195355585 ("the deal makers", 386-792-3119)**, build and **ena
 
 | Setting | Value |
 |---|---|
-| Type | Search (Google Search only — Partners OFF, Display OFF) |
+| Type | **Search ONLY.** NO Display, NO Display Network expansion, NO Search Partners, NO Performance Max. Uncheck "Include Google Display Network" and "Include Google search partners". |
 | **Devices** | **Mobile only** — desktop −100%, tablet −100% |
-| Locations | Egypt (presence) |
+| **Locations** | **Egypt + the Egyptian-expat Gulf hubs** where buyers live: **Saudi Arabia, United Arab Emirates, Kuwait, Qatar, Bahrain, Oman**. Location option = **"Presence: people in your targeted locations"**. See §2a for the expat-audience layer + your own client list. |
 | Languages | Arabic + English |
+| **Age** | **Exclude 18–24 and 25–34.** Target **35–44, 45–54, 55–64, 65+, and "Unknown"** (keep Unknown — most Search users have no known age, excluding it kills reach). Property buyers skew 35+. |
 | Bidding | **Maximize Conversions**, as a **portfolio strategy** shared across all 20 |
 | Budget | **One shared 10,000 EGP/day** across all 20 (≈ the strategy pushes spend to the best performers; do NOT set 10k per campaign) |
 | Match types | Phrase + Exact to start; add Broad after the conversion signal builds |
 | Ad rotation | Optimize |
+
+## 2a. Reaching Egyptians + your existing clients
+
+- **Egyptians abroad:** the Gulf locations above already put ads in front of the large Egyptian expat buyer base. To tighten it, **layer an audience in Observation mode** (not targeting-restricting at first): affinity/in-market "real estate" + language = Arabic, and — where available — an "Egypt" expat/travel audience. Watch which locations convert, then shift budget there.
+- **Your own clients (Customer Match):** upload your existing client/lead list (phone numbers + emails from the broker CRM / the site's `leads` table) as a **Customer Match audience**. Add it in **Observation** to every campaign so you can (a) see how warm contacts perform and (b) build a **similar-audience** off it. Do NOT set it to "Targeting" (that would shrink reach to only known clients).
+- Keep everything **Search-only** — none of this turns on Display.
 
 ## 3. Per-developer structure (repeat ×20)
 
