@@ -48,16 +48,18 @@ then `node scripts/inline-landing.mjs`.
 - Point each ad group at the matching URL + `?lang=` for tight message match
   (message match = higher Quality Score = lower CPC = lower CPL).
 
-## Before running ads — set up conversion tracking
+## Conversion tracking — configured
 
-CPL only improves if Google can see conversions. In each file, replace:
+These pages fire the **WhatsApp / Call Lead** conversion for the
+**"the deal makers"** account (386-792-3119):
 
-1. `AW-XXXXXXXXXX` (appears 3×) → your **Google Ads conversion ID**.
-2. `AW-XXXXXXXXXX/yyyyyyyy` (the `send_to` label, appears 3×) → your
-   **conversion action label** from Google Ads → Goals → Conversions.
+- Conversion ID: `AW-18195355585`
+- `send_to` label: `AW-18195355585/NMfzCPzfrMUcEMGvnORD`
 
 A conversion fires on every WhatsApp tap, every call tap, and every form submit.
-Until you set the IDs, tracking is a harmless no-op and the page still works.
+This is the same conversion action fired by the React app
+(`src/components/analytics/conversion-tracking.tsx`), so counts stay consistent
+across the static landing pages and the main site.
 
 ## Contact number
 
