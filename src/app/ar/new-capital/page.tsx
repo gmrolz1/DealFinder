@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { getAreaDeals, getCompoundsByArea, searchUnits } from "@/lib/data";
-import { CAMPAIGN } from "@/lib/campaign";
+import { CAMPAIGN, MAP_COPY, MAP_SIGNATURE } from "@/lib/campaign";
 import { NewCapitalLanding } from "@/components/campaign/new-capital-landing";
 
+/** Curated premium floor for the New Capital (MAP) landing — no budget stock. */
+const MAP_MIN_PRICE = 5_000_000;
+
 export const metadata: Metadata = {
-  title: "عقارات العاصمة الإدارية للبيع — أفضل العروض وخطط السداد",
+  title: "عقارات مميزة في العاصمة الإدارية للبيع — ماب العقارية",
   description:
-    "شقق وفيلات أولية في العاصمة الإدارية الجديدة من كبار المطوّرين. تبدأ من 2.7 مليون جنيه، مقدمات من 1%، تقسيط حتى 15 سنة. تواصل معنا على واتساب لأفضل العروض.",
+    "شقق وفيلات أولية مميزة مختارة بعناية في العاصمة الإدارية الجديدة من كبار المطوّرين — تبدأ من ٥ مليون جنيه، خطط مرنة. تواصل معنا على واتساب لأفضل العروض المميزة.",
   alternates: {
     canonical: "/ar/new-capital",
     languages: {
@@ -18,7 +21,10 @@ export const metadata: Metadata = {
 };
 
 export default function NewCapitalLandingPageAr() {
-  const deals = getAreaDeals(CAMPAIGN.areaId, 24);
+  const deals = getAreaDeals(CAMPAIGN.areaId, 24, {
+    minPrice: MAP_MIN_PRICE,
+    premium: true,
+  });
   const compounds = getCompoundsByArea(CAMPAIGN.areaId);
   const unitCount = searchUnits({ area: String(CAMPAIGN.areaId) }).total;
   const developerCount = new Set(
@@ -33,6 +39,8 @@ export default function NewCapitalLandingPageAr() {
       compoundCount={compounds.length}
       developerCount={developerCount}
       landingPath="/ar/new-capital"
+      copy={MAP_COPY}
+      signature={MAP_SIGNATURE.ar}
     />
   );
 }
