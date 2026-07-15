@@ -21,9 +21,10 @@ export const metadata: Metadata = {
 };
 
 export default function NewCapitalLandingPageAr() {
-  const deals = getAreaDeals(CAMPAIGN.areaId, 24, {
+  const deals = getAreaDeals(CAMPAIGN.areaId, 36, {
     minPrice: MAP_MIN_PRICE,
     premium: true,
+    residentialOnly: true,
   });
   const compounds = getCompoundsByArea(CAMPAIGN.areaId);
   const unitCount = searchUnits({ area: String(CAMPAIGN.areaId) }).total;

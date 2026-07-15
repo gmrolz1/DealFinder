@@ -721,6 +721,19 @@ const RESIDENTIAL_TYPES = new Set([
   "penthouse",
 ]);
 
+// Commercial property types — excluded from residential-only landings (e.g. the
+// premium New Capital page) so an "Own a Home" grid never shows offices/retail.
+// Kept separate from RESIDENTIAL_TYPES above (which is narrower, for scoring) so
+// homes like villas/townhouses/twinhouses/lofts still count as residential.
+const COMMERCIAL_TYPES = new Set([
+  "retail",
+  "administrative",
+  "office",
+  "clinic",
+  "commercial",
+  "building",
+]);
+
 function readyYearOf(u: Unit): number | null {
   if (!u.ready_by) return null;
   const d = new Date(u.ready_by);
@@ -748,14 +761,17 @@ function typeBucket(t: string | null): string {
 export function getAreaDeals(
   areaId: number | number[],
   n: number,
-  opts: { minPrice?: number; premium?: boolean } = {}
+  opts: { minPrice?: number; premium?: boolean; residentialOnly?: boolean } = {}
 ): EnrichedUnit[] {
   // Premium mode (client landings that must NOT surface budget stock): enforce
   // a price floor, and below skip the cheap-price score boosts + the reserved
   // budget slots, so the grid is curated up-market. Default mode is unchanged,
   // so the other landings that call getAreaDeals(area, n) keep their behaviour.
+  // residentialOnly drops commercial stock (offices/retail/clinics) — for a
+  // "homes" landing where a shop listing would be off-message.
   const minPrice = opts.minPrice ?? 0;
   const premium = opts.premium ?? false;
+  const residentialOnly = opts.residentialOnly ?? false;
   const s = store();
   const ids = new Set(Array.isArray(areaId) ? areaId : [areaId]);
   const excludedFamily = (u: Unit) => {
@@ -776,7 +792,9 @@ export function getAreaDeals(
         !CAMPAIGN_EXCLUDED_UNIT_IDS.has(u.nawy_id) &&
         !excludedFamily(u) &&
         (u.price ?? 0) > 0 &&
-        (u.price ?? 0) >= minPrice
+        (u.price ?? 0) >= minPrice &&
+        (!residentialOnly ||
+          !COMMERCIAL_TYPES.has((u.property_type ?? "").toLowerCase()))
     )
     .map((u) => {
       const pct =
