@@ -13,6 +13,7 @@ import {
   campaignWaTextGeneric,
   type CampaignCopy,
   type CampaignAreaLabel,
+  type MapSignature,
 } from "@/lib/campaign";
 import { goHref } from "@/lib/leads";
 import { GoLink } from "@/components/go-link";
@@ -30,6 +31,7 @@ export function NewCapitalLanding({
   landingPath = "/map",
   copy = CAMPAIGN_COPY,
   waArea,
+  signature,
 }: {
   locale?: Locale;
   deals: EnrichedUnit[];
@@ -44,6 +46,8 @@ export function NewCapitalLanding({
   copy?: CampaignCopy;
   /** Area wording for the prefilled WhatsApp messages (defaults to New Capital). */
   waArea?: CampaignAreaLabel;
+  /** Optional signature-project band (e.g. Il Bosco on the MAP landing). */
+  signature?: MapSignature;
 }) {
   const isAr = locale === "ar";
   const c = copy[locale];
@@ -54,6 +58,14 @@ export function NewCapitalLanding({
     text: campaignWaTextGeneric(locale, waArea),
   });
   const telGo = goHref({ channel: "tel", pinnedPath: landingPath, locale });
+  const signatureGo = signature
+    ? goHref({
+        channel: "wa",
+        pinnedPath: landingPath,
+        locale,
+        text: signature.waText,
+      })
+    : null;
   const stats = c.statsTpl
     .replace("{units}", formatNumber(unitCount))
     .replace("{compounds}", formatNumber(compoundCount))
@@ -122,6 +134,38 @@ export function NewCapitalLanding({
           </p>
         </div>
       </section>
+
+      {/* ── Signature project (e.g. Il Bosco) ─────────────────────────── */}
+      {signature && signatureGo && (
+        <section className="border-b border-data bg-ink px-4 py-12 text-paper sm:px-6">
+          <div className="mx-auto max-w-6xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-data">
+              {signature.eyebrow}
+            </p>
+            <div className="mt-3 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-2xl">
+                <h2 className="text-[32px] font-black uppercase leading-[0.95] tracking-tight sm:text-[48px]">
+                  <span className="glitch">{signature.name}</span>
+                </h2>
+                <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.1em] text-data">
+                  {signature.developer}
+                </p>
+                <p className="mt-4 text-[14px] leading-relaxed text-data sm:text-[15px]">
+                  {signature.blurb}
+                </p>
+              </div>
+              <GoLink
+                href={signatureGo}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="flex shrink-0 items-center justify-center gap-2 border border-paper bg-paper px-7 py-4 text-[13px] font-bold uppercase tracking-[0.07em] text-ink transition hover:bg-ink hover:text-paper"
+              >
+                <WhatsAppIcon size={17} /> {signature.ctaLabel}
+              </GoLink>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Best deals ────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">

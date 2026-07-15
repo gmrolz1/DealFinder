@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { getAreaDeals, getCompoundsByArea, searchUnits } from "@/lib/data";
-import { CAMPAIGN } from "@/lib/campaign";
+import { CAMPAIGN, MAP_COPY, MAP_SIGNATURE } from "@/lib/campaign";
 import { NewCapitalLanding } from "@/components/campaign/new-capital-landing";
 
+/** Curated premium floor for the MAP landing — no budget stock. */
+const MAP_MIN_PRICE = 5_000_000;
+
 export const metadata: Metadata = {
-  title: "MAP Real Estate — New Capital Properties for Sale",
+  title: "MAP Real Estate — Premium New Capital Properties for Sale",
   description:
-    "Primary apartments & villas in Egypt's New Administrative Capital from top developers. From EGP 1.8M, 10% down, up to 8-year plans. WhatsApp us for the best deals.",
+    "Hand-picked premium apartments & villas in Egypt's New Administrative Capital from top developers — from EGP 5M, flexible plans. WhatsApp us for the best premium deals.",
   alternates: {
     canonical: "/map",
     languages: {
@@ -18,7 +21,10 @@ export const metadata: Metadata = {
 };
 
 export default function MapLandingPage() {
-  const deals = getAreaDeals(CAMPAIGN.areaId, 24);
+  const deals = getAreaDeals(CAMPAIGN.areaId, 24, {
+    minPrice: MAP_MIN_PRICE,
+    premium: true,
+  });
   const compounds = getCompoundsByArea(CAMPAIGN.areaId);
   const unitCount = searchUnits({ area: String(CAMPAIGN.areaId) }).total;
   const developerCount = new Set(
@@ -34,6 +40,8 @@ export default function MapLandingPage() {
       developerCount={developerCount}
       brandName="MAP"
       landingPath="/map"
+      copy={MAP_COPY}
+      signature={MAP_SIGNATURE.en}
     />
   );
 }

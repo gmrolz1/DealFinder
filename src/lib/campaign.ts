@@ -404,3 +404,139 @@ export const ARABIAN_ESTATE_COPY: CampaignCopy = {
     seeAll: "عرض كل الوحدات",
   },
 };
+
+// ── MAP Real Estate landing copy (PREMIUM New Capital) ─────────────────────
+// MAP's /map page is curated up-market: a EGP 5M price floor + premium ranking
+// (see getAreaDeals(..., {minPrice, premium})), so the copy drops the budget
+// framing ("from 1.8M / 100k down") of the shared New Capital campaign and
+// speaks to higher-budget buyers. Kept separate so /new-capital is unaffected.
+export const MAP_COPY: CampaignCopy = {
+  en: {
+    eyebrow: "MAP Real Estate · New Administrative Capital",
+    h1a: "Own a Signature Home in the",
+    h1b: "New Capital",
+    sub: "Hand-picked premium primary units in the New Capital's most sought-after compounds — from EGP 5M. Direct developer prices, flexible plans, trusted names. Tell us your budget and we'll send today's best matches.",
+    waCta: "WhatsApp Us",
+    callCta: "Call Now",
+    hooks: [
+      { v: "FROM 5M", l: "EGP · premium units" },
+      { v: "TOP COMPOUNDS", l: "signature projects" },
+      { v: "UP TO 8 YRS", l: "installments" },
+      { v: "DIRECT", l: "developer prices" },
+    ],
+    statsTpl:
+      "{units} primary units · {compounds} compounds · {developers} developers",
+    dealsTitle: "Featured Premium Deals",
+    dealsSub:
+      "Hand-picked premium New Capital units — verified developer prices and the strongest payment plans. Tap WhatsApp on any unit for availability.",
+    whyTitle: "Why Buy Through MAP",
+    why: [
+      {
+        t: "Premium Primary Units",
+        d: "Developer (primary) stock only, from EGP 5M up — no budget resale guesswork.",
+      },
+      {
+        t: "Prime Locations",
+        d: "The New Capital's most sought-after districts and signature compounds.",
+      },
+      {
+        t: "Direct Developer Plans",
+        d: "Real prices and the latest payment plans, straight from the developer.",
+      },
+      {
+        t: "One Tap to a Human",
+        d: "Reach a MAP advisor on WhatsApp or by phone instantly — no forms, no waiting.",
+      },
+    ],
+    finalTitle: "Tell Us Your Budget",
+    finalSub:
+      "Send one message with your budget and preferred compound. We'll reply with a shortlist of the best premium New Capital homes — no spam, just options.",
+    perUnitWa: "WhatsApp",
+    perUnitCall: "Call",
+    stickyLabel: "Talk to a MAP advisor",
+    from: "From",
+    seeAll: "See all New Capital units",
+  },
+  ar: {
+    eyebrow: "ماب العقارية · العاصمة الإدارية الجديدة",
+    h1a: "امتلك وحدة مميزة في",
+    h1b: "العاصمة الإدارية",
+    sub: "وحدات أولية مميزة مختارة بعناية في أرقى كمبوندات العاصمة الإدارية — تبدأ من ٥ مليون جنيه. أسعار مباشرة من المطوّر، خطط مرنة، أسماء موثوقة. أخبرنا بميزانيتك ونرسل لك أفضل الخيارات اليوم.",
+    waCta: "تواصل واتساب",
+    callCta: "اتصل الآن",
+    hooks: [
+      { v: "من ٥ مليون", l: "جنيه · وحدات مميزة" },
+      { v: "أرقى الكمبوندات", l: "مشاريع مميزة" },
+      { v: "حتى ٨ سنوات", l: "تقسيط" },
+      { v: "مباشر", l: "أسعار المطوّر" },
+    ],
+    statsTpl: "{units} وحدة أولية · {compounds} كمبوند · {developers} مطوّر",
+    dealsTitle: "أفضل العروض المميزة",
+    dealsSub:
+      "وحدات مميزة مختارة في العاصمة الإدارية — أسعار موثّقة من المطوّر وأقوى خطط السداد. اضغط واتساب على أي وحدة لمعرفة التوفر.",
+    whyTitle: "لماذا تشتري مع ماب",
+    why: [
+      {
+        t: "وحدات أولية مميزة",
+        d: "وحدات من المطوّر فقط، تبدأ من ٥ مليون جنيه — بدون تخمين إعادة البيع.",
+      },
+      {
+        t: "مواقع متميّزة",
+        d: "أرقى أحياء العاصمة الإدارية وأبرز الكمبوندات المميزة.",
+      },
+      {
+        t: "خطط من المطوّر مباشرة",
+        d: "أسعار حقيقية وأحدث خطط السداد مباشرةً من المطوّر.",
+      },
+      {
+        t: "تواصل فوري",
+        d: "تواصل مع مستشار ماب على واتساب أو هاتفياً فوراً — بدون نماذج أو انتظار.",
+      },
+    ],
+    finalTitle: "أخبرنا بميزانيتك",
+    finalSub:
+      "أرسل رسالة واحدة بميزانيتك والكمبوند المفضّل، وسنرد عليك بقائمة أفضل وحدات العاصمة الإدارية المميزة — بدون إزعاج، خيارات فقط.",
+    perUnitWa: "واتساب",
+    perUnitCall: "اتصال",
+    stickyLabel: "تحدّث مع مستشار ماب",
+    from: "يبدأ من",
+    seeAll: "عرض كل وحدات العاصمة الإدارية",
+  },
+};
+
+// Il Bosco New Capital signature block for the MAP landing. The compound
+// (Misr Italia, nawy_id 181) has no scraped units in our dataset, so instead of
+// unit cards we feature it as a signature project with a WhatsApp CTA. Copy is
+// generated from public facts about the project — nothing scraped/copied.
+export type MapSignature = {
+  eyebrow: string;
+  name: string;
+  developer: string;
+  blurb: string;
+  ctaLabel: string;
+  /** Prefilled WhatsApp message; /api/go pins it to MAP. */
+  waText: string;
+};
+
+export const MAP_SIGNATURE: Record<Locale, MapSignature> = {
+  en: {
+    eyebrow: "Signature Project",
+    name: "Il Bosco New Capital",
+    developer: "Misr Italia",
+    blurb:
+      "Misr Italia's landmark forest-city in the New Administrative Capital — a green, high-end community of apartments, townhouses and standalone villas. Ask a MAP advisor for current availability, prices and payment plans.",
+    ctaLabel: "Ask about Il Bosco",
+    waText:
+      "Hi MAP — I'm interested in Il Bosco New Capital (Misr Italia). Could you send current availability, prices and payment plans?",
+  },
+  ar: {
+    eyebrow: "مشروع مميز",
+    name: "إل بوسكو العاصمة الإدارية",
+    developer: "مصر إيطاليا",
+    blurb:
+      "مشروع مصر إيطاليا المميز في العاصمة الإدارية الجديدة — مجتمع أخضر راقٍ من الشقق والتاون هاوس والفيلات المستقلة. اسأل مستشار ماب عن الوحدات المتاحة والأسعار وخطط السداد.",
+    ctaLabel: "اسأل عن إل بوسكو",
+    waText:
+      "السلام عليكم ماب — مهتم بمشروع إل بوسكو العاصمة الإدارية (مصر إيطاليا). ممكن تبعتلي الوحدات المتاحة والأسعار وخطط السداد؟",
+  },
+};
