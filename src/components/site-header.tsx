@@ -9,6 +9,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Wordmark } from "@/components/wordmark";
 import { BrandIcon } from "@/components/brand-icon";
 import {
@@ -27,12 +28,30 @@ const NAV_KEYS: [string, string][] = [
   ["nav.newLaunches", "/new-launches"],
 ];
 
+// Admin-only tab: shown always in the header, but the page itself
+// requires the ADMIN_PASSWORD cookie (redirects to /dashboard/login).
+const ADMIN_TABS: { href: string; en: string; ar: string }[] = [
+  { href: "/inventory", en: "Inventory", ar: "الإنفنتوري" },
+];
+
 export function SiteHeader() {
   const pathname = usePathname() || "/";
   const locale: Locale = localeFromPath(pathname);
   const otherLocale: Locale = locale === "ar" ? "en" : "ar";
   const otherLabel = otherLocale === "ar" ? "عربي" : "EN";
   const switchHref = switchLocaleHref(pathname, otherLocale);
+
+  // Admin tabs (Inventory) hidden from public marketplace visitors —
+  // only appear once the df_admin cookie is set (after /dashboard/login).
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    // df_admin_ui is a non-httpOnly mirror set at login (df_admin itself is
+    // httpOnly and cannot be read from JS).
+    const has = document.cookie
+      .split(";")
+      .some((c) => c.trim().startsWith("df_admin_ui="));
+    setIsAdmin(has);
+  }, [pathname]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-data bg-paper">
@@ -55,6 +74,16 @@ export function SiteHeader() {
               {t(key, locale)}
             </Link>
           ))}
+          {isAdmin &&
+            ADMIN_TABS.map((tab) => (
+              <Link
+                key={tab.href}
+                href={tab.href}
+                className="border-l border-data pl-8 text-ink transition hover:text-slate"
+              >
+                {locale === "ar" ? tab.ar : tab.en}
+              </Link>
+            ))}
         </nav>
 
         <div className="flex items-center gap-3">
