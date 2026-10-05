@@ -4,8 +4,8 @@
   "name": "New Zayed",
   "name_ar": "الشيخ زايد الجديدة",
   "image_url": null,
-  "compounds_count": 44,
-  "properties_count": 1506,
+  "compounds_count": 49,
+  "properties_count": 1606,
   "slug": "new-zayed"
  },
  {
@@ -13,8 +13,8 @@
   "name": "6th settlement",
   "name_ar": "التجمع السادس",
   "image_url": null,
-  "compounds_count": 32,
-  "properties_count": 998,
+  "compounds_count": 45,
+  "properties_count": 1838,
   "slug": "6th-settlement"
  },
  {
@@ -22,8 +22,8 @@
   "name": "Mostakbal City",
   "name_ar": "مدينة المستقبل",
   "image_url": null,
-  "compounds_count": 49,
-  "properties_count": 1969,
+  "compounds_count": 52,
+  "properties_count": 2114,
   "slug": "mostakbal-city"
  },
  {
@@ -31,8 +31,8 @@
   "name": "New Cairo",
   "name_ar": "القاهرة الجديدة",
   "image_url": null,
-  "compounds_count": 250,
-  "properties_count": 4522,
+  "compounds_count": 254,
+  "properties_count": 4782,
   "slug": "new-cairo"
  },
  {
@@ -40,8 +40,8 @@
   "name": "6th of October City",
   "name_ar": "مدينة السادس من أكتوبر",
   "image_url": null,
-  "compounds_count": 116,
-  "properties_count": 1753,
+  "compounds_count": 112,
+  "properties_count": 1871,
   "slug": "6th-of-october-city"
  },
  {
@@ -49,8 +49,8 @@
   "name": "El Sheikh Zayed",
   "name_ar": "الشيخ زايد",
   "image_url": null,
-  "compounds_count": 71,
-  "properties_count": 903,
+  "compounds_count": 75,
+  "properties_count": 1049,
   "slug": "el-sheikh-zayed"
  },
  {
@@ -58,8 +58,8 @@
   "name": "October Gardens",
   "name_ar": "حدائق اكتوبر",
   "image_url": null,
-  "compounds_count": 29,
-  "properties_count": 1037,
+  "compounds_count": 39,
+  "properties_count": 1565,
   "slug": "october-gardens"
  },
  {
@@ -67,8 +67,8 @@
   "name": "Ras El Hekma",
   "name_ar": "رأس الحكمة",
   "image_url": null,
-  "compounds_count": 94,
-  "properties_count": 1523,
+  "compounds_count": 129,
+  "properties_count": 3102,
   "slug": "ras-el-hekma"
  },
  {
@@ -76,8 +76,8 @@
   "name": "Sidi Heneish",
   "name_ar": "سيدي حنيش",
   "image_url": null,
-  "compounds_count": 17,
-  "properties_count": 202,
+  "compounds_count": 18,
+  "properties_count": 75,
   "slug": "sidi-heneish"
  },
  {
@@ -85,8 +85,8 @@
   "name": "Al Dabaa",
   "name_ar": "الضبعة",
   "image_url": null,
-  "compounds_count": 17,
-  "properties_count": 200,
+  "compounds_count": 22,
+  "properties_count": 619,
   "slug": "al-dabaa"
  },
  {
@@ -94,8 +94,8 @@
   "name": "New Heliopolis",
   "name_ar": "هيليوبوليس الجديدة",
   "image_url": null,
-  "compounds_count": 10,
-  "properties_count": 1391,
+  "compounds_count": 11,
+  "properties_count": 1247,
   "slug": "new-heliopolis"
  },
  {
@@ -103,8 +103,8 @@
   "name": "Sidi Abdel Rahman",
   "name_ar": "سيدي عبد الرحمن",
   "image_url": null,
-  "compounds_count": 23,
-  "properties_count": 715,
+  "compounds_count": 33,
+  "properties_count": 601,
   "slug": "sidi-abdel-rahman"
  },
  {
@@ -112,8 +112,8 @@
   "name": "Northern Expansion",
   "name_ar": "التوسعات الشمالية",
   "image_url": null,
-  "compounds_count": 30,
-  "properties_count": 637,
+  "compounds_count": 32,
+  "properties_count": 812,
   "slug": "northern-expansion"
  },
  {
@@ -121,8 +121,8 @@
   "name": "El Shorouk",
   "name_ar": "الشروق",
   "image_url": null,
-  "compounds_count": 15,
-  "properties_count": 50,
+  "compounds_count": 19,
+  "properties_count": 92,
   "slug": "el-shorouk"
  },
  {
@@ -130,8 +130,8 @@
   "name": "South New Cairo",
   "name_ar": "جنوب القاهرة الجديدة",
   "image_url": null,
-  "compounds_count": 5,
-  "properties_count": 29,
+  "compounds_count": 6,
+  "properties_count": 78,
   "slug": "south-new-cairo"
  },
  {
@@ -139,8 +139,8 @@
   "name": "Golden Square",
   "name_ar": "جولدن سكوير",
   "image_url": null,
-  "compounds_count": 11,
-  "properties_count": 41,
+  "compounds_count": 13,
+  "properties_count": 151,
   "slug": "golden-square"
  },
  {
@@ -148,8 +148,8 @@
   "name": "Ain Sokhna",
   "name_ar": "العين السخنة",
   "image_url": null,
-  "compounds_count": 56,
-  "properties_count": 883,
+  "compounds_count": 63,
+  "properties_count": 1063,
   "slug": "ain-sokhna"
  },
  {
@@ -157,8 +157,8 @@
   "name": "New Capital City",
   "name_ar": "العاصمة الإدارية الجديدة",
   "image_url": null,
-  "compounds_count": 154,
-  "properties_count": 4744,
+  "compounds_count": 162,
+  "properties_count": 5949,
   "slug": "new-capital-city"
  },
  {
@@ -167,7 +167,7 @@
   "name_ar": "سفنكس الجديدة",
   "image_url": null,
   "compounds_count": 2,
-  "properties_count": 58,
+  "properties_count": 69,
   "slug": "new-sphinx"
  },
  {
@@ -175,8 +175,8 @@
   "name": "North Coast-Sahel",
   "name_ar": "الساحل الشمالي",
   "image_url": null,
-  "compounds_count": 32,
-  "properties_count": 74,
+  "compounds_count": 10,
+  "properties_count": 0,
   "slug": "north-coast-sahel"
  },
  {
@@ -194,7 +194,7 @@
   "name_ar": "مقطم",
   "image_url": null,
   "compounds_count": 2,
-  "properties_count": 1,
+  "properties_count": 0,
   "slug": "mokattam"
  },
  {
@@ -202,8 +202,8 @@
   "name": "North Investors",
   "name_ar": "المستثمرين الشمالية",
   "image_url": null,
-  "compounds_count": 17,
-  "properties_count": 54,
+  "compounds_count": 19,
+  "properties_count": 88,
   "slug": "north-investors"
  },
  {
@@ -220,8 +220,8 @@
   "name": "El Gouna",
   "name_ar": "الجونة",
   "image_url": null,
-  "compounds_count": 14,
-  "properties_count": 51,
+  "compounds_count": 17,
+  "properties_count": 92,
   "slug": "el-gouna"
  },
  {
@@ -229,8 +229,8 @@
   "name": "Somabay",
   "name_ar": "سوماباي",
   "image_url": null,
-  "compounds_count": 20,
-  "properties_count": 523,
+  "compounds_count": 23,
+  "properties_count": 270,
   "slug": "somabay"
  },
  {
@@ -239,7 +239,7 @@
   "name_ar": "المعادي",
   "image_url": null,
   "compounds_count": 5,
-  "properties_count": 63,
+  "properties_count": 16,
   "slug": "maadi"
  },
  {
@@ -247,8 +247,8 @@
   "name": "Al Alamein",
   "name_ar": "العلمين",
   "image_url": null,
-  "compounds_count": 18,
-  "properties_count": 2145,
+  "compounds_count": 29,
+  "properties_count": 2109,
   "slug": "al-alamein"
  },
  {
@@ -256,8 +256,8 @@
   "name": "Hurghada",
   "name_ar": "الغردقة",
   "image_url": null,
-  "compounds_count": 5,
-  "properties_count": 30,
+  "compounds_count": 3,
+  "properties_count": 0,
   "slug": "hurghada"
  },
  {
@@ -266,7 +266,7 @@
   "name_ar": "غزالة باي",
   "image_url": null,
   "compounds_count": 2,
-  "properties_count": 22,
+  "properties_count": 20,
   "slug": "ghazala-bay"
  },
  {
@@ -275,7 +275,7 @@
   "name_ar": "وسط القاهرة",
   "image_url": null,
   "compounds_count": 3,
-  "properties_count": 18,
+  "properties_count": 28,
   "slug": "downtown-cairo"
  },
  {
@@ -284,7 +284,7 @@
   "name_ar": "راس سدر",
   "image_url": null,
   "compounds_count": 4,
-  "properties_count": 265,
+  "properties_count": 242,
   "slug": "ras-sudr"
  },
  {
@@ -293,7 +293,7 @@
   "name_ar": "الإسكندرية",
   "image_url": null,
   "compounds_count": 2,
-  "properties_count": 41,
+  "properties_count": 195,
   "slug": "alexandria"
  },
  {
@@ -301,8 +301,8 @@
   "name": "Makadi",
   "name_ar": "مكادي",
   "image_url": null,
-  "compounds_count": 2,
-  "properties_count": 26,
+  "compounds_count": 5,
+  "properties_count": 128,
   "slug": "makadi"
  },
  {
@@ -310,8 +310,8 @@
   "name": "El Lotus",
   "name_ar": "اللوتس",
   "image_url": null,
-  "compounds_count": 9,
-  "properties_count": 367,
+  "compounds_count": 10,
+  "properties_count": 245,
   "slug": "el-lotus"
  },
  {
@@ -319,8 +319,8 @@
   "name": "South Investors",
   "name_ar": "المستثمرين الجنوبية",
   "image_url": null,
-  "compounds_count": 10,
-  "properties_count": 69,
+  "compounds_count": 11,
+  "properties_count": 97,
   "slug": "south-investors"
  },
  {
@@ -337,8 +337,8 @@
   "name": "Old Cairo",
   "name_ar": "القاهرة القديمة",
   "image_url": null,
-  "compounds_count": 1,
-  "properties_count": 3,
+  "compounds_count": 2,
+  "properties_count": 116,
   "slug": "old-cairo"
  },
  {
@@ -346,8 +346,8 @@
   "name": "Heliopolis",
   "name_ar": "هيليوبوليس",
   "image_url": null,
-  "compounds_count": 2,
-  "properties_count": 16,
+  "compounds_count": 4,
+  "properties_count": 59,
   "slug": "heliopolis"
  },
  {
@@ -355,8 +355,8 @@
   "name": "Central Cairo",
   "name_ar": "القاهره",
   "image_url": null,
-  "compounds_count": 3,
-  "properties_count": 1,
+  "compounds_count": 2,
+  "properties_count": 0,
   "slug": "central-cairo"
  },
  {
@@ -365,7 +365,7 @@
   "name_ar": "الشويفات",
   "image_url": null,
   "compounds_count": 3,
-  "properties_count": 32,
+  "properties_count": 45,
   "slug": "el-choueifat"
  },
  {
@@ -376,5 +376,32 @@
   "compounds_count": 1,
   "properties_count": 0,
   "slug": "new-capital-gardens"
+ },
+ {
+  "nawy_id": 362001789542759700,
+  "name": "El-Hamam",
+  "name_ar": null,
+  "image_url": null,
+  "compounds_count": 4,
+  "properties_count": 15,
+  "slug": "el-hamam"
+ },
+ {
+  "nawy_id": 4595781951115292700,
+  "name": "Giza",
+  "name_ar": null,
+  "image_url": null,
+  "compounds_count": 1,
+  "properties_count": 2,
+  "slug": "giza"
+ },
+ {
+  "nawy_id": 2106961215290730200,
+  "name": "Alam Al Roum",
+  "name_ar": null,
+  "image_url": null,
+  "compounds_count": 2,
+  "properties_count": 9,
+  "slug": "alam-al-roum"
  }
 ]
