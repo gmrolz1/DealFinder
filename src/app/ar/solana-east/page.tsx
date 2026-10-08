@@ -81,6 +81,11 @@ export default function SolanaEastPage() {
             الوحدة بتشتغل لك وانت مش فاضي: أورا للضيافة بتأجرها وبتديرها وبتهتم بالصيانة، وانت ليك العائد.
             مناسبة لو بتدور على استثمار في التجمع من مطور كبير، أو مكان جاهز تنزل فيه وقت ما تحب.
           </p>
+          {/* in-flow on phones (the form sits above the content there) — a
+              fixed bar used to cover the form's own submit button */}
+          <a href="#lead" className="mt-6 flex h-12 items-center justify-center rounded-xl bg-ink font-bold text-paper md:hidden">
+            اعرف الأسعار وخطة السداد
+          </a>
         </div>
 
         <aside className="order-1 md:order-2 md:sticky md:top-6 md:self-start">
@@ -88,13 +93,7 @@ export default function SolanaEastPage() {
         </aside>
       </div>
 
-      <a
-        href="#lead"
-        className="fixed inset-x-4 bottom-4 z-20 flex h-12 items-center justify-center rounded-xl bg-ink font-bold text-paper shadow-lg md:hidden"
-      >
-        اعرف الأسعار
-      </a>
-      <footer className="border-t border-data px-4 py-6 pb-24 text-center text-xs text-slate md:pb-6">
+      <footer className="border-t border-data px-4 py-6 text-center text-xs text-slate">
         egy.deals · المعلومات من المطور وقابلة للتغيير
       </footer>
     </div>
