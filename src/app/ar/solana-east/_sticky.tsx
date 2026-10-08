@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from "react";
 
-export function StickyBar() {
+export function StickyBar({ label = "سجّل اهتمامك" }: { label?: string }) {
   const [show, setShow] = useState(false);
   useEffect(() => {
     const hero = document.getElementById("hero");
@@ -35,7 +35,7 @@ export function StickyBar() {
       style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
     >
       <a href="#magnet" className="flex h-12 items-center justify-center rounded-xl bg-ink font-bold text-paper">
-        خُد كتيّب المشروع ببلاش
+        {label}
       </a>
     </div>
   );

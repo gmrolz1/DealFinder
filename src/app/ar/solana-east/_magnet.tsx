@@ -20,7 +20,20 @@ const ERR: Record<string, string> = {
   network: "النت فصل، جرّب تاني.",
 };
 
-export function Magnet({ callPhone, callDisplay }: { callPhone: string; callDisplay: string }) {
+export type MagnetCopy = { eyebrow: string; title: string; titlePlan: string; cta: string; ctaPlan: string; tag: string };
+
+// Default copy = "register your interest" (Omar 2026-10-08). The private-access
+// page passes its own.
+export const REGISTER_COPY: MagnetCopy = {
+  eyebrow: "ببلاش · من غير التزام",
+  title: "سجّل اهتمامك وخُد كتيّب المشروع الكامل",
+  titlePlan: "سجّل اهتمامك وخُد المتاح دلوقتي",
+  cta: "سجّل اهتمامي",
+  ctaPlan: "سجّل اهتمامي بالوحدة دي",
+  tag: "تسجيل اهتمام",
+};
+
+export function Magnet({ callPhone, callDisplay, copy = REGISTER_COPY }: { callPhone: string; callDisplay: string; copy?: MagnetCopy }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [unit, setUnit] = useState("");
@@ -53,7 +66,7 @@ export function Magnet({ callPhone, callDisplay }: { callPhone: string; callDisp
     setBusy(true);
     const sp = new URLSearchParams(window.location.search);
     const pick = (k: string) => sp.get(k) ?? undefined;
-    const interest = [plan ? "المتاح والأسعار" : "كتيّب", unit].filter(Boolean).join(" · ");
+    const interest = [copy.tag, plan ? "المتاح" : "", unit].filter(Boolean).join(" · ");
     try {
       const res = await fetch("/api/lp/solana-east", {
         method: "POST",
@@ -104,7 +117,7 @@ export function Magnet({ callPhone, callDisplay }: { callPhone: string; callDisp
           {done ? (
             <div>
               <p className="text-xs font-semibold text-data">جاهز</p>
-              <p className="mt-1 text-2xl font-extrabold">الكتيّب بتاعك يا {name.split(" ")[0]}</p>
+              <p className="mt-1 text-2xl font-extrabold">اتسجّل اهتمامك يا {name.split(" ")[0]}</p>
               <a
                 href={BROCHURE_URL}
                 target="_blank"
@@ -124,9 +137,9 @@ export function Magnet({ callPhone, callDisplay }: { callPhone: string; callDisp
             </div>
           ) : (
             <form onSubmit={submit}>
-              <p className="text-xs font-semibold text-data">ببلاش · من غير التزام</p>
+              <p className="text-xs font-semibold text-data">{copy.eyebrow}</p>
               <h2 className="mt-1 text-2xl font-extrabold leading-snug md:text-3xl">
-                {plan ? "المتاح دلوقتي + الكتيّب الكامل" : "كتيّب Solana East الكامل من أورا"}
+                {plan ? copy.titlePlan : copy.title}
               </h2>
               <ul className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 text-sm text-data">
                 <li>· الموقع والمسافات</li>
@@ -186,7 +199,7 @@ export function Magnet({ callPhone, callDisplay }: { callPhone: string; callDisp
                 disabled={busy}
                 className="mt-4 h-12 w-full rounded-xl bg-paper text-base font-bold text-ink disabled:opacity-60"
               >
-                {busy ? "لحظة…" : plan ? "ابعتلي المتاح والكتيّب" : "افتح الكتيّب"}
+                {busy ? "لحظة…" : plan ? copy.ctaPlan : copy.cta}
               </button>
               <p className="mt-2 text-center text-xs text-white/50">رقمك بيروح لفريق المبيعات بس، ومش هنبعتلك رسايل كتير.</p>
             </form>

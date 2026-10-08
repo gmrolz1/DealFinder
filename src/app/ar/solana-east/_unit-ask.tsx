@@ -10,7 +10,7 @@ export function UnitAsk({ unit }: { unit: string }) {
       onClick={() => window.dispatchEvent(new CustomEvent("se:want", { detail: { unit } }))}
       className="mt-4 h-10 w-full rounded-xl border border-white/25 text-sm font-bold text-paper"
     >
-      اعرف المتاح · {unit}
+      سجّل اهتمامك · {unit}
     </button>
   );
 }

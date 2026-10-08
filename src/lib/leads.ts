@@ -35,6 +35,7 @@ export const PINNED_ROUTES: Record<string, string> = {
  * portal (wemake.deals /api/lp/lead) — not to this site's rotation. */
 export const LP_ROUTES: Record<string, string> = {
   "/ar/solana-east": "solana-east",
+  "/ar/solana-east/offer": "solana-east",
 };
 
 /** Pages rendered without the DealFinder chrome (client landings own their
