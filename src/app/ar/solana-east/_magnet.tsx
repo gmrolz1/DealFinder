@@ -3,8 +3,8 @@
 // The lead magnet: the developer's own 82-page Solana East guide, free. Name +
 // phone unlock the download on the spot (no "we'll call you" wall) — the value
 // comes first, the conversation second. The lead goes to Crestline's portal
-// through /api/lp/solana-east. The calculator can pre-fill the unit and the
-// reason ("plan") via the `se:want` event.
+// through /api/lp/solana-east. The unit cards can pre-fill the unit and switch
+// the ask to "what's available now" via the `se:want` event.
 
 import { useEffect, useRef, useState } from "react";
 import { GOOGLE_ADS_LEAD_SEND_TO } from "@/components/analytics/conversion-tracking";
@@ -31,7 +31,7 @@ export function Magnet({ callPhone, callDisplay }: { callPhone: string; callDisp
   const [done, setDone] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
 
-  // The calculator's "send me the official plan" lands here with its unit.
+  // A unit card's "what's available" lands here with its unit.
   useEffect(() => {
     const on = (e: Event) => {
       const d = (e as CustomEvent<{ unit?: string }>).detail ?? {};
@@ -53,7 +53,7 @@ export function Magnet({ callPhone, callDisplay }: { callPhone: string; callDisp
     setBusy(true);
     const sp = new URLSearchParams(window.location.search);
     const pick = (k: string) => sp.get(k) ?? undefined;
-    const interest = [plan ? "خطة سداد" : "كتيّب", unit].filter(Boolean).join(" · ");
+    const interest = [plan ? "المتاح والأسعار" : "كتيّب", unit].filter(Boolean).join(" · ");
     try {
       const res = await fetch("/api/lp/solana-east", {
         method: "POST",
@@ -115,7 +115,7 @@ export function Magnet({ callPhone, callDisplay }: { callPhone: string; callDisp
               </a>
               <p className="mt-3 text-sm text-data">
                 {plan
-                  ? "وهنبعتلك خطة السداد الرسمية للوحدة اللي اخترتها على واتساب."
+                  ? "وهنبعتلك المتاح دلوقتي وأسعار المرحلة الأولى للوحدة اللي اخترتها على واتساب."
                   : "ولو حبيت قائمة الأسعار المحدّثة، الفريق هيبعتهالك على واتساب."}
               </p>
               <a href={`tel:${callPhone}`} data-no-conv className="mt-4 inline-block text-sm text-data underline underline-offset-4">
@@ -126,7 +126,7 @@ export function Magnet({ callPhone, callDisplay }: { callPhone: string; callDisp
             <form onSubmit={submit}>
               <p className="text-xs font-semibold text-data">ببلاش · من غير التزام</p>
               <h2 className="mt-1 text-2xl font-extrabold leading-snug md:text-3xl">
-                {plan ? "خطة السداد الرسمية + الكتيّب" : "كتيّب Solana East الكامل من أورا"}
+                {plan ? "المتاح دلوقتي + الكتيّب الكامل" : "كتيّب Solana East الكامل من أورا"}
               </h2>
               <ul className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 text-sm text-data">
                 <li>· الموقع والمسافات</li>
@@ -186,7 +186,7 @@ export function Magnet({ callPhone, callDisplay }: { callPhone: string; callDisp
                 disabled={busy}
                 className="mt-4 h-12 w-full rounded-xl bg-paper text-base font-bold text-ink disabled:opacity-60"
               >
-                {busy ? "لحظة…" : plan ? "ابعتلي خطة السداد والكتيّب" : "افتح الكتيّب"}
+                {busy ? "لحظة…" : plan ? "ابعتلي المتاح والكتيّب" : "افتح الكتيّب"}
               </button>
               <p className="mt-2 text-center text-xs text-white/50">رقمك بيروح لفريق المبيعات بس، ومش هنبعتلك رسايل كتير.</p>
             </form>
