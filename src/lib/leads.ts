@@ -31,10 +31,20 @@ export const PINNED_ROUTES: Record<string, string> = {
   "/ar/elite-homes": "elite-homes",
 };
 
+/** Single-project landings whose form forwards each lead to The Deal Maker
+ * portal (wemake.deals /api/lp/lead) — not to this site's rotation. */
+export const LP_ROUTES: Record<string, string> = {
+  "/ar/solana-east": "solana-east",
+};
+
 /** Pages rendered without the DealFinder chrome (client landings own their
  * branding; the dashboard is an internal tool). */
 export function isStandalonePath(pathname: string): boolean {
-  return pathname in PINNED_ROUTES || pathname.startsWith("/dashboard");
+  return (
+    pathname in PINNED_ROUTES ||
+    pathname in LP_ROUTES ||
+    pathname.startsWith("/dashboard")
+  );
 }
 
 // ── bot filtering (applies to lead RECORDING only, never to redirecting) ──

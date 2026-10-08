@@ -30,6 +30,9 @@ export function ConversionTracking() {
       const target = e.target as HTMLElement | null;
       const link = target?.closest?.("a");
       if (!link) return;
+      // A call button shown AFTER a form lead (data-no-conv) is the same
+      // person — counting it again would double the conversion.
+      if (link.hasAttribute("data-no-conv")) return;
       const href = link.getAttribute("href") || "";
 
       let event: string | null = null;
