@@ -127,7 +127,7 @@ export default async function SolanaEastPage({ searchParams }: { searchParams: P
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-white/85 md:text-lg">{v.sub}</p>
             <a href="#magnet" className="mt-6 flex h-12 items-center justify-center rounded-xl bg-paper px-6 font-bold text-ink sm:inline-flex">
-              خُد كتيّب المشروع الكامل ببلاش
+              سجّل اهتمامك
             </a>
           </div>
         </div>
@@ -294,9 +294,9 @@ export default async function SolanaEastPage({ searchParams }: { searchParams: P
       <section className="bg-ink px-5 py-12 text-center text-paper md:py-16">
         <OraLogo className="mx-auto h-6 w-auto" color="#fff" />
         <h2 className="mt-5 text-2xl font-extrabold md:text-4xl">اللي بيدخل بدري، بياخد سعر اللونش</h2>
-        <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-data">خُد الكتيّب الكامل واقرأ براحتك، وقرّر وانت عارف كل حاجة.</p>
+        <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-data">سجّل اهتمامك، خُد الكتيّب الكامل، واقرأ براحتك قبل ما تقرّر.</p>
         <a href="#magnet" className="mx-auto mt-6 flex h-12 max-w-xs items-center justify-center rounded-xl bg-paper font-bold text-ink">
-          افتح الكتيّب
+          سجّل اهتمامك
         </a>
         <p className="mx-auto mt-10 max-w-xl text-[11px] leading-5 text-white/40">
           egy.deals موقع مستقل ومش تابع لأورا. اسم وشعار أورا ملك أورا للتطوير العقاري. المعلومات والصور من المطوّر وقابلة للتغيير.
