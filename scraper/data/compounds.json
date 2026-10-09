@@ -362,14 +362,16 @@
   "subtitle": "Discover Tatweer Misr's Properties in Mostakbal City – With Financing Up to 10.8 Years",
   "subtitle_ar": "اكتشف عقارات تطوير مصر في مدينة المستقبل – مع اقساط تصل إلى 10.8",
   "property_types": [
-   "Villa",
-   "Townhouse"
+   "Townhouse",
+   "Twinhouse",
+   "Villa"
   ],
   "property_types_ar": [
-   "فيلا",
-   "تاون هاوس"
+   "تاون هاوس",
+   "توين هاوس",
+   "فيلا"
   ],
-  "min_price": 16066000,
+  "min_price": 15083000,
   "ready_by": 20280630
  },
  {
@@ -451,20 +453,14 @@
   "subtitle": "Discover Palm Hills Developments's Properties in October Gardens – With Financing Up to 11.6 Years",
   "subtitle_ar": "اكتشف عقارات بالم هيلز للتطوير العقاري في حدائق اكتوبر – مع اقساط تصل إلى 11.6",
   "property_types": [
-   "Villa",
    "Apartment",
-   "Penthouse",
-   "Studio",
    "Townhouse",
-   "Twinhouse"
+   "Villa"
   ],
   "property_types_ar": [
-   "فيلا",
    "شقة",
-   "بنتهاوس",
-   "ستوديو",
    "تاون هاوس",
-   "توين هاوس"
+   "فيلا"
   ],
   "min_price": 6842600,
   "ready_by": 20280930
@@ -484,26 +480,20 @@
   "property_types": [
    "Villa",
    "Apartment",
+   "Sky Villa",
    "Duplex",
-   "Penthouse",
-   "Studio",
    "Townhouse",
-   "Office",
-   "Twinhouse",
-   "Administrative"
+   "Twinhouse"
   ],
   "property_types_ar": [
    "فيلا",
    "شقة",
+   "Sky Villa",
    "دوبلكس",
-   "بنتهاوس",
-   "ستوديو",
    "تاون هاوس",
-   "مكتب",
-   "توين هاوس",
-   "Administrative"
+   "توين هاوس"
   ],
-  "min_price": 6000000,
+  "min_price": 6870000,
   "ready_by": 20261201
  },
  {
@@ -724,28 +714,18 @@
   "subtitle": "Discover People & Places's Properties in Ras El Hekma – With Financing Up to 8 Years",
   "subtitle_ar": "اكتشف عقارات بيبول اند بلاسيز في رأس الحكمة – مع اقساط تصل إلى 8",
   "property_types": [
-   "Villa",
-   "Apartment",
-   "Duplex",
-   "Penthouse",
-   "Chalet",
-   "Cabin",
-   "Townhouse",
    "Twinhouse",
-   "Loft"
+   "Villa",
+   "Chalet",
+   "Townhouse"
   ],
   "property_types_ar": [
-   "فيلا",
-   "شقة",
-   "دوبلكس",
-   "بنتهاوس",
-   "شاليه",
-   "كابينة",
-   "تاون هاوس",
    "توين هاوس",
-   "لوفت"
+   "فيلا",
+   "شاليه",
+   "تاون هاوس"
   ],
-  "min_price": 13243000,
+  "min_price": 14786000,
   "ready_by": 20300601
  },
  {
@@ -794,24 +774,14 @@
   "subtitle": "Discover SODIC's Properties in Ras El Hekma – With Financing Up to 8 Years",
   "subtitle_ar": "اكتشف عقارات سوديك في رأس الحكمة – مع اقساط تصل إلى 8",
   "property_types": [
-   "Villa",
-   "Apartment",
-   "Duplex",
-   "Penthouse",
+   "Loft",
    "Chalet",
-   "Townhouse",
-   "Twinhouse",
-   "Loft"
+   "Twinhouse"
   ],
   "property_types_ar": [
-   "فيلا",
-   "شقة",
-   "دوبلكس",
-   "بنتهاوس",
+   "لوفت",
    "شاليه",
-   "تاون هاوس",
-   "توين هاوس",
-   "لوفت"
+   "توين هاوس"
   ],
   "min_price": 25204000,
   "ready_by": 20280930
@@ -853,13 +823,17 @@
   "subtitle_ar": "اكتشف عقارات هايد بارك في مدينة السادس من أكتوبر – مع اقساط تصل إلى 8",
   "property_types": [
    "Apartment",
-   "Townhouse"
+   "Townhouse",
+   "Villa",
+   "Twinhouse"
   ],
   "property_types_ar": [
    "شقة",
-   "تاون هاوس"
+   "تاون هاوس",
+   "فيلا",
+   "توين هاوس"
   ],
-  "min_price": 15210000,
+  "min_price": 6800000,
   "ready_by": 20270331
  },
  {
@@ -901,17 +875,17 @@
   "subtitle_ar": "اكتشف عقارات  القمزي للتطوير العقاري  في الضبعة – مع اقساط تصل إلى 8.6",
   "property_types": [
    "Villa",
-   "Chalet",
    "Townhouse",
-   "Twinhouse"
+   "Twinhouse",
+   "Chalet"
   ],
   "property_types_ar": [
    "فيلا",
-   "شاليه",
    "تاون هاوس",
-   "توين هاوس"
+   "توين هاوس",
+   "شاليه"
   ],
-  "min_price": 6894000,
+  "min_price": 13573040,
   "ready_by": 20291231
  },
  {
@@ -957,23 +931,15 @@
   "subtitle_ar": "اكتشف عقارات سوديك في هيليوبوليس الجديدة – مع اقساط تصل إلى 10",
   "property_types": [
    "Villa",
-   "Apartment",
-   "Retail",
-   "Duplex",
-   "Penthouse",
    "Townhouse",
-   "Twinhouse"
+   "Apartment"
   ],
   "property_types_ar": [
    "فيلا",
-   "شقة",
-   "محل تجاري",
-   "دوبلكس",
-   "بنتهاوس",
    "تاون هاوس",
-   "توين هاوس"
+   "شقة"
   ],
-  "min_price": 6700000,
+  "min_price": 14707000,
   "ready_by": 20270930
  },
  {
@@ -1049,12 +1015,20 @@
   "subtitle": "Discover Tatweer Misr's Properties in Ras El Hekma – With Financing Up to 11 Years",
   "subtitle_ar": "اكتشف عقارات تطوير مصر في رأس الحكمة – مع اقساط تصل إلى 11",
   "property_types": [
-   "Chalet"
+   "Chalet",
+   "Studio",
+   "Villa",
+   "Twinhouse",
+   "Townhouse"
   ],
   "property_types_ar": [
-   "شاليه"
+   "شاليه",
+   "ستوديو",
+   "فيلا",
+   "توين هاوس",
+   "تاون هاوس"
   ],
-  "min_price": 13332000,
+  "min_price": 7722000,
   "ready_by": 20301130
  },
  {
@@ -1779,26 +1753,12 @@
   "subtitle": "Discover Tatweer Misr's Properties in Mostakbal City – With Financing Up to 10 Years",
   "subtitle_ar": "اكتشف عقارات تطوير مصر في مدينة المستقبل – مع اقساط تصل إلى 10",
   "property_types": [
-   "Villa",
    "Apartment",
-   "Duplex",
-   "Penthouse",
-   "Studio",
-   "Clinic",
-   "Townhouse",
-   "Twinhouse",
-   "Administrative"
+   "Duplex"
   ],
   "property_types_ar": [
-   "فيلا",
    "شقة",
-   "دوبلكس",
-   "بنتهاوس",
-   "ستوديو",
-   "عيادة",
-   "تاون هاوس",
-   "توين هاوس",
-   "Administrative"
+   "دوبلكس"
   ],
   "min_price": 5846000,
   "ready_by": 20270530
@@ -3368,20 +3328,12 @@
   "subtitle": "Discover SODIC's Properties in Golden Square – With Financing Up to 10 Years",
   "subtitle_ar": "اكتشف عقارات سوديك في جولدن سكوير – مع اقساط تصل إلى 10",
   "property_types": [
-   "Villa",
    "Apartment",
-   "Duplex",
-   "Penthouse",
-   "Townhouse",
-   "Twinhouse"
+   "Duplex"
   ],
   "property_types_ar": [
-   "فيلا",
    "شقة",
-   "دوبلكس",
-   "بنتهاوس",
-   "تاون هاوس",
-   "توين هاوس"
+   "دوبلكس"
   ],
   "min_price": 29235000,
   "ready_by": 20260630
@@ -4248,7 +4200,7 @@
    "شقة",
    "بنتهاوس"
   ],
-  "min_price": 11140810,
+  "min_price": 10781944.459945,
   "ready_by": 20260430
  },
  {
@@ -4294,7 +4246,7 @@
    "شقة",
    "تاون هاوس"
   ],
-  "min_price": 5544869,
+  "min_price": 5350800,
   "ready_by": 20290430
  },
  {
@@ -4667,14 +4619,16 @@
   "property_types": [
    "Apartment",
    "Duplex",
+   "Triplex",
    "Penthouse"
   ],
   "property_types_ar": [
    "شقة",
    "دوبلكس",
+   "Triplex",
    "بنتهاوس"
   ],
-  "min_price": 4000000,
+  "min_price": 3990000,
   "ready_by": null
  },
  {
@@ -6262,14 +6216,16 @@
   "property_types": [
    "Villa",
    "Twinhouse",
-   "Townhouse"
+   "Townhouse",
+   "Apartment"
   ],
   "property_types_ar": [
    "فيلا",
    "توين هاوس",
-   "تاون هاوس"
+   "تاون هاوس",
+   "شقة"
   ],
-  "min_price": 15747400,
+  "min_price": 5057300,
   "ready_by": 20301231
  },
  {
@@ -7233,7 +7189,7 @@
    "توين هاوس",
    "تاون هاوس"
   ],
-  "min_price": 4609662,
+  "min_price": 4379178.763733483,
   "ready_by": 20300430
  },
  {
@@ -7432,7 +7388,7 @@
   "property_types_ar": [
    "شقة"
   ],
-  "min_price": 9363906,
+  "min_price": 6969291.426488014,
   "ready_by": 20300430
  },
  {
@@ -7733,7 +7689,7 @@
    "بنتهاوس",
    "تاون هاوس"
   ],
-  "min_price": 6683841,
+  "min_price": 6683840.6,
   "ready_by": 20300505
  },
  {
@@ -7891,18 +7847,16 @@
   "subtitle": "Discover Palm Hills Developments's Properties in 6th of October City – With Financing Up to 10 Years",
   "subtitle_ar": "اكتشف عقارات بالم هيلز للتطوير العقاري في مدينة السادس من أكتوبر – مع اقساط تصل إلى 10",
   "property_types": [
-   "Villa",
    "Apartment",
    "Penthouse",
-   "Townhouse",
-   "Loft"
+   "Town House",
+   "Townhouse"
   ],
   "property_types_ar": [
-   "فيلا",
    "شقة",
    "بنتهاوس",
-   "تاون هاوس",
-   "لوفت"
+   "Town House",
+   "تاون هاوس"
   ],
   "min_price": 14963000,
   "ready_by": 20280630
@@ -11048,15 +11002,13 @@
   "subtitle_ar": "اكتشف عقارات الكارمه للتطوير العقاري في الشيخ زايد – مع اقساط تصل إلى 9",
   "property_types": [
    "Apartment",
-   "Duplex",
-   "Penthouse",
-   "Studio"
+   "Studio",
+   "Penthouse"
   ],
   "property_types_ar": [
    "شقة",
-   "دوبلكس",
-   "بنتهاوس",
-   "ستوديو"
+   "ستوديو",
+   "بنتهاوس"
   ],
   "min_price": 7630000,
   "ready_by": 20300228
@@ -12155,14 +12107,16 @@
   "property_types": [
    "Apartment",
    "Penthouse",
-   "Duplex"
+   "Duplex",
+   "Townhouse"
   ],
   "property_types_ar": [
    "شقة",
    "بنتهاوس",
-   "دوبلكس"
+   "دوبلكس",
+   "تاون هاوس"
   ],
-  "min_price": 10580080,
+  "min_price": 5260500,
   "ready_by": 20260430
  },
  {
@@ -12703,13 +12657,15 @@
   "subtitle_ar": "اكتشف عقارات سيتي إيدج للتطوير العقاري في العاصمة الإدارية الجديدة – مع اقساط تصل إلى 12",
   "property_types": [
    "Apartment",
-   "Duplex"
+   "Duplex",
+   "Penthouse"
   ],
   "property_types_ar": [
    "شقة",
-   "دوبلكس"
+   "دوبلكس",
+   "بنتهاوس"
   ],
-  "min_price": 7614000,
+  "min_price": 5308000,
   "ready_by": 20260531
  },
  {
@@ -12796,16 +12752,18 @@
   "subtitle": "Discover Madinet Masr's Properties in New Cairo – With Financing Up to 12 Years",
   "subtitle_ar": "اكتشف عقارات مدينة مصر في القاهرة الجديدة – مع اقساط تصل إلى 12",
   "property_types": [
-   "Duplex",
+   "Townhouse",
+   "Apartment",
    "Villa",
    "Penthouse",
-   "Apartment"
+   "Duplex"
   ],
   "property_types_ar": [
-   "دوبلكس",
+   "تاون هاوس",
+   "شقة",
    "فيلا",
    "بنتهاوس",
-   "شقة"
+   "دوبلكس"
   ],
   "min_price": 3659267,
   "ready_by": 20301230
@@ -13406,14 +13364,16 @@
   "property_types": [
    "Apartment",
    "Cabin",
-   "Villa"
+   "Villa",
+   "Twinhouse"
   ],
   "property_types_ar": [
    "شقة",
    "كابينة",
-   "فيلا"
+   "فيلا",
+   "توين هاوس"
   ],
-  "min_price": 23500000,
+  "min_price": 21900000,
   "ready_by": 20260630
  },
  {
@@ -13955,7 +13915,7 @@
   "property_types_ar": [
    "Administrative"
   ],
-  "min_price": 13264691,
+  "min_price": 13264691.17,
   "ready_by": 20280511
  },
  {
@@ -16211,7 +16171,7 @@
    "شقة",
    "دوبلكس"
   ],
-  "min_price": 15052727,
+  "min_price": 15052727.146572184,
   "ready_by": 20290630
  },
  {
@@ -16457,18 +16417,18 @@
   "subtitle": "Discover Madaar Development's Properties in Ras El Hekma – With Financing Up to 10 Years",
   "subtitle_ar": "اكتشف عقارات مدار للتطوير العقاري في رأس الحكمة – مع اقساط تصل إلى 10",
   "property_types": [
-   "Villa",
-   "Duplex",
    "Chalet",
-   "Townhouse",
-   "Twinhouse"
+   "Villa",
+   "Twinhouse",
+   "Penthouse",
+   "Townhouse"
   ],
   "property_types_ar": [
-   "فيلا",
-   "دوبلكس",
    "شاليه",
-   "تاون هاوس",
-   "توين هاوس"
+   "فيلا",
+   "توين هاوس",
+   "بنتهاوس",
+   "تاون هاوس"
   ],
   "min_price": 12538190,
   "ready_by": 20300430
@@ -16514,7 +16474,7 @@
    "شقة",
    "دوبلكس"
   ],
-  "min_price": 0,
+  "min_price": 5548572.848124,
   "ready_by": null
  },
  {
@@ -17022,7 +16982,7 @@
    "بنتهاوس",
    "تاون هاوس"
   ],
-  "min_price": 11637891,
+  "min_price": 11637890.77,
   "ready_by": 20280505
  },
  {
@@ -17943,18 +17903,12 @@
   "subtitle": "Discover Arkan Palm Development's Properties in Northern Expansion – With Financing Up to 6 Years",
   "subtitle_ar": "اكتشف عقارات اركان بالم للتطوير العقاري في التوسعات الشمالية – مع اقساط تصل إلى 6",
   "property_types": [
-   "Apartment",
-   "Penthouse",
-   "Studio",
-   "Townhouse"
+   "Apartment"
   ],
   "property_types_ar": [
-   "شقة",
-   "بنتهاوس",
-   "ستوديو",
-   "تاون هاوس"
+   "شقة"
   ],
-  "min_price": 0,
+  "min_price": 9265218,
   "ready_by": 20270301
  },
  {
@@ -18267,10 +18221,12 @@
   "subtitle": "Discover Somabay's Properties in Somabay – With Financing Up to 8 Years",
   "subtitle_ar": "اكتشف عقارات سوما باي في سوماباي – مع اقساط تصل إلى 8",
   "property_types": [
-   "Chalet"
+   "Chalet",
+   "Penthouse"
   ],
   "property_types_ar": [
-   "شاليه"
+   "شاليه",
+   "بنتهاوس"
   ],
   "min_price": 19000000,
   "ready_by": 20290101
@@ -18545,20 +18501,16 @@
   "subtitle": "Discover Saudi Egyptian Developers (SED)'s Properties in North Coast-Sahel – With Financing Up to 6 Years",
   "subtitle_ar": "اكتشف عقارات السعوديه المصريه للتعمير في الساحل الشمالي – مع اقساط تصل إلى 6",
   "property_types": [
-   "Villa",
    "Apartment",
    "Duplex",
-   "Penthouse",
-   "Twinhouse"
+   "Villa"
   ],
   "property_types_ar": [
-   "فيلا",
    "شقة",
    "دوبلكس",
-   "بنتهاوس",
-   "توين هاوس"
+   "فيلا"
   ],
-  "min_price": 6997000,
+  "min_price": 8923000,
   "ready_by": 20290130
  },
  {
@@ -18596,13 +18548,13 @@
   "subtitle_ar": "اكتشف عقارات شركة كيان للتطوير العقاري في مدينة السادس من أكتوبر – مع اقساط تصل إلى 10",
   "property_types": [
    "Medical",
-   "Administrative",
-   "Retail"
+   "Retail",
+   "Administrative"
   ],
   "property_types_ar": [
    "Medical",
-   "Administrative",
-   "محل تجاري"
+   "محل تجاري",
+   "Administrative"
   ],
   "min_price": 3116000,
   "ready_by": 20271031
@@ -18878,13 +18830,17 @@
   "subtitle_ar": "اكتشف عقارات هايد بارك في التجمع السادس – مع اقساط تصل إلى 10",
   "property_types": [
    "Townhouse",
-   "Villa"
+   "Villa",
+   "Apartment",
+   "Penthouse"
   ],
   "property_types_ar": [
    "تاون هاوس",
-   "فيلا"
+   "فيلا",
+   "شقة",
+   "بنتهاوس"
   ],
-  "min_price": 25520000,
+  "min_price": 8700000,
   "ready_by": null
  },
  {
@@ -20915,17 +20871,13 @@
   "subtitle_ar": "اكتشف عقارات اركان بالم للتطوير العقاري في التوسعات الشمالية – مع اقساط تصل إلى 9",
   "property_types": [
    "Apartment",
-   "Duplex",
    "Penthouse",
-   "Studio",
-   "Loft"
+   "Duplex"
   ],
   "property_types_ar": [
    "شقة",
-   "دوبلكس",
    "بنتهاوس",
-   "ستوديو",
-   "لوفت"
+   "دوبلكس"
   ],
   "min_price": 5506817,
   "ready_by": 20300201
@@ -22553,20 +22505,14 @@
   "subtitle": "Discover Mountain View's Properties in Sidi Abdel Rahman – With Financing Up to 9 Years",
   "subtitle_ar": "اكتشف عقارات ماونتن فيو في سيدي عبد الرحمن – مع اقساط تصل إلى 9",
   "property_types": [
-   "Duplex",
-   "Penthouse",
-   "Chalet",
    "Cabin",
-   "Townhouse"
+   "One Story"
   ],
   "property_types_ar": [
-   "دوبلكس",
-   "بنتهاوس",
-   "شاليه",
    "كابينة",
-   "تاون هاوس"
+   "One Story"
   ],
-  "min_price": 9757007,
+  "min_price": 9891897,
   "ready_by": 20290210
  },
  {
@@ -22831,14 +22777,14 @@
   "subtitle": "Discover Modon Egypt's Properties in Golden Square – With Financing Up to 10 Years",
   "subtitle_ar": "اكتشف عقارات  مدن مصر للتطوير العقاري في جولدن سكوير – مع اقساط تصل إلى 10",
   "property_types": [
-   "Apartment",
-   "Studio"
+   "Administrative",
+   "Retail"
   ],
   "property_types_ar": [
-   "شقة",
-   "ستوديو"
+   "Administrative",
+   "محل تجاري"
   ],
-  "min_price": 0,
+  "min_price": 10386000,
   "ready_by": 20291030
  },
  {
@@ -23105,21 +23051,15 @@
   "subtitle": "Discover Madinet Masr's Properties in New Cairo – With Financing Up to 12 Years",
   "subtitle_ar": "اكتشف عقارات مدينة مصر في القاهرة الجديدة – مع اقساط تصل إلى 12",
   "property_types": [
-   "Villa",
    "Apartment",
-   "Duplex",
    "Penthouse",
-   "Studio",
-   "Townhouse",
+   "Villa",
    "Twinhouse"
   ],
   "property_types_ar": [
-   "فيلا",
    "شقة",
-   "دوبلكس",
    "بنتهاوس",
-   "ستوديو",
-   "تاون هاوس",
+   "فيلا",
    "توين هاوس"
   ],
   "min_price": 5722056,
@@ -24484,13 +24424,11 @@
   "property_types": [
    "Apartment",
    "Duplex",
-   "Penthouse",
    "Townhouse"
   ],
   "property_types_ar": [
    "شقة",
    "دوبلكس",
-   "بنتهاوس",
    "تاون هاوس"
   ],
   "min_price": 7080765,
@@ -24639,7 +24577,7 @@
    "دوبلكس",
    "بنتهاوس"
   ],
-  "min_price": 5287561,
+  "min_price": 5264770,
   "ready_by": 20280831
  },
  {
@@ -24680,18 +24618,14 @@
   "subtitle": "Discover Inertia Egypt's Properties in 6th of October City – With Financing Up to 9 Years",
   "subtitle_ar": "اكتشف عقارات انرشيا مصر في مدينة السادس من أكتوبر – مع اقساط تصل إلى 9",
   "property_types": [
-   "Villa",
    "Apartment",
-   "Townhouse",
-   "Twinhouse"
+   "Villa"
   ],
   "property_types_ar": [
-   "فيلا",
    "شقة",
-   "تاون هاوس",
-   "توين هاوس"
+   "فيلا"
   ],
-  "min_price": 0,
+  "min_price": 13508000,
   "ready_by": 20300131
  },
  {
@@ -24815,11 +24749,13 @@
   "subtitle_ar": "اكتشف عقارات ليفينج ياردز للتطوير العقاري في العاصمة الإدارية الجديدة – مع اقساط تصل إلى 8",
   "property_types": [
    "Apartment",
-   "Duplex"
+   "Duplex",
+   "Loft"
   ],
   "property_types_ar": [
    "شقة",
-   "دوبلكس"
+   "دوبلكس",
+   "لوفت"
   ],
   "min_price": 7909034,
   "ready_by": 20270531
@@ -24927,24 +24863,22 @@
   "subtitle": "Discover Inertia Egypt's Properties in Ras El Hekma – With Financing Up to 8 Years",
   "subtitle_ar": "اكتشف عقارات انرشيا مصر في رأس الحكمة – مع اقساط تصل إلى 8",
   "property_types": [
-   "Villa",
-   "Apartment",
-   "Penthouse",
-   "Chalet",
-   "Studio",
    "Townhouse",
-   "Twinhouse"
+   "Chalet",
+   "Penthouse",
+   "Apartment",
+   "Twinhouse",
+   "Villa"
   ],
   "property_types_ar": [
-   "فيلا",
-   "شقة",
-   "بنتهاوس",
-   "شاليه",
-   "ستوديو",
    "تاون هاوس",
-   "توين هاوس"
+   "شاليه",
+   "بنتهاوس",
+   "شقة",
+   "توين هاوس",
+   "فيلا"
   ],
-  "min_price": 0,
+  "min_price": 6879000,
   "ready_by": 20300131
  },
  {
@@ -26025,7 +25959,7 @@
    "شقة",
    "شاليه"
   ],
-  "min_price": 23500000,
+  "min_price": 18320000,
   "ready_by": 20260630
  },
  {
@@ -26861,7 +26795,8 @@
    "Family House",
    "Medical",
    "Retail",
-   "Administrative"
+   "Administrative",
+   "Villa"
   ],
   "property_types_ar": [
    "شقة",
@@ -26870,7 +26805,8 @@
    "Family House",
    "Medical",
    "محل تجاري",
-   "Administrative"
+   "Administrative",
+   "فيلا"
   ],
   "min_price": 5085304,
   "ready_by": 20290101
@@ -27051,12 +26987,14 @@
   "subtitle": "Discover Kayan Real Estate's Properties in 6th of October City – With Financing Up to 10 Years",
   "subtitle_ar": "اكتشف عقارات شركة كيان للتطوير العقاري في مدينة السادس من أكتوبر – مع اقساط تصل إلى 10",
   "property_types": [
-   "Apartment"
+   "Apartment",
+   "Duplex"
   ],
   "property_types_ar": [
-   "شقة"
+   "شقة",
+   "دوبلكس"
   ],
-  "min_price": 2136660,
+  "min_price": 1852800,
   "ready_by": null
  },
  {
@@ -29145,7 +29083,7 @@
    "فيلا",
    "شاليه"
   ],
-  "min_price": 18900000,
+  "min_price": 16560000,
   "ready_by": null
  },
  {
@@ -30895,6 +30833,1150 @@
    "محل تجاري"
   ],
   "min_price": 129792000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 216,
+  "name": "Vida",
+  "name_ar": null,
+  "slug": "vida-216",
+  "area_nawy_id": 12,
+  "developer_nawy_id": 71,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/compound_image/image/1235/0of5PygTqcsNw0igPshS197CsuhyJp.jpg",
+  "subtitle": "Discover IWAN Developments's Properties in 6th of October City",
+  "subtitle_ar": "اكتشف عقارات ايوان للتطوير العقاري في مدينة السادس من أكتوبر",
+  "property_types": [
+   "Administrative"
+  ],
+  "property_types_ar": [
+   "Administrative"
+  ],
+  "min_price": 5049000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 236,
+  "name": "Katameya Coast",
+  "name_ar": null,
+  "slug": "katameya-coast-236",
+  "area_nawy_id": 26,
+  "developer_nawy_id": 75,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/compound_image/image/2164/2ORefQNhsYdr9KbvvhrzNxVqRhv4uy.jpg",
+  "subtitle": "Discover Starlight Developments's Properties in Ras El Hekma",
+  "subtitle_ar": "اكتشف عقارات ستارلايت للتطوير العقاري في رأس الحكمة",
+  "property_types": [
+   "Villa"
+  ],
+  "property_types_ar": [
+   "فيلا"
+  ],
+  "min_price": 92170000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 454,
+  "name": "Makadi Heights",
+  "name_ar": null,
+  "slug": "makadi-heights-454",
+  "area_nawy_id": 167,
+  "developer_nawy_id": 35,
+  "lng": null,
+  "lat": null,
+  "image_url": "",
+  "subtitle": "Discover Orascom Development Egypt's Properties in Makadi",
+  "subtitle_ar": "اكتشف عقارات أوراسكوم مصر للتطوير العقاري في مكادي",
+  "property_types": [
+   "Penthouse",
+   "Chalet",
+   "Apartment",
+   "Villa",
+   "Twinhouse"
+  ],
+  "property_types_ar": [
+   "بنتهاوس",
+   "شاليه",
+   "شقة",
+   "فيلا",
+   "توين هاوس"
+  ],
+  "min_price": 15405000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 1545,
+  "name": "Twin Plaza",
+  "name_ar": null,
+  "slug": "twin-plaza-1545",
+  "area_nawy_id": 12,
+  "developer_nawy_id": 432,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/compound/cover_image/1545/Mall-Twin-Plaza-October.jpg",
+  "subtitle": "Discover Kayan Real Estate's Properties in 6th of October City",
+  "subtitle_ar": "اكتشف عقارات شركة كيان للتطوير العقاري في مدينة السادس من أكتوبر",
+  "property_types": [
+   "Retail"
+  ],
+  "property_types_ar": [
+   "محل تجاري"
+  ],
+  "min_price": 4761900,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 1546,
+  "name": "Jirian - Palm Hills",
+  "name_ar": null,
+  "slug": "jirian-palm-hills-1546",
+  "area_nawy_id": 34,
+  "developer_nawy_id": 16,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/compound_image/image/12919/Jirian_Sales_Kit_20250623_removed_page-0007.jpg",
+  "subtitle": "Discover Palm Hills Developments's Properties in New Zayed",
+  "subtitle_ar": "اكتشف عقارات بالم هيلز للتطوير العقاري في الشيخ زايد الجديدة",
+  "property_types": [
+   "Apartment",
+   "Penthouse",
+   "Duplex",
+   "Villa",
+   "Townhouse"
+  ],
+  "property_types_ar": [
+   "شقة",
+   "بنتهاوس",
+   "دوبلكس",
+   "فيلا",
+   "تاون هاوس"
+  ],
+  "min_price": 7874000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9204057050,
+  "name": "90 Avenue",
+  "name_ar": null,
+  "slug": "9204057050-90-avenue",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 221,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/90_avenue.webp",
+  "subtitle": "29 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات تي بي كيه للتطوير العقاري في القاهرة الجديدة",
+  "property_types": [
+   "Apartment",
+   "Duplex"
+  ],
+  "property_types_ar": [
+   "شقة",
+   "دوبلكس"
+  ],
+  "min_price": 15095000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9204728571,
+  "name": "Malaz bait watan 2",
+  "name_ar": null,
+  "slug": "9204728571-malaz-bait-watan-2",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 9046429868,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/imclrsug5iz8qex18noa.webp",
+  "subtitle": "residential · 5 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات Malaz development في القاهرة الجديدة",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 3931200,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9205051442,
+  "name": "Plaza Nasr City",
+  "name_ar": null,
+  "slug": "9205051442-plaza-nasr-city",
+  "area_nawy_id": 9063922922,
+  "developer_nawy_id": 245,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/i908vaymr2o4fqd0ut24.webp",
+  "subtitle": "3 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات كليوباترا للتطوير العقاري في Nasr City",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 17774684.668125,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9206467733,
+  "name": "Mountain View North Coast",
+  "name_ar": null,
+  "slug": "9206467733-mountain-view-north-coast",
+  "area_nawy_id": 32,
+  "developer_nawy_id": 6,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/mountain_view_north_coast.webp",
+  "subtitle": "9 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات ماونتن فيو في الساحل الشمالي",
+  "property_types": [
+   "Townhouse",
+   "Twinhouse"
+  ],
+  "property_types_ar": [
+   "تاون هاوس",
+   "توين هاوس"
+  ],
+  "min_price": 25211237.73,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9206768884,
+  "name": "Ayaru",
+  "name_ar": null,
+  "slug": "9206768884-ayaru",
+  "area_nawy_id": 12,
+  "developer_nawy_id": 9025775187,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/loiaqjjdtklp0fgj0mt6.webp",
+  "subtitle": "1 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات Genwa في مدينة السادس من أكتوبر",
+  "property_types": [
+   "Villa"
+  ],
+  "property_types_ar": [
+   "فيلا"
+  ],
+  "min_price": 11000000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9208960214,
+  "name": "Nile View",
+  "name_ar": null,
+  "slug": "9208960214-nile-view",
+  "area_nawy_id": 9004100250,
+  "developer_nawy_id": 9095314955,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/403mrsi26c1nfzcvzkat.webp",
+  "subtitle": "25 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات Venisia في Minya Governorate",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 4064860.8,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9211374159,
+  "name": "Calma",
+  "name_ar": null,
+  "slug": "9211374159-calma",
+  "area_nawy_id": 21,
+  "developer_nawy_id": 471,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/a4yimr2u9ur9l4c1ta92.webp",
+  "subtitle": "62 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات ليدرز للتطوير العقاري في الشيخ زايد",
+  "property_types": [
+   "Duplex",
+   "Penthouse",
+   "Apartment",
+   "Studio"
+  ],
+  "property_types_ar": [
+   "دوبلكس",
+   "بنتهاوس",
+   "شقة",
+   "ستوديو"
+  ],
+  "min_price": 3333333,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9214177500,
+  "name": "Palace El Shorouk",
+  "name_ar": null,
+  "slug": "9214177500-palace-el-shorouk",
+  "area_nawy_id": 7,
+  "developer_nawy_id": 245,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/p3ogf2lav9ckh6al8d5a.webp",
+  "subtitle": "18 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات كليوباترا للتطوير العقاري في الشروق",
+  "property_types": [
+   "Villa",
+   "Twinhouse",
+   "Townhouse",
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "فيلا",
+   "توين هاوس",
+   "تاون هاوس",
+   "شقة"
+  ],
+  "min_price": 15325185,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9215788670,
+  "name": "464 Acre",
+  "name_ar": null,
+  "slug": "9215788670-464-acre",
+  "area_nawy_id": 34,
+  "developer_nawy_id": 8,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/r7l5rbozp0j1pnimsuxq.webp",
+  "subtitle": "243 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات سوديك في الشيخ زايد الجديدة",
+  "property_types": [
+   "Apartment",
+   "Penthouse",
+   "Duplex",
+   "Villa",
+   "Twinhouse",
+   "Townhouse"
+  ],
+  "property_types_ar": [
+   "شقة",
+   "بنتهاوس",
+   "دوبلكس",
+   "فيلا",
+   "توين هاوس",
+   "تاون هاوس"
+  ],
+  "min_price": 10294000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9224353599,
+  "name": "Seen Social District",
+  "name_ar": null,
+  "slug": "9224353599-seen-social-district",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 478,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/bzj29hz1iei2617hihof.webp",
+  "subtitle": "commercial · 17 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات ريجان للتطوير العقاري في القاهرة الجديدة",
+  "property_types": [
+   "Retail",
+   "Medical"
+  ],
+  "property_types_ar": [
+   "محل تجاري",
+   "Medical"
+  ],
+  "min_price": 8208162,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9229489899,
+  "name": "Safa Gate",
+  "name_ar": null,
+  "slug": "9229489899-safa-gate",
+  "area_nawy_id": 9078310951,
+  "developer_nawy_id": 9035466952,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/gmgfez7s0lu8swavechb.webp",
+  "subtitle": "94 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات Damac في Dubai",
+  "property_types": [
+   "Apartment",
+   "Studio"
+  ],
+  "property_types_ar": [
+   "شقة",
+   "ستوديو"
+  ],
+  "min_price": 1184000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9230061412,
+  "name": "Marvel",
+  "name_ar": null,
+  "slug": "9230061412-marvel",
+  "area_nawy_id": 16,
+  "developer_nawy_id": 9007902245,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/ptz09wnsjdxemq1xl9vo.webp",
+  "subtitle": "commercial · 28 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات ZG Developments في العاصمة الإدارية الجديدة",
+  "property_types": [
+   "Administrative",
+   "Retail"
+  ],
+  "property_types_ar": [
+   "Administrative",
+   "محل تجاري"
+  ],
+  "min_price": 4865000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9232484646,
+  "name": "Latin Settlement (SED)",
+  "name_ar": null,
+  "slug": "9232484646-latin-settlement-sed",
+  "area_nawy_id": 32,
+  "developer_nawy_id": 87,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/latin_settlement.webp",
+  "subtitle": "756 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات السعوديه المصريه للتعمير في الساحل الشمالي",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 5601000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9233869606,
+  "name": "Malaz bait watan north house",
+  "name_ar": null,
+  "slug": "9233869606-malaz-bait-watan-north-house",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 9046429868,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/d3uxzu8hfhgnwp58wywo.webp",
+  "subtitle": "residential · 4 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات Malaz development في القاهرة الجديدة",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 3466200,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9240844547,
+  "name": "Palencia Plaza",
+  "name_ar": null,
+  "slug": "9240844547-palencia-plaza",
+  "area_nawy_id": 7,
+  "developer_nawy_id": 426,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/bv0f55ckaad378pkrsyq.webp",
+  "subtitle": "commercial · 75 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات كي للتطوير العقاري في الشروق",
+  "property_types": [
+   "Medical",
+   "Retail",
+   "Administrative"
+  ],
+  "property_types_ar": [
+   "Medical",
+   "محل تجاري",
+   "Administrative"
+  ],
+  "min_price": 1889244,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9242448510,
+  "name": "Malaz bait watan 5",
+  "name_ar": null,
+  "slug": "9242448510-malaz-bait-watan-5",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 9046429868,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/egmo0pm9s1j2y9pyn2b6.webp",
+  "subtitle": "residential · 23 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات Malaz development في القاهرة الجديدة",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 4063600,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9243201212,
+  "name": "meraki residence",
+  "name_ar": null,
+  "slug": "9243201212-meraki-residence",
+  "area_nawy_id": 7,
+  "developer_nawy_id": 9053253662,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/n9rbn2dre0sgucelz8mm.webp",
+  "subtitle": "5 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات Meraki Development في الشروق",
+  "property_types": [
+   "Penthouse"
+  ],
+  "property_types_ar": [
+   "بنتهاوس"
+  ],
+  "min_price": 5980210,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9244881066,
+  "name": "Hope",
+  "name_ar": null,
+  "slug": "9244881066-hope",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 9020989962,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/14omxm0hyxrazm0mv93v.webp",
+  "subtitle": "6 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات معمار الاشراف في القاهرة الجديدة",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 6830246,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9245940698,
+  "name": "Floria 5",
+  "name_ar": null,
+  "slug": "9245940698-floria-5",
+  "area_nawy_id": 16,
+  "developer_nawy_id": 297,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/9l1knwlxzbuxembrqoq6.webp",
+  "subtitle": "160 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات فور سيزون جروب للتطوير العقاري في العاصمة الإدارية الجديدة",
+  "property_types": [
+   "Apartment",
+   "Duplex"
+  ],
+  "property_types_ar": [
+   "شقة",
+   "دوبلكس"
+  ],
+  "min_price": 5250000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9246757004,
+  "name": "The Location",
+  "name_ar": null,
+  "slug": "9246757004-the-location",
+  "area_nawy_id": 12,
+  "developer_nawy_id": 432,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/qx53cvfz1t5emq1aruyn.webp",
+  "subtitle": "commercial · 18 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات شركة كيان للتطوير العقاري في مدينة السادس من أكتوبر",
+  "property_types": [
+   "Medical",
+   "Retail"
+  ],
+  "property_types_ar": [
+   "Medical",
+   "محل تجاري"
+  ],
+  "min_price": 2911000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9249252027,
+  "name": "Classia",
+  "name_ar": null,
+  "slug": "9249252027-classia",
+  "area_nawy_id": 9004100250,
+  "developer_nawy_id": 9033977981,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/749jv7dofpit39tyfr8h.webp",
+  "subtitle": "59 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات Emkan Developments في Minya Governorate",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 4340000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9250181518,
+  "name": "Latin City",
+  "name_ar": null,
+  "slug": "9250181518-latin-city",
+  "area_nawy_id": 32,
+  "developer_nawy_id": 74,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/vkomksk3zq8k3g75yefb.webp",
+  "subtitle": "581 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات سيتي إيدج للتطوير العقاري في الساحل الشمالي",
+  "property_types": [
+   "Apartment",
+   "Studio"
+  ],
+  "property_types_ar": [
+   "شقة",
+   "ستوديو"
+  ],
+  "min_price": 5643539.74,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9251129469,
+  "name": "Oro Obour",
+  "name_ar": null,
+  "slug": "9251129469-oro-obour",
+  "area_nawy_id": 9018846787,
+  "developer_nawy_id": 206,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/su4w5ybxcnr5xpte98le.webp",
+  "subtitle": "13 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات افا مينا جروب في Obour City",
+  "property_types": [
+   "Townhouse",
+   "Twinhouse",
+   "Villa"
+  ],
+  "property_types_ar": [
+   "تاون هاوس",
+   "توين هاوس",
+   "فيلا"
+  ],
+  "min_price": 19470000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9252019293,
+  "name": "Golden Heights 1",
+  "name_ar": null,
+  "slug": "9252019293-golden-heights-1",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 364,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/golden_heights_1.webp",
+  "subtitle": "5 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات نوفو ستانزا العقاريه في القاهرة الجديدة",
+  "property_types": [
+   "Villa"
+  ],
+  "property_types_ar": [
+   "فيلا"
+  ],
+  "min_price": 66846000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9252019294,
+  "name": "Golden Heights 2",
+  "name_ar": null,
+  "slug": "9252019294-golden-heights-2",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 364,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/golden_heights_2.webp",
+  "subtitle": "5 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات نوفو ستانزا العقاريه في القاهرة الجديدة",
+  "property_types": [
+   "Villa"
+  ],
+  "property_types_ar": [
+   "فيلا"
+  ],
+  "min_price": 67575000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9256032953,
+  "name": "De joya New Zayed",
+  "name_ar": null,
+  "slug": "9256032953-de-joya-new-zayed",
+  "area_nawy_id": 34,
+  "developer_nawy_id": 138,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/dejoya_new_zayed.webp",
+  "subtitle": "403 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات تاج مصر للتطوير العقاري في الشيخ زايد الجديدة",
+  "property_types": [
+   "Apartment",
+   "Duplex",
+   "Villa",
+   "Twinhouse"
+  ],
+  "property_types_ar": [
+   "شقة",
+   "دوبلكس",
+   "فيلا",
+   "توين هاوس"
+  ],
+  "min_price": 5666000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9257798667,
+  "name": "Seen Gardenia",
+  "name_ar": null,
+  "slug": "9257798667-seen-gardenia",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 478,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/ap3omelx1dq30eda0tm5.webp",
+  "subtitle": "commercial · 28 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات ريجان للتطوير العقاري في القاهرة الجديدة",
+  "property_types": [
+   "Retail",
+   "Medical"
+  ],
+  "property_types_ar": [
+   "محل تجاري",
+   "Medical"
+  ],
+  "min_price": 3935500,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9263190318,
+  "name": "Reveal",
+  "name_ar": null,
+  "slug": "9263190318-reveal",
+  "area_nawy_id": 9018846787,
+  "developer_nawy_id": 9020989962,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/7jm8zmdpfqpl2wbawxvw.webp",
+  "subtitle": "22 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات معمار الاشراف في Obour City",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 2579661,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9265709294,
+  "name": "Serenity",
+  "name_ar": null,
+  "slug": "9265709294-serenity",
+  "area_nawy_id": 9018846787,
+  "developer_nawy_id": 9020989962,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/ylroi7fd1q6sjifgeoj4.webp",
+  "subtitle": "23 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات معمار الاشراف في Obour City",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 5763860,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9267044916,
+  "name": "HUB22",
+  "name_ar": null,
+  "slug": "9267044916-hub22",
+  "area_nawy_id": 12,
+  "developer_nawy_id": 432,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/ytw4gu0vrbzjlgmqrmir.webp",
+  "subtitle": "commercial · 4 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات شركة كيان للتطوير العقاري في مدينة السادس من أكتوبر",
+  "property_types": [
+   "Medical"
+  ],
+  "property_types_ar": [
+   "Medical"
+  ],
+  "min_price": 2891000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9270588814,
+  "name": "Plaza Vida",
+  "name_ar": null,
+  "slug": "9270588814-plaza-vida",
+  "area_nawy_id": 12,
+  "developer_nawy_id": 432,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/iburmrui4b239d20e9l8.webp",
+  "subtitle": "commercial · 63 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات شركة كيان للتطوير العقاري في مدينة السادس من أكتوبر",
+  "property_types": [
+   "Retail",
+   "Medical",
+   "Administrative"
+  ],
+  "property_types_ar": [
+   "محل تجاري",
+   "Medical",
+   "Administrative"
+  ],
+  "min_price": 5746000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9271546881,
+  "name": "Riviera Heights",
+  "name_ar": null,
+  "slug": "9271546881-riviera-heights",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 364,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/riviera_heights.webp",
+  "subtitle": "4 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات نوفو ستانزا العقاريه في القاهرة الجديدة",
+  "property_types": [
+   "Villa"
+  ],
+  "property_types_ar": [
+   "فيلا"
+  ],
+  "min_price": 65155000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9275809377,
+  "name": "70 PLAZA",
+  "name_ar": null,
+  "slug": "9275809377-70-plaza",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 478,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/jzpsk5cj5e7vjldkygzj.webp",
+  "subtitle": "commercial · 10 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات ريجان للتطوير العقاري في القاهرة الجديدة",
+  "property_types": [
+   "Retail",
+   "Administrative"
+  ],
+  "property_types_ar": [
+   "محل تجاري",
+   "Administrative"
+  ],
+  "min_price": 8593200,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9276699434,
+  "name": "Malaz bait watan 1",
+  "name_ar": null,
+  "slug": "9276699434-malaz-bait-watan-1",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 9046429868,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/4oyitc37x86yyrtazfh2.webp",
+  "subtitle": "residential · 10 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات Malaz development في القاهرة الجديدة",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 3492400,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9281402244,
+  "name": "Riviera Beach 2",
+  "name_ar": null,
+  "slug": "9281402244-riviera-beach-2",
+  "area_nawy_id": 17,
+  "developer_nawy_id": 364,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/tdtf8gu0i45axiok563u.webp",
+  "subtitle": "5 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات نوفو ستانزا العقاريه في راس سدر",
+  "property_types": [
+   "Chalet"
+  ],
+  "property_types_ar": [
+   "شاليه"
+  ],
+  "min_price": 5954000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9282883328,
+  "name": "New Cairo East",
+  "name_ar": null,
+  "slug": "9282883328-new-cairo-east",
+  "area_nawy_id": 133,
+  "developer_nawy_id": 122,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/hy9xftq3cn5ei3fi7dfr.webp",
+  "subtitle": "69 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات بيتر هوم في التجمع السادس",
+  "property_types": [
+   "Townhouse",
+   "Twinhouse",
+   "Villa"
+  ],
+  "property_types_ar": [
+   "تاون هاوس",
+   "توين هاوس",
+   "فيلا"
+  ],
+  "min_price": 21403833.885417204,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9283417966,
+  "name": "ORO STRIP MALL OBOUR",
+  "name_ar": null,
+  "slug": "9283417966-oro-strip-mall-obour",
+  "area_nawy_id": 9018846787,
+  "developer_nawy_id": 206,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/tl5ogq2mz6zm0465zywt.webp",
+  "subtitle": "commercial · 30 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات افا مينا جروب في Obour City",
+  "property_types": [
+   "Retail"
+  ],
+  "property_types_ar": [
+   "محل تجاري"
+  ],
+  "min_price": 4192160,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9283899612,
+  "name": "HUB 44",
+  "name_ar": null,
+  "slug": "9283899612-hub-44",
+  "area_nawy_id": 12,
+  "developer_nawy_id": 432,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/4ugiip2gluvv7vhxprbm.webp",
+  "subtitle": "commercial · 32 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات شركة كيان للتطوير العقاري في مدينة السادس من أكتوبر",
+  "property_types": [
+   "Retail"
+  ],
+  "property_types_ar": [
+   "محل تجاري"
+  ],
+  "min_price": 1852200,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9285603165,
+  "name": "CRE8T",
+  "name_ar": null,
+  "slug": "9285603165-cre8t",
+  "area_nawy_id": 12,
+  "developer_nawy_id": 9087533646,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/lks0936k6oh54cyox4p9.webp",
+  "subtitle": "commercial · 144 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات HARVA Developments في مدينة السادس من أكتوبر",
+  "property_types": [
+   "Administrative",
+   "Medical",
+   "Retail"
+  ],
+  "property_types_ar": [
+   "Administrative",
+   "Medical",
+   "محل تجاري"
+  ],
+  "min_price": 1029000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9287740965,
+  "name": "Square October",
+  "name_ar": null,
+  "slug": "9287740965-square-october",
+  "area_nawy_id": 12,
+  "developer_nawy_id": 245,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/square_october.webp",
+  "subtitle": "12 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات كليوباترا للتطوير العقاري في مدينة السادس من أكتوبر",
+  "property_types": [
+   "Villa",
+   "Twinhouse"
+  ],
+  "property_types_ar": [
+   "فيلا",
+   "توين هاوس"
+  ],
+  "min_price": 35398532.949999996,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9289145602,
+  "name": "Matarma Beach",
+  "name_ar": null,
+  "slug": "9289145602-matarma-beach",
+  "area_nawy_id": 17,
+  "developer_nawy_id": 364,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/sfvpshagkllneofqogo9.webp",
+  "subtitle": "122 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات نوفو ستانزا العقاريه في راس سدر",
+  "property_types": [
+   "Chalet",
+   "Studio"
+  ],
+  "property_types_ar": [
+   "شاليه",
+   "ستوديو"
+  ],
+  "min_price": 3424000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9289443513,
+  "name": "vert melee",
+  "name_ar": null,
+  "slug": "9289443513-vert-melee",
+  "area_nawy_id": 12,
+  "developer_nawy_id": 342,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/2pl8x8m3teehc1u04ns2.webp",
+  "subtitle": "28 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات ميلي للتطوير العقاري في مدينة السادس من أكتوبر",
+  "property_types": [
+   "Villa",
+   "Twinhouse"
+  ],
+  "property_types_ar": [
+   "فيلا",
+   "توين هاوس"
+  ],
+  "min_price": 16555000,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9291293437,
+  "name": "ROCK YARD",
+  "name_ar": null,
+  "slug": "9291293437-rock-yard",
+  "area_nawy_id": 235,
+  "developer_nawy_id": 447,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/y1ii4sq17xo89tvf8t58.webp",
+  "subtitle": "85 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات روك للتطوير العقاري في هيليوبوليس",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 7199844.63264,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9297381396,
+  "name": "T Residence",
+  "name_ar": null,
+  "slug": "9297381396-t-residence",
+  "area_nawy_id": 32,
+  "developer_nawy_id": 513,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/gfizau4ycy28ngzq947f.webp",
+  "subtitle": "80 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات توريك للتطوير العقاري في الساحل الشمالي",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 3961782,
+  "ready_by": null
+ },
+ {
+  "nawy_id": 9299884338,
+  "name": "Blue Vert",
+  "name_ar": null,
+  "slug": "9299884338-blue-vert",
+  "area_nawy_id": 16,
+  "developer_nawy_id": 87,
+  "lng": null,
+  "lat": null,
+  "image_url": "https://files.propertyhub.site/project-thumbnail/blue_vert.webp",
+  "subtitle": "66 units on PropertyHub",
+  "subtitle_ar": "اكتشف عقارات السعوديه المصريه للتعمير في العاصمة الإدارية الجديدة",
+  "property_types": [
+   "Apartment",
+   "Townhouse",
+   "Twinhouse"
+  ],
+  "property_types_ar": [
+   "شقة",
+   "تاون هاوس",
+   "توين هاوس"
+  ],
+  "min_price": 4671000,
   "ready_by": null
  }
 ]
