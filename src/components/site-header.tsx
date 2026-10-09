@@ -9,7 +9,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const noSubscribe = () => () => {};
 import { Wordmark } from "@/components/wordmark";
 import { BrandIcon } from "@/components/brand-icon";
 import {
@@ -43,15 +45,15 @@ export function SiteHeader() {
 
   // Admin tabs (Inventory) hidden from public marketplace visitors —
   // only appear once the df_admin cookie is set (after /dashboard/login).
-  const [isAdmin, setIsAdmin] = useState(false);
-  useEffect(() => {
-    // df_admin_ui is a non-httpOnly mirror set at login (df_admin itself is
-    // httpOnly and cannot be read from JS).
-    const has = document.cookie
-      .split(";")
-      .some((c) => c.trim().startsWith("df_admin_ui="));
-    setIsAdmin(has);
-  }, [pathname]);
+  // df_admin_ui is a non-httpOnly mirror set at login (df_admin itself is
+  // httpOnly and cannot be read from JS). Read on every render (each client
+  // navigation re-renders via usePathname); the server snapshot is false so
+  // hydration matches.
+  const isAdmin = useSyncExternalStore(
+    noSubscribe,
+    () => document.cookie.split(";").some((c) => c.trim().startsWith("df_admin_ui=")),
+    () => false,
+  );
 
   return (
     <header className="sticky top-0 z-50 border-b border-data bg-paper">

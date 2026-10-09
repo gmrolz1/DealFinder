@@ -3,8 +3,10 @@
 // inventory desk publishes into (public.* via sync.promote_to_site).
 //
 //   * units      = public.units still live on Nawy (PRIMARY, matched on the
-//                  PUBLIC nawy_id). Units Nawy no longer lists are left out of
-//                  the site (they stay in the DB).
+//                  PUBLIC nawy_id) + PropertyHub units the merge placed
+//                  (source='propertyhub', live=true — sync.merge_propertyhub).
+//                  Units no longer listed are left out of the site (they stay
+//                  in the DB).
 //   * compounds  = every compound already on the site ∪ every compound with a
 //                  live unit. Developer / area / price come from the DB.
 //   * developers / areas = existing ones ∪ any the exported rows point to.
@@ -83,7 +85,7 @@ const [dbAreas, dbDevs, dbComps, dbUnits, nawyUnits] = await Promise.all([
   fetchAll("areas", "nawy_id,name,name_ar,slug,image_url"),
   fetchAll("developers", "nawy_id,name,name_ar,slug,logo_url"),
   fetchAll("compounds", "nawy_id,name,name_ar,slug,area_nawy_id,developer_nawy_id,lat,lng,image_url,subtitle,min_price,ready_by"),
-  fetchAll("units", "nawy_id,property_type,compound_nawy_id,area_nawy_id,developer_nawy_id,bedrooms,bathrooms,area_sqm,finishing,image_url,price,down_payment,installment_years"),
+  fetchAll("units", "nawy_id,property_type,compound_nawy_id,area_nawy_id,developer_nawy_id,bedrooms,bathrooms,area_sqm,finishing,image_url,price,down_payment,installment_years,source,live,delivery_date"),
   fetchAll("units", "nawy_id,sale_type,ready_by", "nawy"),
 ]);
 const oldAreas = readJson("areas");
@@ -105,13 +107,14 @@ const oldCompById = byId(oldComps);
 const oldUnitById = byId(oldUnits);
 const liveNawy = new Map(nawyUnits.filter((n) => n.sale_type === "primary").map((n) => [n.nawy_id, n]));
 
-// ── units: live on Nawy + compound known ────────────────────────────────
+// ── units: live on Nawy (or a live PropertyHub unit) + compound known ───
 const units = [];
 let droppedGone = 0;
 let droppedNoCompound = 0;
 for (const u of dbUnits) {
   const live = liveNawy.get(u.nawy_id);
-  if (!live) {
+  const fromPh = u.source === "propertyhub";
+  if (fromPh ? !u.live : !live) {
     droppedGone++;
     continue;
   }
@@ -181,7 +184,11 @@ for (const u of dbUnits) {
     bathrooms: u.bathrooms ?? null,
     area_sqm: u.area_sqm ?? null,
     finishing: u.finishing ?? null,
-    ready_by: live.ready_by ? new Date(live.ready_by).toISOString() : old?.ready_by ?? null,
+    ready_by: live?.ready_by
+      ? new Date(live.ready_by).toISOString()
+      : u.delivery_date
+        ? new Date(u.delivery_date).toISOString()
+        : old?.ready_by ?? null,
     sale_type: "primary",
     image_url: u.image_url ?? old?.image_url ?? null,
     price: u.price ?? null,
