@@ -28582,5 +28582,26 @@
   "property_types_ar": [],
   "min_price": 18727000,
   "ready_by": null
+ },
+ {
+  "nawy_id": 9070251001,
+  "name": "SOTO Residence",
+  "name_ar": "سوتو ريزيدنس",
+  "slug": "9070251001-soto-residence",
+  "area_nawy_id": 5,
+  "developer_nawy_id": 9034255770,
+  "lng": null,
+  "lat": null,
+  "image_url": null,
+  "subtitle": "New launch · semi-finished · 10% DP over 10 years · delivery 4 years",
+  "subtitle_ar": "إطلاق جديد · نصف تشطيب · مقدم 10% على 10 سنين · استلام 4 سنوات",
+  "property_types": [
+   "Apartment"
+  ],
+  "property_types_ar": [
+   "شقة"
+  ],
+  "min_price": 4400000,
+  "ready_by": null
  }
 ]

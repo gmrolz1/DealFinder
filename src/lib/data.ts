@@ -459,15 +459,46 @@ export function getUnitGallery(unit: Unit, max = 8): string[] {
 }
 
 /** Official photos dropped into public/compounds/<slug>/ — lets the team add
- * developer-supplied renders without touching code. Returns web paths. */
+ * developer-supplied renders without touching code. Returns web paths.
+ * Files prefixed with `_` are helper assets (video poster frames) and stay out
+ * of the photo gallery. */
 export function getLocalCompoundImages(slug: string): string[] {
   try {
     const dir = path.join(process.cwd(), "public", "compounds", slug);
     return fs
       .readdirSync(dir)
-      .filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f))
+      .filter((f) => !f.startsWith("_") && /\.(jpe?g|png|webp|avif)$/i.test(f))
       .sort()
       .map((f) => `/compounds/${slug}/${f}`);
+  } catch {
+    return [];
+  }
+}
+
+export type CompoundVideo = { src: string; poster: string | null };
+
+/** Project videos dropped into public/compounds/<slug>/ — same drop-in flow as
+ * the photos. A sibling `_<video-name>-poster.{jpg,png,webp,avif}` is picked up
+ * as the poster frame. */
+export function getLocalCompoundVideos(slug: string): CompoundVideo[] {
+  try {
+    const dir = path.join(process.cwd(), "public", "compounds", slug);
+    const files = fs.readdirSync(dir);
+    return files
+      .filter((f) => /\.(mp4|webm)$/i.test(f))
+      .sort()
+      .map((f) => {
+        const stem = f
+          .replace(/\.[^.]+$/, "")
+          .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const poster = files.find((p) =>
+          new RegExp(`^_${stem}-poster\\.(jpe?g|png|webp|avif)$`, "i").test(p)
+        );
+        return {
+          src: `/compounds/${slug}/${f}`,
+          poster: poster ? `/compounds/${slug}/${poster}` : null,
+        };
+      });
   } catch {
     return [];
   }

@@ -54,6 +54,8 @@ const S: Strings = {
   "dev.areas": { en: "Areas", ar: "المناطق" },
   "dev.startingFrom": { en: "Starting From", ar: "تبدأ من" },
 
+  "compound.video": { en: "Project Video", ar: "فيديو المشروع" },
+
   "lead.exclusive": { en: "Exclusive", ar: "حصرياً" },
   "lead.newLaunches": { en: "New Launches", ar: "إطلاقات جديدة" },
   "lead.priceListTitle": {

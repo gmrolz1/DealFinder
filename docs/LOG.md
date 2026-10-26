@@ -157,6 +157,26 @@ Chronological record of every step taken. Newest at the bottom.
   against the live DB. Local: all routes 200, auth flow, /api/go
   redirect + tel interstitial.
 
+## 2026-10-27
+
+### Compound videos + SOTO Residence media
+- `public/compounds/<slug>/` now takes videos too, same drop-in flow as the
+  photos: `getLocalCompoundVideos()` in `src/lib/data.ts` picks up `.mp4`/
+  `.webm`, and a sibling `_<name>-poster.jpg` becomes the poster frame. Files
+  prefixed with `_` are excluded from `getLocalCompoundImages()` so poster
+  frames don't show up as gallery photos.
+- New `src/components/compound-video.tsx` — capped-width 9:16 player,
+  `preload="none"` (paid traffic lands on mobile data). Rendered on both
+  `/compounds/[slug]` and `/ar/compounds/[slug]`. String `compound.video`.
+- SOTO Residence (9070251001) media added: launch creative (NUCA + Dolmen +
+  TOROG — 3BR from EGP 8M, 10% DP, 10 years) and our own DEAL FINDER reel,
+  re-encoded 62.8 MB → 11.5 MB (H.264 CRF 27, faststart). Two third-party
+  broker reels sent with the same batch were deliberately left out — one is
+  watermarked "Lynkers Real Estate". See the folder's README.txt.
+- Open: SOTO has 0 units and `min_price` 4,400,000 in the DB, which predates
+  the 8M 3-bedroom figure in the creative. Needs official renders + a unit
+  list from Dolmen.
+
 ## Next up (blocked on you)
 - Add `SUPABASE_SERVICE_ROLE_KEY` + `ADMIN_PASSWORD` to Vercel env (and
   .env.local for local testing) — leads won't record without the key.

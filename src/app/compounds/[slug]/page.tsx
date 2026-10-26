@@ -4,6 +4,7 @@ import {
   getCompoundBySlug,
   getUnitsByCompound,
   getCompoundGallery,
+  getLocalCompoundVideos,
   getAreaName,
   getDeveloperOfCompound,
 } from "@/lib/data";
@@ -12,6 +13,7 @@ import { campaignWaTextCompound } from "@/lib/campaign";
 import { goHref } from "@/lib/leads";
 import { PropertyCard } from "@/components/property-card";
 import { Carousel } from "@/components/preview/carousel";
+import { CompoundVideo } from "@/components/compound-video";
 import { ContactButtons, StickyContact } from "@/components/campaign/sticky-contact";
 
 export default async function CompoundPage({
@@ -27,6 +29,7 @@ export default async function CompoundPage({
   const areaName = getAreaName(compound.area_nawy_id);
   const developer = getDeveloperOfCompound(compound);
   const gallery = getCompoundGallery(compound.nawy_id, compound.slug);
+  const videos = getLocalCompoundVideos(compound.slug);
   const minPrice =
     units.length > 0
       ? Math.min(...units.map((u) => u.price ?? Infinity))
@@ -67,6 +70,15 @@ export default async function CompoundPage({
           {formatNumber(gallery.length)} photos · swipe to browse
         </p>
       )}
+
+      {videos.map((video) => (
+        <CompoundVideo
+          key={video.src}
+          video={video}
+          name={compound.name}
+          locale="en"
+        />
+      ))}
 
       <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
