@@ -752,6 +752,19 @@ const RESIDENTIAL_TYPES = new Set([
   "penthouse",
 ]);
 
+// Commercial property types — excluded from residential-only landings (e.g. the
+// premium New Capital page) so an "Own a Home" grid never shows offices/retail.
+// Kept separate from RESIDENTIAL_TYPES above (which is narrower, for scoring) so
+// homes like villas/townhouses/twinhouses/lofts still count as residential.
+const COMMERCIAL_TYPES = new Set([
+  "retail",
+  "administrative",
+  "office",
+  "clinic",
+  "commercial",
+  "building",
+]);
+
 function readyYearOf(u: Unit): number | null {
   if (!u.ready_by) return null;
   const d = new Date(u.ready_by);
@@ -778,8 +791,18 @@ function typeBucket(t: string | null): string {
  *     when the area has them, so the page covers more than one budget. */
 export function getAreaDeals(
   areaId: number | number[],
-  n: number
+  n: number,
+  opts: { minPrice?: number; premium?: boolean; residentialOnly?: boolean } = {}
 ): EnrichedUnit[] {
+  // Premium mode (client landings that must NOT surface budget stock): enforce
+  // a price floor, and below skip the cheap-price score boosts + the reserved
+  // budget slots, so the grid is curated up-market. Default mode is unchanged,
+  // so the other landings that call getAreaDeals(area, n) keep their behaviour.
+  // residentialOnly drops commercial stock (offices/retail/clinics) — for a
+  // "homes" landing where a shop listing would be off-message.
+  const minPrice = opts.minPrice ?? 0;
+  const premium = opts.premium ?? false;
+  const residentialOnly = opts.residentialOnly ?? false;
   const s = store();
   const ids = new Set(Array.isArray(areaId) ? areaId : [areaId]);
   const excludedFamily = (u: Unit) => {
@@ -799,7 +822,10 @@ export function getAreaDeals(
         !BROKEN_IMAGE_UNIT_IDS.has(u.nawy_id) &&
         !CAMPAIGN_EXCLUDED_UNIT_IDS.has(u.nawy_id) &&
         !excludedFamily(u) &&
-        (u.price ?? 0) > 0
+        (u.price ?? 0) > 0 &&
+        (u.price ?? 0) >= minPrice &&
+        (!residentialOnly ||
+          !COMMERCIAL_TYPES.has((u.property_type ?? "").toLowerCase()))
     )
     .map((u) => {
       const pct =
@@ -813,9 +839,13 @@ export function getAreaDeals(
       const residential = RESIDENTIAL_TYPES.has(
         (u.property_type ?? "").toLowerCase()
       );
-      if (residential && u.price! <= 3_500_000) score += 2; // «ارخص شقق»
-      else if (residential && u.price! <= 4_500_000) score += 1;
-      if (u.down_payment && u.down_payment <= 150_000) score += 1; // «مقدم ١٠٠ الف»
+      // Budget-demand boosts — DEFAULT mode only. Premium landings must not
+      // reward cheap stock; the whole point is to keep low-budget leads out.
+      if (!premium) {
+        if (residential && u.price! <= 3_500_000) score += 2; // «ارخص شقق»
+        else if (residential && u.price! <= 4_500_000) score += 1;
+        if (u.down_payment && u.down_payment <= 150_000) score += 1; // «مقدم ١٠٠ الف»
+      }
       // «استلام فوري»: move-in ready — finished, delivering within a year,
       // and not luxury stock (the demand is affordability, not 30M+ villas).
       const yr = readyYearOf(u);
@@ -836,8 +866,13 @@ export function getAreaDeals(
       );
       // «كمبوند جاليريا» / «زمرة» — searched by name, residential demand only
       // («شقق للبيع كمبوند جاليريا التجمع الخامس», 11% conv rate in the ads
-      // account). Family cap below still limits each to 2 cards.
-      if (residential && SEARCHED_FAMILY_KEYWORDS.some((k) => fam.includes(k)))
+      // account). Budget-search demand, so default mode only. Family cap below
+      // still limits each to 2 cards.
+      if (
+        !premium &&
+        residential &&
+        SEARCHED_FAMILY_KEYWORDS.some((k) => fam.includes(k))
+      )
         score += 5;
       return { u, pct: pct ?? 999, score };
     })
@@ -891,13 +926,16 @@ export function getAreaDeals(
   };
 
   // Pass 1: reserve budget slots (< EGP 3M) so the page isn't all one bracket.
-  const budgetQuota = Math.floor(n / 4);
-  let budgetPicked = 0;
-  for (const { u } of scored) {
-    if (budgetPicked >= budgetQuota) break;
-    if ((u.price ?? 0) >= 3_000_000 || !accepts(u)) continue;
-    take(u);
-    budgetPicked++;
+  // Skipped in premium mode — a curated up-market grid deliberately has none.
+  if (!premium) {
+    const budgetQuota = Math.floor(n / 4);
+    let budgetPicked = 0;
+    for (const { u } of scored) {
+      if (budgetPicked >= budgetQuota) break;
+      if ((u.price ?? 0) >= 3_000_000 || !accepts(u)) continue;
+      take(u);
+      budgetPicked++;
+    }
   }
 
   // Pass 2: fill the rest with the strongest remaining distinct deals.

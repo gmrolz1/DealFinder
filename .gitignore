@@ -56,3 +56,6 @@ next-env.d.ts
 !/scraper/data/units.json
 !/scraper/data/arabian-estate.json
 !/scraper/data/usp-titles.json
+
+# raw PropertyHub dumps (commission data) — never commit
+/propertyhub data/

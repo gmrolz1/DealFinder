@@ -96,12 +96,24 @@ export function UnitDetail({
     developer: isAr ? "المطور" : "Developer",
   };
 
+  // Catalogue finishing codes (Nawy's vocabulary; PropertyHub units are mapped onto it).
+  const FINISH: Record<string, [string, string]> = {
+    finished: ["Finished", "متشطب"],
+    not_finished: ["Core & shell", "بدون تشطيب"],
+    semi_finished: ["Semi-finished", "نصف تشطيب"],
+    furnished: ["Furnished", "مفروش"],
+    flexi_finished: ["Flexi finishing", "تشطيب مرن"],
+  };
+  const finishing = unit.finishing
+    ? FINISH[unit.finishing]?.[isAr ? 1 : 0] ?? unit.finishing
+    : null;
+
   const specs: [string, string][] = [
     [t.type, propertyType ?? "—"],
     [t.bedrooms, String(unit.bedrooms ?? "—")],
     [t.bathrooms, String(unit.bathrooms ?? "—")],
     [t.area, unit.area_sqm ? `${unit.area_sqm} m²` : "—"],
-    [t.finishing, unit.finishing ?? "—"],
+    [t.finishing, finishing ?? "—"],
     [t.readyBy, formatReadyBy(unit.ready_by)],
     [
       t.installments,
@@ -116,11 +128,11 @@ export function UnitDetail({
       parts.push(
         `${propertyType ?? "وحدة"} في ${compoundName ?? ""}${
           areaName ? ` بـ${areaName}` : ""
-        } تضم ${unit.bedrooms ?? "—"} غرف نوم و${
-          unit.bathrooms ?? "—"
-        } حمامات${unit.area_sqm ? ` على مساحة ${unit.area_sqm} م²` : ""}.`
+        } تضم ${unit.bedrooms ?? "—"} غرف نوم${
+          unit.bathrooms != null ? ` و${unit.bathrooms} حمامات` : ""
+        }${unit.area_sqm ? ` على مساحة ${unit.area_sqm} م²` : ""}.`
       );
-      if (unit.finishing) parts.push(`تسليم ${unit.finishing}.`);
+      if (finishing) parts.push(`التسليم: ${finishing}.`);
       if (unit.ready_by)
         parts.push(`موعد الاستلام ${formatReadyBy(unit.ready_by)}.`);
       if (developerName) parts.push(`من تطوير ${developerName}.`);
@@ -131,13 +143,15 @@ export function UnitDetail({
     parts.push(
       `This ${what}${where ? ` in ${where}` : ""} offers ${
         unit.bedrooms ?? "—"
-      } bedroom${unit.bedrooms === 1 ? "" : "s"} and ${
-        unit.bathrooms ?? "—"
-      } bathroom${unit.bathrooms === 1 ? "" : "s"}${
+      } bedroom${unit.bedrooms === 1 ? "" : "s"}${
+        unit.bathrooms != null
+          ? ` and ${unit.bathrooms} bathroom${unit.bathrooms === 1 ? "" : "s"}`
+          : ""
+      }${
         unit.area_sqm ? ` across ${unit.area_sqm} m²` : ""
       }.`
     );
-    if (unit.finishing) parts.push(`Delivered ${unit.finishing}.`);
+    if (finishing) parts.push(`Delivered ${finishing.toLowerCase()}.`);
     if (unit.ready_by) parts.push(`Ready by ${formatReadyBy(unit.ready_by)}.`);
     if (developerName) parts.push(`Developed by ${developerName}.`);
     return parts.join(" ");

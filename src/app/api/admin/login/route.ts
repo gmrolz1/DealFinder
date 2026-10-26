@@ -28,6 +28,16 @@ export async function POST(req: Request) {
     path: "/",
     maxAge: maxAgeSec,
   });
+  // Non-httpOnly UI-presence flag so client components can conditionally
+  // render admin-only tabs. Contains no secret; the httpOnly cookie above
+  // is still the sole trust root.
+  res.cookies.set("df_admin_ui", "1", {
+    httpOnly: false,
+    sameSite: "lax",
+    secure: new URL(req.url).protocol === "https:",
+    path: "/",
+    maxAge: maxAgeSec,
+  });
   return res;
 }
 
@@ -35,5 +45,6 @@ export async function DELETE(req: Request) {
   const base = new URL(req.url).origin;
   const res = NextResponse.redirect(`${base}/dashboard/login`, 303);
   res.cookies.set(COOKIE_ADMIN, "", { path: "/", maxAge: 0 });
+  res.cookies.set("df_admin_ui", "", { path: "/", maxAge: 0 });
   return res;
 }
