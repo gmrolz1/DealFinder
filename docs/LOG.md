@@ -173,9 +173,18 @@ Chronological record of every step taken. Newest at the bottom.
   re-encoded 62.8 MB → 11.5 MB (H.264 CRF 27, faststart). Two third-party
   broker reels sent with the same batch were deliberately left out — one is
   watermarked "Lynkers Real Estate". See the folder's README.txt.
-- Open: SOTO has 0 units and `min_price` 4,400,000 in the DB, which predates
-  the 8M 3-bedroom figure in the creative. Needs official renders + a unit
-  list from Dolmen.
+- SOTO 3-bedroom apartment added as unit #9070251002 — EGP 8M, 800K down
+  (10%), 10 years, semi-finished — in both `public.units` (source='manual')
+  and `scraper/data/units.json`. Bathrooms, area and delivery date are left
+  null: the launch creative doesn't state them.
+- `scripts/export-site-from-db.mjs` now keeps `source='manual'` units that
+  are `live`, the same way it keeps PropertyHub units. Before this, any
+  hand-added unit (no Nawy listing to match) was silently dropped from the
+  site on the next export.
+- Open: `compounds.min_price` for SOTO is still 4,400,000 (DB + JSON) while
+  its only unit is 8M — the compound page shows 8M because it takes the min
+  over units. The next export recomputes it from units. Still needs official
+  renders + the full unit list from Dolmen.
 
 ## Next up (blocked on you)
 - Add `SUPABASE_SERVICE_ROLE_KEY` + `ADMIN_PASSWORD` to Vercel env (and

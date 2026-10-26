@@ -4,7 +4,9 @@
 //
 //   * units      = public.units still live on Nawy (PRIMARY, matched on the
 //                  PUBLIC nawy_id) + PropertyHub units the merge placed
-//                  (source='propertyhub', live=true — sync.merge_propertyhub).
+//                  (source='propertyhub', live=true — sync.merge_propertyhub)
+//                  + hand-added units (source='manual', live=true) for new
+//                  launches that aren't on Nawy yet.
 //                  Units no longer listed are left out of the site (they stay
 //                  in the DB).
 //   * compounds  = every compound already on the site ∪ every compound with a
@@ -107,14 +109,16 @@ const oldCompById = byId(oldComps);
 const oldUnitById = byId(oldUnits);
 const liveNawy = new Map(nawyUnits.filter((n) => n.sale_type === "primary").map((n) => [n.nawy_id, n]));
 
-// ── units: live on Nawy (or a live PropertyHub unit) + compound known ───
+// ── units: live on Nawy (or a live off-Nawy unit) + compound known ──────
 const units = [];
 let droppedGone = 0;
 let droppedNoCompound = 0;
 for (const u of dbUnits) {
   const live = liveNawy.get(u.nawy_id);
-  const fromPh = u.source === "propertyhub";
-  if (fromPh ? !u.live : !live) {
+  // PropertyHub and hand-added units have no upstream Nawy listing to check
+  // against, so their own `live` flag is the only signal.
+  const offNawy = u.source === "propertyhub" || u.source === "manual";
+  if (offNawy ? !u.live : !live) {
     droppedGone++;
     continue;
   }

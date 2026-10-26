@@ -930070,5 +930070,29 @@
   "currency": "EGP",
   "down_payment": null,
   "installment_years": null
+ },
+ {
+  "nawy_id": 9070251002,
+  "slug": "9070251002-apartment-for-sale-in-soto-residence-with-3-bedrooms-in-new-cairo-by-dolmen-developments",
+  "title": "Apartment, SOTO Residence",
+  "title_ar": "شقة، سوتو ريزيدنس",
+  "subtitle": "Apartment for sale in SOTO Residence - with 3 bedrooms in New Cairo by Dolmen Developments.",
+  "subtitle_ar": "شقة للبيع في سوتو ريزيدنس - 3 غرف نوم في القاهرة الجديدة من دولمن للتطوير العقاري.",
+  "property_type": "Apartment",
+  "property_type_ar": "شقة",
+  "compound_nawy_id": 9070251001,
+  "area_nawy_id": 5,
+  "developer_nawy_id": 9034255770,
+  "bedrooms": 3,
+  "bathrooms": null,
+  "area_sqm": null,
+  "finishing": "semi_finished",
+  "ready_by": null,
+  "sale_type": "primary",
+  "image_url": null,
+  "price": 8000000,
+  "currency": "EGP",
+  "down_payment": 800000,
+  "installment_years": 10
  }
 ]
